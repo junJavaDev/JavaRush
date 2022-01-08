@@ -1,0 +1,13 @@
+taskKey="com.javarush.task.pro.task15.task1530"\n\ntask1530
+
+В классе Solution создай публичный статический метод bytesToChars(ByteArrayInputStream stream, int n) возвращающий char[].
+Метод должен считать n первых байт из stream, и преобразовать их в массив символов.
+Возвращенный массив должен иметь длину n, или меньше, если в потоке меньше чем n байт.
+Считаем, что каждый байт соответствует одному символу.
+
+
+Требования:
+1.	В классе Solution должен быть создан метод public static char[] bytesToChars(ByteArrayInputStream stream, int n).
+2.	Метод bytesToChars должен преобразовать первые n байт из stream в символы и вернуть их в виде массива.
+
+

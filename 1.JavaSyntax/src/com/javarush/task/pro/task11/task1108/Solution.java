@@ -25,7 +25,7 @@ public class Solution {
     }
 
     public static final String EQUAL = " = ";
-
+    
     public static void main(String[] args) {
         int a = 45;
         int b = 15;
