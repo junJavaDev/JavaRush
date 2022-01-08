@@ -12,8 +12,7 @@ public class Solution {
             while (weight > 0) {
                 if (hight == 1 || hight == 10 || weight == 1 || weight == 20) {
                     System.out.print("Б");
-                }
-                else System.out.print(" ");
+                } else System.out.print(" ");
                 weight--;
             }
             System.out.println();

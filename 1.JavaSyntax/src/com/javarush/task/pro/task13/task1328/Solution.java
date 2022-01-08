@@ -25,7 +25,7 @@ public class Solution {
         map.put(800, "Стальной кодер");
         map.put(900, "100500 багов спустя");
 
-        int tasksCount = 101;
+        int tasksCount = 100;
 
         SortedMap<Integer, String> reachedAchievements = getReachedAchievements(map, tasksCount);
         for (Map.Entry<Integer, String> entry : reachedAchievements.entrySet()) {

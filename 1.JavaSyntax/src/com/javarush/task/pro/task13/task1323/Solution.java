@@ -11,7 +11,11 @@ task1323
 
 public class Solution {
     public static HashSet<String> listToSet(ArrayList<String> listOfWords) {
-        return new HashSet<>(listOfWords);
+        HashSet<String> result = new HashSet<>();
+        for (String word : listOfWords) {
+            result.add(word);
+        }
+        return result;
     }
 
     public static void main(String[] args) {

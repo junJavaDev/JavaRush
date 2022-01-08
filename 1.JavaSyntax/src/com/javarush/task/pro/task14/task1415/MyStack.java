@@ -10,19 +10,10 @@ import java.util.List;
 public class MyStack {
 
     private final List<String> storage = new ArrayList<>();
-    ArrayList<String> storageArrayList = (ArrayList<String>)storage;
-
-    public static void main(String[] args) {
-        MyStack myStack = new MyStack();
-        System.out.println(myStack.storage == myStack.storageArrayList);
-    }
 
     public void push(String s) {
         storage.add(0, s);
-        storageArrayList.ensureCapacity(342);
     }
-
-
 
     public String pop() {
         return storage.remove(0);
