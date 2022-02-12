@@ -18,13 +18,13 @@
       </library>
     </orderEntry>
     <orderEntry type="module-library">
-      <library name="javafx-sdk-11.0.2">
+      <library name="javafx-sdk-15">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/../lib/javafx-sdk-11.0.2/lib" />
+          <root url="file://$MODULE_DIR$/../lib/javafx-sdk-15/lib" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../lib/javafx-sdk-11.0.2/lib" recursive="true" />
+        <jarDirectory url="file://$MODULE_DIR$/../lib/javafx-sdk-15/lib" recursive="true" />
       </library>
     </orderEntry>
   </component>
