@@ -1,8 +1,8 @@
 package ru.javarush.ogarkov.cryptoanalizer;
 
+import ru.javarush.ogarkov.cryptoanalizer.constants.Results;
 import ru.javarush.ogarkov.cryptoanalizer.controllers.MainController;
 import ru.javarush.ogarkov.cryptoanalizer.entity.Result;
-import ru.javarush.ogarkov.cryptoanalizer.exceptions.AppException;
 
 import java.util.Arrays;
 
@@ -16,8 +16,10 @@ public class Application {
         if (args.length>0){
             String action = args[0];
             String[] parameters = Arrays.copyOfRange(args, 1, args.length);
-            Result result = mainController.doAction(action, parameters);
+            return mainController.doAction(action, parameters);
         }
-        throw new AppException();
+        return new Result(Results.FALSE);
+//        throw new AppException();
+
     }
 }
