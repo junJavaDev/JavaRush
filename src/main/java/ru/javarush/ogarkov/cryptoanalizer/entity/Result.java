@@ -27,6 +27,7 @@ public class Result {
     public void show() {
         switch (entity) {
             case FILE_NOT_FOUND -> System.out.printf("%s in this path: \n[%s]", entity.name(), fileIn);
+            case FALSE -> System.out.println("Something went wrong");
             default -> System.out.printf("file [%s] \nSUCCESSFULLY %s \nto file [%s] \nUSING KEY [%d]", fileIn, entity.name(), fileOut, key);
         }
     }
