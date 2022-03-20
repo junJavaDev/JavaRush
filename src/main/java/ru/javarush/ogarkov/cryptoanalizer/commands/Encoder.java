@@ -8,7 +8,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class Encoder implements Action {
     @Override
@@ -22,13 +21,10 @@ public class Encoder implements Action {
         try (FileReader fileReader = new FileReader(parameters[0]);
              FileWriter fileWriter = new FileWriter(parameters[1])) {
             while (fileReader.ready()) {
-                int position = Arrays.binarySearch(Constants.ALPHABET, (char) fileReader.read());
+                int position = Constants.ALPHABET.get((char)fileReader.read());
                 if (position >= 0) {
-                    int toPosition = (position + key) % Constants.ALPHABET.length;
-                    if (toPosition < 0) {
-                        toPosition += Constants.ALPHABET.length;
-                    }
-                    fileWriter.write(Constants.ALPHABET[toPosition]);
+                    int toPosition = (position + key) % Constants.ALPHABET.size();
+                    fileWriter.write(Constants.ALPHABET_STRING.charAt(toPosition));
                 }
             }
         } catch (FileNotFoundException e) {

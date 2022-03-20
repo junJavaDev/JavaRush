@@ -11,11 +11,12 @@ import java.nio.file.Path;
 import java.util.*;
 
 public class Bruteforcer implements Action {
-    int[] matches = new int[Constants.ALPHABET.length];
+    int[] matches = new int[Constants.ALPHABET.size()];
     Set<String> russianWords;
 
     @Override
     public Result execute(String[] parameters) {
+        Long start = System.currentTimeMillis();
         try {
             russianWords = new HashSet<>(Files.readAllLines(Path.of(Objects.requireNonNull(getClass().getClassLoader().getResource("ru.txt")).toURI())));
         } catch (IOException | URISyntaxException e) {
@@ -24,7 +25,7 @@ public class Bruteforcer implements Action {
         String inputFile = parameters[0];
         String outputFIle = parameters[1];
         int key = 0;
-        for (int i = 0; i < Constants.ALPHABET.length; i++) {
+        for (int i = 0; i < Constants.ALPHABET.size(); i++) {
             int match = 0;
             try (BufferedReader bufferedReader = new BufferedReader(new FileReader(inputFile))) {
                 while (bufferedReader.ready()) {
@@ -32,15 +33,18 @@ public class Bruteforcer implements Action {
                     //временный декодер, потом взять из класса декодер
                     char[] chars = line.toCharArray();
                     for (int j = 0; j < chars.length; j++) {
-
-                        int position = Arrays.binarySearch(Constants.ALPHABET, chars[j]);
-                        if (position >= 0) {
-                            int toPosition = (position - i) % Constants.ALPHABET.length;
-                            if (toPosition < 0) {
-                                toPosition += Constants.ALPHABET.length;
+                        int position;
+                        if (Constants.ALPHABET.containsKey(chars[j])) {
+                            position = Constants.ALPHABET.get(chars[j]);
+                            if (position >= 0) {
+                                int toPosition = (position - i) % Constants.ALPHABET.size();
+                                if (toPosition < 0) {
+                                    toPosition += Constants.ALPHABET.size();
+                                }
+                                chars[j] = Constants.ALPHABET_STRING.charAt(toPosition);
                             }
-                            chars[j] = Constants.ALPHABET[toPosition];
                         }
+
                     }
                     line = String.valueOf(chars);
                     //конец декодера
@@ -73,6 +77,8 @@ public class Bruteforcer implements Action {
             System.out.println("The file does not need to be decoded!");
             return new Result(Results.FALSE);
         }
+        Long end = System.currentTimeMillis();
+        System.out.printf("Затраченное время на взлом :\n%d миллисекунд\n", (end - start) );
         String[] parametersWithBruteForcedKey = {inputFile, outputFIle, String.valueOf(key)};
         return new Decoder().execute(parametersWithBruteForcedKey);
     }

@@ -19,7 +19,5 @@ public class Application {
             return mainController.doAction(action, parameters);
         }
         return new Result(Results.FALSE);
-//        throw new AppException();
-
     }
 }

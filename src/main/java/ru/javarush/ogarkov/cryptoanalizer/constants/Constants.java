@@ -1,14 +1,28 @@
 package ru.javarush.ogarkov.cryptoanalizer.constants;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Constants {
-    private static final String rus = "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
-    private static final String eng = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static final String russian = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private static final String english = "abcdefghijklmnopqrstuvwxyz";
+    private static final String punctuation = " .,“’\"'\n-:!?";
     private static final String cypher = "0123456789";
-    private static final String punctuation = "`~!@#$%^&*()-_=+[]{};:'|/,<.>?№ \"\\\r\n\t—«»– °…’„“";
-    public static final char[] ALPHABET = (rus + eng + rus.toLowerCase() + eng.toLowerCase() + cypher + punctuation).toCharArray();
+    private static final String symbols = "`~@#$%^&*()_=+[]{};|/<>№\\\t\r—«»– °…„";
+    public static final String SHORT_ALPHABET_STRING = russian + punctuation;
+    public static final String ALPHABET_STRING = SHORT_ALPHABET_STRING + russian.toUpperCase() + english + english.toUpperCase() + cypher + symbols;
+
+    public static final Map<Character, Integer> SHORT_ALPHABET = new HashMap<>();
+    public static final Map<Character, Integer> ALPHABET = new HashMap<>();
+
     static {
-        Arrays.sort(ALPHABET);
+        for (int i = 0; i < SHORT_ALPHABET_STRING.length(); i++) {
+            SHORT_ALPHABET.put(SHORT_ALPHABET_STRING.charAt(i), i);
+            ALPHABET.put(SHORT_ALPHABET_STRING.charAt(i), i);
+        }
+        for (int i = SHORT_ALPHABET_STRING.length(); i < ALPHABET_STRING.length(); i++) {
+            ALPHABET.put(ALPHABET_STRING.charAt(i), i);
+        }
     }
+
 }

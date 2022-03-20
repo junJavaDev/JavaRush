@@ -9,7 +9,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Decoder implements Action{
+public class DecoderLowerCase implements Action{
     @Override
     public Result execute(String[] parameters) {
         int key;
@@ -21,13 +21,13 @@ public class Decoder implements Action{
         try (FileReader fileReader = new FileReader(parameters[0]);
              FileWriter fileWriter = new FileWriter(parameters[1])) {
             while (fileReader.ready()) {
-                int position = Constants.ALPHABET.get((char)fileReader.read());
+                int position = Constants.SHORT_ALPHABET.get((char)fileReader.read());
                 if (position >= 0) {
-                    int toPosition = (position - key) % Constants.ALPHABET.size();
+                    int toPosition = (position - key) % Constants.SHORT_ALPHABET.size();
                     if (toPosition < 0) {
-                        toPosition += Constants.ALPHABET.size();
+                        toPosition += Constants.SHORT_ALPHABET.size();
                     }
-                    fileWriter.write(Constants.ALPHABET_STRING.charAt(toPosition));
+                    fileWriter.write(Constants.SHORT_ALPHABET_STRING.charAt(toPosition));
                 }
             }
         } catch (FileNotFoundException e) {
