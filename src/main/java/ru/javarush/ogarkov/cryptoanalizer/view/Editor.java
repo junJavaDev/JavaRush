@@ -1,4 +1,4 @@
-package ru.javarush.ogarkov.cryptoanalizer.commands;
+package ru.javarush.ogarkov.cryptoanalizer.view;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,49 +7,63 @@ import java.awt.event.WindowEvent;
 
 public class Editor {
     private static final Object lock = new Object();
-    private static final JFrame frame = new JFrame();
+    private static final JFrame frame = new JFrame("Замена символов");
     String replacingSymbols;
     JTextArea textArea;
     JScrollPane scrollPane;
     Font font;
     JPanel panel;
-    JLabel replaceFirstLabel, replaceSecondLabel;
+    JLabel replaceFirstLabel, replaceSecondLabel, lineSeparatorLabel;
     JTextField replaceFirst, replaceSecond;
     JButton replace;
     JButton complete;
 
     public void createJFrame() {
-        textArea = new JTextArea();
-        scrollPane = new JScrollPane(textArea);
-        font = new Font("Font", Font.PLAIN, 20);
-        panel = new JPanel();
-        replaceFirstLabel = new JLabel("Заменить символ");
-        replaceSecondLabel = new JLabel("На символ");
-        replaceFirst = new JTextField(1);
-        replaceSecond = new JTextField(1);
-        replace = new JButton("Заменить");
-        complete = new JButton("Выход");
         frame.setLocation(300, 200);
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setVisible(true);
+        font = new Font("Font", Font.PLAIN, 20);
+        textArea = new JTextArea();
+        textArea.setWrapStyleWord(true);
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        textArea.setFont(font);
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setViewportView(textArea);
+        replaceFirstLabel = new JLabel("Заменить символ");
+        replaceSecondLabel = new JLabel("На символ");
+        lineSeparatorLabel = new JLabel("  \\n - Символ переноса строки");
+        replaceFirst = new JTextField(1);
         replaceFirst.setFont(font);
+        replaceSecond = new JTextField(1);
         replaceSecond.setFont(font);
+        replace = new JButton("Заменить");
+        complete = new JButton("Выход");
+
         // добавить элементы на панель
+        panel = new JPanel();
         panel.add(replaceFirstLabel);
         panel.add(replaceFirst);
         panel.add(replaceSecondLabel);
         panel.add(replaceSecond);
         panel.add(replace);
         panel.add(complete);
+        panel.add(lineSeparatorLabel);
         // Текстовая область по центру
-        textArea.setLineWrap(true);
-        textArea.setEditable(false);
-        textArea.setFont(font);
-        scrollPane.setViewportView(textArea);
+
+
 
         replace.addActionListener(e -> {
-            replacingSymbols = "" + replaceFirst.getText() + replaceSecond.getText();
+            String firstSymbol = replaceFirst.getText();
+            String secondSymbol = replaceSecond.getText();
+            if (firstSymbol.equals("\\n")) {
+                firstSymbol = "\n";
+            }
+            if (secondSymbol.equals("\\n")) {
+                secondSymbol = "\n";
+            }
+            replacingSymbols = firstSymbol + secondSymbol;
             replaceFirst.setText("");
             replaceSecond.setText("");
             synchronized (lock) {
@@ -81,7 +95,6 @@ public class Editor {
         frame.getContentPane().add(BorderLayout.SOUTH, panel);
         frame.getContentPane().add(BorderLayout.CENTER, scrollPane);
         frame.setVisible(true);
-
 
     }
 

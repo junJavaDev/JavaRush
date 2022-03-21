@@ -1,34 +1,27 @@
 package ru.javarush.ogarkov.cryptoanalizer.entity;
 
-import ru.javarush.ogarkov.cryptoanalizer.constants.Results;
-
 public class Result {
-    private final Results entity;
-    private String fileIn = null;
-    private String fileOut = null;
-    private int key;
+    private final String massage;
+    private final ResultCode resultCode;
 
-    public Result(Results entity, String[] parameters) {
-        this.entity = entity;
-        fileIn = parameters[0];
-        fileOut = parameters[1];
-        key = Integer.parseInt(parameters[2]);
-    }
-
-    public Result(Results entity) {
-        this.entity = entity;
+    public Result(String massage, ResultCode resultCode) {
+        this.massage = massage;
+        this.resultCode = resultCode;
     }
 
     @Override
     public String toString() {
-        return entity.name();
+        return "Result{" +
+                "massage='" + massage + '\'' +
+                ", resultCode=" + resultCode +
+                '}';
     }
 
-    public void show() {
-        switch (entity) {
-            case FILE_NOT_FOUND -> System.out.printf("%s in this path: \n[%s]", entity.name(), fileIn);
-            case FALSE -> System.out.println("Something went wrong");
-            default -> System.out.printf("file [%s] \nSUCCESSFULLY %s \nto file [%s] \nUSING KEY [%d]", fileIn, entity.name(), fileOut, key);
-        }
-    }
+//    public void show() {
+//        switch (resultCode) {
+//            case FILE_NOT_FOUND -> System.out.printf("%s in this path: \n[%s]", resultCode.name(), fileIn);
+//            case FALSE -> System.out.println("Something went wrong");
+//            default -> System.out.printf("file [%s] \nSUCCESSFULLY %s \nto file [%s] \nUSING KEY [%d]", fileIn, resultCode.name(), fileOut, key);
+//        }
+//    }
 }

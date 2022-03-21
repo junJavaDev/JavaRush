@@ -1,6 +1,6 @@
 package ru.javarush.ogarkov.cryptoanalizer;
 
-import ru.javarush.ogarkov.cryptoanalizer.constants.Results;
+import ru.javarush.ogarkov.cryptoanalizer.entity.ResultCode;
 import ru.javarush.ogarkov.cryptoanalizer.controllers.MainController;
 import ru.javarush.ogarkov.cryptoanalizer.entity.Result;
 
@@ -17,7 +17,7 @@ public class Application {
             String action = args[0];
             String[] parameters = Arrays.copyOfRange(args, 1, args.length);
             return mainController.doAction(action, parameters);
-        }
-        return new Result(Results.FALSE);
+        } else
+        return new Result("no args", ResultCode.ERROR);
     }
 }

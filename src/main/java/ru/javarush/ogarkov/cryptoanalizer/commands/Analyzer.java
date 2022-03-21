@@ -1,7 +1,7 @@
 package ru.javarush.ogarkov.cryptoanalizer.commands;
 
-import ru.javarush.ogarkov.cryptoanalizer.constants.Constants;
-import ru.javarush.ogarkov.cryptoanalizer.constants.Results;
+import ru.javarush.ogarkov.cryptoanalizer.view.Editor;
+import ru.javarush.ogarkov.cryptoanalizer.entity.ResultCode;
 import ru.javarush.ogarkov.cryptoanalizer.entity.*;
 import ru.javarush.ogarkov.cryptoanalizer.entity.statistic.*;
 
@@ -10,7 +10,12 @@ import java.util.*;
 import java.util.List;
 
 public class Analyzer implements Action {
-
+    private final String alphabetString;
+    private final Map<Character, Integer> alphabet;
+    public Analyzer(String alphabetString, Map<Character, Integer> alphabet) {
+        this.alphabetString = alphabetString;
+        this.alphabet = alphabet;
+    }
     TextStatistics encodedFileStatistics;
     TextStatistics exampleFileStatistics;
     List<Character> encodedSymbolPriority;
@@ -18,17 +23,19 @@ public class Analyzer implements Action {
     List<QuadChar> encodedQuadCharPriority;
     List<QuadChar> exampleQuadCharPriority;
     Map<Character, Character> relationMap;
+    String encodedFile;
+    String exampleFile;
+    String decodedFile;
 
     @Override
     public Result execute(String[] parameters) {
 
+        encodedFile = parameters[0];
+        exampleFile = parameters[1];
+        decodedFile = parameters[2];
 
-        String encodedFile = parameters[0];
-        String exampleFile = parameters[2];
-        String decodedFile = parameters[1];
-
-        encodedFileStatistics = getFileStatistic(encodedFile);
-        exampleFileStatistics = getFileStatistic(exampleFile);
+        encodedFileStatistics = getFileStatistic(encodedFile, true);
+        exampleFileStatistics = getFileStatistic(exampleFile, false);
 
         encodedSymbolPriority = getSymbolsPriority(encodedFileStatistics.getSymbolsStatistics());
         exampleSymbolPriority = getSymbolsPriority(exampleFileStatistics.getSymbolsStatistics());
@@ -37,27 +44,24 @@ public class Analyzer implements Action {
 
         relationMap = getRelationMap(encodedSymbolPriority, exampleSymbolPriority);
 
-        tryImproveDecoding(70, 15, 1);
-        tryImproveDecoding(70, 15, 2);
-        tryImproveDecoding(70, 15, 3);
-        tryImproveDecoding(60, 10, 4);
+        tryImproveDecoding(60, 15, 1);
+        tryImproveDecoding(60, 15, 2);
 
-        char[] encodedFragment = getEncodedFragment(encodedFile);
-        char[] decodedFragment = decodeFragment(encodedFragment);
+        char[] encodedFragment = getEncodedFragment(encodedFile, 50000);
         Editor editor = new Editor();
         editor.createJFrame();
 
-        String replacingSymbols = editor.edit(String.valueOf(decodedFragment));
+        String replacingSymbols = editor.edit(String.valueOf(decodeFragment(encodedFragment)));
         while (!replacingSymbols.equals("complete")) {
             replaceSymbols(replacingSymbols.toCharArray());
-            decodedFragment = decodeFragment(encodedFragment);
-            replacingSymbols = editor.edit(String.valueOf(decodedFragment));
+            replacingSymbols = editor.edit(String.valueOf(decodeFragment(encodedFragment)));
         }
 
         writeFile(encodedFile, decodedFile);
-        printLists(encodedSymbolPriority, exampleSymbolPriority);
 
-        return new Result(Results.FALSE);
+//        printLists(encodedSymbolPriority, exampleSymbolPriority);     //включать при настройке анализатора
+
+        return new Result("Sucessfully analyzed and decoded", ResultCode.DECODED);
     }
 
     private char[] decodeFragment(char[] encodedFragment) {
@@ -72,7 +76,8 @@ public class Analyzer implements Action {
     }
 
     private void writeFile(String encodedFile, String decodedFile) {
-        try (FileReader fileReader = new FileReader(encodedFile); FileWriter fileWriter = new FileWriter(decodedFile)) {
+        try (FileReader fileReader = new FileReader(encodedFile);
+             FileWriter fileWriter = new FileWriter(decodedFile)) {
             while (fileReader.ready()) {
                 char c = Character.toLowerCase((char) fileReader.read());
                 if (relationMap.containsKey(c)) {
@@ -130,7 +135,7 @@ public class Analyzer implements Action {
     }
 
     private void replaceSymbols(char[] replacingSymbols) {
-        if (replacingSymbols.length == 2 && Constants.SHORT_ALPHABET.containsKey(replacingSymbols[0]) && Constants.SHORT_ALPHABET.containsKey(replacingSymbols[1])) {
+        if (replacingSymbols.length == 2 && alphabet.containsKey(replacingSymbols[0]) && alphabet.containsKey(replacingSymbols[1])) {
             int firstIndex = exampleSymbolPriority.indexOf(replacingSymbols[0]);
             int secondIndex = exampleSymbolPriority.indexOf(replacingSymbols[1]);
             char temp = encodedSymbolPriority.get(firstIndex);
@@ -162,16 +167,20 @@ public class Analyzer implements Action {
         return quadCharPriority;
     }
 
-    private TextStatistics getFileStatistic(String fileName) {
+    private TextStatistics getFileStatistic(String fileName, boolean expandable) {
         TextStatistics fileStatistics = new TextStatistics();
-        fileStatistics.initializeSymbolsStatistics();
+        fileStatistics.initializeSymbolsStatistics(alphabetString);
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             while (reader.ready()) {
                 char[] buf = new char[100000];
                 int len = reader.read(buf);
-                fileStatistics.addStartData(Character.toLowerCase(buf[0]), Character.toLowerCase(buf[1]), Character.toLowerCase(buf[2]));
+                    expandAlphabet(buf[0], expandable);
+                    expandAlphabet(buf[1], expandable);
+                    expandAlphabet(buf[2], expandable);
+                fileStatistics.addStartData(Character.toLowerCase(buf[0]), Character.toLowerCase(buf[1]), Character.toLowerCase(buf[2]), alphabet);
                 for (int i = 3; i < len; i++) {
-                    fileStatistics.addData(Character.toLowerCase(buf[i - 3]), Character.toLowerCase(buf[i - 2]), Character.toLowerCase(buf[i - 1]), Character.toLowerCase(buf[i]));
+                    expandAlphabet(buf[i], expandable);
+                    fileStatistics.addData(Character.toLowerCase(buf[i - 3]), Character.toLowerCase(buf[i - 2]), Character.toLowerCase(buf[i - 1]), Character.toLowerCase(buf[i]), alphabet);
                 }
             }
         } catch (IOException e) {
@@ -180,10 +189,19 @@ public class Analyzer implements Action {
         return fileStatistics;
     }
 
-    private char[] getEncodedFragment(String fileName) {
-        char[] encodedFragment = new char[33000];
+    private void expandAlphabet(char symbol, boolean expandable) {
+        if (expandable) {
+            if (!alphabet.containsKey(symbol)) {
+                alphabet.put(symbol, alphabet.size());
+            }
+        }
+
+    }
+
+    private char[] getEncodedFragment(String fileName, int fragmentSize) {
+        char[] encodedFragment = new char[fragmentSize];
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            char[] buf = new char[33000];
+            char[] buf = new char[fragmentSize];
             int len = reader.read(buf);
             encodedFragment = Arrays.copyOfRange(buf, 0, len);
         } catch (IOException e) {
@@ -204,18 +222,21 @@ public class Analyzer implements Action {
         return relationMap;
     }
 
-    private void printLists(List first, List second) {
+    private void printLists(List<Character> first, List<Character> second) {
+        /*
+        Служебный метод, необходим для отображения найденных пар символов и расчета эффективности анализатора.
+        Для расчета эффективности анализатора, нужно вместо зашифрованного файла
+        подать уже расшифрованный, эффективность будет показана количеством несоответствий
+        */
         int length = Math.min(first.size(), second.size());
         int mismatch = 0;
         for (int i = 0; i < length; i++) {
             if (!first.get(i).equals(second.get(i))) {
                 mismatch++;
             }
-
             System.out.printf("[%s] = [%s]\n", first.get(i), second.get(i));
         }
-        System.out.println(mismatch);
-
+        System.out.println("Количество несоответствий = " + mismatch);
     }
 }
 

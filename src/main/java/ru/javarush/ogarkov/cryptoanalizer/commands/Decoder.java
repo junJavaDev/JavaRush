@@ -1,41 +1,46 @@
 package ru.javarush.ogarkov.cryptoanalizer.commands;
 
-import ru.javarush.ogarkov.cryptoanalizer.constants.Constants;
-import ru.javarush.ogarkov.cryptoanalizer.constants.Results;
+import ru.javarush.ogarkov.cryptoanalizer.entity.ResultCode;
 import ru.javarush.ogarkov.cryptoanalizer.entity.Result;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
 public class Decoder implements Action{
+    private final String alphabetString;
+    private final Map<Character, Integer> alphabet;
+    public Decoder(String alphabetString, Map<Character, Integer> alphabet) {
+        this.alphabetString = alphabetString;
+        this.alphabet = alphabet;
+    }
+
     @Override
     public Result execute(String[] parameters) {
         int key;
         try {key = Integer.parseInt(parameters[2]);}
         catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Отсутствует ключ");
-            return new Result (Results.INVALID_KEY, parameters);
+            return new Result("Something was wrong", ResultCode.ERROR);
         }
         try (FileReader fileReader = new FileReader(parameters[0]);
              FileWriter fileWriter = new FileWriter(parameters[1])) {
             while (fileReader.ready()) {
-                int position = Constants.ALPHABET.get((char)fileReader.read());
+                int position = alphabet.get((char)fileReader.read());
                 if (position >= 0) {
-                    int toPosition = (position - key) % Constants.ALPHABET.size();
+                    int toPosition = (position - key) % alphabet.size();
                     if (toPosition < 0) {
-                        toPosition += Constants.ALPHABET.size();
+                        toPosition += alphabet.size();
                     }
-                    fileWriter.write(Constants.ALPHABET_STRING.charAt(toPosition));
+                    fileWriter.write(alphabetString.charAt(toPosition));
                 }
             }
         } catch (FileNotFoundException e) {
-            return new Result(Results.FILE_NOT_FOUND, parameters);
+            return new Result("File not found", ResultCode.FILE_NOT_FOUND);
         } catch (IOException e) {
-            return new Result(Results.FALSE);
+            return new Result("Something was wrong", ResultCode.ERROR);
         }
-
-        return new Result(Results.DECODED, parameters);
+        return new Result("successfully", ResultCode.DECODED);
     }
 }
