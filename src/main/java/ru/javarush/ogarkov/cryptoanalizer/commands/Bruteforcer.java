@@ -1,6 +1,9 @@
 package ru.javarush.ogarkov.cryptoanalizer.commands;
+
 import ru.javarush.ogarkov.cryptoanalizer.entity.ResultCode;
 import ru.javarush.ogarkov.cryptoanalizer.entity.Result;
+import ru.javarush.ogarkov.cryptoanalizer.exceptions.AppException;
+
 import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
@@ -10,7 +13,6 @@ import java.util.*;
 public class Bruteforcer implements Action {
     private final String alphabetString;
     private final Map<Character, Integer> alphabet;
-    int[] matches;
     Set<String> dictionary;
     Map<Character, Character> relationMap;
     String encodedFile;
@@ -23,57 +25,63 @@ public class Bruteforcer implements Action {
 
     @Override
     public Result execute(String[] parameters) {
-        matches = new int[alphabet.size()];
         Long start = System.currentTimeMillis();
 
+        int[] matches = new int[alphabet.size()];
         initDictionary();
-        encodedFile = parameters[0];
-        decodedFile = parameters[1];
 
-        for (int i = 0; i < alphabet.size(); i++) {
-            int match = 0;
-            relationMap = getRelationMap(i);
-            try (BufferedReader bufferedReader = new BufferedReader(new FileReader(encodedFile))) {
-                while (bufferedReader.ready()) {
-                    String line;
-                    char[] buf = new char[100000];
-                    int len = bufferedReader.read(buf);
-                    for (int j = 0; j < len - 4; j++) {
-                        if (Character.isSpaceChar(relationMap.get(buf[j]))) {
-                            char first = decodeChar(buf[j + 1]);
-                            char second = decodeChar(buf[j + 2]);
-                            char third = decodeChar(buf[j + 3]);
-                            if (Character.isAlphabetic(first) && Character.isAlphabetic(second) && Character.isAlphabetic(third)) {
-                                line = "" + first + second + third;
-                                j += 3;
-                                if (dictionary.contains(line)) match++;
-                                char fourth = decodeChar(buf[j + 1]);
-                                if (Character.isAlphabetic(fourth)) {
-                                    line = "" + first + second + third + fourth;
-                                    j += 1;
+        try {
+            encodedFile = parameters[0];
+            decodedFile = parameters[1];
+            for (int i = 0; i < alphabet.size(); i++) {
+                int match = 0;
+                relationMap = getRelationMap(i);
+                try (BufferedReader bufferedReader = new BufferedReader(new FileReader(encodedFile))) {
+                    while (bufferedReader.ready()) {
+                        String line;
+                        char[] buf = new char[100000];
+                        int len = bufferedReader.read(buf);
+                        for (int j = 0; j < len - 4; j++) {
+                            if (Character.isSpaceChar(relationMap.get(buf[j]))) {
+                                char first = decodeChar(buf[j + 1]);
+                                char second = decodeChar(buf[j + 2]);
+                                char third = decodeChar(buf[j + 3]);
+                                if (Character.isAlphabetic(first) && Character.isAlphabetic(second) && Character.isAlphabetic(third)) {
+                                    line = "" + first + second + third;
+                                    j += 3;
                                     if (dictionary.contains(line)) match++;
+                                    char fourth = decodeChar(buf[j + 1]);
+                                    if (Character.isAlphabetic(fourth)) {
+                                        line = "" + first + second + third + fourth;
+                                        j += 1;
+                                        if (dictionary.contains(line)) match++;
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            matches[i] = match;
+                matches[i] = match;
 //            System.out.println("match with key " + i + " = " + matches[i]);
+            }
+            int key = getKey(matches);
+            System.out.println("Possible key found: " + key);
+            if (key == 0) {
+                return new Result("File doesn`t need to be decoded!", ResultCode.ERROR);
+            }
+            relationMap = getRelationMap(key);
+            writeFile(encodedFile, decodedFile);
+            Long end = System.currentTimeMillis();
+            System.out.printf("Bruteforce time :%d millis\n", (end - start));
+        } catch (FileNotFoundException e) {
+            return new Result("File not found", ResultCode.ERROR);
+        } catch (NullPointerException e) {
+            return new Result("Wrong character set", ResultCode.ERROR);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return new Result("Not enough parameters", ResultCode.ERROR);
+        } catch (IOException e) {
+            throw new AppException("IO Exception", e);
         }
-        int key = getKey(matches);
-
-
-        System.out.println("Possible key found: " + key);
-        if (key == 0) {
-            return new Result("File doesn`t need to be decoded!", ResultCode.ERROR);
-        }
-        relationMap = getRelationMap(key);
-        writeFile(encodedFile, decodedFile);
-        Long end = System.currentTimeMillis();
-        System.out.printf("Bruteforce time :%d millis\n", (end - start));
         return new Result("successfully", ResultCode.BRUTEFORCED);
     }
 
@@ -98,7 +106,7 @@ public class Bruteforcer implements Action {
             dictionary = new HashSet<>(Files.readAllLines(Path.of(Objects.requireNonNull(getClass().getClassLoader().getResource("ru.txt")).toURI())));
             dictionary.addAll(Files.readAllLines(Path.of(Objects.requireNonNull(getClass().getClassLoader().getResource("en.txt")).toURI())));
         } catch (IOException | URISyntaxException e) {
-            e.printStackTrace();
+            throw new AppException("bruteforce dictionary error", e);
         }
     }
 
@@ -117,19 +125,15 @@ public class Bruteforcer implements Action {
         return relationMap;
     }
 
-    private void writeFile(String encodedFile, String decodedFile) {
+    private void writeFile(String encodedFile, String decodedFile) throws IOException {
         try (FileReader fileReader = new FileReader(encodedFile);
              FileWriter fileWriter = new FileWriter(decodedFile)) {
             while (fileReader.ready()) {
-                char c = Character.toLowerCase((char) fileReader.read());
+                char c = (char) fileReader.read();
                 if (relationMap.containsKey(c)) {
                     fileWriter.write(relationMap.get(c));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
-
-
 }

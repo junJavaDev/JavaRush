@@ -4,8 +4,7 @@ public enum ResultCode {
     DECODED,
     ENCODED,
     BRUTEFORCED,
-    FILE_NOT_FOUND,
-    KEY_NOT_FOUND,
+    ANALYZED,
     INVALID_KEY,
     ERROR
 }

@@ -23,6 +23,7 @@ public class Editor {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         frame.setVisible(true);
+        frame.setAlwaysOnTop(true);
         font = new Font("Font", Font.PLAIN, 20);
         textArea = new JTextArea();
         textArea.setWrapStyleWord(true);
@@ -50,7 +51,6 @@ public class Editor {
         panel.add(replace);
         panel.add(complete);
         panel.add(lineSeparatorLabel);
-        // Текстовая область по центру
 
 
 

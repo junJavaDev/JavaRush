@@ -1,6 +1,4 @@
-package ru.javarush.ogarkov.cryptoanalizer.entity.statistic;
-
-import com.sun.jdi.CharType;
+package ru.javarush.ogarkov.cryptoanalizer.entity;
 
 import java.util.Objects;
 

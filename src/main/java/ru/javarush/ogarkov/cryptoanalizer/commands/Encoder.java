@@ -1,7 +1,9 @@
 package ru.javarush.ogarkov.cryptoanalizer.commands;
 
+import ru.javarush.ogarkov.cryptoanalizer.constants.Constants;
 import ru.javarush.ogarkov.cryptoanalizer.entity.ResultCode;
 import ru.javarush.ogarkov.cryptoanalizer.entity.Result;
+import ru.javarush.ogarkov.cryptoanalizer.exceptions.AppException;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -9,26 +11,23 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Map;
 
-public class Encoder implements Action {
-    private final String alphabetString;
-    private final Map<Character, Integer> alphabet;
-    public Encoder(String alphabetString, Map<Character, Integer> alphabet) {
-        this.alphabetString = alphabetString;
-        this.alphabet = alphabet;
-    }
+public record Encoder(String alphabetString,
+                      Map<Character, Integer> alphabet) implements Action {
+
     @Override
     public Result execute(String[] parameters) {
-        int key;
-        try {
-            key = Integer.parseInt(parameters[2]);
-        } catch (ArrayIndexOutOfBoundsException e) {
-            return new Result("Something was wrong", ResultCode.ERROR);
-        }
-
+        boolean isLowerCaseMode = (alphabet.size() == Constants.ALPHABET_LOWER_CASE.size());
         try (FileReader fileReader = new FileReader(parameters[0]);
              FileWriter fileWriter = new FileWriter(parameters[1])) {
+            int key = Integer.parseInt(parameters[2]);
+            if (key < 0) {
+                return new Result("Invalid key", ResultCode.ERROR);
+            }
             while (fileReader.ready()) {
                 char symbol = (char) fileReader.read();
+                if (isLowerCaseMode) {
+                    symbol = Character.toLowerCase(symbol);
+                }
                 int position = -1;
                 if (alphabet.containsKey(symbol)) {
                     position = alphabet.get(symbol);
@@ -39,10 +38,14 @@ public class Encoder implements Action {
                 }
             }
         } catch (FileNotFoundException e) {
-            return new Result("File not found", ResultCode.FILE_NOT_FOUND);
+            return new Result("File not found", ResultCode.ERROR);
+        } catch (NumberFormatException e) {
+            return new Result("Invalid key", ResultCode.ERROR);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return new Result("Not enough parameters", ResultCode.ERROR);
         } catch (IOException e) {
-            return new Result("Something was wrong", ResultCode.ERROR);
+            throw new AppException("IO Exception", e);
         }
-        return new Result("SUCCESSFULLY ENCODED", ResultCode.ENCODED);
+        return new Result("Successfully", ResultCode.ENCODED);
     }
 }

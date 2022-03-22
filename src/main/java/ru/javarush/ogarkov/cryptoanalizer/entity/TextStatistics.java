@@ -1,9 +1,7 @@
-package ru.javarush.ogarkov.cryptoanalizer.entity.statistic;
+package ru.javarush.ogarkov.cryptoanalizer.entity;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static ru.javarush.ogarkov.cryptoanalizer.constants.Constants.*;
 
 public class TextStatistics {
     private final Map<Character, Integer> symbolsStatistics = new HashMap<>();
@@ -41,7 +39,6 @@ public class TextStatistics {
             symbolsStatistics.put(key, symbolsStatistics.get(key) + 1);
         } else
             symbolsStatistics.put(key, 1);
-
     }
 
     private void addQuadCharData(QuadChar key) {

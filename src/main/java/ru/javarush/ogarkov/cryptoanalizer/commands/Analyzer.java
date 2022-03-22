@@ -1,9 +1,11 @@
 package ru.javarush.ogarkov.cryptoanalizer.commands;
 
+import ru.javarush.ogarkov.cryptoanalizer.entity.QuadChar;
+import ru.javarush.ogarkov.cryptoanalizer.entity.Result;
+import ru.javarush.ogarkov.cryptoanalizer.entity.TextStatistics;
+import ru.javarush.ogarkov.cryptoanalizer.exceptions.AppException;
 import ru.javarush.ogarkov.cryptoanalizer.view.Editor;
 import ru.javarush.ogarkov.cryptoanalizer.entity.ResultCode;
-import ru.javarush.ogarkov.cryptoanalizer.entity.*;
-import ru.javarush.ogarkov.cryptoanalizer.entity.statistic.*;
 
 import java.io.*;
 import java.util.*;
@@ -29,39 +31,45 @@ public class Analyzer implements Action {
 
     @Override
     public Result execute(String[] parameters) {
+        try {
 
-        encodedFile = parameters[0];
-        exampleFile = parameters[1];
-        decodedFile = parameters[2];
+            encodedFile = parameters[0];
+            exampleFile = parameters[1];
+            decodedFile = parameters[2];
 
-        encodedFileStatistics = getFileStatistic(encodedFile, true);
-        exampleFileStatistics = getFileStatistic(exampleFile, false);
+            encodedFileStatistics = getFileStatistic(encodedFile, true);
+            exampleFileStatistics = getFileStatistic(exampleFile, false);
 
-        encodedSymbolPriority = getSymbolsPriority(encodedFileStatistics.getSymbolsStatistics());
-        exampleSymbolPriority = getSymbolsPriority(exampleFileStatistics.getSymbolsStatistics());
-        encodedQuadCharPriority = getQuadCharPriority(encodedFileStatistics.getQuadCharsStatistics());
-        exampleQuadCharPriority = getQuadCharPriority(exampleFileStatistics.getQuadCharsStatistics());
+            encodedSymbolPriority = getSymbolsPriority(encodedFileStatistics.getSymbolsStatistics());
+            exampleSymbolPriority = getSymbolsPriority(exampleFileStatistics.getSymbolsStatistics());
+            encodedQuadCharPriority = getQuadCharPriority(encodedFileStatistics.getQuadCharsStatistics());
+            exampleQuadCharPriority = getQuadCharPriority(exampleFileStatistics.getQuadCharsStatistics());
 
-        relationMap = getRelationMap(encodedSymbolPriority, exampleSymbolPriority);
+            relationMap = getRelationMap(encodedSymbolPriority, exampleSymbolPriority);
 
-        tryImproveDecoding(60, 15, 1);
-        tryImproveDecoding(60, 15, 2);
+            tryImproveDecoding(60, 15, 1);
+            tryImproveDecoding(59, 14, 2);
 
-        char[] encodedFragment = getEncodedFragment(encodedFile, 50000);
-        Editor editor = new Editor();
-        editor.createJFrame();
+            char[] encodedFragment = getEncodedFragment(encodedFile);
+            Editor editor = new Editor();
+            editor.createJFrame();
 
-        String replacingSymbols = editor.edit(String.valueOf(decodeFragment(encodedFragment)));
-        while (!replacingSymbols.equals("complete")) {
-            replaceSymbols(replacingSymbols.toCharArray());
-            replacingSymbols = editor.edit(String.valueOf(decodeFragment(encodedFragment)));
-        }
+            String replacingSymbols = editor.edit(String.valueOf(decodeFragment(encodedFragment)));
+            while (!replacingSymbols.equals("complete")) {
+                replaceSymbols(replacingSymbols.toCharArray());
+                replacingSymbols = editor.edit(String.valueOf(decodeFragment(encodedFragment)));
+            }
 
-        writeFile(encodedFile, decodedFile);
-
+            writeFile(encodedFile, decodedFile);
 //        printLists(encodedSymbolPriority, exampleSymbolPriority);     //включать при настройке анализатора
-
-        return new Result("Sucessfully analyzed and decoded", ResultCode.DECODED);
+        } catch (FileNotFoundException e) {
+            return new Result("File not found", ResultCode.ERROR);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            return new Result("Not enough parameters", ResultCode.ERROR);
+        } catch (IOException e) {
+            throw new AppException("IO Exception", e);
+        }
+        return new Result("Sucessfully", ResultCode.ANALYZED);
     }
 
     private char[] decodeFragment(char[] encodedFragment) {
@@ -75,7 +83,7 @@ public class Analyzer implements Action {
         return decodedFragment;
     }
 
-    private void writeFile(String encodedFile, String decodedFile) {
+    private void writeFile(String encodedFile, String decodedFile) throws IOException {
         try (FileReader fileReader = new FileReader(encodedFile);
              FileWriter fileWriter = new FileWriter(decodedFile)) {
             while (fileReader.ready()) {
@@ -84,8 +92,6 @@ public class Analyzer implements Action {
                     fileWriter.write(relationMap.get(c));
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
@@ -167,7 +173,7 @@ public class Analyzer implements Action {
         return quadCharPriority;
     }
 
-    private TextStatistics getFileStatistic(String fileName, boolean expandable) {
+    private TextStatistics getFileStatistic(String fileName, boolean expandable) throws IOException {
         TextStatistics fileStatistics = new TextStatistics();
         fileStatistics.initializeSymbolsStatistics(alphabetString);
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -183,8 +189,6 @@ public class Analyzer implements Action {
                     fileStatistics.addData(Character.toLowerCase(buf[i - 3]), Character.toLowerCase(buf[i - 2]), Character.toLowerCase(buf[i - 1]), Character.toLowerCase(buf[i]), alphabet);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return fileStatistics;
     }
@@ -198,14 +202,12 @@ public class Analyzer implements Action {
 
     }
 
-    private char[] getEncodedFragment(String fileName, int fragmentSize) {
-        char[] encodedFragment = new char[fragmentSize];
+    private char[] getEncodedFragment(String fileName) throws IOException {
+        char[] encodedFragment;
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            char[] buf = new char[fragmentSize];
+            char[] buf = new char[50000];
             int len = reader.read(buf);
             encodedFragment = Arrays.copyOfRange(buf, 0, len);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         return encodedFragment;
     }
