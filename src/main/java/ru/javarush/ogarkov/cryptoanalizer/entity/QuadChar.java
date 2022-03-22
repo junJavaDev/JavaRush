@@ -19,8 +19,8 @@ public class QuadChar {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        QuadChar trigram = (QuadChar) o;
-        return firstSymbol == trigram.firstSymbol && secondSymbol == trigram.secondSymbol && thirdSymbol == trigram.thirdSymbol && fourthSymbol == trigram.fourthSymbol;
+        QuadChar quadChar = (QuadChar) o;
+        return firstSymbol == quadChar.firstSymbol && secondSymbol == quadChar.secondSymbol && thirdSymbol == quadChar.thirdSymbol && fourthSymbol == quadChar.fourthSymbol;
     }
 
     @Override
