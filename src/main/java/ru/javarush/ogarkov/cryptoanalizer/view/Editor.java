@@ -22,7 +22,7 @@ public class Editor {
         frame = new JFrame("Замена символов");
         frame.setLocation(300, 200);
         frame.setSize(800, 600);
-        frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setAlwaysOnTop(true);
         font = new Font("Font", Font.PLAIN, 20);
@@ -79,6 +79,7 @@ public class Editor {
                 frame.setVisible(false);
                 lock.notify();
             }
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
         });
 
         frame.addWindowListener(new WindowAdapter() {
