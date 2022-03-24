@@ -6,8 +6,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class Editor {
-    private static final Object lock = new Object();
-    private static final JFrame frame = new JFrame("Замена символов");
+    private final Object lock = new Object();
+    JFrame frame;
     String replacingSymbols;
     JTextArea textArea;
     JScrollPane scrollPane;
@@ -19,6 +19,7 @@ public class Editor {
     JButton complete;
 
     public void createJFrame() {
+        frame = new JFrame("Замена символов");
         frame.setLocation(300, 200);
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
