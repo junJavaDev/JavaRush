@@ -1,7 +1,10 @@
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Path;
 import java.util.Date;
+import java.util.Iterator;
 
 /* 
 task1530
@@ -63,4 +66,16 @@ public class ReadAllBytesVsReadNeedBytes {
         }
         return result;
     }
+
+    DirectoryStream<Path> directoryStream = new DirectoryStream<Path>() {
+        @Override
+        public Iterator<Path> iterator() {
+            return null;
+        }
+
+        @Override
+        public void close() throws IOException {
+
+        }
+    };
 }
