@@ -22,5 +22,13 @@ public class TestClass<T> {
         String s = "Test String";
         TestClass<Integer> test = createAndAdd2Values(d, s);
         test.printValues();
+        switch ("lol") {
+            case "3" :
+                System.out.println();
+                break;
+            case "lion" :
+                System.out.println();
+                break;
+        }
     }
 }
