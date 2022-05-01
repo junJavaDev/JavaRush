@@ -1,5 +1,6 @@
 package com.javarush.task.pro.task18.task1815;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -23,6 +24,7 @@ public class Solution {
 
     public static Stream<String> getEmails(ArrayList<Account> accounts) {
         //напишите тут ваш код
-        return Stream.empty();
+        return accounts.stream()
+                .map(Account::getEmail);
     }
 }
