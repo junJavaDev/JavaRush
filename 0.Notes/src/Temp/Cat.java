@@ -11,6 +11,14 @@ public class Cat {
     public Cat() {
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public static void main(String[] args) throws Throwable {
         for (int i = 0 ; i < 1000000; i++) {
             Cat cat = new Cat();
