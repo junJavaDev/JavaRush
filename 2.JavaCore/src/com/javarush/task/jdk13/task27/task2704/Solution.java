@@ -6,9 +6,15 @@ package com.javarush.task.jdk13.task27.task2704;
 
 public class Solution {
     public void safeMethod(Object obj1, Object obj2) {
-        synchronized (obj1) {
+        int hashMonitor1 = obj1.hashCode();
+        int hashMonitor2 = obj2.hashCode();
+
+        Object monitor1 = hashMonitor1 > hashMonitor2 ? obj1 : obj2;
+        Object monitor2 = hashMonitor1 > hashMonitor2 ? obj2 : obj1;
+
+        synchronized (monitor1) {
             longTimeMethod();
-            synchronized (obj2) {
+            synchronized (monitor2) {
                 unsafeMethod(obj1, obj2);
             }
         }

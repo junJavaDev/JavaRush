@@ -17,15 +17,5 @@
         <jarDirectory url="file://$MODULE_DIR$/../lib" recursive="true" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library name="javafx-sdk-14">
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/../lib/javafx-sdk-14/lib" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/../lib/javafx-sdk-14/lib" recursive="true" />
-      </library>
-    </orderEntry>
   </component>
 </module>
