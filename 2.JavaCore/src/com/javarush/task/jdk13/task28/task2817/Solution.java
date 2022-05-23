@@ -17,8 +17,8 @@ public class Solution {
     public static void main(String[] args) throws Exception {
         scheduledPool.scheduleAtFixedRate(
                 () -> System.out.println(LocalTime.now()),
-                0L,
-                500L,
+                0,
+                500,
                 TimeUnit.MILLISECONDS);
 
         Thread.sleep(3000);
