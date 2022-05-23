@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/main" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="add second module theme 12-14">
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2301/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2301/Условие.jrtc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2302/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2302/Условие.jrtc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2303/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2303/Условие.jrtc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2304/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2304/Условие.jrtc" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2305/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task23/task2305/Условие.jrtc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task28/task2817/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task28/task2817/Solution.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="21kTsWTmiOlFyJDiCewr0Z9CgTj" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="flattenPackages" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/8.Games/src/com/javarush/games/minesweeper" />
+    <property name="nodejs_interpreter_path" value="node" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="Temp" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\GitHub\JavaRushTasks\8.Games\src\com\javarush\games\minesweeper" />
+      <recent name="C:\GitHub\JavaRushTasks\8.Games\src\com\javarush\games\spaceinvaders" />
+      <recent name="D:\intellijSandbox\JavaRushTasks" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="A:\IT\GitHub\JavaRushTasks\HomeWorks" />
+      <recent name="A:\IT\GitHub\JavaRushTasks\HomeWorks\src" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Temp" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Solution">
+    <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
+      <module name="" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="GAPID_ENABLED" value="false" />
+        <option name="GAPID_DISABLE_PCS" value="false" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <method />
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+      <method />
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task28.task2816.Solution" />
+      <module name="2.JavaCore" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.jdk13.task28.task2816.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task28.task2817.Solution" />
+      <module name="2.JavaCore" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.jdk13.task28.task2817.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task28.task2818.Solution" />
+      <module name="2.JavaCore" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.jdk13.task28.task2818.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution (5)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task23.task2304.Solution" />
+      <module name="2.JavaCore" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.jdk13.task23.task2304.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task23.task2305.Solution" />
+      <module name="2.JavaCore" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.jdk13.task23.task2305.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
+      <setting name="vmparams" value="" />
+      <setting name="cmdLine" value="run-app" />
+      <setting name="passParentEnv" value="true" />
+      <setting name="grailsApplicationRoot" value="" />
+      <setting name="launchBrowser" value="true" />
+      <setting name="launchBrowserUrl" value="" />
+      <setting name="depsClasspath" value="false" />
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <option name="TEST_OBJECT" value="class" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="TestNG">
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file enabled="true" id="idea.log" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Solution" />
+        <item itemvalue="Application.Solution (5)" />
+        <item itemvalue="Application.Solution (4)" />
+        <item itemvalue="Application.Solution (3)" />
+        <item itemvalue="Application.Solution (2)" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="" />
+      <created>1477641354970</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1477641354970</updated>
+      <workItem from="1477641356271" duration="140000" />
+      <workItem from="1477661127283" duration="4000" />
+      <workItem from="1479892128348" duration="345000" />
+      <workItem from="1480667976301" duration="11000" />
+      <workItem from="1480667993737" duration="5000" />
+      <workItem from="1484838281338" duration="128000" />
+      <workItem from="1484897111171" duration="42000" />
+      <workItem from="1485161981498" duration="29000" />
+      <workItem from="1485162014696" duration="83000" />
+      <workItem from="1485177835943" duration="100000" />
+      <workItem from="1638484295222" duration="13000" />
+      <workItem from="1638484320740" duration="219000" />
+      <workItem from="1638484554373" duration="30000" />
+      <workItem from="1638485234395" duration="196000" />
+      <workItem from="1638686896355" duration="9546000" />
+      <workItem from="1638901230746" duration="26000" />
+      <workItem from="1638901268075" duration="1091000" />
+      <workItem from="1638904409032" duration="7121000" />
+      <workItem from="1638913933573" duration="38000" />
+      <workItem from="1638914121953" duration="9026000" />
+      <workItem from="1639240908187" duration="877000" />
+      <workItem from="1639254492541" duration="2630000" />
+      <workItem from="1639293867987" duration="2146000" />
+      <workItem from="1639301627449" duration="10800000" />
+      <workItem from="1639342070037" duration="8609000" />
+      <workItem from="1639374541793" duration="1800000" />
+      <workItem from="1639516501909" duration="2851000" />
+      <workItem from="1639582269513" duration="13043000" />
+      <workItem from="1639601560028" duration="357000" />
+      <workItem from="1639602115825" duration="1698000" />
+      <workItem from="1639679976825" duration="17000" />
+      <workItem from="1639806376634" duration="1777000" />
+      <workItem from="1639846336791" duration="601000" />
+      <workItem from="1639896538321" duration="6408000" />
+      <workItem from="1639941459691" duration="329000" />
+      <workItem from="1640114015460" duration="3038000" />
+      <workItem from="1640117087299" duration="39000" />
+      <workItem from="1640370447486" duration="10147000" />
+      <workItem from="1640381098858" duration="320000" />
+      <workItem from="1640493293518" duration="29536000" />
+      <workItem from="1640567127446" duration="790000" />
+      <workItem from="1640888363519" duration="2010000" />
+      <workItem from="1640938122079" duration="824000" />
+      <workItem from="1641037792373" duration="2000" />
+      <workItem from="1641038292837" duration="2449000" />
+      <workItem from="1641108995863" duration="5979000" />
+      <workItem from="1641131973541" duration="10178000" />
+      <workItem from="1641152717067" duration="642000" />
+      <workItem from="1641283423723" duration="4201000" />
+      <workItem from="1641375114212" duration="1822000" />
+      <workItem from="1641421860158" duration="14825000" />
+      <workItem from="1641458621760" duration="7123000" />
+      <workItem from="1641639443485" duration="6000" />
+      <workItem from="1641640113643" duration="1563000" />
+      <workItem from="1641643381000" duration="983000" />
+      <workItem from="1641644646317" duration="1089000" />
+      <workItem from="1641646555376" duration="6324000" />
+      <workItem from="1641716936037" duration="144000" />
+      <workItem from="1641717145285" duration="2000" />
+      <workItem from="1641722092561" duration="3866000" />
+      <workItem from="1641730374132" duration="2375000" />
+      <workItem from="1641744371452" duration="1052000" />
+      <workItem from="1641749115343" duration="1686000" />
+      <workItem from="1642010182637" duration="12832000" />
+      <workItem from="1642101518091" duration="3052000" />
+      <workItem from="1642179410063" duration="737000" />
+      <workItem from="1642221896238" duration="16078000" />
+      <workItem from="1642277403255" duration="11113000" />
+      <workItem from="1642317796387" duration="1146000" />
+      <workItem from="1642445994904" duration="1000" />
+      <workItem from="1642530592653" duration="304000" />
+      <workItem from="1642939571102" duration="12000" />
+      <workItem from="1643307393536" duration="598000" />
+      <workItem from="1643309084568" duration="532000" />
+      <workItem from="1643457223773" duration="495000" />
+      <workItem from="1643492265960" duration="38000" />
+      <workItem from="1643531172825" duration="3318000" />
+      <workItem from="1643540264986" duration="1489000" />
+      <workItem from="1643541767502" duration="2863000" />
+      <workItem from="1643569134672" duration="413000" />
+      <workItem from="1643991173489" duration="646000" />
+      <workItem from="1644037756343" duration="3538000" />
+      <workItem from="1644116880794" duration="22381000" />
+      <workItem from="1644319431009" duration="514000" />
+      <workItem from="1644631004057" duration="7074000" />
+      <workItem from="1644639761942" duration="1221000" />
+      <workItem from="1644647066064" duration="327000" />
+      <workItem from="1644702203086" duration="1199000" />
+      <workItem from="1644947271081" duration="485000" />
+      <workItem from="1646068494509" duration="1163000" />
+      <workItem from="1646326567211" duration="2826000" />
+      <workItem from="1646568909049" duration="3985000" />
+      <workItem from="1646580879111" duration="51000" />
+      <workItem from="1646581535497" duration="654000" />
+      <workItem from="1646585352362" duration="1000" />
+      <workItem from="1646599903403" duration="595000" />
+      <workItem from="1646642107602" duration="3000" />
+      <workItem from="1646644714915" duration="1199000" />
+      <workItem from="1646724452861" duration="825000" />
+      <workItem from="1646853297191" duration="357000" />
+      <workItem from="1646937232293" duration="1053000" />
+      <workItem from="1647022329356" duration="453000" />
+      <workItem from="1647201104013" duration="8721000" />
+      <workItem from="1647449978544" duration="2312000" />
+      <workItem from="1647639193242" duration="4654000" />
+      <workItem from="1647654894872" duration="44000" />
+      <workItem from="1647716144015" duration="3615000" />
+      <workItem from="1647881037357" duration="2890000" />
+      <workItem from="1647931424346" duration="38000" />
+      <workItem from="1648575925727" duration="3171000" />
+      <workItem from="1648614661539" duration="3078000" />
+      <workItem from="1648619827360" duration="816000" />
+      <workItem from="1648740935790" duration="2640000" />
+      <workItem from="1648789420911" duration="2000" />
+      <workItem from="1649320683335" duration="8069000" />
+      <workItem from="1649571607020" duration="594000" />
+      <workItem from="1649615754121" duration="8560000" />
+      <workItem from="1649720753012" duration="2538000" />
+      <workItem from="1650105050424" duration="608000" />
+      <workItem from="1650127045073" duration="742000" />
+      <workItem from="1650211575928" duration="1188000" />
+      <workItem from="1650304937138" duration="1188000" />
+      <workItem from="1650479118936" duration="4798000" />
+      <workItem from="1650484246332" duration="1094000" />
+      <workItem from="1650730754306" duration="162000" />
+      <workItem from="1650827506451" duration="9910000" />
+      <workItem from="1650907977673" duration="1100000" />
+      <workItem from="1650909409508" duration="1151000" />
+      <workItem from="1650949048407" duration="1369000" />
+      <workItem from="1651031240623" duration="1780000" />
+      <workItem from="1651124447005" duration="1951000" />
+      <workItem from="1651170885752" duration="2565000" />
+      <workItem from="1651173487680" duration="2383000" />
+      <workItem from="1651207728260" duration="3622000" />
+      <workItem from="1651258980391" duration="2813000" />
+      <workItem from="1651262360282" duration="375000" />
+      <workItem from="1651262756502" duration="338000" />
+      <workItem from="1651378415221" duration="874000" />
+      <workItem from="1651379320543" duration="151000" />
+      <workItem from="1651380206038" duration="200000" />
+      <workItem from="1651380420833" duration="493000" />
+      <workItem from="1651380931584" duration="541000" />
+      <workItem from="1651381501324" duration="102000" />
+      <workItem from="1651381624342" duration="1367000" />
+      <workItem from="1651383054356" duration="163000" />
+      <workItem from="1651383241158" duration="151000" />
+      <workItem from="1651383416995" duration="295000" />
+      <workItem from="1651383737197" duration="373000" />
+      <workItem from="1651384157060" duration="132000" />
+      <workItem from="1651384333889" duration="12590000" />
+      <workItem from="1651592648751" duration="4121000" />
+      <workItem from="1651760673763" duration="5365000" />
+      <workItem from="1651783256915" duration="6801000" />
+      <workItem from="1651828259616" duration="4043000" />
+      <workItem from="1651868852263" duration="1339000" />
+      <workItem from="1651908825325" duration="24939000" />
+      <workItem from="1651943623547" duration="1540000" />
+      <workItem from="1651945198585" duration="5353000" />
+      <workItem from="1651988543008" duration="501000" />
+      <workItem from="1652078685112" duration="175000" />
+      <workItem from="1652078874147" duration="3726000" />
+      <workItem from="1652125713879" duration="1371000" />
+      <workItem from="1652127118800" duration="14404000" />
+      <workItem from="1652275957327" duration="193000" />
+      <workItem from="1652279337302" duration="668000" />
+      <workItem from="1652333986721" duration="2060000" />
+      <workItem from="1652341961976" duration="7564000" />
+      <workItem from="1652380007271" duration="169000" />
+      <workItem from="1652380190717" duration="15000" />
+      <workItem from="1652380227949" duration="3320000" />
+      <workItem from="1652594375488" duration="6565000" />
+      <workItem from="1652610487158" duration="329000" />
+      <workItem from="1652615723266" duration="6577000" />
+      <workItem from="1652631089319" duration="75000" />
+      <workItem from="1652808057884" duration="631000" />
+      <workItem from="1652814467739" duration="5629000" />
+      <workItem from="1652820199920" duration="906000" />
+      <workItem from="1652904352761" duration="2792000" />
+      <workItem from="1652913128345" duration="2081000" />
+      <workItem from="1653230450907" duration="3122000" />
+      <workItem from="1653282745674" duration="3990000" />
+      <workItem from="1653328136633" duration="12582000" />
+    </task>
+    <task id="LOCAL-00001" summary="add Tasks 26 LVL">
+      <created>1642021988157</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1642021988157</updated>
+    </task>
+    <task id="LOCAL-00002" summary="add Tasks 27 LVL First quest id DONE">
+      <created>1642318859857</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1642318859857</updated>
+    </task>
+    <task id="LOCAL-00003" summary="add second module Theme 1 and 2">
+      <created>1650127518818</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1650127518818</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add second module Theme 3 and 4">
+      <created>1650830594229</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1650830594229</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add second module Theme 5">
+      <created>1651207864665</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1651207864665</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add second module theme 6">
+      <created>1651382561701</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1651382561701</updated>
+    </task>
+    <task id="LOCAL-00007" summary="add second module theme 7">
+      <created>1651388607430</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1651388607430</updated>
+    </task>
+    <task id="LOCAL-00008" summary="add second module theme 8-9">
+      <created>1651925062865</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1651925062865</updated>
+    </task>
+    <task id="LOCAL-00009" summary="fix punctuation in comments">
+      <created>1651925303692</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1651925303692</updated>
+    </task>
+    <task id="LOCAL-00010" summary="add second module theme 10">
+      <created>1652083336426</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1652083336426</updated>
+    </task>
+    <task id="LOCAL-00011" summary="add MoonLanderGame">
+      <created>1652348821583</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1652348821583</updated>
+    </task>
+    <task id="LOCAL-00012" summary="add second module theme 11">
+      <created>1652631153945</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1652631153945</updated>
+    </task>
+    <task id="LOCAL-00013" summary="add second module theme 12-14">
+      <created>1653336227429</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1653336227429</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="SHOW_OTHER_BRANCHES" value="true" />
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/main" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add Tasks 26 LVL" />
+    <MESSAGE value="add Tasks 27 LVL First quest id DONE" />
+    <MESSAGE value="add second module Theme 1 and 2" />
+    <MESSAGE value="add second module Theme 3 and 4" />
+    <MESSAGE value="add second module Theme 5" />
+    <MESSAGE value="add second module theme 6" />
+    <MESSAGE value="add second module theme 7" />
+    <MESSAGE value="add second module theme 8-9" />
+    <MESSAGE value="fix punctuation in comments" />
+    <MESSAGE value="add second module theme 10" />
+    <MESSAGE value="add MoonLanderGame" />
+    <MESSAGE value="add second module theme 11" />
+    <MESSAGE value="add second module theme 12-14" />
+    <option name="LAST_COMMIT_MESSAGE" value="add second module theme 12-14" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/2.JavaCore/src/com/javarush/task/jdk13/task34/task3402/Solution.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/JavaRushTasks$Solution.ic" NAME="Solution Coverage Results" MODIFIED="1638696962669" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.javarush.task.task01.task0142.*</FILTER>
+    </SUITE>
+  </component>
+</project>
