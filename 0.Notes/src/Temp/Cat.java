@@ -25,9 +25,4 @@ public class Cat {
             cat = null;//вот здесь первый объект становится доступен сборщику мусора
         }
     }
-
-    @Override
-    protected void finalize() throws Throwable {
-        System.out.println("Объект Cat уничтожен!");
-    }
 }
