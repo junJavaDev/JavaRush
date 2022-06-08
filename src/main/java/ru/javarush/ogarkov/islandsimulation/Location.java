@@ -17,7 +17,6 @@ public class Location extends StackPane{
 
     private final Rectangle cellBackground;
     private Text text;
-    private Image image;
     private ImageView imageView;
     private int x;
     private int y;
@@ -44,9 +43,8 @@ public class Location extends StackPane{
         this.text.setText(text);
     }
 
-    public void setCellImage(String resourceName) {
-        this.image = new Image(Objects.requireNonNull(getClass().getResource(resourceName)).toString());
-        imageView.setImage(this.image);
+    public void setCellImage(Image image) {
+        imageView.setImage(image);
     }
 
     public Rectangle getCellBackground() {

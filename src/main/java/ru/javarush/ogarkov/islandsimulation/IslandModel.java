@@ -1,7 +1,6 @@
 package ru.javarush.ogarkov.islandsimulation;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -48,7 +47,7 @@ public class IslandModel {
             for (int y = 0; y < height; y++) {
                 Location location = locations[x][y];
                 location.setCellText("#");
-                location.setCellColor(Color.GRAY);
+                location.setCellColor(Color.LIGHTGREY);
             }
         }
     }
