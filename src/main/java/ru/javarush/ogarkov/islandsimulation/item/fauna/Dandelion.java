@@ -1,4 +1,6 @@
 package ru.javarush.ogarkov.islandsimulation.item.fauna;
 
-public class Dandelion extends Plant{
+import ru.javarush.ogarkov.islandsimulation.item.abstracts.Plant;
+
+public class Dandelion extends Plant {
 }

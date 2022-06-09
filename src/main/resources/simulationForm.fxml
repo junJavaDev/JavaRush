@@ -6,16 +6,15 @@
 
 <AnchorPane prefHeight="1024.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ScrollPane layoutX="14.0" prefHeight="1200.0" prefWidth="793.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane prefHeight="1200.0" prefWidth="793.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
          <content>
-          <AnchorPane fx:id="islandField" minHeight="0.0" minWidth="0.0" prefWidth="3600.0" style="-fx-background-color: gray;" />
+          <AnchorPane fx:id="islandField" minHeight="0.0" minWidth="0.0" prefWidth="3600.0" style="-fx-background-color: olivedrab;" />
          </content>
       </ScrollPane>
       <AnchorPane layoutX="576.0" prefHeight="1024.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Button layoutX="32.0" layoutY="294.0" mnemonicParsing="false" onAction="#onUpdateButtonClick" prefHeight="44.0" prefWidth="137.0" text="Инициализация" />
-            <Button layoutX="32.0" layoutY="361.0" mnemonicParsing="false" onAction="#doSomething" prefHeight="44.0" prefWidth="137.0" text="Нечто" />
-            <AnchorPane fx:id="locationField" layoutX="32.0" layoutY="27.0" prefHeight="200.0" prefWidth="137.0" style="-fx-background-color: gray;" />
+            <AnchorPane fx:id="locationField" layoutX="27.0" layoutY="28.0" prefHeight="148.0" prefWidth="148.0" style="-fx-background-color: gray;" AnchorPane.topAnchor="28.0" />
+            <Button layoutX="33.0" layoutY="386.0" mnemonicParsing="false" onAction="#restart" prefHeight="44.0" prefWidth="137.0" text="Заново" AnchorPane.topAnchor="386.0" />
          </children>
       </AnchorPane>
    </children>

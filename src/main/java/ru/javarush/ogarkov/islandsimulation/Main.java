@@ -11,8 +11,8 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    private IslandModel islandModel;
-    private LocationModel locationModel;
+    private Island islandModel;
+    private Location locationModel;
     private View view;
     private Controller controller;
 
@@ -29,10 +29,10 @@ public class Main extends Application {
 
 
     private void createSimulation () {
-        islandModel = new IslandModel(Setting.ISLAND_WIDTH, Setting.ISLAND_HEIGHT, Setting.CELL_SIZE);
-        locationModel = new LocationModel(Setting.LOCATION_WIDTH, Setting.LOCATION_HEIGHT, Setting.CELL_SIZE);
+        locationModel = new Location(Setting.LOCATION_WIDTH, Setting.LOCATION_HEIGHT, Setting.CELL_SIZE);
+        islandModel = new Island(Setting.ISLAND_WIDTH, Setting.ISLAND_HEIGHT, Setting.CELL_SIZE);
         view = new View();
-        controller = new Controller(islandModel, locationModel,  view);
+        controller = new Controller(this, islandModel, locationModel,  view);
     }
 
     private void loadSimulationForm (Stage stage) throws IOException {
