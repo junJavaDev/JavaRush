@@ -1,4 +1,11 @@
-package ru.javarush.ogarkov.islandsimulation;
+package ru.javarush.ogarkov.islandsimulation.settings;
+
+import ru.javarush.ogarkov.islandsimulation.item.abstracts.Animal;
+import ru.javarush.ogarkov.islandsimulation.item.flora.carnivore.*;
+import ru.javarush.ogarkov.islandsimulation.item.flora.herbivore.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Setting {
     public static final int ISLAND_WIDTH = 100;

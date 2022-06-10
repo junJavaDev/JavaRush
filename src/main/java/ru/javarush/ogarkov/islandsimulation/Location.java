@@ -5,8 +5,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import ru.javarush.ogarkov.islandsimulation.item.abstracts.Animal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.CarnivoreAnimal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.HerbivoreAnimal;
+import ru.javarush.ogarkov.islandsimulation.item.flora.carnivore.Bear;
+import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
 // Локация, содержит массив территорий, отображает что/кто находится на территории и их количество, вычисляет лидера локации
 public class Location extends Island{

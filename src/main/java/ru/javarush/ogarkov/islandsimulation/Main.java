@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
 import java.io.IOException;
 import java.util.Objects;

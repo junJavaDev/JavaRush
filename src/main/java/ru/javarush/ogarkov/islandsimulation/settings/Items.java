@@ -1,6 +1,8 @@
-package ru.javarush.ogarkov.islandsimulation.item;
+package ru.javarush.ogarkov.islandsimulation.settings;
 
 import javafx.scene.image.Image;
+
+import java.util.Map;
 
 public enum Items {
     BEAR(getImage("/flora/carnivore/bear.png")),
@@ -24,10 +26,14 @@ public enum Items {
     GRASS(getImage("/fauna/grass.png")),
     SOIL(getImage("/fauna/soil.png")),
     SPROUT(getImage("/fauna/sprout.png")),
-    SUNFLOWER(getImage("/fauna/sunflower.png")),
     TREE(getImage("/fauna/tree.png"));
 
     private final Image icon;
+    private final int weight;
+    private final int maxPerLocation;
+    private final int maxSpeed;
+    private final int foodPerSatiation;
+    private final Map<Items, Integer> eatingProbability;
 
     Items(Image icon) {
         this.icon = icon;

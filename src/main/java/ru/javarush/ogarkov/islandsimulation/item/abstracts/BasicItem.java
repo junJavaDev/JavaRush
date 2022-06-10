@@ -1,17 +1,19 @@
 package ru.javarush.ogarkov.islandsimulation.item.abstracts;
 
 import javafx.scene.image.Image;
-import ru.javarush.ogarkov.islandsimulation.item.Items;
+import ru.javarush.ogarkov.islandsimulation.settings.Items;
 
 public abstract class BasicItem {
-    protected Image icon;
+    protected final Items item = Items.valueOf(getClass().getSimpleName().toUpperCase());
+    protected final Image icon = item.getIcon();
+    protected int weight;
+    protected int maxPerLocation;
+
 
     public BasicItem() {
-        this.icon = Items.valueOf(getClass().getSimpleName().toUpperCase()).getIcon();
     }
 
     public Image getIcon() {
         return icon;
     }
-
 }

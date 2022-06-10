@@ -1,15 +1,10 @@
 package ru.javarush.ogarkov.islandsimulation;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-import javafx.scene.text.Text;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.CarnivoreAnimal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.HerbivoreAnimal;
+import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
 // Остров, содержит массив локаций, отображает лидера каждой локации
 public class Island {
