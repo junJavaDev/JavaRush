@@ -1,6 +1,5 @@
 package ru.javarush.ogarkov.islandsimulation.item.abstracts;
 
-import ru.javarush.ogarkov.islandsimulation.settings.EatingProbability;
 import ru.javarush.ogarkov.islandsimulation.settings.Items;
 
 import java.util.Map;
@@ -8,10 +7,19 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends BasicItem {
 
-    public void eat(BasicItem food) {
+    protected double satiety;
+    protected final double foodPerSatiation = item.getFoodPerSatiation();
 
-        System.out.println("Животное ест растения и/или других животных (если в их локации есть подходящая еда)");
-        System.out.println(this.getClass().getSimpleName());
+    public void eat(BasicItem food) {
+        satiety = 1;
+        System.out.println(this.getClass().getSimpleName() + " пытается съесть " + food.getClass().getSimpleName());
+
+        if (satiety < foodPerSatiation && canEat(food)) {
+            satiety += food.weight;
+            satiety = Math.min(satiety, foodPerSatiation);
+            System.out.println(this.getClass().getSimpleName() + " съел " + food.getClass().getSimpleName() + " и теперь весит " + weight + " кг");
+        }
+//        System.out.println("Животное ест растения и/или других животных (если в их локации есть подходящая еда)");
     }
 
     public void move() {
@@ -29,8 +37,10 @@ public abstract class Animal extends BasicItem {
     private boolean canEat (BasicItem food) {
         ThreadLocalRandom localRandom = ThreadLocalRandom.current();
         int chance = localRandom.nextInt(100);
-        Map<Class<? extends BasicItem>, Integer> eatingPropabilities = EatingProbability.FOOD.get(this.getClass());
-        int propability = eatingPropabilities.getOrDefault(food.getClass(), 0);
+        Map<Items, Integer> eatingPropabilities = item.getEatingProbability();
+        System.out.println(item.name());
+        System.out.println(eatingPropabilities);
+        int propability = eatingPropabilities.getOrDefault(food.item, 0);
         return chance < propability;
     }
 

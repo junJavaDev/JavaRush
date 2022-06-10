@@ -74,7 +74,7 @@ public class Territory extends StackPane{
                         randomItem = 4;
                     } else
                         randomItem = random.nextInt(3);
-                } else randomItem = 7 + random.nextInt(13);
+                } else randomItem = 6 + random.nextInt(13);
         return island.get(randomItem);
     }
 

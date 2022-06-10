@@ -6,9 +6,9 @@ import ru.javarush.ogarkov.islandsimulation.settings.Items;
 public abstract class BasicItem {
     protected final Items item = Items.valueOf(getClass().getSimpleName().toUpperCase());
     protected final Image icon = item.getIcon();
-    protected int weight;
-    protected int maxPerLocation;
-
+    protected final double weight = item.getWeight();
+    protected final int maxPerLocation = item.getMaxPerLocation();
+    protected final int maxSpeed = item.getMaxSpeed();
 
     public BasicItem() {
     }

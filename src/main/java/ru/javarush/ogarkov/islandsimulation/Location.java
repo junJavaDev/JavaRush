@@ -9,6 +9,7 @@ import ru.javarush.ogarkov.islandsimulation.item.abstracts.Animal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.CarnivoreAnimal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.HerbivoreAnimal;
 import ru.javarush.ogarkov.islandsimulation.item.flora.carnivore.Bear;
+import ru.javarush.ogarkov.islandsimulation.item.flora.herbivore.Deer;
 import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
 // Локация, содержит массив территорий, отображает что/кто находится на территории и их количество, вычисляет лидера локации
@@ -72,7 +73,11 @@ public class Location extends Island{
                     locationModelTerritory.setCellImage(territoryIcon);
 //                    leader.setCellColor(Color.RED);
                     model.leader.setCellColor(Color.RED);
+
                 }
+            }
+            if (leader.population[0] instanceof CarnivoreAnimal) {
+                ((Animal) leader.population[0]).eat(new Deer());
             }
         });
     }

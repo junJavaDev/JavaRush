@@ -1,112 +1,125 @@
 package ru.javarush.ogarkov.islandsimulation.settings;
 
-import ru.javarush.ogarkov.islandsimulation.item.abstracts.Animal;
-import ru.javarush.ogarkov.islandsimulation.item.abstracts.BasicItem;
-import ru.javarush.ogarkov.islandsimulation.item.fauna.*;
-import ru.javarush.ogarkov.islandsimulation.item.flora.carnivore.*;
-import ru.javarush.ogarkov.islandsimulation.item.flora.herbivore.*;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import static ru.javarush.ogarkov.islandsimulation.settings.Items.*;
+
 public class EatingProbability {
 
-    private static final Map<Class<? extends BasicItem>, Integer> WOLF_FOOD = new HashMap<>();
-    static {
-        WOLF_FOOD.put(Horse.class, 10);
-        WOLF_FOOD.put(Deer.class, 15);
-        WOLF_FOOD.put(Rabbit.class, 60);
-        WOLF_FOOD.put(Mouse.class, 80);
-        WOLF_FOOD.put(Goat.class, 60);
-        WOLF_FOOD.put(Sheep.class, 70);
-        WOLF_FOOD.put(Boar.class, 15);
-        WOLF_FOOD.put(Buffalo.class, 10);
-        WOLF_FOOD.put(Duck.class, 40);
+    public static void initialize() {
+        System.out.println("in static method");
+        new EatingProbability();
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> BOA_FOOD = new HashMap<>();
-    static {
-        BOA_FOOD.put(Fox.class, 15);
-        BOA_FOOD.put(Rabbit.class, 20);
-        BOA_FOOD.put(Mouse.class, 40);
-        BOA_FOOD.put(Duck.class, 10);
+    public static final Map<Items, Integer> WOLF_FOOD = new HashMap<>();
+
+    {
+        System.out.println("is NONstatic EatingProbability");
+        WOLF_FOOD.put(HORSE, 10);
+        WOLF_FOOD.put(DEER, 15);
+        WOLF_FOOD.put(RABBIT, 60);
+        WOLF_FOOD.put(MOUSE, 80);
+        WOLF_FOOD.put(GOAT, 60);
+        WOLF_FOOD.put(SHEEP, 70);
+        WOLF_FOOD.put(BOAR, 15);
+        WOLF_FOOD.put(BUFFALO, 10);
+        WOLF_FOOD.put(DUCK, 40);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> FOX_FOOD = new HashMap<>();
-    static {
-        FOX_FOOD.put(Rabbit.class, 70);
-        FOX_FOOD.put(Mouse.class, 90);
-        FOX_FOOD.put(Duck.class, 60);
-        FOX_FOOD.put(Caterpillar.class, 40);
+    public static final Map<Items, Integer> BOA_FOOD = new HashMap<>();
+
+    {
+        BOA_FOOD.put(FOX, 15);
+        BOA_FOOD.put(RABBIT, 20);
+        BOA_FOOD.put(MOUSE, 40);
+        BOA_FOOD.put(DUCK, 10);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> BEAR_FOOD = new HashMap<>();
-    static {
-        BEAR_FOOD.put(Boa.class, 80);
-        BEAR_FOOD.put(Horse.class, 40);
-        BEAR_FOOD.put(Deer.class, 80);
-        BEAR_FOOD.put(Rabbit.class, 80);
-        BEAR_FOOD.put(Mouse.class, 90);
-        BEAR_FOOD.put(Goat.class, 70);
-        BEAR_FOOD.put(Sheep.class, 70);
-        BEAR_FOOD.put(Boar.class, 50);
-        BEAR_FOOD.put(Buffalo.class, 20);
-        BEAR_FOOD.put(Duck.class, 10);
+    public static final Map<Items, Integer> FOX_FOOD = new HashMap<>();
+
+    {
+        FOX_FOOD.put(RABBIT, 70);
+        FOX_FOOD.put(MOUSE, 90);
+        FOX_FOOD.put(DUCK, 60);
+        FOX_FOOD.put(CATERPILLAR, 40);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> EAGLE_FOOD = new HashMap<>();
-    static {
-        EAGLE_FOOD.put(Fox.class, 10);
-        EAGLE_FOOD.put(Rabbit.class, 90);
-        EAGLE_FOOD.put(Mouse.class, 90);
-        EAGLE_FOOD.put(Duck.class, 80);
+    public static final Map<Items, Integer> BEAR_FOOD = new HashMap<>();
+
+    {
+        BEAR_FOOD.put(BOA, 80);
+        BEAR_FOOD.put(HORSE, 40);
+        BEAR_FOOD.put(DEER, 80);
+        BEAR_FOOD.put(RABBIT, 80);
+        BEAR_FOOD.put(MOUSE, 90);
+        BEAR_FOOD.put(GOAT, 70);
+        BEAR_FOOD.put(SHEEP, 70);
+        BEAR_FOOD.put(BOAR, 50);
+        BEAR_FOOD.put(BUFFALO, 20);
+        BEAR_FOOD.put(DUCK, 10);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> HERBIVORE_FOOD = new HashMap<>();
-    static {
-        HERBIVORE_FOOD.put(Bush.class, 100);
-        HERBIVORE_FOOD.put(Dandelion.class, 100);
-        HERBIVORE_FOOD.put(Flower.class, 100);
-        HERBIVORE_FOOD.put(Grass.class, 100);
-        HERBIVORE_FOOD.put(Sprout.class, 100);
+    public static final Map<Items, Integer> EAGLE_FOOD = new HashMap<>();
+
+    {
+        EAGLE_FOOD.put(FOX, 10);
+        EAGLE_FOOD.put(RABBIT, 90);
+        EAGLE_FOOD.put(MOUSE, 90);
+        EAGLE_FOOD.put(DUCK, 80);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> MOUSE_FOOD = new HashMap<>();
-    static {
+    public static final Map<Items, Integer> HERBIVORE_FOOD = new HashMap<>();
+
+    {
+        HERBIVORE_FOOD.put(BUSH, 100);
+        HERBIVORE_FOOD.put(DANDELION, 100);
+        HERBIVORE_FOOD.put(FLOWER, 100);
+        HERBIVORE_FOOD.put(GRASS, 100);
+        HERBIVORE_FOOD.put(SPROUT, 100);
+    }
+
+    public static final Map<Items, Integer> MOUSE_FOOD = new HashMap<>();
+
+    {
         MOUSE_FOOD.putAll(HERBIVORE_FOOD);
-        MOUSE_FOOD.put(Caterpillar.class, 90);
+        MOUSE_FOOD.put(CATERPILLAR, 90);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> BOAR_FOOD = new HashMap<>();
-    static {
+    public static final Map<Items, Integer> BOAR_FOOD = new HashMap<>();
+
+    {
         BOAR_FOOD.putAll(HERBIVORE_FOOD);
-        BOAR_FOOD.put(Mouse.class, 50);
-        BOAR_FOOD.put(Caterpillar.class, 90);
+        BOAR_FOOD.put(MOUSE, 50);
+        BOAR_FOOD.put(CATERPILLAR, 90);
     }
 
-    private static final Map<Class<? extends BasicItem>, Integer> DUCK_FOOD = new HashMap<>();
-    static {
+    public static final Map<Items, Integer> DUCK_FOOD = new HashMap<>();
+
+    {
         DUCK_FOOD.putAll(HERBIVORE_FOOD);
-        DUCK_FOOD.put(Caterpillar.class, 90);
+        DUCK_FOOD.put(CATERPILLAR, 90);
     }
 
-    public static final Map<Class<? extends BasicItem>, Map<Class<? extends BasicItem>, Integer>> FOOD = new HashMap<>();
-    static {
-        FOOD.put(Wolf.class, WOLF_FOOD);
-        FOOD.put(Boa.class, BOA_FOOD);
-        FOOD.put(Fox.class, FOX_FOOD);
-        FOOD.put(Bear.class, BEAR_FOOD);
-        FOOD.put(Eagle.class, EAGLE_FOOD);
-        FOOD.put(Horse.class, HERBIVORE_FOOD);
-        FOOD.put(Deer.class, HERBIVORE_FOOD);
-        FOOD.put(Rabbit.class, HERBIVORE_FOOD);
-        FOOD.put(Mouse.class, MOUSE_FOOD);
-        FOOD.put(Goat.class, HERBIVORE_FOOD);
-        FOOD.put(Sheep.class, HERBIVORE_FOOD);
-        FOOD.put(Boar.class, BOAR_FOOD);
-        FOOD.put(Buffalo.class, HERBIVORE_FOOD);
-        FOOD.put(Duck.class, DUCK_FOOD);
-        FOOD.put(Caterpillar.class, HERBIVORE_FOOD);
 
-    }
+
+//    public static final Map<Class<? extends Animal>, Integer, Map<Class<? extends Animal>, Integer, Integer>> FOOD = new HashMap<>();
+//    static {
+//        FOOD.put(WOLF, WOLF_FOOD);
+//        FOOD.put(BOA, BOA_FOOD);
+//        FOOD.put(FOX, FOX_FOOD);
+//        FOOD.put(BEAR, BEAR_FOOD);
+//        FOOD.put(EAGLE, EAGLE_FOOD);
+//        FOOD.put(HORSE, HERBIVORE_FOOD);
+//        FOOD.put(DEER, HERBIVORE_FOOD);
+//        FOOD.put(RABBIT, HERBIVORE_FOOD);
+//        FOOD.put(MOUSE, MOUSE_FOOD);
+//        FOOD.put(GOAT, HERBIVORE_FOOD);
+//        FOOD.put(SHEEP, HERBIVORE_FOOD);
+//        FOOD.put(BOAR, BOAR_FOOD);
+//        FOOD.put(BUFFALO, HERBIVORE_FOOD);
+//        FOOD.put(DUCK, DUCK_FOOD);
+//        FOOD.put(CATERPILLAR, HERBIVORE_FOOD);
+//
+//    }
 }
