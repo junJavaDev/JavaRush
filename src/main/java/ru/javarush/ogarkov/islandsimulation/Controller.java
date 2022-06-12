@@ -36,5 +36,4 @@ public class Controller extends View {
         initialize();
     }
 
-
 }
