@@ -7,9 +7,9 @@ import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.BasicItem;
-import ru.javarush.ogarkov.islandsimulation.item.fauna.*;
-import ru.javarush.ogarkov.islandsimulation.item.flora.carnivore.*;
-import ru.javarush.ogarkov.islandsimulation.item.flora.herbivore.*;
+import ru.javarush.ogarkov.islandsimulation.item.plant.*;
+import ru.javarush.ogarkov.islandsimulation.item.carnivore.*;
+import ru.javarush.ogarkov.islandsimulation.item.herbivore.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;

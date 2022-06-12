@@ -1,4 +1,4 @@
-package ru.javarush.ogarkov.islandsimulation.item.flora.herbivore;
+package ru.javarush.ogarkov.islandsimulation.item.herbivore;
 
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.HerbivoreAnimal;
 

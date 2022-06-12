@@ -1,4 +1,4 @@
-package ru.javarush.ogarkov.islandsimulation.item.fauna;
+package ru.javarush.ogarkov.islandsimulation.item.plant;
 
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.BasicItem;
 
