@@ -1,6 +1,5 @@
 package ru.javarush.ogarkov.islandsimulation;
 
-import javafx.event.ActionEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,12 +20,12 @@ import java.util.Random;
 public class Territory extends StackPane{
 
     private final Rectangle background;
-    private Text text;
-    private ImageView imageView;
+    private final Text text;
+    private final ImageView imageView;
     private int xPosition;
     private int yPosition;
     public BasicItem[] population;
-    private static Random random = new Random();
+    private static final Random random = new Random();
 
     public Territory(Rectangle rectangle, Text text, ImageView imageView) {
         super(rectangle, text, imageView);
@@ -41,11 +40,10 @@ public class Territory extends StackPane{
         static {
             island.add(new Bush());
             island.add(new Grass());
-//        island.add(new Soil());
+//            island.add(new Soil());
             island.add(new Sprout());
             island.add(new Dandelion());
             island.add(new Flower());
-//        island.add(new Sunflower());
             island.add(new Tree());
             island.add(new Bear());
             island.add(new Boa());

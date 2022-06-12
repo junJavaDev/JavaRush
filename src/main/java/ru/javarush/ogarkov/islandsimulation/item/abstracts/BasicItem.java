@@ -8,7 +8,6 @@ public abstract class BasicItem {
     protected final Image icon = item.getIcon();
     protected final double weight = item.getWeight();
     protected final int maxPerLocation = item.getMaxPerLocation();
-    protected final int maxSpeed = item.getMaxSpeed();
 
     public BasicItem() {
     }

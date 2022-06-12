@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.Animal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.CarnivoreAnimal;
 import ru.javarush.ogarkov.islandsimulation.item.abstracts.HerbivoreAnimal;
-import ru.javarush.ogarkov.islandsimulation.item.flora.carnivore.Bear;
+import ru.javarush.ogarkov.islandsimulation.item.fauna.Flower;
 import ru.javarush.ogarkov.islandsimulation.item.flora.herbivore.Deer;
 import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
@@ -78,6 +78,8 @@ public class Location extends Island{
             }
             if (leader.population[0] instanceof CarnivoreAnimal) {
                 ((Animal) leader.population[0]).eat(new Deer());
+            } else if (leader.population[0] instanceof HerbivoreAnimal) {
+                ((Animal) leader.population[0]).eat(new Flower());
             }
         });
     }

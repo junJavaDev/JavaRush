@@ -27,7 +27,6 @@ public class Controller extends View {
         initLocationField(locationModel);
         Location.setModel(locationModel);
         Island.setModel(islandModel);
-        System.out.println("Обновлено");
         System.out.println("Эта строка выведется при инициализации");
     }
 

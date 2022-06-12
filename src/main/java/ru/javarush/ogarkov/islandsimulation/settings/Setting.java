@@ -10,5 +10,6 @@ public class Setting {
     public static final int CELL_SIZE = 35;
     public static final int ISLAND_GRID_SIZE = 12;
     public static final int LOCATION_GRID_SIZE = 2;
-
+    public static final double INITIAL_SATIETY = 0.5;
+    public static final double HUNGER = 0.8;
 }

@@ -18,7 +18,6 @@ public class EatingProbability {
     public static final Map<Items, Integer> DUCK_FOOD = new HashMap<>();
 
     public static void init() {
-        System.out.println("NONstatic field EatingProbability");
         HERBIVORE_FOOD.put(BUSH, 100);
         HERBIVORE_FOOD.put(DANDELION, 100);
         HERBIVORE_FOOD.put(FLOWER, 100);
@@ -60,7 +59,6 @@ public class EatingProbability {
         EAGLE_FOOD.put(RABBIT, 90);
         EAGLE_FOOD.put(MOUSE, 90);
         EAGLE_FOOD.put(DUCK, 80);
-
 
         MOUSE_FOOD.putAll(HERBIVORE_FOOD);
         MOUSE_FOOD.put(CATERPILLAR, 90);
