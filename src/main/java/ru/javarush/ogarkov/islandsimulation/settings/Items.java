@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 
 import java.util.Map;
 
-// TODO: 11.06.2022 Разобраться что создавать сначала, что потом
 public enum Items {
     BEAR(500, 5, 2, 80, EatingProbability.BEAR_FOOD, getImage("/flora/carnivore/bear.png")),
     BOA(15, 30, 1, 3, EatingProbability.BOA_FOOD, getImage("/flora/carnivore/boa.png")),
@@ -30,7 +29,7 @@ public enum Items {
     SOIL(1, 200, getImage("/fauna/soil.png"));
 
     static {
-        EatingProbability.initialize();
+        EatingProbability.init();
     }
 
     private final Image icon;
@@ -41,7 +40,7 @@ public enum Items {
     private final Map<Items, Integer> eatingProbability;
 
     Items(double weight, int maxPerLocation, int maxSpeed, double foodPerSatiation, Map<Items, Integer> eatingProbability, Image icon) {
-        System.out.println("is 1st constructor Items");
+        System.out.println("1st constructor Enum");
         this.icon = icon;
         this.weight = weight;
         this.maxPerLocation = maxPerLocation;
@@ -51,8 +50,7 @@ public enum Items {
     }
 
     Items(double weight, int maxPerLocation, Image icon) {
-        System.out.println("is 2nd constructor Items");
-
+        System.out.println("2nd constructor Enum");
         this.icon = icon;
         this.weight = weight;
         this.maxPerLocation = maxPerLocation;
