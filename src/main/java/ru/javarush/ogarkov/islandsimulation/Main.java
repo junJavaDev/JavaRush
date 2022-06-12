@@ -2,6 +2,7 @@ package ru.javarush.ogarkov.islandsimulation;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -40,8 +41,8 @@ public class Main extends Application {
         // Загрузка формы simulationForm.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/simulationForm.fxml"));
         fxmlLoader.setController(controller);
-        stage.getIcons().add(new Image(Objects.requireNonNull(getClass().getResourceAsStream("/icon.png"))));
-        Scene scene = new Scene(fxmlLoader.load(), Setting.ISLAND_WIDTH_FORM, Setting.ISLAND_HEIGHT_FORM);
+        stage.getIcons().add(new Image((Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")))));
+        Scene scene = new Scene((Parent) fxmlLoader.load(), Setting.ISLAND_WIDTH_FORM, Setting.ISLAND_HEIGHT_FORM);
         stage.setTitle("Island Simulation by Ogarkov");
         stage.setScene(scene);
         stage.show();
