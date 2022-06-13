@@ -4,4 +4,5 @@ module islandsimulation {
     requires javafx.fxml;
 
     opens ru.javarush.ogarkov.islandsimulation;
+    opens ru.javarush.ogarkov.islandsimulation.location;
 }

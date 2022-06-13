@@ -16,9 +16,9 @@
       <AnchorPane layoutX="576.0" prefHeight="1024.0" prefWidth="200.0" style="-fx-background-color: grey;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane fx:id="locationField" layoutX="26.0" layoutY="43.0" prefHeight="148.0" prefWidth="148.0" style="-fx-background-color: gray;" AnchorPane.topAnchor="43.0" />
-            <Button layoutX="25.0" layoutY="545.0" mnemonicParsing="false" onAction="#restart" prefHeight="44.0" prefWidth="137.0" text="Заново" AnchorPane.topAnchor="545.0" />
+            <Button layoutX="32.0" layoutY="612.0" mnemonicParsing="false" onAction="#restart" prefHeight="44.0" prefWidth="137.0" text="Заново" AnchorPane.topAnchor="612.0" />
             <Label layoutX="33.0" layoutY="14.0" text="Location" />
-            <TextFlow layoutX="15.0" layoutY="218.0" prefHeight="276.0" prefWidth="170.0" style="-fx-background-color: whitesmoke;" />
+            <TextFlow layoutX="15.0" layoutY="321.0" prefHeight="276.0" prefWidth="170.0" style="-fx-background-color: whitesmoke;" />
          </children>
       </AnchorPane>
    </children>

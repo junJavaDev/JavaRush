@@ -29,6 +29,7 @@ public abstract class Animal extends BasicItem {
                     satiety += food.weight;
                     satiety = Math.min(satiety, foodPerSatiation);
                     System.out.println(this.getClass().getSimpleName() + " съел " + food.getClass().getSimpleName() + ", голод утолён на " + satiety/foodPerSatiation*100 + " %");
+                    food = food.die();
                 }
             } else {
                 System.out.println(this.getClass().getSimpleName() + " не голоден");
@@ -46,9 +47,6 @@ public abstract class Animal extends BasicItem {
         System.out.println("Животное размножается (при наличии пары в их локации)");
     }
 
-    public void die() {
-        System.out.println("Животное умирает (от голода или съедено)");
-    }
 
     private boolean canEat (BasicItem food) {
         ThreadLocalRandom localRandom = ThreadLocalRandom.current();

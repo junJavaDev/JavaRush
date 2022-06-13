@@ -11,8 +11,11 @@ public interface Factory {
 
     default BasicItem createRandomItem(Items item) {
         List<Items> children = item.getChildren();
+//        System.out.println(children);
         int childrenCount = children.size();
         int randomChildrenIndex = Utils.getRandomInt(childrenCount);
+//        System.out.println(randomChildrenIndex);
         return children.get(randomChildrenIndex).createItem();
     }
+
 }

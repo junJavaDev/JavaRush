@@ -47,7 +47,7 @@ public enum Items {
         EatingProbability.init();
     }
 
-    private Factory factory;
+    private final Factory factory;
     private Items parent;
     private Image icon;
     private double weight;
@@ -55,39 +55,31 @@ public enum Items {
     private int maxSpeed;
     private double foodPerSatiation;
     private Map<Items, Integer> eatingProbability;
-    private List<Items> children = new ArrayList<>();
+    private final List<Items> children = new ArrayList<>();
 
     Items(Items parent, double weight, int maxPerLocation, int maxSpeed, double foodPerSatiation, Map<Items, Integer> eatingProbability, Factory factory, Image icon) {
         this.parent = parent;
-        if (this.parent != null) {
-            this.parent.addChild(this);
-        }
-        this.icon = icon;
+        parent.children.add(this);
         this.weight = weight;
         this.maxPerLocation = maxPerLocation;
         this.maxSpeed = maxSpeed;
         this.foodPerSatiation = foodPerSatiation;
         this.eatingProbability = eatingProbability;
         this.factory = factory;
+        this.icon = icon;
     }
-
 
     Items(Items parent, double weight, int maxPerLocation, Factory factory, Image icon) {
         this.parent = parent;
-        if (this.parent != null) {
-            this.parent.addChild(this);
-        }
-        this.icon = icon;
+        parent.children.add(this);
         this.weight = weight;
+        this.maxPerLocation = maxPerLocation;
         this.factory = factory;
+        this.icon = icon;
     }
 
     Items(Factory factory) {
         this.factory = factory;
-    }
-
-    private void addChild(Items child) {
-        children.add(child);
     }
 
     public double getWeight() {
@@ -123,5 +115,9 @@ public enum Items {
     }
     public BasicItem createItem() {
         return factory.createItem(this);
+    }
+
+    public boolean is(Items other) {
+        return this == other || this.parent == other;
     }
 }
