@@ -1,6 +1,7 @@
 package ru.javarush.ogarkov.islandsimulation.settings;
 
 public class Setting {
+    public static final String SIMULATION_NAME = "Island Simulation by Ogarkov";
     public static final int ISLAND_WIDTH = 100;
     public static final int ISLAND_HEIGHT = 20;
     public static final int LOCATION_WIDTH = 4;

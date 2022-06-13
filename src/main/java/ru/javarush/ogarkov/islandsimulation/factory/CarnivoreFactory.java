@@ -7,6 +7,6 @@ public class CarnivoreFactory implements Factory{
 
     @Override
     public CarnivoreAnimal createItem(Items item) {
-        return null;
+        return (CarnivoreAnimal) createRandomItem(item);
     }
 }

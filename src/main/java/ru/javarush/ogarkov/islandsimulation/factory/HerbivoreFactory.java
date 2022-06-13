@@ -1,11 +1,16 @@
 package ru.javarush.ogarkov.islandsimulation.factory;
 
-import ru.javarush.ogarkov.islandsimulation.item.abstracts.BasicItem;
+import ru.javarush.ogarkov.islandsimulation.item.abstracts.HerbivoreAnimal;
 import ru.javarush.ogarkov.islandsimulation.settings.Items;
 
+import java.util.List;
+
 public class HerbivoreFactory implements Factory{
+
+    private List<Items> children;
+
     @Override
-    public BasicItem createItem(Items item) {
-        return null;
+    public HerbivoreAnimal createItem(Items item) {
+        return (HerbivoreAnimal) createRandomItem(item);
     }
 }

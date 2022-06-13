@@ -55,9 +55,6 @@ public enum Items {
     private int maxSpeed;
     private double foodPerSatiation;
     private Map<Items, Integer> eatingProbability;
-
-
-
     private List<Items> children = new ArrayList<>();
 
     Items(Items parent, double weight, int maxPerLocation, int maxSpeed, double foodPerSatiation, Map<Items, Integer> eatingProbability, Factory factory, Image icon) {
@@ -82,6 +79,7 @@ public enum Items {
         }
         this.icon = icon;
         this.weight = weight;
+        this.factory = factory;
     }
 
     Items(Factory factory) {

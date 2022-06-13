@@ -22,9 +22,18 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
-        System.out.println(Items.FOX.createItem());
-        Animal animal = (Animal) Items.BEAR.createItem();
-        System.out.println(animal.getIcon());
+        System.out.println(Items.HERBIVORE.createItem());
+        System.out.println(Items.HERBIVORE.createItem());
+        System.out.println(Items.HERBIVORE.createItem());
+        System.out.println(Items.CARNIVORE.createItem());
+        System.out.println(Items.CARNIVORE.createItem());
+        System.out.println(Items.CARNIVORE.createItem());
+        System.out.println(Items.PLANT.createItem());
+        System.out.println(Items.PLANT.createItem());
+        System.out.println(Items.PLANT.createItem());
+        System.out.println(Items.LANDFORM.createItem());
+        System.out.println(Items.LANDFORM.createItem());
+        System.out.println(Items.PLAIN.createItem());
     }
 
     @Override
@@ -48,7 +57,7 @@ public class Main extends Application {
         fxmlLoader.setController(controller);
         stage.getIcons().add(new Image((Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")))));
         Scene scene = new Scene((Parent) fxmlLoader.load(), Setting.ISLAND_WIDTH_FORM, Setting.ISLAND_HEIGHT_FORM);
-        stage.setTitle("Island Simulation by Ogarkov");
+        stage.setTitle(Setting.SIMULATION_NAME);
         stage.setScene(scene);
         stage.show();
     }
