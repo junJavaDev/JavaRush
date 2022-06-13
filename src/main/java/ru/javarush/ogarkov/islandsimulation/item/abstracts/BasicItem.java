@@ -9,6 +9,8 @@ public abstract class BasicItem {
     protected final double weight = item.getWeight();
     protected final int maxPerLocation = item.getMaxPerLocation();
 
+
+
     public BasicItem() {
     }
 

@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ru.javarush.ogarkov.islandsimulation.item.abstracts.Animal;
+import ru.javarush.ogarkov.islandsimulation.settings.Items;
 import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
 import java.io.IOException;
@@ -20,6 +22,9 @@ public class Main extends Application {
 
     public static void main(String[] args) {
         launch();
+        System.out.println(Items.FOX.createItem());
+        Animal animal = (Animal) Items.BEAR.createItem();
+        System.out.println(animal.getIcon());
     }
 
     @Override

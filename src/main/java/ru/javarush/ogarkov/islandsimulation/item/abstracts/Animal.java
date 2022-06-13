@@ -1,5 +1,6 @@
 package ru.javarush.ogarkov.islandsimulation.item.abstracts;
 
+import ru.javarush.ogarkov.islandsimulation.item.carnivore.Bear;
 import ru.javarush.ogarkov.islandsimulation.settings.Items;
 import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
@@ -12,6 +13,12 @@ public abstract class Animal extends BasicItem {
     protected double hunger = foodPerSatiation * Setting.HUNGER;
     protected double satiety = foodPerSatiation * Setting.INITIAL_SATIETY;
     protected final int maxSpeed = item.getMaxSpeed();
+
+    public static Animal createAnimal(Items item) {
+        return new Bear();
+    }
+
+
 
 
     public void eat(BasicItem food) {
