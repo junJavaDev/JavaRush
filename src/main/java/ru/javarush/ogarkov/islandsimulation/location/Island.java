@@ -8,7 +8,13 @@ import static ru.javarush.ogarkov.islandsimulation.settings.Setting.*;
 
 // Остров, содержит массив локаций, отображает лидера каждой локации
 public class Island {
+    public static Island model;
     private Location[][] locations;
+
+    public static Island createModel() {
+        model = new Island();
+        return model;
+    }
 
     public Island() {
         initialize();
@@ -26,19 +32,18 @@ public class Island {
                 locations[x][y] = location;
                 Territory leader = location.getLeader();
                 leader.setCellImage(leader.getIcon());
-                leader.addGrid(x, y, ISLAND_GRID_SIZE);
-                fillCellColor(leader);
+                leader.addIslandGrid(x, y, ISLAND_GRID_SIZE);
+                leader.setIslandCellColor();
             }
         }
     }
 
-    public void fillCellColor(Territory territory) {
-        Items item = territory.getResident().getItem();
-        if (item.is(Items.HERBIVORE)) {
-            territory.setCellColor(Color.BLANCHEDALMOND);
-        } else if (item.is(Items.CARNIVORE)) {
-            territory.setCellColor(Color.BLACK);
-        } else territory.setCellColor(Color.OLIVEDRAB);
+    public static void resetIslandColor() {
+        for (int x = 0; x < ISLAND_WIDTH; x++) {
+            for (int y = 0; y < ISLAND_HEIGHT; y++) {
+                model.locations[x][y].getLeader().setIslandCellColor();
+            }
+        }
     }
 
     public Location[][] getLocations() {

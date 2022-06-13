@@ -11,10 +11,12 @@ import ru.javarush.ogarkov.islandsimulation.item.abstracts.BasicItem;
 import ru.javarush.ogarkov.islandsimulation.settings.Items;
 import ru.javarush.ogarkov.islandsimulation.settings.Utils;
 
+import static ru.javarush.ogarkov.islandsimulation.settings.Items.CARNIVORE;
+import static ru.javarush.ogarkov.islandsimulation.settings.Items.HERBIVORE;
 import static ru.javarush.ogarkov.islandsimulation.settings.Setting.*;
 
 // Участок локации, ячейка
-public class Territory extends StackPane{
+public class Territory extends StackPane implements Comparable<Territory> {
 
     private Rectangle background;
     private Text text;
@@ -30,9 +32,10 @@ public class Territory extends StackPane{
         this.yPosition = yPosition;
         initialize();
         fillByPlants();
+        fillByAnimals();
     }
 
-    private void initialize(){
+    private void initialize() {
         background = createBackground();
         text = new Text();
         imageView = new ImageView();
@@ -42,10 +45,11 @@ public class Territory extends StackPane{
         addGrid(xPosition, yPosition, LOCATION_GRID_SIZE);
         setCellColor(Color.LIGHTGREY);
     }
-    private Rectangle createBackground(){
+
+    private Rectangle createBackground() {
         Rectangle cellBackground = new Rectangle();
-        cellBackground.setWidth(LOCATION_CELL_WIDTH);
-        cellBackground.setHeight(LOCATION_CELL_HEIGHT);
+        cellBackground.setWidth(ISLAND_CELL_WIDTH);
+        cellBackground.setHeight(ISLAND_CELL_HEIGHT);
         return cellBackground;
     }
 
@@ -56,9 +60,34 @@ public class Territory extends StackPane{
             population[i] = Items.PLANT.createItem();
         }
     }
+
+    // TODO: 14.06.2022 Времянка
+    public void fillByAnimals() {
+        int isAnimal = Utils.getRandomInt(1000);
+        if (isAnimal < 5) {
+            int amount = 1 + Utils.getRandomInt(5);
+            population = new BasicItem[amount];
+            for (int i = 0; i < amount; i++) {
+                population[i] = CARNIVORE.createItem();
+            }
+        } else if (isAnimal < 15) {
+            int amount = 1 + Utils.getRandomInt(5);
+            population = new BasicItem[amount];
+            for (int i = 0; i < amount; i++) {
+                population[i] = HERBIVORE.createItem();
+            }
+        }
+
+    }
+
     public void addGrid(int xPosition, int yPosition, int gridSize) {
         setLayoutX((xPosition * (background.getWidth() + gridSize)));
         setLayoutY((yPosition * (background.getHeight() + gridSize)));
+    }
+
+    public void addIslandGrid(int xPosition, int yPosition, int gridSize) {
+        setLayoutX((xPosition * (ISLAND_CELL_WIDTH + gridSize)));
+        setLayoutY((yPosition * (ISLAND_CELL_HEIGHT + gridSize)));
     }
 
     public void setText(String text) {
@@ -85,6 +114,16 @@ public class Territory extends StackPane{
         background.setFill(color);
     }
 
+    public void setIslandCellColor() {
+        Items item = getResident().getItem();
+        if (item.is(Items.HERBIVORE)) {
+//            setCellColor(Color.BLANCHEDALMOND);
+            setCellColor(Color.OLIVEDRAB);
+        } else if (item.is(Items.CARNIVORE)) {
+            setCellColor(Color.BLACK);
+        } else setCellColor(Color.OLIVEDRAB);
+    }
+
     public BasicItem[] getPopulation() {
         return population;
     }
@@ -101,4 +140,28 @@ public class Territory extends StackPane{
         return getResident().getIcon();
     }
 
+    @Override
+    public int compareTo(Territory secondTerritory) {
+
+        int result = 0;
+        Items firstItem = getResident().getItem();
+        Items secondItem = secondTerritory.getResident().getItem();
+
+        if (firstItem.is(CARNIVORE) && secondItem.isNot(CARNIVORE)) {
+            result = 1;
+        } else if (firstItem.isNot(CARNIVORE) && secondItem.is(CARNIVORE)) {
+            result = -1;
+        } else if (firstItem.is(HERBIVORE) && secondItem.isNot(HERBIVORE)) {
+            result = 1;
+        } else if (firstItem.isNot(HERBIVORE) && secondItem.is(HERBIVORE)) {
+            result = -1;
+        }
+
+        if (result == 0) {
+            double firstTerritoryWeight = firstItem.getWeight() * getPopulation().length;
+            double secondTerritoryWeight = secondItem.getWeight() * secondTerritory.getPopulation().length;
+            result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
+        }
+        return result;
+    }
 }

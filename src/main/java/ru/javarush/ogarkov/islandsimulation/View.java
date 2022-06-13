@@ -6,8 +6,7 @@ import ru.javarush.ogarkov.islandsimulation.location.Island;
 import ru.javarush.ogarkov.islandsimulation.location.Location;
 import ru.javarush.ogarkov.islandsimulation.settings.Setting;
 
-import static ru.javarush.ogarkov.islandsimulation.settings.Setting.ISLAND_HEIGHT;
-import static ru.javarush.ogarkov.islandsimulation.settings.Setting.ISLAND_WIDTH;
+import static ru.javarush.ogarkov.islandsimulation.settings.Setting.*;
 
 public class View {
 
@@ -19,6 +18,8 @@ public class View {
 
     protected void initIslandField(Island model) {
         islandField.getChildren().clear();
+        islandField.setPrefWidth(ISLAND_WIDTH * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE));
+        islandField.setPrefHeight(ISLAND_HEIGHT * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE));
         for (int x = 0; x < ISLAND_WIDTH; x++) {
             for (int y = 0; y < ISLAND_HEIGHT; y++) {
                 islandField.getChildren().add(model.getLocations()[x][y].getLeader());

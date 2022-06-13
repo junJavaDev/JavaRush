@@ -120,4 +120,8 @@ public enum Items {
     public boolean is(Items other) {
         return this == other || this.parent == other;
     }
+
+    public boolean isNot(Items other) {
+        return !this.is(other);
+    }
 }

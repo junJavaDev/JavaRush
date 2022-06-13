@@ -22,8 +22,6 @@ public class Controller extends View {
 
     @FXML
     void initialize() {
-//        locationModel.initialize();
-//        islandModel.initialize();
         initIslandField(islandModel);
         initLocationField(locationModel);
         System.out.println("Эта строка выведется при инициализации");

@@ -32,7 +32,7 @@ public class Main extends Application {
 
     private void createSimulation () {
         locationModel = Location.createModel();
-        islandModel = new Island();
+        islandModel = Island.createModel();
         view = new View();
         controller = new Controller(this, islandModel, locationModel,  view);
     }
