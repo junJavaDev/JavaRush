@@ -15,7 +15,8 @@ public class Setting {
     public static final int ISLAND_GRID_SIZE = 12;
     public static final int LOCATION_GRID_SIZE = 2;
     public static final double INITIAL_SATIETY = 0.5;
-    public static final double HUNGER = 0.8;
+    public static final double CARNIVORE_HUNGER = 0.8;
+    public static final double HERBIVORE_HUNGER = 1;
     public static final int CARNIVORE_POPULATION = 50;
     public static final int HERBIVORE_POPULATION = 100;
 

@@ -4,9 +4,9 @@ import javafx.scene.image.Image;
 import ru.javarush.ogarkov.island.factory.*;
 import ru.javarush.ogarkov.island.factory.carnivore.*;
 import ru.javarush.ogarkov.island.factory.herbivore.*;
+import ru.javarush.ogarkov.island.factory.landform.LandformFactory;
 import ru.javarush.ogarkov.island.factory.landform.PlainFactory;
 import ru.javarush.ogarkov.island.factory.plant.*;
-import ru.javarush.ogarkov.island.entity.abstracts.BasicItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,13 +111,6 @@ public enum Items {
     public List<Items> getChildren() {
         return children;
     }
-    public BasicItem createItem() {
-        return factory.createItem(this);
-    }
-
-    public long getCreatedItemsCount(){
-        return factory.getCreatedItemsCount();
-    }
 
     public boolean is(Items other) {
         return this == other || this.parent == other;
@@ -125,5 +118,17 @@ public enum Items {
 
     public boolean isNot(Items other) {
         return !this.is(other);
+    }
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public Items getParent() {
+        return parent;
+    }
+
+    public String getName() {
+        return name;
     }
 }

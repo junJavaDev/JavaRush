@@ -2,6 +2,11 @@ package ru.javarush.ogarkov.island.location;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import ru.javarush.ogarkov.island.Controller;
+import ru.javarush.ogarkov.island.entity.abstracts.Animal;
+import ru.javarush.ogarkov.island.entity.abstracts.BasicItem;
+import ru.javarush.ogarkov.island.services.AnimalWorker;
+import ru.javarush.ogarkov.island.settings.Items;
 import ru.javarush.ogarkov.island.settings.Setting;
 
 import java.util.Arrays;
@@ -11,10 +16,12 @@ import static ru.javarush.ogarkov.island.settings.Setting.*;
 // Локация, содержит массив территорий, отображает что/кто находится на территории и их количество, вычисляет лидера локации
 public class Location {
     public static Location model;
+    private Island island;
     private Territory[][] territories;
     private Territory leader;
-    public int xPosition;
-    public int yPosition;
+    private int xPosition;
+    private int yPosition;
+    private Controller controller;
 
     public static Location createModel() {
         model = new Location();
@@ -24,9 +31,11 @@ public class Location {
         return model;
     }
 
-    public Location(int xPosition, int yPosition) {
+    public Location(Island island, int xPosition, int yPosition, Controller controller) {
+        this.island = island;
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        this.controller = controller;
         initialize();
     }
 
@@ -35,6 +44,7 @@ public class Location {
     }
 
     public Territory getLeader() {
+        foundLeader();
         return leader;
     }
 
@@ -50,6 +60,14 @@ public class Location {
 
     public void initialize() {
         fillArea();
+    }
+
+    public int getXPosition() {
+        return xPosition;
+    }
+
+    public int getYPosition() {
+        return yPosition;
     }
 
     private static void initModel() {
@@ -74,8 +92,12 @@ public class Location {
         addMouseClickedAction();
     }
 
-    private void addMouseClickedAction() {
+    // TODO: 16.06.2022 убрать это из класса локейшн
+    public void addMouseClickedAction() {
+        leader = getLeader();
         leader.setOnMouseClicked(event -> {
+
+            // TODO: 15.06.2022 времянка
             for (int x = 0; x < LOCATION_WIDTH; x++) {
                 for (int y = 0; y < LOCATION_HEIGHT; y++) {
                     Territory currentTerritory = territories[x][y];
@@ -90,10 +112,19 @@ public class Location {
 
                 }
             }
-            Territory modelLeader = model.territories[leader.xPosition][leader.yPosition];
+            // TODO: 15.06.2022 времянка
+
+            Territory modelLeader = model.territories[leader.getXPosition()][leader.getYPosition()];
+            // TODO: 16.06.2022 что за статика тут
             Island.resetIslandColor();
+            BasicItem basicItem = leader.getPopulation()[0];
+            if (basicItem.getItem().is(Items.HERBIVORE) || basicItem.getItem().is(Items.CARNIVORE)) {
+                new AnimalWorker((Animal)basicItem).move();
+            }
             leader.setCellColor(Color.RED);
             modelLeader.setCellColor(Color.RED);
+            modelLeader.setCellImage(leader.getIcon());
+            controller.updateIslandField();
         });
     }
 
@@ -104,6 +135,10 @@ public class Location {
                 territories[x][y].clearPopulation();
             }
         }
+    }
+
+    public Island getIsland() {
+        return island;
     }
 
     public Territory[][] getTerritories() {

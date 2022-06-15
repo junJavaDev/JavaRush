@@ -8,6 +8,7 @@ import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import ru.javarush.ogarkov.island.entity.abstracts.BasicItem;
+import ru.javarush.ogarkov.island.entity.abstracts.CarnivoreAnimal;
 import ru.javarush.ogarkov.island.settings.Items;
 import ru.javarush.ogarkov.island.util.Randomizer;
 
@@ -21,8 +22,8 @@ public class Territory extends StackPane implements Comparable<Territory> {
     private Rectangle background;
     private Text text;
     private ImageView imageView;
-    public int xPosition;
-    public int yPosition;
+    private int xPosition;
+    private int yPosition;
     public final Location location;
     private BasicItem[] population;
 
@@ -57,7 +58,8 @@ public class Territory extends StackPane implements Comparable<Territory> {
         int amount = 1 + Randomizer.getInt(30);
         population = new BasicItem[amount];
         for (int i = 0; i < amount; i++) {
-            population[i] = Items.PLANT.createItem();
+            population[i] = Items.PLANT.getFactory().createItem();
+            population[i].setTerritory(this);
         }
     }
 
@@ -68,13 +70,15 @@ public class Territory extends StackPane implements Comparable<Territory> {
             int amount = 1 + Randomizer.getInt(5);
             population = new BasicItem[amount];
             for (int i = 0; i < amount; i++) {
-                population[i] = CARNIVORE.createItem();
+                population[i] = CARNIVORE.getFactory().createItem();
+                population[i].setTerritory(this);
             }
         } else if (isAnimal < 15) {
             int amount = 1 + Randomizer.getInt(5);
             population = new BasicItem[amount];
             for (int i = 0; i < amount; i++) {
-                population[i] = HERBIVORE.createItem();
+                population[i] = HERBIVORE.getFactory().createItem();
+                population[i].setTerritory(this);
             }
         }
 
@@ -128,6 +132,10 @@ public class Territory extends StackPane implements Comparable<Territory> {
         return population;
     }
 
+    public void setPopulation(BasicItem[] population) {
+        this.population = population;
+    }
+
     public void clearPopulation() {
         population = null;
     }
@@ -139,6 +147,20 @@ public class Territory extends StackPane implements Comparable<Territory> {
     public Image getIcon() {
         return getResident().getIcon();
     }
+
+    public int getXPosition() {
+        return xPosition;
+    }
+
+    public int getYPosition() {
+        return yPosition;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+
 
     @Override
     public int compareTo(Territory secondTerritory) {

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import ru.javarush.ogarkov.island.entity.Statistics;
 import ru.javarush.ogarkov.island.location.Island;
 import ru.javarush.ogarkov.island.location.Location;
 import ru.javarush.ogarkov.island.settings.Setting;
@@ -17,6 +18,7 @@ public class Main extends Application {
 
     private Island islandModel;
     private Location locationModel;
+    private Statistics statistics = new Statistics();
     private View view;
     private Controller controller;
 
@@ -31,9 +33,15 @@ public class Main extends Application {
     }
 
     public void createSimulation () {
+        locationModel = Location.createModel();
         view = new View();
-        controller = new Controller(this, islandModel, locationModel,  view);
+        statistics = new Statistics();
+        controller = new Controller(this, locationModel,  view, statistics);
+        Island.setController(controller);
+        islandModel = Island.createModel();
+        controller.setIslandModel(islandModel);
     }
+
 
     private void loadSimulationForm (Stage stage) throws IOException {
         // Загрузка формы simulationForm.fxml
