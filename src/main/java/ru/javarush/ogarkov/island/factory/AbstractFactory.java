@@ -5,13 +5,13 @@ import ru.javarush.ogarkov.island.settings.Items;
 import ru.javarush.ogarkov.island.util.Randomizer;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class AbstractFactory implements Factory {
-    public final AtomicInteger count = new AtomicInteger();
+    protected final AtomicLong count = new AtomicLong();
 
     @Override
-    public int getCreatedItemsCount() {
+    public long getCreatedItemsCount() {
         return count.get();
     }
 

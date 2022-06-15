@@ -7,6 +7,7 @@ import javafx.scene.text.Text;
 import ru.javarush.ogarkov.island.location.Island;
 import ru.javarush.ogarkov.island.location.Location;
 import ru.javarush.ogarkov.island.settings.Items;
+import ru.javarush.ogarkov.island.statictics.CarnivoreStatistics;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ public class Controller extends View {
     private final Location locationModel;
     private View view;
     private Main main;
+    CarnivoreStatistics carnivoreStatistics = new CarnivoreStatistics();
 
     public Controller(Main main, Island islandModel, Location locationModel, View view) {
         this.main = main;
@@ -26,6 +28,7 @@ public class Controller extends View {
         this.view = view;
     }
 
+    // TODO: 15.06.2022 Времянка 
     @FXML
     void initialize() {
         initIslandField(Island.createModel());

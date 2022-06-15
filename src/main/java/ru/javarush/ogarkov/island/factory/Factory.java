@@ -5,7 +5,7 @@ import ru.javarush.ogarkov.island.settings.Items;
 
 public interface Factory{
     BasicItem createItem(Items item);
-    int getCreatedItemsCount();
+    long getCreatedItemsCount();
 
 
 
