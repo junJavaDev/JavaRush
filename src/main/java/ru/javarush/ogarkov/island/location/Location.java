@@ -3,9 +3,9 @@ package ru.javarush.ogarkov.island.location;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import ru.javarush.ogarkov.island.Controller;
-import ru.javarush.ogarkov.island.entity.abstracts.Animal;
-import ru.javarush.ogarkov.island.entity.abstracts.BasicItem;
-import ru.javarush.ogarkov.island.services.AnimalWorker;
+import ru.javarush.ogarkov.island.entity.animals.Animal;
+import ru.javarush.ogarkov.island.entity.Item;
+import ru.javarush.ogarkov.island.services.ItemWorker;
 import ru.javarush.ogarkov.island.settings.Items;
 import ru.javarush.ogarkov.island.settings.Setting;
 
@@ -117,9 +117,9 @@ public class Location {
             Territory modelLeader = model.territories[leader.getXPosition()][leader.getYPosition()];
             // TODO: 16.06.2022 что за статика тут
             Island.resetIslandColor();
-            BasicItem basicItem = leader.getPopulation()[0];
-            if (basicItem.getItem().is(Items.HERBIVORE) || basicItem.getItem().is(Items.CARNIVORE)) {
-                new AnimalWorker((Animal)basicItem).move();
+            Item item = leader.getPopulation()[0];
+            if (item.getItem().is(Items.HERBIVORE) || item.getItem().is(Items.CARNIVORE)) {
+                new ItemWorker((Animal) item).move();
             }
             leader.setCellColor(Color.RED);
             modelLeader.setCellColor(Color.RED);

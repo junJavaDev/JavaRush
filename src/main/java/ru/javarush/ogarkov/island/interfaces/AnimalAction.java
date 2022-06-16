@@ -1,10 +1,10 @@
 package ru.javarush.ogarkov.island.interfaces;
 
-import ru.javarush.ogarkov.island.entity.abstracts.BasicItem;
+import ru.javarush.ogarkov.island.entity.Item;
 
 public interface AnimalAction {
 
-    void eat(BasicItem food);
+    void eat(Item food);
     void move();
     void reproduce();
 }

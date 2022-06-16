@@ -7,8 +7,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import ru.javarush.ogarkov.island.entity.abstracts.BasicItem;
-import ru.javarush.ogarkov.island.entity.abstracts.CarnivoreAnimal;
+import ru.javarush.ogarkov.island.entity.Item;
 import ru.javarush.ogarkov.island.settings.Items;
 import ru.javarush.ogarkov.island.util.Randomizer;
 
@@ -27,7 +26,7 @@ public class Territory extends StackPane implements Comparable<Territory> {
     public final Location location;
     // TODO: 16.06.2022 сделать листом вместо массива
     // TODO создать воркер?
-    private BasicItem[] population;
+    private Item[] population;
 
     public Territory(Location location, int xPosition, int yPosition) {
         this.location = location;
@@ -58,7 +57,7 @@ public class Territory extends StackPane implements Comparable<Territory> {
 
     public void fillByPlants() {
         int amount = 1 + Randomizer.getInt(30);
-        population = new BasicItem[amount];
+        population = new Item[amount];
         for (int i = 0; i < amount; i++) {
             population[i] = Items.PLANT.getFactory().createItem();
             population[i].setTerritory(this);
@@ -70,14 +69,14 @@ public class Territory extends StackPane implements Comparable<Territory> {
         int isAnimal = Randomizer.getInt(1000);
         if (isAnimal < 5) {
             int amount = 1 + Randomizer.getInt(5);
-            population = new BasicItem[amount];
+            population = new Item[amount];
             for (int i = 0; i < amount; i++) {
                 population[i] = CARNIVORE.getFactory().createItem();
                 population[i].setTerritory(this);
             }
         } else if (isAnimal < 15) {
             int amount = 1 + Randomizer.getInt(5);
-            population = new BasicItem[amount];
+            population = new Item[amount];
             for (int i = 0; i < amount; i++) {
                 population[i] = HERBIVORE.getFactory().createItem();
                 population[i].setTerritory(this);
@@ -130,11 +129,11 @@ public class Territory extends StackPane implements Comparable<Territory> {
         } else setCellColor(Color.OLIVEDRAB);
     }
 
-    public BasicItem[] getPopulation() {
+    public Item[] getPopulation() {
         return population;
     }
 
-    public void setPopulation(BasicItem[] population) {
+    public void setPopulation(Item[] population) {
         this.population = population;
     }
 
@@ -142,7 +141,7 @@ public class Territory extends StackPane implements Comparable<Territory> {
         population = null;
     }
 
-    public BasicItem getResident() {
+    public Item getResident() {
         return population[0];
     }
 

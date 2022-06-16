@@ -37,8 +37,8 @@ public class Controller extends View {
     // TODO: 15.06.2022 Времянка 
     @FXML
     void initialize() {
-//        initIslandField(islandModel);
-//        initLocationField(locationModel);
+        initIslandField(islandModel);
+        initLocationField(locationModel);
         System.out.println("Эта строка выведется при инициализации");
     }
 
@@ -46,26 +46,6 @@ public class Controller extends View {
     public void restart(ActionEvent actionEvent) {
         initIslandField(islandModel);
         initLocationField(locationModel);
-
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                // TODO: 16.06.2022 Перенести логику в сервисы, разобраться почему нет движухи
-//                while (true){
-//                       Sleeper.sleep(1000);
-//                    Platform.runLater(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                                islandModel.reload();
-//                                initIslandField(islandModel);
-//                            }
-//                    });
-//                }
-//
-//            }
-//        }).start();
-
     }
 
     public void updateIslandField() {
