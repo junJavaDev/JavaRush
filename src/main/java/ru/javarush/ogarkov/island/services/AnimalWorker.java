@@ -49,8 +49,16 @@ public class AnimalWorker implements AnimalAction {
         Territory currentTerritory = animal.getTerritory();
         int maxSpeed = animal.getMaxSpeed();
         List<Location> availableLocations = getAvailableLocations(currentTerritory, maxSpeed);
+        // TODO: 16.06.2022 Добавить логику выбора территории, по принципу самой слабой единицы,
+        //  добавить логику перемещения, если голоден и нет еды
+        //  добавить логику выбора локации по принципу где есть еда
         Location locationToMove = availableLocations.get(Randomizer.getInt(availableLocations.size()));
-        // TODO: 15.06.2022 закинуть логику передвижения в пул
+        if (locationToMove == currentTerritory.getLocation()) return;
+        // TODO: 15.06.2022 закинуть логику передвижения в пул обновление отображения в контроллёр
+        //  добавить логику выбрать другую локацию, если на той территории нет растений или почвы,
+        //  добавить логику перемещения к таким же итемам в их популяцию
+        //  установить максимум на клетку равный максимум на локацию / 16
+        //  уменьшить цветки
 
         locationToMove.getTerritories()[0][0].setPopulation(new BasicItem[]{animal});
         animal.setTerritory(locationToMove.getTerritories()[0][0]);
@@ -94,13 +102,11 @@ public class AnimalWorker implements AnimalAction {
         int maxXPosition = Math.min(currentXPosition + maxSpeed, Setting.ISLAND_WIDTH - 1);
         int minYPosition = Math.max(currentYPosition - maxSpeed, 0);
         int maxYPosition = Math.min(currentYPosition + maxSpeed, Setting.ISLAND_HEIGHT - 1);
-        for (int speed = 0; speed < maxSpeed; speed++) {
             for (int x = minXPosition; x <= maxXPosition; x++) {
                 for (int y = minYPosition; y <= maxYPosition; y++) {
                     availableLocations.add(islandLocations[x][y]);
                 }
             }
-        }
         return availableLocations;
     }
 

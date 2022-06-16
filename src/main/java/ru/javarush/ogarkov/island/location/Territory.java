@@ -25,6 +25,8 @@ public class Territory extends StackPane implements Comparable<Territory> {
     private int xPosition;
     private int yPosition;
     public final Location location;
+    // TODO: 16.06.2022 сделать листом вместо массива
+    // TODO создать воркер?
     private BasicItem[] population;
 
     public Territory(Location location, int xPosition, int yPosition) {
