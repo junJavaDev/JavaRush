@@ -3,6 +3,7 @@ package com.javarush.island.ogarkov;
 import com.javarush.island.ogarkov.entity.Statistics;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
+import com.javarush.island.ogarkov.services.OrganizmWorker;
 import com.javarush.island.ogarkov.services.StatisticsWorker;
 import com.javarush.island.ogarkov.settings.Items;
 import javafx.event.ActionEvent;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class Controller extends View {
 
-
+    public static Controller control;
     private final Statistics statistics;
     private Island islandModel;
 
@@ -27,9 +28,10 @@ public class Controller extends View {
     private View view;
     private Main main;
 
-    public Controller(Main main, Territory territoryModel, View view, Statistics statistics) {
+    public Controller(Main main, Island islandModel, Territory territoryModel, View view, Statistics statistics) {
         this.main = main;
         this.territoryModel = territoryModel;
+        this.islandModel = islandModel;
         this.view = view;
         this.statistics = statistics;
     }
@@ -37,15 +39,14 @@ public class Controller extends View {
     // TODO: 15.06.2022 Времянка 
     @FXML
     void initialize() {
-        initIslandField(islandModel);
         initLocationField(territoryModel);
+        initIslandField(islandModel);
         System.out.println("Эта строка выведется при инициализации");
     }
 
     @FXML
     public void restart(ActionEvent actionEvent) {
-        initIslandField(islandModel);
-        initLocationField(territoryModel);
+        new OrganizmWorker(islandModel).run();
     }
 
     public void updateIslandField() {

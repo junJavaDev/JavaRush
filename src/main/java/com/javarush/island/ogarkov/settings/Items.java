@@ -3,6 +3,7 @@ package com.javarush.island.ogarkov.settings;
 import com.javarush.island.ogarkov.repository.itemfactory.animals.carnivore.*;
 import com.javarush.island.ogarkov.repository.itemfactory.animals.herbivore.*;
 import com.javarush.island.ogarkov.repository.itemfactory.plant.*;
+import com.javarush.island.ogarkov.util.Randomizer;
 import javafx.scene.image.Image;
 import com.javarush.island.ogarkov.repository.itemfactory.Factory;
 import com.javarush.island.ogarkov.repository.itemfactory.animals.AnimalFactory;
@@ -116,7 +117,11 @@ public enum Items {
     }
 
     public boolean is(Items other) {
-        return this == other || this.parent == other;
+        boolean result = (this == other);
+        if (this.parent != null) {
+            result = (result || this.parent.is(other));
+        }
+        return result;
     }
 
     public boolean isNot(Items other) {
@@ -140,4 +145,16 @@ public enum Items {
             this.parent.children.add(this);
         }
     }
+
+    public Items getRandom() {
+        Items randomItem = this;
+        if (!randomItem.getChildren().isEmpty()) {
+            int randomItemIndex = Randomizer.getInt(getChildren().size());
+            randomItem = children.get(randomItemIndex).getRandom();
+        }
+        return randomItem;
+    }
+
+
+
 }

@@ -1,147 +1,108 @@
 package com.javarush.island.ogarkov.location;
 
-import com.javarush.island.ogarkov.entity.Item;
-import com.javarush.island.ogarkov.services.ItemWorker;
+import com.javarush.island.ogarkov.services.IslandUpdateWorker;
+import com.javarush.island.ogarkov.util.UpdateableTreeSet;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import com.javarush.island.ogarkov.Controller;
-import com.javarush.island.ogarkov.entity.animals.Animal;
-import com.javarush.island.ogarkov.settings.Items;
-import com.javarush.island.ogarkov.settings.Setting;
 
-import java.util.Arrays;
+import java.util.*;
 
 import static com.javarush.island.ogarkov.settings.Setting.*;
 
 // Локация, содержит массив территорий, отображает что/кто находится на территории и их количество, вычисляет лидера локации
 public class Territory {
     public static Territory model;
-    private Island island;
     private Cell[][] cells;
     private Cell leader;
-    private int xPosition;
-    private int yPosition;
+    private int row;
+    private int col;
     private Controller controller;
+    private Island island;
+    UpdateableTreeSet<Cell> sortedCells;
+    Set<Territory> neighbors;
+    private static IslandUpdateWorker islandUpdateWorker;
 
-    public static Territory createModel() {
-        model = new Territory();
-        model.clearLocation();
-        model.leader.setOnMouseClicked(null);
-        initModel();
-        return model;
+
+    public Set<Territory> getNeighbors() {
+        return neighbors;
     }
 
-    public Territory(Island island, int xPosition, int yPosition) {
-        this.island = island;
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
-        initialize();
+    public void setNeighbors(Set<Territory> neighbors) {
+        this.neighbors = neighbors;
+    }
+
+
+
+    public Territory(int row, int col) {
+        this.row = row;
+        this.col = col;
+        cells = new Cell[row][col];
+        sortedCells = new UpdateableTreeSet<>();
     }
 
     public Territory() {
-        initialize();
     }
 
     public Cell getLeader() {
-        foundLeader();
-        return leader;
+        return sortedCells.last();
     }
 
-    public void foundLeader() {
-        leader = Arrays.stream(cells)
-                .flatMap(Arrays::stream)
-                .max(Cell::compareTo).get();
-    }
 
-    public void setLeader(Cell leader) {
-        this.leader = leader;
-    }
 
-    public void initialize() {
-        fillArea();
-    }
-
-    public int getXPosition() {
-        return xPosition;
-    }
-
-    public int getYPosition() {
-        return yPosition;
-    }
-
-    private static void initModel() {
-        for (int x = 0; x < LOCATION_WIDTH; x++) {
-            for (int y = 0; y < LOCATION_HEIGHT; y++) {
-                Cell modelCell = model.getCells()[x][y];
-                modelCell.setCellColor(Color.LIGHTGREY);
-                modelCell.getCellBackground().setHeight(Setting.LOCATION_CELL_HEIGHT);
-                modelCell.addGrid(x, y, LOCATION_GRID_SIZE);
-            }
-        }
-    }
-
-    private void fillArea() {
-        cells = new Cell[LOCATION_WIDTH][LOCATION_HEIGHT];
-        for (int xPosition = 0; xPosition < LOCATION_WIDTH; xPosition++) {
-            for (int yPosition = 0; yPosition < LOCATION_HEIGHT; yPosition++) {
-                cells[xPosition][yPosition] = new Cell(this, xPosition, yPosition);
-            }
-        }
-        foundLeader();
-        addMouseClickedAction();
-    }
-
-    // TODO: 16.06.2022 убрать это из класса локейшн
+    // TODO: 16.06.2022 убрать это из класса территории
     public void addMouseClickedAction() {
+
         leader = getLeader();
         leader.setOnMouseClicked(event -> {
-
-            // TODO: 15.06.2022 времянка
-            for (int x = 0; x < LOCATION_WIDTH; x++) {
-                for (int y = 0; y < LOCATION_HEIGHT; y++) {
-                    Cell currentCell = cells[x][y];
-                    Cell modelCell = model.getCells()[x][y];
-                    modelCell.setCellColor(Color.LIGHTGREY);
-                    Image territoryIcon = currentCell.getResident().getIcon();
-//                    currentTerritory.setCellColor(Color.RED);
-                    modelCell.setCellImage(territoryIcon);
-
-//                    modelTerritory.setCellColor(Color.RED);
-                    modelCell.getText().setText(currentCell.getPopulation().length + "");
-
-                }
-            }
-            // TODO: 15.06.2022 времянка
-
-            Cell modelLeader = model.cells[leader.getXPosition()][leader.getYPosition()];
-            // TODO: 16.06.2022 что за статика тут
-            Island.resetIslandColor();
-            Item item = leader.getPopulation()[0];
-            if (item.getItem().is(Items.HERBIVORE) || item.getItem().is(Items.CARNIVORE)) {
-                new ItemWorker((Animal) item).move();
-            }
-            leader.setCellColor(Color.RED);
-            modelLeader.setCellColor(Color.RED);
-            modelLeader.setCellImage(leader.getIcon());
-            controller.updateIslandField();
+            changeTerritoryToView(this);
+            updateTerritoryModel(this);
+            Island.controller.updateIslandField();
         });
     }
 
-
-    public void clearLocation() {
-        for (int x = 0; x < LOCATION_WIDTH; x++) {
-            for (int y = 0; y < LOCATION_HEIGHT; y++) {
-                cells[x][y].clearPopulation();
-            }
-        }
+    public void changeTerritoryToView(Territory territory){
+        IslandUpdateWorker.setTerritoryToView(territory);
     }
 
-    public Island getIsland() {
-        return island;
+    public void updateTerritoryModel(Territory territory) {
+        for (int x = 0; x < TERRITORY_ROWS; x++) {
+            for (int y = 0; y < TERRITORY_COLS; y++) {
+                Cell currentCell = territory.cells[x][y];
+                Cell modelCell = model.getCells()[x][y];
+                modelCell.setCellColor(Color.LIGHTGREY);
+                Image territoryIcon = currentCell.getResident().getIcon();
+                modelCell.setCellImage(territoryIcon);
+                modelCell.getText().setText(currentCell.getPopulation().size() + "");
+            }
+        }
+        Cell modelLeader = model.cells[leader.getXPosition()][leader.getYPosition()];
+        leader = getLeader();
+        leader.setCellColor(Color.RED);
+//        leader.setCellImage(leader.getResident().getIcon());
+        modelLeader.setCellColor(Color.RED);
+        modelLeader.setCellImage(leader.getResident().getIcon());
+    }
+    public UpdateableTreeSet<Cell> getSortedCells() {
+        return sortedCells;
     }
 
     public Cell[][] getCells() {
         return cells;
+    }
+
+    public void setCell(int row, int col, Cell cell) {
+        cells[row][col] = cell;
+        sortedCells.add(cell);
+    }
+
+    public void updateSortedCells() {
+        sortedCells.clear();
+        for (int row = 0; row < TERRITORY_ROWS; row++) {
+            for (int col = 0; col < TERRITORY_COLS; col++) {
+                sortedCells.add(cells[row][col]);
+            }
+        }
     }
 
 }

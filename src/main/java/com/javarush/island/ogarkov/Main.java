@@ -3,6 +3,10 @@ package com.javarush.island.ogarkov;
 import com.javarush.island.ogarkov.entity.Statistics;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
+import com.javarush.island.ogarkov.repository.CellCreator;
+import com.javarush.island.ogarkov.repository.IslandCreator;
+import com.javarush.island.ogarkov.repository.TerritoryCreator;
+import com.javarush.island.ogarkov.services.SimulationWorker;
 import com.javarush.island.ogarkov.settings.Setting;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -30,15 +34,26 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         createSimulation();
         loadSimulationForm(stage);
+        SimulationWorker simulationWorker = new SimulationWorker(islandModel, controller);
+        simulationWorker.start();
     }
 
     public void createSimulation () {
-        territoryModel = Territory.createModel();
+        CellCreator cellCreator = new CellCreator();
+        TerritoryCreator territoryCreator = new TerritoryCreator(cellCreator);
+        IslandCreator islandCreator = new IslandCreator(territoryCreator);
+
+        territoryModel = territoryCreator.createTerritoryModel(Setting.TERRITORY_ROWS, Setting.TERRITORY_COLS);
+        Territory.model = territoryModel;
+        islandModel = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
+        Island.model = islandModel;
         view = new View();
         statistics = new Statistics();
-        controller = new Controller(this, territoryModel,  view, statistics);
+        controller = new Controller(this, islandModel, territoryModel,  view, statistics);
+        Controller.control = controller;
+
         Island.setController(controller);
-        islandModel = Island.createModel();
+//        islandModel = Island.createModel();
         controller.setIslandModel(islandModel);
     }
 
@@ -48,7 +63,7 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/simulationForm.fxml"));
         fxmlLoader.setController(controller);
         stage.getIcons().add(new Image((Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")))));
-        Scene scene = new Scene((Parent) fxmlLoader.load(), Setting.ISLAND_WIDTH_FORM, Setting.ISLAND_HEIGHT_FORM);
+        Scene scene = new Scene((Parent) fxmlLoader.load(), Setting.ISLAND_FORM_WIDTH, Setting.ISLAND_FORM_HEIGHT);
         stage.setTitle(Setting.SIMULATION_NAME);
         stage.setScene(scene);
         stage.show();

@@ -1,6 +1,6 @@
 package com.javarush.island.ogarkov.location;
 
-import com.javarush.island.ogarkov.entity.Item;
+import com.javarush.island.ogarkov.entity.Organizm;
 import com.javarush.island.ogarkov.util.Randomizer;
 import javafx.geometry.Pos;
 import javafx.scene.layout.StackPane;
@@ -11,30 +11,34 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import com.javarush.island.ogarkov.settings.Items;
 
-import static com.javarush.island.ogarkov.settings.Items.CARNIVORE;
-import static com.javarush.island.ogarkov.settings.Items.HERBIVORE;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
+
+import static com.javarush.island.ogarkov.settings.Items.*;
 import static com.javarush.island.ogarkov.settings.Setting.*;
 
 // Участок локации, ячейка
 public class Cell extends StackPane implements Comparable<Cell> {
 
+    private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
+
+    private final long id = idCounter.incrementAndGet();
     private Rectangle background;
     private Text text;
     private ImageView imageView;
-    private int xPosition;
-    private int yPosition;
-    public final Territory territory;
-    // TODO: 16.06.2022 сделать листом вместо массива
-    // TODO создать воркер?
-    private Item[] population;
+    private final int xPosition;
+    private final int yPosition;
+    public Territory territory;
+    private final Set<Organizm> population;
 
-    public Cell(Territory territory, int xPosition, int yPosition) {
-        this.territory = territory;
+    public Cell(int xPosition, int yPosition, Territory territory) {
         this.xPosition = xPosition;
         this.yPosition = yPosition;
+        this.territory = territory;
+        population = new HashSet<>();
         initialize();
-        fillByPlants();
-        fillByAnimals();
     }
 
     private void initialize() {
@@ -44,7 +48,7 @@ public class Cell extends StackPane implements Comparable<Cell> {
         getChildren().addAll(background, text, imageView);
         setAlignment(imageView, Pos.TOP_CENTER);
         setAlignment(text, Pos.BOTTOM_CENTER);
-        addGrid(xPosition, yPosition, LOCATION_GRID_SIZE);
+        addGrid(yPosition, xPosition, TERRITORY_GRID_SIZE);
         setCellColor(Color.LIGHTGREY);
     }
 
@@ -55,48 +59,14 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return cellBackground;
     }
 
-    public void fillByPlants() {
-        int amount = 1 + Randomizer.getInt(30);
-        population = new Item[amount];
-        for (int i = 0; i < amount; i++) {
-            population[i] = Items.PLANT.getFactory().createItem();
-            population[i].setTerritory(this);
-        }
+    public void addGrid(int row, int col, int gridSize) {
+        setLayoutX((col * (background.getWidth() + gridSize)));
+        setLayoutY((row * (background.getHeight() + gridSize)));
     }
 
-    // TODO: 14.06.2022 Времянка
-    public void fillByAnimals() {
-        int isAnimal = Randomizer.getInt(1000);
-        if (isAnimal < 5) {
-            int amount = 1 + Randomizer.getInt(5);
-            population = new Item[amount];
-            for (int i = 0; i < amount; i++) {
-                population[i] = CARNIVORE.getFactory().createItem();
-                population[i].setTerritory(this);
-            }
-        } else if (isAnimal < 15) {
-            int amount = 1 + Randomizer.getInt(5);
-            population = new Item[amount];
-            for (int i = 0; i < amount; i++) {
-                population[i] = HERBIVORE.getFactory().createItem();
-                population[i].setTerritory(this);
-            }
-        }
-
-    }
-
-    public void addGrid(int xPosition, int yPosition, int gridSize) {
-        setLayoutX((xPosition * (background.getWidth() + gridSize)));
-        setLayoutY((yPosition * (background.getHeight() + gridSize)));
-    }
-
-    public void addIslandGrid(int xPosition, int yPosition, int gridSize) {
-        setLayoutX((xPosition * (ISLAND_CELL_WIDTH + gridSize)));
-        setLayoutY((yPosition * (ISLAND_CELL_HEIGHT + gridSize)));
-    }
-
-    public void setText(String text) {
-        this.text.setText(text);
+    public void addIslandGrid(int row, int col, int gridSize) {
+        setLayoutX((col * (ISLAND_CELL_WIDTH + gridSize)));
+        setLayoutY((row * (ISLAND_CELL_HEIGHT + gridSize)));
     }
 
     public void setCellImage(Image image) {
@@ -111,10 +81,6 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return text;
     }
 
-    public ImageView getImageView() {
-        return imageView;
-    }
-
     public void setCellColor(Color color) {
         background.setFill(color);
     }
@@ -122,27 +88,18 @@ public class Cell extends StackPane implements Comparable<Cell> {
     public void setIslandCellColor() {
         Items item = getResident().getItem();
         if (item.is(Items.HERBIVORE)) {
-//            setCellColor(Color.BLANCHEDALMOND);
             setCellColor(Color.OLIVEDRAB);
         } else if (item.is(Items.CARNIVORE)) {
             setCellColor(Color.BLACK);
         } else setCellColor(Color.OLIVEDRAB);
     }
 
-    public Item[] getPopulation() {
+    public Set<Organizm> getPopulation() {
         return population;
     }
 
-    public void setPopulation(Item[] population) {
-        this.population = population;
-    }
-
-    public void clearPopulation() {
-        population = null;
-    }
-
-    public Item getResident() {
-        return population[0];
+    public Organizm getResident() {
+            return population.iterator().next();
     }
 
     public Image getIcon() {
@@ -157,15 +114,27 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return yPosition;
     }
 
-    public Territory getLocation() {
+    public Territory getTerritory() {
         return territory;
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cell cell = (Cell) o;
+        return id == cell.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     @Override
     public int compareTo(Cell secondCell) {
-
+        // TODO: 19.06.2022 Исправить
         int result = 0;
         Items firstItem = getResident().getItem();
         Items secondItem = secondCell.getResident().getItem();
@@ -178,12 +147,19 @@ public class Cell extends StackPane implements Comparable<Cell> {
             result = 1;
         } else if (firstItem.isNot(HERBIVORE) && secondItem.is(HERBIVORE)) {
             result = -1;
+        } else if (firstItem.is(PLANT) && secondItem.isNot(PLANT)) {
+            result = 1;
+        } else if (firstItem.isNot(PLANT) && secondItem.is(PLANT)) {
+            result = -1;
         }
 
         if (result == 0) {
-            double firstTerritoryWeight = firstItem.getWeight() * getPopulation().length;
-            double secondTerritoryWeight = secondItem.getWeight() * secondCell.getPopulation().length;
+            double firstTerritoryWeight = firstItem.getWeight() * getPopulation().size();
+            double secondTerritoryWeight = secondItem.getWeight() * secondCell.getPopulation().size();
             result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
+        }
+        if (result == 0) {
+            return Long.compare(id, secondCell.id);
         }
         return result;
     }

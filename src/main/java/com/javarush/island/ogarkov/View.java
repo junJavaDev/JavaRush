@@ -24,19 +24,19 @@ public class View {
 
     protected void initIslandField(Island model) {
         islandField.getChildren().clear();
-        islandField.setPrefWidth(ISLAND_WIDTH * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE));
-        islandField.setPrefHeight(ISLAND_HEIGHT * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE));
-        for (int x = 0; x < ISLAND_WIDTH; x++) {
-            for (int y = 0; y < ISLAND_HEIGHT; y++) {
-                islandField.getChildren().add(model.getLocations()[x][y].getLeader());
+        islandField.setPrefHeight(ISLAND_ROWS * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE));
+        islandField.setPrefWidth(ISLAND_COLS * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE));
+        for (int row = 0; row < ISLAND_ROWS; row++) {
+            for (int col = 0; col < ISLAND_COLS; col++) {
+                islandField.getChildren().add(model.getTerritories()[row][col].getLeader());
             }
         }
     }
 
     protected void initLocationField(Territory model) {
         locationField.getChildren().clear();
-        for (int x = 0; x < Setting.LOCATION_WIDTH; x++) {
-            for (int y = 0; y < Setting.LOCATION_HEIGHT; y++) {
+        for (int x = 0; x < TERRITORY_ROWS; x++) {
+            for (int y = 0; y < Setting.TERRITORY_COLS; y++) {
                 locationField.getChildren().add(model.getCells()[x][y]);
             }
         }
