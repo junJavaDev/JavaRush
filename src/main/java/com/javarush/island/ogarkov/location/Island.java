@@ -24,8 +24,8 @@ public class Island {
                 territories[x][y].updateSortedCells();
                 territories[x][y].addMouseClickedAction();
                 Cell leader = territories[x][y].getLeader();
-                leader.setCellImage(leader.getResident().getIcon());
                 leader.addIslandGrid(x, y, ISLAND_GRID_SIZE);
+                leader.setCellImage(leader.getResident().getIcon());
                 leader.setIslandCellColor();
             }
         }

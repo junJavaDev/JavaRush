@@ -3,7 +3,7 @@ package com.javarush.island.ogarkov;
 import com.javarush.island.ogarkov.entity.Statistics;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
-import com.javarush.island.ogarkov.services.OrganizmWorker;
+import com.javarush.island.ogarkov.services.OrganismWorker;
 import com.javarush.island.ogarkov.services.StatisticsWorker;
 import com.javarush.island.ogarkov.settings.Items;
 import javafx.event.ActionEvent;
@@ -46,12 +46,12 @@ public class Controller extends View {
 
     @FXML
     public void restart(ActionEvent actionEvent) {
-        new OrganizmWorker(islandModel).run();
+        new OrganismWorker(islandModel).run();
     }
 
     public void updateIslandField() {
         islandModel.reload();
-        initIslandField(islandModel);
+        updateIslandFiels(islandModel);
     }
 
 

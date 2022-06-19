@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.settings.Items;
 
-public abstract class Organizm {
+public abstract class Organism {
     public Items getItem() {
         return item;
     }
@@ -16,7 +16,7 @@ public abstract class Organizm {
     protected final int maxPerLocation;
     protected Cell cell;
 
-    public Organizm() {
+    public Organism() {
         item = Items.valueOf(getClass().getSimpleName().toUpperCase());
         icon = item.getIcon();
         weight = item.getWeight();
@@ -24,7 +24,7 @@ public abstract class Organizm {
         name = item.getName();
     }
 
-    public Organizm terminated() {
+    public Organism terminated() {
         System.out.println("умирает (от голода или съедено)");
         return Items.LANDFORM.getFactory().createItem();
     }

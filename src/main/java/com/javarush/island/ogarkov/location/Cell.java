@@ -1,15 +1,14 @@
 package com.javarush.island.ogarkov.location;
 
-import com.javarush.island.ogarkov.entity.Organizm;
-import com.javarush.island.ogarkov.util.Randomizer;
+import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.settings.Items;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
-import com.javarush.island.ogarkov.settings.Items;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,17 +20,18 @@ import static com.javarush.island.ogarkov.settings.Setting.*;
 
 // Участок локации, ячейка
 public class Cell extends StackPane implements Comparable<Cell> {
-
+    private static final Object lock = new Object();
     private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
 
-    private final long id = idCounter.incrementAndGet();
+    private final long cellId = idCounter.incrementAndGet();
     private Rectangle background;
     private Text text;
     private ImageView imageView;
     private final int xPosition;
     private final int yPosition;
     public Territory territory;
-    private final Set<Organizm> population;
+    private Set<Organism> population;
+    private Organism resident;
 
     public Cell(int xPosition, int yPosition, Territory territory) {
         this.xPosition = xPosition;
@@ -48,8 +48,8 @@ public class Cell extends StackPane implements Comparable<Cell> {
         getChildren().addAll(background, text, imageView);
         setAlignment(imageView, Pos.TOP_CENTER);
         setAlignment(text, Pos.BOTTOM_CENTER);
-        addGrid(yPosition, xPosition, TERRITORY_GRID_SIZE);
-        setCellColor(Color.LIGHTGREY);
+        addIslandGrid(yPosition, xPosition, ISLAND_GRID_SIZE);
+        setCellColor(Color.TRANSPARENT);
     }
 
     private Rectangle createBackground() {
@@ -85,21 +85,29 @@ public class Cell extends StackPane implements Comparable<Cell> {
         background.setFill(color);
     }
 
+    public void setPopulation(Set<Organism> population) {
+        this.population = population;
+    }
+
     public void setIslandCellColor() {
         Items item = getResident().getItem();
-        if (item.is(Items.HERBIVORE)) {
+        if (item.is(HERBIVORE)) {
             setCellColor(Color.OLIVEDRAB);
-        } else if (item.is(Items.CARNIVORE)) {
+        } else if (item.is(CARNIVORE)) {
             setCellColor(Color.BLACK);
         } else setCellColor(Color.OLIVEDRAB);
     }
 
-    public Set<Organizm> getPopulation() {
+    public Set<Organism> getPopulation() {
         return population;
     }
 
-    public Organizm getResident() {
-            return population.iterator().next();
+    public void setCellBackground(Rectangle background) {
+        this.background = background;
+    }
+
+    public Organism getResident() {
+        return resident;
     }
 
     public Image getIcon() {
@@ -110,6 +118,10 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return xPosition;
     }
 
+    public long getCellId() {
+        return cellId;
+    }
+
     public int getYPosition() {
         return yPosition;
     }
@@ -118,24 +130,41 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return territory;
     }
 
+    public void setText(Text text) {
+        this.text = text;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Cell cell = (Cell) o;
-        return id == cell.id;
+        return cellId == cell.cellId;
+    }
+
+    public void setResident(Organism resident) {
+        this.resident = resident;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(cellId);
     }
 
     @Override
     public int compareTo(Cell secondCell) {
         // TODO: 19.06.2022 Исправить
         int result = 0;
+        if (getResident() == null) {
+            return -1;
+        } else if (secondCell.getResident() == null) {
+            return 1;
+        }
+
         Items firstItem = getResident().getItem();
         Items secondItem = secondCell.getResident().getItem();
 
@@ -159,7 +188,7 @@ public class Cell extends StackPane implements Comparable<Cell> {
             result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
         }
         if (result == 0) {
-            return Long.compare(id, secondCell.id);
+            return Long.compare(cellId, secondCell.cellId);
         }
         return result;
     }

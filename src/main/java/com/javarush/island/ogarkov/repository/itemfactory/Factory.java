@@ -1,9 +1,9 @@
 package com.javarush.island.ogarkov.repository.itemfactory;
 
-import com.javarush.island.ogarkov.entity.Organizm;
+import com.javarush.island.ogarkov.entity.Organism;
 
 public interface Factory{
-    Organizm createItem();
+    Organism createItem();
 
     void addCreatedItem();
     long getCreatedItemsCount();

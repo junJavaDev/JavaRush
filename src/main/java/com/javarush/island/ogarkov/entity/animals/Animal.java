@@ -1,7 +1,6 @@
 package com.javarush.island.ogarkov.entity.animals;
 
-import com.javarush.island.ogarkov.entity.Organizm;
-import com.javarush.island.ogarkov.entity.landform.Plain;
+import com.javarush.island.ogarkov.entity.Organism;
 import com.javarush.island.ogarkov.interfaces.AnimalAction;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Territory;
@@ -9,13 +8,11 @@ import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.settings.Setting;
 import com.javarush.island.ogarkov.util.Randomizer;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class Animal extends Organizm implements AnimalAction {
+public abstract class Animal extends Organism implements AnimalAction {
 
     protected final double foodPerSatiation;
     protected double satiety;
@@ -30,7 +27,7 @@ public abstract class Animal extends Organizm implements AnimalAction {
     }
 
     @Override
-    public void eat(Organizm food) {
+    public void eat(Organism food) {
         if (isEdible(food)) {
             if (isHungry()) {
                 System.out.println(this.getClass().getSimpleName() + " пытается съесть " + food.getClass().getSimpleName());
@@ -52,9 +49,16 @@ public abstract class Animal extends Organizm implements AnimalAction {
         int maxSpeed = item.getMaxSpeed();
         Territory currentTerritory = cellFrom.getTerritory();
         Set<Territory> neighboors = currentTerritory.getNeighbors();
+
+
+
+
+
+
+
 //        System.out.println("CURRENT = " + currentTerritory);
         Territory[] neighboorsArray = neighboors.toArray(Territory[]::new);
-        int neighboorIndex = Randomizer.getInt(neighboorsArray.length);
+        int neighboorIndex = Randomizer.getIntOriginOne(neighboorsArray.length);
         Territory neighboor = neighboorsArray[neighboorIndex];
 
 //        neighboors.forEach(System.out::println);
@@ -62,28 +66,42 @@ public abstract class Animal extends Organizm implements AnimalAction {
 
 //            if (getItem().getEatingProbability().containsKey(sortedCell.getResident().getItem())) {
 
-            for (Cell sortedCell : neighboor.getSortedCells()) {
-//                System.out.println("this item = " + this.item);
-//                System.out.println(sortedCell.getResident().getItem());
-                if (this.item.is(sortedCell.getResident().getItem())) {
-                    sortedCell.getPopulation().add(this);
-                    neighboor.getSortedCells().update(sortedCell);
-                    return neighboor;
+//            for (Cell sortedCell : neighboor.getSortedCells()) {
+//                if (this.item.is(sortedCell.getResident().getItem())) {
+//                    sortedCell.getPopulation().add(this);
+//                    neighboor.getSortedCells().update(sortedCell);
+//                    sortedCell.getPopulation().remove(this);
+//                    if (sortedCell.getPopulation().isEmpty()) {
+//                        Plain plain = new Plain();
+//                        sortedCell.getPopulation().add(plain);
+//                        sortedCell.setResident(plain);
 //                    }
-                }
-            }
-            for (Cell sortedCell : neighboor.getSortedCells()) {
-                if (getItem().getEatingProbability().containsKey(sortedCell.getResident().getItem())) {
-
-                    Cell cellDestination = neighboor.getSortedCells().first();
-                    if (cellDestination.getResident().getItem().isNot(Items.ANIMAL)) {
-                        // TODO: 19.06.2022 Переделать на terminated
-                        cellDestination.getPopulation().clear();
-                        cellDestination.getPopulation().add(this);
-                        neighboor.getSortedCells().update(cellDestination);
-                        return neighboor;
-                    } else return currentTerritory;
-                }
+//                    return neighboor;
+////                    }
+//                }
+//            }
+//            for (Cell sortedCell : neighboor.getSortedCells()) {
+//                if (getItem().getEatingProbability().containsKey(sortedCell.getResident().getItem())) {
+//
+//                    Cell cellDestination = neighboor.getSortedCells().first();
+//                    if (cellDestination.getResident().getItem().isNot(Items.ANIMAL)) {
+//                        // TODO: 19.06.2022 Переделать на terminated, добавить обновление
+//                        Set<Organism> newPopulation = new RemoveableSet<>();
+//                        newPopulation.add(this);
+//                        cellDestination.setPopulation(newPopulation);
+////                        cellDestination.getPopulation().clear();
+//                        sortedCell.setResident(this);
+//                        sortedCell.getPopulation().remove(this);
+//                        if (sortedCell.getPopulation().isEmpty()) {
+//                            Plain plain = new Plain();
+//                            sortedCell.getPopulation().add(plain);
+//                            sortedCell.setResident(plain);
+//                        }
+//                        neighboor.getSortedCells().update(cellDestination);
+//                        return neighboor;
+//                    } else return currentTerritory;
+//                }
+        return currentTerritory;
             }
 //        }
 
@@ -97,8 +115,8 @@ public abstract class Animal extends Organizm implements AnimalAction {
         //  установить максимум на клетку равный максимум на локацию / 16
         //  уменьшить цветки
 
-        return cellFrom.getTerritory();
-    }
+//        return cellFrom.getTerritory();
+//    }
 
     @Override
     public void reproduce() {
@@ -106,7 +124,7 @@ public abstract class Animal extends Organizm implements AnimalAction {
     }
 
 
-    private boolean canEat(Organizm food) {
+    private boolean canEat(Organism food) {
         ThreadLocalRandom localRandom = ThreadLocalRandom.current();
         int chance = localRandom.nextInt(100);
         Map<Items, Integer> eatingPropabilities = item.getEatingProbability();
@@ -114,7 +132,7 @@ public abstract class Animal extends Organizm implements AnimalAction {
         return chance < propability;
     }
 
-    private boolean isEdible(Organizm food) {
+    private boolean isEdible(Organism food) {
         return item.getEatingProbability().containsKey(food.getItem());
     }
 

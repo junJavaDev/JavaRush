@@ -13,7 +13,7 @@ public abstract class AbstractFactory implements Factory{
         if (!parent.getChildren().isEmpty()) {
             List<Items> children = parent.getChildren();
             int childrenCount = children.size();
-            int randomChildIndex = Randomizer.getInt(childrenCount);
+            int randomChildIndex = Randomizer.getIntOriginOne(childrenCount);
             return children.get(randomChildIndex).getFactory();
         } else return parent.getFactory();
     }

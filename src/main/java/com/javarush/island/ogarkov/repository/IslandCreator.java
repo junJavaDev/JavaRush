@@ -57,11 +57,8 @@ public class IslandCreator {
                         }
                     }
                 }
-//                System.out.print("territory = " + territory);
-//                System.out.println("neighbors = " + neighbors);
                 territory.setNeighbors(neighbors);
             }
         }
     }
-
 }

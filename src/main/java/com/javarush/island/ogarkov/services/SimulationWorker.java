@@ -2,8 +2,6 @@ package com.javarush.island.ogarkov.services;
 
 import com.javarush.island.ogarkov.Controller;
 import com.javarush.island.ogarkov.location.Island;
-import com.javarush.island.ogarkov.location.Territory;
-import javafx.application.Platform;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,10 +22,15 @@ public class SimulationWorker extends Thread{
         ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
         mainPool.scheduleAtFixedRate(() -> {
             ExecutorService servicePool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-            servicePool.submit(new OrganizmWorker(island));
-//            servicePool.submit(new Worker(controller, island));
+            servicePool.submit(new OrganismWorker(island));
+            servicePool.submit(new OrganismWorker(island));
+            servicePool.submit(new OrganismWorker(island));
+            servicePool.submit(new OrganismWorker(island));
+            servicePool.submit(new OrganismWorker(island));
+            servicePool.submit(new OrganismWorker(island));
+            servicePool.submit(new IslandUpdateWorker(island, controller));
             servicePool.shutdown();
-        },1000, 400, TimeUnit.MILLISECONDS );
+        },1000, 50, TimeUnit.MILLISECONDS );
 
     }
 
