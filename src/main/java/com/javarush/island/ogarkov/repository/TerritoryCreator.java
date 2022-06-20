@@ -1,9 +1,13 @@
 package com.javarush.island.ogarkov.repository;
 
 import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Territory;
+import com.javarush.island.ogarkov.services.UpdateViewWorker;
 import com.javarush.island.ogarkov.settings.Items;
+import com.javarush.island.ogarkov.settings.Setting;
 import com.javarush.island.ogarkov.util.Randomizer;
+import javafx.scene.paint.Color;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -13,24 +17,21 @@ import static com.javarush.island.ogarkov.settings.Setting.*;
 
 public class TerritoryCreator {
 
-    CellCreator cellCreator;
-
-    public TerritoryCreator(CellCreator cellCreator) {
-        this.cellCreator = cellCreator;
-    }
-
     public Territory createTerritory(int rows, int cols) {
         Territory territory = new Territory(rows, cols);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                var cell = cellCreator.createCell(row, col, territory);
+                var population = getRandomPopulation();
+                var cell = new Cell(row, col, territory);
+                cell.setPopulation(population);
+                cell.setResident(population.iterator().next());
+                cell.setOnMouseClicked(event -> {
+                    UpdateViewWorker.setTerritoryToView(territory);
+                });
                 territory.setCell(row, col, cell);
-                territory.getCells().put(cell, getRandomPopulation());
-                cell.setResident(territory.getCells().get(cell).iterator().next());
+                territory.getCellsPopulation().put(cell, population);
             }
         }
-//        territory.getLeader();
-        territory.addMouseClickedAction();
         return territory;
     }
 
@@ -38,9 +39,12 @@ public class TerritoryCreator {
         Territory model = new Territory(rows, cols);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                var cell = cellCreator.createTerritoryModelCell(row, col, model);
+                var cell = new Cell(row, col, model);
+                cell.setCellColor(Color.LIGHTGREY);
+                cell.getCellBackground().setHeight(Setting.TERRITORY_CELL_HEIGHT);
+                cell.addGrid(col, row, TERRITORY_GRID_SIZE);
                 model.setCell(row, col, cell);
-                model.getCells().put(cell, getLandform());
+                model.getCellsPopulation().put(cell, getLandform());
             }
         }
         return model;
@@ -75,6 +79,4 @@ public class TerritoryCreator {
         landformPopulation.add(resident);
         return landformPopulation;
     }
-
-
 }

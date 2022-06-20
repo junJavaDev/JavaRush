@@ -36,7 +36,7 @@ public class IslandCreator {
         leader.setCellImage(leader.getIcon());
         leader.setLayoutX((col * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE)));
         leader.setLayoutY((row * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE)));
-        leader.setIslandCellColor();
+        leader.setLeaderColor();
     }
 
     private void fillNeighbors(Island island) {
@@ -57,7 +57,7 @@ public class IslandCreator {
                         }
                     }
                 }
-                territory.setNeighbors(neighbors);
+                territory.setNeighbors(neighbors.toArray(Territory[]::new));
             }
         }
     }

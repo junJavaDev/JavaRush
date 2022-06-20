@@ -39,7 +39,7 @@ public class Controller extends View {
     // TODO: 15.06.2022 Времянка 
     @FXML
     void initialize() {
-        initLocationField(territoryModel);
+        updateTerritoryArea(territoryModel);
         initIslandField(islandModel);
         System.out.println("Эта строка выведется при инициализации");
     }
@@ -49,9 +49,12 @@ public class Controller extends View {
         new OrganismWorker(islandModel).run();
     }
 
-    public void updateIslandField() {
-        islandModel.reload();
-        updateIslandFiels(islandModel);
+    public void updateIslandAreaView() {
+        updateIslandArea(islandModel);
+    }
+
+    public void updateTerritoryAreaView() {
+        updateTerritoryArea(territoryModel);
     }
 
 

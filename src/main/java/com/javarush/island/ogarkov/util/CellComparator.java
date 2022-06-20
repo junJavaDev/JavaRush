@@ -38,11 +38,11 @@ public class CellComparator {
                 double secondTerritoryWeight = secondItem.getWeight() * populationSecond.size();
                 result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
             }
-            if (result == 0) {
-                var firstCell = first.getKey();
-                var secondCell = second.getKey();
-                return Long.compare(firstCell.getCellId(), secondCell.getCellId());
-            }
+//            if (result == 0) {
+//                var firstCell = first.getKey();
+//                var secondCell = second.getKey();
+//                return Long.compare(firstCell.getCellId(), secondCell.getCellId());
+//            }
             return result;
         };
 

@@ -9,7 +9,6 @@ import com.javarush.island.ogarkov.settings.Setting;
 import com.javarush.island.ogarkov.util.Randomizer;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 public abstract class Animal extends Organism implements AnimalAction {
@@ -48,33 +47,22 @@ public abstract class Animal extends Organism implements AnimalAction {
     public Territory move(Cell cellFrom) {
         int maxSpeed = item.getMaxSpeed();
         Territory currentTerritory = cellFrom.getTerritory();
-        Set<Territory> neighboors = currentTerritory.getNeighbors();
+        Territory[] neighbors = currentTerritory.getNeighbors();
+        int neighboorIndex = Randomizer.getInt(neighbors.length);
+        Territory neighbor = neighbors[neighboorIndex];
 
-
-
-
-
-
-
-//        System.out.println("CURRENT = " + currentTerritory);
-        Territory[] neighboorsArray = neighboors.toArray(Territory[]::new);
-        int neighboorIndex = Randomizer.getIntOriginOne(neighboorsArray.length);
-        Territory neighboor = neighboorsArray[neighboorIndex];
-
-//        neighboors.forEach(System.out::println);
-//        for (Territory neighboor : neighboors) {
+//        for (Territory neighbor : neighbors) {
 
 //            if (getItem().getEatingProbability().containsKey(sortedCell.getResident().getItem())) {
 
-//            for (Cell sortedCell : neighboor.getSortedCells()) {
-//                if (this.item.is(sortedCell.getResident().getItem())) {
-//                    sortedCell.getPopulation().add(this);
-//                    neighboor.getSortedCells().update(sortedCell);
-//                    sortedCell.getPopulation().remove(this);
+//            for (Cell cell : neighbor.getCells().keySet()) {
+//                if (this.item.is(cell.getResident().getItem())) {
+//                    cell.getPopulation().add(this);
+//                    cell.getPopulation().remove(this);
 //                    if (sortedCell.getPopulation().isEmpty()) {
 //                        Plain plain = new Plain();
-//                        sortedCell.getPopulation().add(plain);
-//                        sortedCell.setResident(plain);
+//                        cell.getPopulation().add(plain);
+//                        cell.setResident(plain);
 //                    }
 //                    return neighboor;
 ////                    }

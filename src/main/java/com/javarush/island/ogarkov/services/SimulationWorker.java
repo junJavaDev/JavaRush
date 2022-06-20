@@ -2,6 +2,7 @@ package com.javarush.island.ogarkov.services;
 
 import com.javarush.island.ogarkov.Controller;
 import com.javarush.island.ogarkov.location.Island;
+import com.javarush.island.ogarkov.location.Territory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,9 +12,11 @@ import java.util.concurrent.TimeUnit;
 public class SimulationWorker extends Thread{
     private final Island island;
     private final Controller controller;
+    private final Territory territoryModel;
 
-    public SimulationWorker(Island island, Controller controller) {
+    public SimulationWorker(Island island, Territory territoryModel, Controller controller) {
         this.island = island;
+        this.territoryModel = territoryModel;
         this.controller = controller;
     }
 
@@ -21,16 +24,12 @@ public class SimulationWorker extends Thread{
     public void run() {
         ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
         mainPool.scheduleAtFixedRate(() -> {
-            ExecutorService servicePool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            ExecutorService servicePool = Executors.newFixedThreadPool(3);
             servicePool.submit(new OrganismWorker(island));
             servicePool.submit(new OrganismWorker(island));
-            servicePool.submit(new OrganismWorker(island));
-            servicePool.submit(new OrganismWorker(island));
-            servicePool.submit(new OrganismWorker(island));
-            servicePool.submit(new OrganismWorker(island));
-            servicePool.submit(new IslandUpdateWorker(island, controller));
+            servicePool.submit(new UpdateViewWorker(island, territoryModel, controller));
             servicePool.shutdown();
-        },1000, 50, TimeUnit.MILLISECONDS );
+        },1000, 100, TimeUnit.MILLISECONDS );
 
     }
 

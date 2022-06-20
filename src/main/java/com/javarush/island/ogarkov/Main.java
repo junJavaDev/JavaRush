@@ -3,7 +3,6 @@ package com.javarush.island.ogarkov;
 import com.javarush.island.ogarkov.entity.Statistics;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
-import com.javarush.island.ogarkov.repository.CellCreator;
 import com.javarush.island.ogarkov.repository.IslandCreator;
 import com.javarush.island.ogarkov.repository.TerritoryCreator;
 import com.javarush.island.ogarkov.services.SimulationWorker;
@@ -34,17 +33,16 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         createSimulation();
         loadSimulationForm(stage);
-        SimulationWorker simulationWorker = new SimulationWorker(islandModel, controller);
+        SimulationWorker simulationWorker = new SimulationWorker(islandModel, territoryModel, controller);
         simulationWorker.start();
     }
 
     public void createSimulation () {
-        CellCreator cellCreator = new CellCreator();
-        TerritoryCreator territoryCreator = new TerritoryCreator(cellCreator);
+        TerritoryCreator territoryCreator = new TerritoryCreator();
         IslandCreator islandCreator = new IslandCreator(territoryCreator);
 
         territoryModel = territoryCreator.createTerritoryModel(Setting.TERRITORY_ROWS, Setting.TERRITORY_COLS);
-        Territory.model = territoryModel;
+        Territory.modelView = territoryModel;
         islandModel = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
         Island.model = islandModel;
         view = new View();

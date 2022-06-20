@@ -10,45 +10,45 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-import static com.javarush.island.ogarkov.settings.Items.*;
+import static com.javarush.island.ogarkov.settings.Items.CARNIVORE;
+import static com.javarush.island.ogarkov.settings.Items.HERBIVORE;
 import static com.javarush.island.ogarkov.settings.Setting.*;
 
 // Участок локации, ячейка
-public class Cell extends StackPane implements Comparable<Cell> {
-    private static final Object lock = new Object();
-    private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
+public class Cell extends StackPane {
+//    private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
 
-    private final long cellId = idCounter.incrementAndGet();
+//    private final long cellId = idCounter.incrementAndGet();
+
+    private final Lock lock = new ReentrantLock(true);
     private Rectangle background;
-    private Text text;
+    private Text quantity;
     private ImageView imageView;
-    private final int xPosition;
-    private final int yPosition;
     public Territory territory;
+    private final int territoryRow;
+    private final int territoryCell;
     private Set<Organism> population;
     private Organism resident;
 
-    public Cell(int xPosition, int yPosition, Territory territory) {
-        this.xPosition = xPosition;
-        this.yPosition = yPosition;
+    public Cell(int territoryRow, int territoryCell, Territory territory) {
+        this.territoryRow = territoryRow;
+        this.territoryCell = territoryCell;
         this.territory = territory;
-        population = new HashSet<>();
-        initialize();
+        initView();
     }
 
-    private void initialize() {
+    private void initView() {
         background = createBackground();
-        text = new Text();
+        quantity = new Text();
         imageView = new ImageView();
-        getChildren().addAll(background, text, imageView);
+        getChildren().addAll(background, quantity, imageView);
         setAlignment(imageView, Pos.TOP_CENTER);
-        setAlignment(text, Pos.BOTTOM_CENTER);
-        addIslandGrid(yPosition, xPosition, ISLAND_GRID_SIZE);
+        setAlignment(quantity, Pos.BOTTOM_CENTER);
+        addIslandGrid(territoryCell, territoryRow, ISLAND_GRID_SIZE);
         setCellColor(Color.TRANSPARENT);
     }
 
@@ -69,6 +69,9 @@ public class Cell extends StackPane implements Comparable<Cell> {
         setLayoutY((row * (ISLAND_CELL_HEIGHT + gridSize)));
     }
 
+
+    
+    
     public void setCellImage(Image image) {
         imageView.setImage(image);
     }
@@ -77,8 +80,8 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return background;
     }
 
-    public Text getText() {
-        return text;
+    public Text getQuantity() {
+        return quantity;
     }
 
     public void setCellColor(Color color) {
@@ -89,7 +92,7 @@ public class Cell extends StackPane implements Comparable<Cell> {
         this.population = population;
     }
 
-    public void setIslandCellColor() {
+    public void setLeaderColor() {
         Items item = getResident().getItem();
         if (item.is(HERBIVORE)) {
             setCellColor(Color.OLIVEDRAB);
@@ -114,82 +117,27 @@ public class Cell extends StackPane implements Comparable<Cell> {
         return getResident().getIcon();
     }
 
-    public int getXPosition() {
-        return xPosition;
+    public int getTerritoryRow() {
+        return territoryRow;
     }
 
-    public long getCellId() {
-        return cellId;
-    }
-
-    public int getYPosition() {
-        return yPosition;
+    public int getTerritoryCell() {
+        return territoryCell;
     }
 
     public Territory getTerritory() {
         return territory;
     }
 
-    public void setText(Text text) {
-        this.text = text;
+    public void setQuantity(String newQuantity) {
+        quantity.setText(newQuantity);
     }
 
     public void setImageView(ImageView imageView) {
         this.imageView = imageView;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Cell cell = (Cell) o;
-        return cellId == cell.cellId;
-    }
-
     public void setResident(Organism resident) {
         this.resident = resident;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(cellId);
-    }
-
-    @Override
-    public int compareTo(Cell secondCell) {
-        // TODO: 19.06.2022 Исправить
-        int result = 0;
-        if (getResident() == null) {
-            return -1;
-        } else if (secondCell.getResident() == null) {
-            return 1;
-        }
-
-        Items firstItem = getResident().getItem();
-        Items secondItem = secondCell.getResident().getItem();
-
-        if (firstItem.is(CARNIVORE) && secondItem.isNot(CARNIVORE)) {
-            result = 1;
-        } else if (firstItem.isNot(CARNIVORE) && secondItem.is(CARNIVORE)) {
-            result = -1;
-        } else if (firstItem.is(HERBIVORE) && secondItem.isNot(HERBIVORE)) {
-            result = 1;
-        } else if (firstItem.isNot(HERBIVORE) && secondItem.is(HERBIVORE)) {
-            result = -1;
-        } else if (firstItem.is(PLANT) && secondItem.isNot(PLANT)) {
-            result = 1;
-        } else if (firstItem.isNot(PLANT) && secondItem.is(PLANT)) {
-            result = -1;
-        }
-
-        if (result == 0) {
-            double firstTerritoryWeight = firstItem.getWeight() * getPopulation().size();
-            double secondTerritoryWeight = secondItem.getWeight() * secondCell.getPopulation().size();
-            result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
-        }
-        if (result == 0) {
-            return Long.compare(cellId, secondCell.cellId);
-        }
-        return result;
     }
 }

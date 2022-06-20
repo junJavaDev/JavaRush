@@ -7,7 +7,6 @@ import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
-import javafx.application.Platform;
 
 import java.util.Set;
 
@@ -27,7 +26,7 @@ public class OrganismWorker implements Runnable{
         for (int row = 0; row < ISLAND_ROWS; row++) {
             for (int col = 0; col < ISLAND_COLS; col++) {
                 Territory currentTerritory = island.getTerritories()[row][col];
-                Cell[][] cells = currentTerritory.getOldCells();
+                Cell[][] cells = currentTerritory.getCells();
 
                 for (int cellRow = 0; cellRow < cells.length; cellRow++) {
                     for (int cellCol = 0; cellCol < cells.length; cellCol++) {
@@ -80,18 +79,18 @@ public class OrganismWorker implements Runnable{
 
                     }
                 }
-                currentTerritory.addMouseClickedAction();
+//                currentTerritory.addMouseClickedAction();
 //                currentTerritory.updateTerritoryView();
             }
         }
-        Platform.runLater(new IslandUpdateWorker(island, controller));
+//        Platform.runLater(new UpdateViewWorker(island, territoryModel, controller));
 
     }
 
     public void resetIslandColor() {
         for (int row = 0; row < ISLAND_ROWS; row++) {
             for (int col = 0; col < ISLAND_COLS; col++) {
-                island.getTerritories()[row][col].getLeader().setIslandCellColor();
+                island.getTerritories()[row][col].getLeader().setLeaderColor();
             }
         }
     }
