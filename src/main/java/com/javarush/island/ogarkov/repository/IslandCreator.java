@@ -23,8 +23,23 @@ public class IslandCreator {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
                 var territory = territoryCreator.createTerritory(TERRITORY_COLS, TERRITORY_ROWS);
-                island.setTerritory(row, col, territory);
-                Cell leader = territory.getLeader();
+                island.setTerritoryPosition(row, col, territory);
+                Cell leader = territory.foundLeader();
+                addLayoutView(row, col, leader);
+            }
+        }
+        fillNeighbors(island);
+        return island;
+    }
+
+    public Island createIslandModel(int rows, int cols) {
+        Island island = new Island(rows, cols);
+
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                var territory = territoryCreator.createTerritory(TERRITORY_COLS, TERRITORY_ROWS);
+                island.setTerritoryPosition(row, col, territory);
+                Cell leader = territory.foundLeader();
                 addLayoutView(row, col, leader);
             }
         }
@@ -33,7 +48,7 @@ public class IslandCreator {
     }
 
     private void addLayoutView(int row, int col, Cell leader) {
-        leader.setCellImage(leader.getIcon());
+//        leader.setCellImage(leader.getIcon());
         leader.setLayoutX((col * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE)));
         leader.setLayoutY((row * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE)));
         leader.setLeaderColor();

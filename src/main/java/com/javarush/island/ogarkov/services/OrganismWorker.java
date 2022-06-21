@@ -90,7 +90,7 @@ public class OrganismWorker implements Runnable{
     public void resetIslandColor() {
         for (int row = 0; row < ISLAND_ROWS; row++) {
             for (int col = 0; col < ISLAND_COLS; col++) {
-                island.getTerritories()[row][col].getLeader().setLeaderColor();
+                island.getTerritories()[row][col].foundLeader().setLeaderColor();
             }
         }
     }

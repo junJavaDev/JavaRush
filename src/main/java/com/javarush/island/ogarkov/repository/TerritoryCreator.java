@@ -24,18 +24,19 @@ public class TerritoryCreator {
                 var population = getRandomPopulation();
                 var cell = new Cell(row, col, territory);
                 cell.setPopulation(population);
-                cell.setResident(population.iterator().next());
+                // TODO: 21.06.2022 Просится метод 
+                cell.setResidentItem(population.iterator().next().getItem());
                 cell.setOnMouseClicked(event -> {
                     UpdateViewWorker.setTerritoryToView(territory);
                 });
-                territory.setCell(row, col, cell);
+                territory.setCellPosition(row, col, cell);
                 territory.getCellsPopulation().put(cell, population);
             }
         }
         return territory;
     }
 
-    public Territory createTerritoryModel(int rows, int cols) {
+    public Territory createTerritoryViewModel(int rows, int cols) {
         Territory model = new Territory(rows, cols);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
@@ -43,7 +44,7 @@ public class TerritoryCreator {
                 cell.setCellColor(Color.LIGHTGREY);
                 cell.getCellBackground().setHeight(Setting.TERRITORY_CELL_HEIGHT);
                 cell.addGrid(col, row, TERRITORY_GRID_SIZE);
-                model.setCell(row, col, cell);
+                model.setCellPosition(row, col, cell);
                 model.getCellsPopulation().put(cell, getLandform());
             }
         }

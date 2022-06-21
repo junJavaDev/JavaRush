@@ -31,7 +31,7 @@ public class View {
         islandAreaView.setPrefWidth(ISLAND_COLS * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE));
         for (int row = 0; row < ISLAND_ROWS; row++) {
             for (int col = 0; col < ISLAND_COLS; col++) {
-                islandAreaView.getChildren().add(model.getTerritories()[row][col].getLeader());
+                islandAreaView.getChildren().add(model.getTerritories()[row][col].foundLeader());
             }
         }
     }
@@ -43,7 +43,7 @@ public class View {
         islandAreaView.getChildren().clear();
         for (int row = 0; row < ISLAND_ROWS; row++) {
             for (int col = 0; col < ISLAND_COLS; col++) {
-                Cell currentLeader = modelView.getTerritories()[row][col].getLeader();
+                Cell currentLeader = modelView.getTerritories()[row][col].foundLeader();
                 islandAreaView.getChildren().add(currentLeader);
 //                islandAreaView.getChildren().set(index);
 //                index++;

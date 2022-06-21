@@ -15,15 +15,10 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static com.javarush.island.ogarkov.settings.Items.CARNIVORE;
-import static com.javarush.island.ogarkov.settings.Items.HERBIVORE;
 import static com.javarush.island.ogarkov.settings.Setting.*;
 
 // Участок локации, ячейка
 public class Cell extends StackPane {
-//    private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
-
-//    private final long cellId = idCounter.incrementAndGet();
-
     private final Lock lock = new ReentrantLock(true);
     private Rectangle background;
     private Text quantity;
@@ -32,16 +27,16 @@ public class Cell extends StackPane {
     private final int territoryRow;
     private final int territoryCell;
     private Set<Organism> population;
-    private Organism resident;
+    private Items residentItem;
 
     public Cell(int territoryRow, int territoryCell, Territory territory) {
         this.territoryRow = territoryRow;
         this.territoryCell = territoryCell;
         this.territory = territory;
-        initView();
+        init();
     }
 
-    private void initView() {
+    private void init() {
         background = createBackground();
         quantity = new Text();
         imageView = new ImageView();
@@ -70,18 +65,12 @@ public class Cell extends StackPane {
     }
 
 
-    
-    
     public void setCellImage(Image image) {
         imageView.setImage(image);
     }
 
     public Rectangle getCellBackground() {
         return background;
-    }
-
-    public Text getQuantity() {
-        return quantity;
     }
 
     public void setCellColor(Color color) {
@@ -93,10 +82,8 @@ public class Cell extends StackPane {
     }
 
     public void setLeaderColor() {
-        Items item = getResident().getItem();
-        if (item.is(HERBIVORE)) {
-            setCellColor(Color.OLIVEDRAB);
-        } else if (item.is(CARNIVORE)) {
+        Items item = getResidentItem();
+        if (item.is(CARNIVORE)) {
             setCellColor(Color.BLACK);
         } else setCellColor(Color.OLIVEDRAB);
     }
@@ -105,16 +92,12 @@ public class Cell extends StackPane {
         return population;
     }
 
-    public void setCellBackground(Rectangle background) {
-        this.background = background;
-    }
-
-    public Organism getResident() {
-        return resident;
+    public Items getResidentItem() {
+        return residentItem;
     }
 
     public Image getIcon() {
-        return getResident().getIcon();
+        return getResidentItem().getIcon();
     }
 
     public int getTerritoryRow() {
@@ -133,11 +116,7 @@ public class Cell extends StackPane {
         quantity.setText(newQuantity);
     }
 
-    public void setImageView(ImageView imageView) {
-        this.imageView = imageView;
-    }
-
-    public void setResident(Organism resident) {
-        this.resident = resident;
+    public void setResidentItem(Items residentItem) {
+        this.residentItem = residentItem;
     }
 }

@@ -29,7 +29,7 @@ public class SimulationWorker extends Thread{
             servicePool.submit(new OrganismWorker(island));
             servicePool.submit(new UpdateViewWorker(island, territoryModel, controller));
             servicePool.shutdown();
-        },1000, 100, TimeUnit.MILLISECONDS );
+        },1000, 500, TimeUnit.MILLISECONDS );
 
     }
 

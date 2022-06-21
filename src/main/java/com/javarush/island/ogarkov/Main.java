@@ -21,8 +21,6 @@ public class Main extends Application {
 
     private Island islandModel;
     private Territory territoryModel;
-    private Statistics statistics = new Statistics();
-    private View view;
     private Controller controller;
 
     public static void main(String[] args) {
@@ -40,18 +38,13 @@ public class Main extends Application {
     public void createSimulation () {
         TerritoryCreator territoryCreator = new TerritoryCreator();
         IslandCreator islandCreator = new IslandCreator(territoryCreator);
-
-        territoryModel = territoryCreator.createTerritoryModel(Setting.TERRITORY_ROWS, Setting.TERRITORY_COLS);
+        territoryModel = territoryCreator.createTerritoryViewModel(Setting.TERRITORY_ROWS, Setting.TERRITORY_COLS);
         Territory.modelView = territoryModel;
         islandModel = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
-        Island.model = islandModel;
-        view = new View();
-        statistics = new Statistics();
-        controller = new Controller(this, islandModel, territoryModel,  view, statistics);
+        View view = new View();
+        Statistics statistics = new Statistics();
+        controller = new Controller(this, islandModel, territoryModel, view, statistics);
         Controller.control = controller;
-
-        Island.setController(controller);
-//        islandModel = Island.createModel();
         controller.setIslandModel(islandModel);
     }
 

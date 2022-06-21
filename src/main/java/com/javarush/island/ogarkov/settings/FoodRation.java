@@ -3,7 +3,7 @@ package com.javarush.island.ogarkov.settings;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EatingProbability {
+public class FoodRation {
 
     public static final Map<Items, Integer> HERBIVORE_FOOD = new HashMap<>();
     public static final Map<Items, Integer> WOLF_FOOD = new HashMap<>();

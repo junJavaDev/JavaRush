@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.javarush.island.ogarkov.settings.EatingProbability.*;
+import static com.javarush.island.ogarkov.settings.FoodRation.*;
 
 public enum Items {
     ANIMAL(null, new AnimalFactory()),
@@ -47,18 +47,18 @@ public enum Items {
 
 
     static {
-        EatingProbability.init();
+        FoodRation.init();
     }
 
     private final Factory factory;
-    private Items parent;
+    private final Items parent;
     private Image icon;
     private double weight;
     private int maxPerLocation;
     private int maxSpeed;
     private double foodPerSatiation;
     private String name;
-    private Map<Items, Integer> eatingProbability;
+    private Map<Items, Integer> foodRation;
     private final List<Items> children = new ArrayList<>();
 
     Items(Items parent, Factory factory) {
@@ -76,11 +76,11 @@ public enum Items {
         addToParentChildren();
     }
 
-    Items(String name, Items parent, double weight, int maxPerLocation, int maxSpeed, double foodPerSatiation, Map<Items, Integer> eatingProbability, Factory factory, Image icon) {
+    Items(String name, Items parent, double weight, int maxPerLocation, int maxSpeed, double foodPerSatiation, Map<Items, Integer> foodRation, Factory factory, Image icon) {
         this(name, parent, weight, maxPerLocation, factory, icon);
         this.maxSpeed = maxSpeed;
         this.foodPerSatiation = foodPerSatiation;
-        this.eatingProbability = eatingProbability;
+        this.foodRation = foodRation;
         addToParentChildren();
     }
 
@@ -100,8 +100,8 @@ public enum Items {
         return foodPerSatiation;
     }
 
-    public Map<Items, Integer> getEatingProbability() {
-        return eatingProbability;
+    public Map<Items, Integer> getFoodRation() {
+        return foodRation;
     }
 
     private static Image getImage(String path) {
