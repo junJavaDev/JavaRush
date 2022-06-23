@@ -2,29 +2,30 @@ package com.javarush.island.ogarkov.entity;
 
 import com.javarush.island.ogarkov.settings.Items;
 
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Statistics {
 
-    protected final ConcurrentHashMap<Items, Long> created;
-    protected final ConcurrentHashMap<Items, Long> terminated;
-    protected final ConcurrentHashMap<Items, Long> existing;
+    protected final Map<Items, Long> created;
+    protected final Map<Items, Long> terminated;
+    protected final Map<Items, Long> existing;
 
     public Statistics() {
-        this.created = new ConcurrentHashMap<>();
-        this.terminated = new ConcurrentHashMap<>();
-        this.existing = new ConcurrentHashMap<>();
+        this.created = new HashMap<>();
+        this.terminated = new HashMap<>();
+        this.existing = new HashMap<>();
     }
 
-    public ConcurrentHashMap<Items, Long> getCreated() {
+    public Map<Items, Long> getCreated() {
         return created;
     }
 
-    public ConcurrentHashMap<Items, Long> getTerminated() {
+    public Map<Items, Long> getTerminated() {
         return terminated;
     }
 
-    public ConcurrentHashMap<Items, Long> getExisting() {
+    public Map<Items, Long> getExisting() {
         return existing;
     }
 }

@@ -1,77 +1,50 @@
 package com.javarush.island.ogarkov.location;
 
-import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.exception.IslandException;
 import com.javarush.island.ogarkov.settings.Items;
-import com.javarush.island.ogarkov.util.CellComparator;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 public class Territory {
-    public static Territory modelView;
-    private final HashMap<Cell, Set<Organism>> cellsPopulation;
-    private final Cell[][] cells;
-    Territory[] neighbors;
+    private final List<Cell> cells;
+    private Territory[] adjacentTerritory;
 
-
-    public Territory(int rows, int colls) {
-        cells = new Cell[rows][colls];
-        cellsPopulation = new HashMap<>();
+    public Territory() {
+        cells = new ArrayList<>();
     }
 
-    public Territory[] getNeighbors() {
-        return neighbors;
-    }
-    public void setNeighbors(Territory[] neighbors) {
-        this.neighbors = neighbors;
+    public Territory[] getAdjacentTerritory() {
+        return adjacentTerritory;
     }
 
-
+    public void setAdjacentTerritory(Territory[] adjacentTerritory) {
+        this.adjacentTerritory = adjacentTerritory;
+    }
 
     public Cell foundLeader() {
-        return cellsPopulation.entrySet()
-                .stream()
-                .max(CellComparator.get())
-                .orElseThrow()
-                .getKey();
+        return cells.stream()
+                .max(Cell::compareTo)
+                .orElseThrow(IslandException::new);
     }
 
     public Cell foundOutsider() {
-        return cellsPopulation.entrySet()
-                .stream()
-                .min(CellComparator.get())
-                .orElseThrow()
-                .getKey();
-    }
-
-    public HashMap<Cell, Set<Organism>> getCellsPopulation() {
-        return cellsPopulation;
-    }
-
-    public Set<Items> getResidentsItem() {
-        return getCellsPopulation().keySet()
-                .stream()
-                .map(Cell::getResidentItem)
-                .collect(Collectors.toSet());
+        return cells.stream()
+                .min(Cell::compareTo)
+                .orElseThrow(IslandException::new);
     }
 
     public Cell foundCellByItem(Items item) {
-        Optional<Cell> any = cellsPopulation.keySet()
-                .stream()
+        Optional<Cell> any =
+                cells.stream()
                 .filter(cell -> cell.getResidentItem() == item)
                 .findAny();
         return any.orElse(null);
     }
 
-    public Cell[][] getCells() {
+    public List<Cell> getCells() {
         return cells;
     }
-
-    public void setCellPosition(int row, int col, Cell cell) {
-        cells[row][col] = cell;
-    }
-
 }
 

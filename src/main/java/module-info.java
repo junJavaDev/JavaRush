@@ -5,4 +5,5 @@ module islandsimulation {
 
     opens com.javarush.island.ogarkov;
     opens com.javarush.island.ogarkov.location;
+    opens com.javarush.island.ogarkov.view;
 }

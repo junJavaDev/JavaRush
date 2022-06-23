@@ -1,17 +1,21 @@
 package com.javarush.island.ogarkov.location;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Island {
-    private final Territory[][] territories;
+    private final List<Territory> territories;
+    private final Territory[][] islandMap;
 
     public Island(int rows, int cols) {
-        territories = new Territory[rows][cols];
+        territories = new ArrayList<>();
+        islandMap = new Territory[rows][cols];
     }
-
-    public Territory[][] getTerritories () {
+    public List<Territory> getTerritories () {
         return territories;
     }
 
-    public void setTerritoryPosition(int row, int col, Territory territory) {
-        territories[row][col] = territory;
+    public Territory[][] getIslandMap() {
+        return islandMap;
     }
 }

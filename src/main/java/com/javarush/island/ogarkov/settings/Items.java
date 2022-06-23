@@ -19,31 +19,31 @@ import static com.javarush.island.ogarkov.settings.FoodRation.*;
 public enum Items {
     ANIMAL(null, new AnimalFactory()),
         CARNIVORE(ANIMAL, new CarnivoreFactory()),
-            BEAR("Медведь",CARNIVORE, 500, 5, 2, 80, BEAR_FOOD, new BearFactory(), getImage("/carnivore/bear.png")),
-            BOA("Удав",CARNIVORE, 15, 30, 1, 3, BOA_FOOD, new BoaFactory(), getImage("/carnivore/boa.png")),
-            EAGLE("Орёл",CARNIVORE, 6, 20, 3, 1, EAGLE_FOOD, new EagleFactory(), getImage("/carnivore/eagle.png")),
-            FOX("Лиса",CARNIVORE,8, 30, 2, 2, FOX_FOOD, new FoxFactory(), getImage("/carnivore/fox.png")),
-            WOLF("Волк",CARNIVORE,50, 30, 3, 8, WOLF_FOOD, new WolfFactory(), getImage("/carnivore/wolf.png")),
+            BEAR("Медведь",CARNIVORE, 500, 5, 2, 80, BEAR_FOOD, new BearFactory(), assignIcon("/carnivore/bear.png")),
+            BOA("Удав",CARNIVORE, 15, 30, 1, 3, BOA_FOOD, new BoaFactory(), assignIcon("/carnivore/boa.png")),
+            EAGLE("Орёл",CARNIVORE, 6, 20, 3, 1, EAGLE_FOOD, new EagleFactory(), assignIcon("/carnivore/eagle.png")),
+            FOX("Лиса",CARNIVORE,8, 30, 2, 2, FOX_FOOD, new FoxFactory(), assignIcon("/carnivore/fox.png")),
+            WOLF("Волк",CARNIVORE,50, 30, 3, 8, WOLF_FOOD, new WolfFactory(), assignIcon("/carnivore/wolf.png")),
         HERBIVORE(ANIMAL, new HerbivoreFactory()),
-            BOAR("Кабан",HERBIVORE,400, 50, 2, 50, BOAR_FOOD, new BoarFactory(), getImage("/herbivore/boar.png")),
-            BUFFALO("Буйвол",HERBIVORE,700, 10, 3, 100, HERBIVORE_FOOD, new BuffaloFactory(), getImage("/herbivore/buffalo.png")),
-            CATERPILLAR("Гусеница",HERBIVORE,0.01, 1000, 0, 0, HERBIVORE_FOOD, new CaterpillarFactory(), getImage("/herbivore/caterpillar.png")),
-            DEER("Олень",HERBIVORE,300, 20, 4, 50, HERBIVORE_FOOD, new DeerFactory(), getImage("/herbivore/deer.png")),
-            DUCK("Утка",HERBIVORE,1, 200, 4, 0.15, HERBIVORE_FOOD, new DuckFactory(), getImage("/herbivore/duck.png")),
-            GOAT("Коза",HERBIVORE,60, 140, 3, 10, HERBIVORE_FOOD, new GoatFactory(), getImage("/herbivore/goat.png")),
-            HORSE("Лошадь",HERBIVORE,400, 20, 4, 60, HERBIVORE_FOOD, new HorseFactory(), getImage("/herbivore/horse.png")),
-            MOUSE("Мышь",HERBIVORE,0.05, 500, 1, 0.01, HERBIVORE_FOOD, new MouseFactory(), getImage("/herbivore/mouse.png")),
-            RABBIT("Кролик",HERBIVORE,2, 150, 2, 0.45, HERBIVORE_FOOD, new RabbitFactory(), getImage("/herbivore/rabbit.png")),
-            SHEEP("Овца",HERBIVORE,70, 140, 3, 15, HERBIVORE_FOOD, new SheepFactory(), getImage("/herbivore/sheep.png")),
+            BOAR("Кабан",HERBIVORE,400, 50, 2, 50, BOAR_FOOD, new BoarFactory(), assignIcon("/herbivore/boar.png")),
+            BUFFALO("Буйвол",HERBIVORE,700, 10, 3, 100, HERBIVORE_FOOD, new BuffaloFactory(), assignIcon("/herbivore/buffalo.png")),
+            CATERPILLAR("Гусеница",HERBIVORE,0.01, 1000, 0, 0, HERBIVORE_FOOD, new CaterpillarFactory(), assignIcon("/herbivore/caterpillar.png")),
+            DEER("Олень",HERBIVORE,300, 20, 4, 50, HERBIVORE_FOOD, new DeerFactory(), assignIcon("/herbivore/deer.png")),
+            DUCK("Утка",HERBIVORE,1, 200, 4, 0.15, HERBIVORE_FOOD, new DuckFactory(), assignIcon("/herbivore/duck.png")),
+            GOAT("Коза",HERBIVORE,60, 140, 3, 10, HERBIVORE_FOOD, new GoatFactory(), assignIcon("/herbivore/goat.png")),
+            HORSE("Лошадь",HERBIVORE,400, 20, 4, 60, HERBIVORE_FOOD, new HorseFactory(), assignIcon("/herbivore/horse.png")),
+            MOUSE("Мышь",HERBIVORE,0.05, 500, 1, 0.01, HERBIVORE_FOOD, new MouseFactory(), assignIcon("/herbivore/mouse.png")),
+            RABBIT("Кролик",HERBIVORE,2, 150, 2, 0.45, HERBIVORE_FOOD, new RabbitFactory(), assignIcon("/herbivore/rabbit.png")),
+            SHEEP("Овца",HERBIVORE,70, 140, 3, 15, HERBIVORE_FOOD, new SheepFactory(), assignIcon("/herbivore/sheep.png")),
     PLANT(null, new PlantFactory()),
-        BUSH("Куст", PLANT, 1, 200, new BushFactory(), getImage("/plant/bush.png")),
-        DANDELION("Одуванчик", PLANT, 1, 200, new DandelionFactory(), getImage("/plant/dandelion.png")),
-        FLOWER("Цветок", PLANT, 1, 200, new FlowerFactory(), getImage("/plant/flower.png")),
-        GRASS("Трава", PLANT, 1, 200, new GrassFactory(), getImage("/plant/grass.png")),
-        SPROUT("Росток", PLANT, 1, 200, new SproutFactory(), getImage("/plant/sprout.png")),
-        TREE("Дерево", PLANT, 1, 200, new TreeFactory(), getImage("/plant/tree.png")),
+        BUSH("Куст", PLANT, 1, 200, new BushFactory(), assignIcon("/plant/bush.png")),
+        DANDELION("Одуванчик", PLANT, 1, 200, new DandelionFactory(), assignIcon("/plant/dandelion.png")),
+        FLOWER("Цветок", PLANT, 1, 200, new FlowerFactory(), assignIcon("/plant/flower.png")),
+        GRASS("Трава", PLANT, 1, 200, new GrassFactory(), assignIcon("/plant/grass.png")),
+        SPROUT("Росток", PLANT, 1, 200, new SproutFactory(), assignIcon("/plant/sprout.png")),
+        TREE("Дерево", PLANT, 1, 200, new TreeFactory(), assignIcon("/plant/tree.png")),
     LANDFORM(null, new LandformFactory()),
-        PLAIN("Равнина", LANDFORM, 1, 200, new PlainFactory(), getImage("/landform/plain.png"));
+        PLAIN("Равнина", LANDFORM, 1, 200, new PlainFactory(), assignIcon("/landform/plain.png"));
 
 
     static {
@@ -104,7 +104,7 @@ public enum Items {
         return foodRation;
     }
 
-    private static Image getImage(String path) {
+    private static Image assignIcon(String path) {
         return new Image(String.valueOf(Items.class.getResource(path)));
     }
 

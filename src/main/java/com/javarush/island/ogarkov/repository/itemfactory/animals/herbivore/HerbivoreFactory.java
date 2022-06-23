@@ -7,7 +7,6 @@ import com.javarush.island.ogarkov.settings.Items;
 public class HerbivoreFactory extends AnimalFactory {
     @Override
     public HerbivoreAnimal createItem() {
-        created.incrementAndGet();
         return (HerbivoreAnimal) getRandomFactory(Items.HERBIVORE).createItem();
     }
 }

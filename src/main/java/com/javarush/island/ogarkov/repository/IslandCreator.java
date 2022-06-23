@@ -1,13 +1,13 @@
 package com.javarush.island.ogarkov.repository;
 
-import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.javarush.island.ogarkov.settings.Setting.*;
+import static com.javarush.island.ogarkov.settings.Setting.TERRITORY_COLS;
+import static com.javarush.island.ogarkov.settings.Setting.TERRITORY_ROWS;
 
 public class IslandCreator {
 
@@ -19,60 +19,34 @@ public class IslandCreator {
 
     public Island createIsland(int rows, int cols) {
         Island island = new Island(rows, cols);
-
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                var territory = territoryCreator.createTerritory(TERRITORY_COLS, TERRITORY_ROWS);
-                island.setTerritoryPosition(row, col, territory);
-                Cell leader = territory.foundLeader();
-                addLayoutView(row, col, leader);
+                Territory territory = territoryCreator.createTerritory(TERRITORY_COLS, TERRITORY_ROWS);
+                island.getIslandMap()[row][col] = territory;
+                island.getTerritories().add(territory);
             }
         }
-        fillNeighbors(island);
+        fillAdjacentTerritories(island, rows, cols);
         return island;
     }
 
-    public Island createIslandModel(int rows, int cols) {
-        Island island = new Island(rows, cols);
-
+    private void fillAdjacentTerritories(Island island, int rows, int cols) {
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                var territory = territoryCreator.createTerritory(TERRITORY_COLS, TERRITORY_ROWS);
-                island.setTerritoryPosition(row, col, territory);
-                Cell leader = territory.foundLeader();
-                addLayoutView(row, col, leader);
-            }
-        }
-        fillNeighbors(island);
-        return island;
-    }
-
-    private void addLayoutView(int row, int col, Cell leader) {
-//        leader.setCellImage(leader.getIcon());
-        leader.setLayoutX((col * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE)));
-        leader.setLayoutY((row * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE)));
-        leader.setLeaderColor();
-    }
-
-    private void fillNeighbors(Island island) {
-        int rows = island.getTerritories().length;
-        int cols = island.getTerritories()[0].length;
-        for (int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                Territory territory = island.getTerritories()[row][col];
-                Set<Territory> neighbors = new HashSet<>();
+                Territory territory = island.getIslandMap()[row][col];
+                Set<Territory> adjacent = new HashSet<>();
                 int minRow = Math.max(row - 1, 0);
                 int maxRow = Math.min(row + 2, rows);
                 int minCol = Math.max(col - 1, 0);
                 int maxCol = Math.min(col + 2, cols);
-                for (int neighborRow = minRow; neighborRow < maxRow; neighborRow++) {
-                    for (int neighborCol = minCol; neighborCol < maxCol; neighborCol++) {
-                        if (neighborRow != row || neighborCol != col) {
-                            neighbors.add(island.getTerritories()[neighborRow][neighborCol]);
+                for (int adjacentRow = minRow; adjacentRow < maxRow; adjacentRow++) {
+                    for (int adjacentCol = minCol; adjacentCol < maxCol; adjacentCol++) {
+                        if (adjacentRow != row || adjacentCol != col) {
+                            adjacent.add(island.getIslandMap()[adjacentRow][adjacentCol]);
                         }
                     }
                 }
-                territory.setNeighbors(neighbors.toArray(Territory[]::new));
+                territory.setAdjacentTerritory(adjacent.toArray(Territory[]::new));
             }
         }
     }

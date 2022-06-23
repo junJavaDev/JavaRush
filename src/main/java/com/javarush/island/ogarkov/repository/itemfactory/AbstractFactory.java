@@ -24,7 +24,11 @@ public abstract class AbstractFactory implements Factory{
     }
 
     @Override
-    public void addCreatedItem() {
+    public void addCreatedItem(Items item) {
         created.incrementAndGet();
+        if (item.getParent() != null) {
+            Items parentItem = item.getParent();
+            parentItem.getFactory().addCreatedItem(parentItem);
+        }
     }
 }

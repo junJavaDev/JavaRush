@@ -7,7 +7,6 @@ import com.javarush.island.ogarkov.settings.Items;
 public class LandformFactory extends AbstractFactory {
     @Override
     public Landform createItem() {
-        created.incrementAndGet();
         return (Landform) getRandomFactory(Items.LANDFORM).createItem();
     }
 }

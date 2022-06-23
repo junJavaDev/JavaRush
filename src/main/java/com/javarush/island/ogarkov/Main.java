@@ -2,11 +2,11 @@ package com.javarush.island.ogarkov;
 
 import com.javarush.island.ogarkov.entity.Statistics;
 import com.javarush.island.ogarkov.location.Island;
-import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.repository.IslandCreator;
 import com.javarush.island.ogarkov.repository.TerritoryCreator;
 import com.javarush.island.ogarkov.services.SimulationWorker;
 import com.javarush.island.ogarkov.settings.Setting;
+import com.javarush.island.ogarkov.view.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,9 +19,9 @@ import java.util.Objects;
 
 public class Main extends Application {
 
-    private Island islandModel;
-    private Territory territoryModel;
+    private Island island;
     private Controller controller;
+    private Statistics statistics;
 
     public static void main(String[] args) {
         launch();
@@ -31,21 +31,16 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         createSimulation();
         loadSimulationForm(stage);
-        SimulationWorker simulationWorker = new SimulationWorker(islandModel, territoryModel, controller);
+        var simulationWorker = new SimulationWorker(island, controller, statistics);
         simulationWorker.start();
     }
 
     public void createSimulation () {
-        TerritoryCreator territoryCreator = new TerritoryCreator();
-        IslandCreator islandCreator = new IslandCreator(territoryCreator);
-        territoryModel = territoryCreator.createTerritoryViewModel(Setting.TERRITORY_ROWS, Setting.TERRITORY_COLS);
-        Territory.modelView = territoryModel;
-        islandModel = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
-        View view = new View();
-        Statistics statistics = new Statistics();
-        controller = new Controller(this, islandModel, territoryModel, view, statistics);
-        Controller.control = controller;
-        controller.setIslandModel(islandModel);
+        var territoryCreator = new TerritoryCreator();
+        var islandCreator = new IslandCreator(territoryCreator);
+        island = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
+        statistics = new Statistics();
+        controller = new Controller(island, statistics);
     }
 
 
