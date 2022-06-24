@@ -1,6 +1,7 @@
 package com.javarush.island.ogarkov.services;
 
 import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.entity.animals.Animal;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
@@ -37,25 +38,24 @@ public class OrganismWorker implements Runnable {
     protected void processCell(Cell cell) {
         cell.getLock().lock();
         Set<Organism> population = cell.getPopulation();
+        Items residentItem = cell.getResidentItem();
         try {
-            // Собрать операции
             for (Organism organism : population) {
-                Task task = new Task(organism, action -> {
                     Items organismItem = organism.getItem();
-                    if (item.is(organismItem)) {
                             organism.reproduce(cell);
-//                        if (organismItem.is(Items.ANIMAL)) {
-//                            Animal animal = (Animal) organism;
-//                            animal.move(cell);
-//                        }
-                        if (clock.get() % 24 == 0) {
-                            organism.isReproducedTried = false;
-                        }
+                Task task = new Task(organism, action -> {
+
+                    if (organismItem.is(Items.ANIMAL)) {
+                            Animal animal = (Animal) organism;
+                            animal.move(cell);
+
                     }
                 });
                 tasks.add(task);
+                if (clock.get() % 24 == 0) {
+                    organism.isReproducedTried = false;
+                }
             }
-//            }
         } finally {
             cell.getLock().unlock();
         }

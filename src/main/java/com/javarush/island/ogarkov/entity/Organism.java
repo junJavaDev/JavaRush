@@ -36,8 +36,8 @@ public abstract class Organism implements Reproducible {
 
     protected boolean atomicReproduce(Cell cell, int chance) {
         // TODO: 24.06.2022 вынести в настройки, добавить проверку на голод
-        cell.getLock().lock();
-        try {
+//        cell.getLock().lock();
+//        try {
             boolean isBorned = false;
             Set<Organism> population = cell.getPopulation();
             if (!isReproducedTried && population.contains(this) && population.size() < maxPerLocation && population.size() > 1) {
@@ -46,6 +46,7 @@ public abstract class Organism implements Reproducible {
                         int chanceToReproduce = Randomizer.getInt(100);
                         if (chanceToReproduce < chance) {
                             Organism born = item.getFactory().createItem();
+                            born.isReproducedTried = true;
                             population.add(born);
                             isBorned = true;
                             organism.isReproducedTried = true;
@@ -55,9 +56,9 @@ public abstract class Organism implements Reproducible {
                 }
             }
             return isBorned;
-        } finally {
-            cell.getLock().unlock();
-        }
+//        } finally {
+//            cell.getLock().unlock();
+//        }
     }
 
     public Items getItem() {

@@ -44,7 +44,7 @@ public class SimulationWorker extends Thread{
 //            servicePool.submit(new StatisticsWorker(statistics));
             servicePool.submit(new UpdateViewWorker(controller));
             servicePool.shutdown();
-        },1000, 10, TimeUnit.MILLISECONDS );
+        },1000, 100, TimeUnit.MILLISECONDS );
 
 
 
@@ -55,7 +55,7 @@ public class SimulationWorker extends Thread{
         List<OrganismWorker> workers = new ArrayList<>();
         for (Items organismItem : Items.getOrganismItems()) {
             List<Territory> territories = new ArrayList<>(island.getTerritories());
-            Collections.shuffle(territories);
+//            Collections.shuffle(territories);
             workers.add(new OrganismWorker(organismItem, territories));
         }
         return workers;
