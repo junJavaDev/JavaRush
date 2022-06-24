@@ -1,6 +1,7 @@
 package com.javarush.island.ogarkov.location;
 
 import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.entity.landform.Landform;
 import com.javarush.island.ogarkov.settings.Items;
 
 import java.util.Set;
@@ -15,6 +16,16 @@ public class Cell implements Comparable<Cell> {
     public Territory territory;
     private Set<Organism> population;
     private Items residentItem;
+    private Landform landform;
+
+
+    public Landform getLandform() {
+        return landform;
+    }
+
+    public void setLandform(Landform landform) {
+        this.landform = landform;
+    }
 
     public Cell(Territory territory) {
         this.territory = territory;
@@ -36,8 +47,13 @@ public class Cell implements Comparable<Cell> {
         return residentItem;
     }
 
-    public void setResidentItem() {
-        residentItem = population.iterator().next().getItem();
+    public void setResidentItem(Items item) {
+        residentItem = item;
+    }
+
+
+    public Lock getLock() {
+        return lock;
     }
 
     @Override
@@ -67,11 +83,8 @@ public class Cell implements Comparable<Cell> {
                     double secondTerritoryWeight = secondItem.getWeight() * secondPopulation.size();
                     result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
                 }
-//            if (result == 0) {
-//                var firstCell = first.getKey();
-//                var secondCell = second.getKey();
-//                return Long.compare(firstCell.getCellId(), secondCell.getCellId());
-//            }
                 return result;
             }
-        }
+
+
+}

@@ -3,6 +3,7 @@ package com.javarush.island.ogarkov.repository;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -46,7 +47,7 @@ public class IslandCreator {
                         }
                     }
                 }
-                territory.setAdjacentTerritory(adjacent.toArray(Territory[]::new));
+                territory.setAdjacentTerritory(new ArrayList<>(adjacent));
             }
         }
     }

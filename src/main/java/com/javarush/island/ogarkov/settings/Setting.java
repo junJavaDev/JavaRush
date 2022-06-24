@@ -22,9 +22,11 @@ public class Setting {
     public static final double INITIAL_SATIETY = 0.5;
     public static final double CARNIVORE_HUNGER = 0.8;
     public static final double HERBIVORE_HUNGER = 1;
-    public static final int CARNIVORE_PER_CELL = 5;
+    public static final int CARNIVORE_PER_CELL = 10;
     public static final int HERBIVORE_PER_CELL = 10;
     public static final int PLANT_PER_CELL = 50;
+    public static final int PLANT_REPRODUCED_PER_EMPTY_CELL = 8;
+
     public static final int LANDFORM_PER_CELL = 1;
     public static final int CARNIVORE_PROPABILITY = 50;
     public static final int HERBIVORE_PROPABILITY = 100;

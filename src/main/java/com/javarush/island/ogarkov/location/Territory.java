@@ -9,17 +9,17 @@ import java.util.Optional;
 
 public class Territory {
     private final List<Cell> cells;
-    private Territory[] adjacentTerritory;
+    private List<Territory> adjacentTerritory;
 
     public Territory() {
         cells = new ArrayList<>();
     }
 
-    public Territory[] getAdjacentTerritory() {
+    public List<Territory> getAdjacentTerritory() {
         return adjacentTerritory;
     }
 
-    public void setAdjacentTerritory(Territory[] adjacentTerritory) {
+    public void setAdjacentTerritory(List<Territory> adjacentTerritory) {
         this.adjacentTerritory = adjacentTerritory;
     }
 

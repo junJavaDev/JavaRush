@@ -1,6 +1,7 @@
 package com.javarush.island.ogarkov.repository;
 
 import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.entity.landform.Landform;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
@@ -18,17 +19,19 @@ public class TerritoryCreator {
         Territory territory = new Territory();
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                var population = getRandomPopulation();
+                var population = createRandomPopulation();
+                Items residentItem = population.iterator().next().getItem();
                 Cell cell = new Cell(territory);
                 territory.getCells().add(cell);
                 cell.setPopulation(population);
-                cell.setResidentItem();
+                cell.setResidentItem(residentItem);
+                cell.setLandform(createRandomLandform());
             }
         }
         return territory;
     }
 
-    public Set<Organism> getPopulation(Items item, int maxCount) {
+    public Set<Organism> createPopulation(Items item, int maxCount) {
         var population = new HashSet<Organism>();
         int amount = Randomizer.getIntOriginOne(maxCount);
         Items randomItem = item.getRandom();
@@ -39,14 +42,18 @@ public class TerritoryCreator {
         return population;
     }
 
-    public Set<Organism> getRandomPopulation() {
+    public Set<Organism> createRandomPopulation() {
         int maxProbability = PLANT_PROPABILITY + HERBIVORE_PROPABILITY + CARNIVORE_PROPABILITY;
         int probability = Randomizer.getInt(maxProbability);
         if (probability < PLANT_PROPABILITY) {
-            return getPopulation(PLANT, PLANT_PER_CELL);
+            return createPopulation(PLANT, PLANT_PER_CELL);
         } else if (probability < PLANT_PROPABILITY + HERBIVORE_PROPABILITY) {
-            return getPopulation(HERBIVORE, HERBIVORE_PER_CELL);
+            return createPopulation(HERBIVORE, HERBIVORE_PER_CELL);
         } else
-            return getPopulation(CARNIVORE, CARNIVORE_PER_CELL);
+            return createPopulation(CARNIVORE, CARNIVORE_PER_CELL);
+    }
+
+    public Landform createRandomLandform() {
+        return (Landform) LANDFORM.getFactory().createItem();
     }
 }

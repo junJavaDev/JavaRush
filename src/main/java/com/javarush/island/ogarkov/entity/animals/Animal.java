@@ -1,111 +1,95 @@
 package com.javarush.island.ogarkov.entity.animals;
 
 import com.javarush.island.ogarkov.entity.Organism;
-import com.javarush.island.ogarkov.interfaces.AnimalAction;
+import com.javarush.island.ogarkov.interfaces.Eating;
+import com.javarush.island.ogarkov.interfaces.Movable;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.settings.Setting;
+import com.javarush.island.ogarkov.util.Randomizer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
-public abstract class Animal extends Organism implements AnimalAction {
+public abstract class Animal extends Organism implements Eating, Movable {
 
     protected final double foodPerSatiation;
     protected double satiety;
     protected double hunger;
     protected final int maxSpeed;
     protected final Map<Items, Integer> foodRation;
+    protected double maxWeight;
+    protected final int maxPerLocation;
 
-
+    // TODO: 24.06.2022 убрать из энама эти лимиты
     public Animal() {
         foodPerSatiation = item.getFoodPerSatiation();
         satiety = foodPerSatiation * Setting.INITIAL_SATIETY;
         maxSpeed = item.getMaxSpeed();
         foodRation = item.getFoodRation();
+        maxPerLocation = item.getMaxPerLocation();
+        maxWeight = item.getWeight();
     }
 
     @Override
-    public void eat(Organism food) {
-        if (isEdible(food)) {
-            if (isHungry()) {
-                System.out.println(this.getClass().getSimpleName() + " пытается съесть " + food.getClass().getSimpleName());
-                if (canEat(food)) {
-                    setSatiety(Math.min(getSatiety() + food.getWeight(), getFoodPerSatiation()));
-                    System.out.println(this.getClass().getSimpleName() + " съел " + food.getClass().getSimpleName());
-                    food.terminated();
-                }
-            } else {
-                System.out.println(this.getClass().getSimpleName() + " не голоден");
-            }
-        } else {
-            System.out.println(this.getClass().getSimpleName() + " не ест такую пищу");
-        }
-    }
-
-    @Override
-    public Territory move(Cell cellFrom) {
-//        System.out.println("in move method");
-//        int maxSpeed = item.getMaxSpeed();
-//        Territory currentTerritory = cellFrom.getTerritory();
-//        Territory[] neighbors = currentTerritory.getNeighbors();
-//        int neighboorIndex = Randomizer.getInt(neighbors.length);
-//        Territory neighbor = neighbors[neighboorIndex];
-//        if (!Collections.disjoint(foodRation.keySet(), neighbor.getResidentsItem())) {
-//            Cell cell = neighbor.foundCellByItem(item);
-//            if (cell != null) {
-//                cell.getPopulation().add(this);
-////                cellFrom.getPopulation().remove(this);
-//
+    public boolean eat(Cell currentCell) {
+//        if (isEdible(food)) {
+//            if (isHungry()) {
+//                System.out.println(this.getClass().getSimpleName() + " пытается съесть " + food.getClass().getSimpleName());
+//                if (canEat(food)) {
+//                    setSatiety(Math.min(getSatiety() + food.getWeight(), getFoodPerSatiation()));
+//                    System.out.println(this.getClass().getSimpleName() + " съел " + food.getClass().getSimpleName());
+//                    food.terminated();
+//                }
 //            } else {
-//                return currentTerritory;
+//                System.out.println(this.getClass().getSimpleName() + " не голоден");
 //            }
-//            System.out.println("wow");
-//
-////                Cell outsider = neighbor.foundOutsider();
-//
+//        } else {
+//            System.out.println(this.getClass().getSimpleName() + " не ест такую пищу");
 //        }
+        return true;
+    }
+
+    @Override
+    public boolean move(Cell startCell) {
+        Cell destinationCell = getDestinationCell(startCell, maxSpeed);
+        return atomicMove(startCell, destinationCell);
+    }
 
 
-//        for (Territory neighbor : neighbors) {
 
+    private boolean atomicMove(Cell startCell, Cell destinationCell) {
+        if (atomicSetTo(destinationCell)) {
+            if (atomicPollFrom(startCell)) {
+                return true;
+            } else atomicPollFrom(destinationCell);
+        }
+        return false;
+    }
 
-//            for (Cell cell : neighbor.getCells().keySet()) {
-//                if (this.item.is(cell.getResident().getItem())) {
-//                    cell.getPopulation().add(this);
-//                    cell.getPopulation().remove(this);
-//                    if (sortedCell.getPopulation().isEmpty()) {
-//                        Plain plain = new Plain();
-//                        cell.getPopulation().add(plain);
-//                        cell.setResident(plain);
-//                    }
-//                    return neighboor;
-////                    }
-//                }
-//            }
-//            for (Cell sortedCell : neighboor.getSortedCells()) {
-//                if (getItem().getEatingProbability().containsKey(sortedCell.getResident().getItem())) {
-//
-//                    Cell cellDestination = neighboor.getSortedCells().first();
-//                    if (cellDestination.getResident().getItem().isNot(Items.ANIMAL)) {
-//                        // TODO: 19.06.2022 Переделать на terminated, добавить обновление
-//                        Set<Organism> newPopulation = new RemoveableSet<>();
-//                        newPopulation.add(this);
-//                        cellDestination.setPopulation(newPopulation);
-////                        cellDestination.getPopulation().clear();
-//                        sortedCell.setResident(this);
-//                        sortedCell.getPopulation().remove(this);
-//                        if (sortedCell.getPopulation().isEmpty()) {
-//                            Plain plain = new Plain();
-//                            sortedCell.getPopulation().add(plain);
-//                            sortedCell.setResident(plain);
-//                        }
-//                        neighboor.getSortedCells().update(cellDestination);
-//                        return neighboor;
-//                    } else return currentTerritory;
-//                }
-        return null;
+    private Cell getDestinationCell(Cell startCell, int maxSpeed) {
+        List<Territory> adjacentTerritory = startCell.getTerritory().getAdjacentTerritory();
+        // TODO: 24.06.2022 рандомайзер можно улучшить
+        Territory adjacent = adjacentTerritory.get(Randomizer.getInt(adjacentTerritory.size()));
+
+        List<Cell> cellsToMove = new ArrayList<>();
+        for (Cell cell : adjacent.getCells()) {
+            Items residentItem = cell.getResidentItem();
+            if (item.is(residentItem)) {
+                return cell;
+            } else if (residentItem.is(Items.PLANT) || residentItem.is(Items.LANDFORM)) {
+                cellsToMove.add(cell);
+            }
+        }
+        if (!cellsToMove.isEmpty()) {
+            return cellsToMove.stream()
+                    .min(Cell::compareTo)
+                    .orElseThrow();
+        }
+        else return null;
     }
 //        }
 
@@ -122,10 +106,11 @@ public abstract class Animal extends Organism implements AnimalAction {
 //        return cellFrom.getTerritory();
 //    }
 
-    @Override
-    public void reproduce() {
-        System.out.println("Животное размножается (при наличии пары в их локации)");
-    }
+//    @Override
+//    public boolean reproduce() {
+//        System.out.println("Животное размножается (при наличии пары в их локации)");
+//        return false;
+//    }
 
 
     private boolean canEat(Organism food) {

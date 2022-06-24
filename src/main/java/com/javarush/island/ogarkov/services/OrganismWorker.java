@@ -1,86 +1,68 @@
 package com.javarush.island.ogarkov.services;
 
-import com.javarush.island.ogarkov.location.Island;
+import com.javarush.island.ogarkov.entity.Organism;
+import com.javarush.island.ogarkov.location.Cell;
+import com.javarush.island.ogarkov.location.Territory;
+import com.javarush.island.ogarkov.settings.Items;
 
-public class OrganismWorker implements Runnable{
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.atomic.AtomicLong;
 
-    private final Island island;
-//    private final Controller controller = Controller.control;
-    public OrganismWorker(Island island) {
-        this.island = island;
+public class OrganismWorker implements Runnable {
+
+    private final Items item;
+    private final List<Territory> territories;
+    private final Queue<Task> tasks = new ConcurrentLinkedQueue<>();
+    private static final AtomicLong clock = new AtomicLong();
+
+    public OrganismWorker(Items item, List<Territory> territories) {
+        this.item = item;
+        this.territories = territories;
     }
 
     @Override
     public void run() {
-//        for (int row = 0; row < ISLAND_ROWS; row++) {
-//            for (int col = 0; col < ISLAND_COLS; col++) {
-//                Territory currentTerritory = island.getTerritories()[row][col];
-//                Cell[][] cells = currentTerritory.getCells();
-//
-//                for (int cellRow = 0; cellRow < cells.length; cellRow++) {
-//                    for (int cellCol = 0; cellCol < cells.length; cellCol++) {
-//
-//                        Cell cell = cells[cellRow][cellCol];
-//                        Set<Organism> organisms = cell.getPopulation();
-//                        for (Organism organism : organisms) {
-//                            if (organism.getItem().is(Items.ANIMAL)) {
-//                                Animal animal = (Animal) organism;
-//                                Territory destination = animal.move(cell);
-//                                if (currentTerritory != destination) {
-//                                    iterator.remove();
-//                                }
-//                            }
-//                            if (organism.getItem().is(Items.LANDFORM)) {
-//                                cell.getPopulation().clear();
-//                                Plant plant = new PlantFactory().createItem();
-//                                cell.getPopulation().add(new PlantFactory().createItem());
-//                                cell.setResident(plant);
-//                            }
-//                            if (cell.getPopulation().isEmpty()) {
-//                                Landform landform = new LandformFactory().createItem();
-//                                cell.getPopulation().add(new LandformFactory().createItem());
-//                                cell.setResident(landform);
-//                            }
-                        }
+        for (Territory territory : territories) {
+            for (Cell cell : territory.getCells()) {
+                if (item.is(cell.getResidentItem())) {
+                    processCell(cell);
+                }
+            }
+        }
+    }
 
-//                        Iterator<Organism> iterator = organisms.iterator();
-//                        while (iterator.hasNext()) {
-//                            Organism organism = iterator.next();
-//                            if (organism.getItem().is(Items.ANIMAL)) {
-//                                Animal animal = (Animal) organism;
-//                                Territory destination = animal.move(cell);
-//                                if (currentTerritory != destination) {
-//                                    iterator.remove();
-//                                }
-//                            }
-//                            if (organism.getItem().is(Items.LANDFORM)) {
-//                                cell.getPopulation().clear();
-//                                Plant plant = new PlantFactory().createItem();
-//                                cell.getPopulation().add(new PlantFactory().createItem());
-//                                cell.setResident(plant);
-//                            }
-//                            if (cell.getPopulation().isEmpty()) {
-//                                Landform landform = new LandformFactory().createItem();
-//                                cell.getPopulation().add(new LandformFactory().createItem());
-//                                cell.setResident(landform);
-//                            }
+    protected void processCell(Cell cell) {
+        cell.getLock().lock();
+        Set<Organism> population = cell.getPopulation();
+        try {
+            // Собрать операции
+            for (Organism organism : population) {
+                Task task = new Task(organism, action -> {
+                    Items organismItem = organism.getItem();
+                    if (item.is(organismItem)) {
+                            organism.reproduce(cell);
+//                        if (organismItem.is(Items.ANIMAL)) {
+//                            Animal animal = (Animal) organism;
+//                            animal.move(cell);
 //                        }
-
-//                    }
-//                }
-//                currentTerritory.addMouseClickedAction();
-//                currentTerritory.updateTerritoryView();
+                        if (clock.get() % 24 == 0) {
+                            organism.isReproducedTried = false;
+                        }
+                    }
+                });
+                tasks.add(task);
+            }
 //            }
-//        }
-//        Platform.runLater(new UpdateViewWorker(island, territoryModel, controller));
-
-//    }
-//
-//    public void resetIslandColor() {
-//        for (int row = 0; row < ISLAND_ROWS; row++) {
-//            for (int col = 0; col < ISLAND_COLS; col++) {
-//                island.getTerritories()[row][col].foundLeader().setLeaderColor();
-//            }
-//        }
-//    }
+        } finally {
+            cell.getLock().unlock();
+        }
+        clock.incrementAndGet();
+        tasks.forEach(Task::doAction);
+        tasks.clear();
+    }
 }
+
+

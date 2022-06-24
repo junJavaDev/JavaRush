@@ -36,14 +36,14 @@ public enum Items {
             RABBIT("Кролик",HERBIVORE,2, 150, 2, 0.45, HERBIVORE_FOOD, new RabbitFactory(), assignIcon("/herbivore/rabbit.png")),
             SHEEP("Овца",HERBIVORE,70, 140, 3, 15, HERBIVORE_FOOD, new SheepFactory(), assignIcon("/herbivore/sheep.png")),
     PLANT(null, new PlantFactory()),
-        BUSH("Куст", PLANT, 1, 200, new BushFactory(), assignIcon("/plant/bush.png")),
-        DANDELION("Одуванчик", PLANT, 1, 200, new DandelionFactory(), assignIcon("/plant/dandelion.png")),
-        FLOWER("Цветок", PLANT, 1, 200, new FlowerFactory(), assignIcon("/plant/flower.png")),
-        GRASS("Трава", PLANT, 1, 200, new GrassFactory(), assignIcon("/plant/grass.png")),
-        SPROUT("Росток", PLANT, 1, 200, new SproutFactory(), assignIcon("/plant/sprout.png")),
-        TREE("Дерево", PLANT, 1, 200, new TreeFactory(), assignIcon("/plant/tree.png")),
+            BUSH("Куст", PLANT, 1, 200, new BushFactory(), assignIcon("/plant/bush.png")),
+            DANDELION("Одуванчик", PLANT, 1, 200, new DandelionFactory(), assignIcon("/plant/dandelion.png")),
+            FLOWER("Цветок", PLANT, 1, 200, new FlowerFactory(), assignIcon("/plant/flower.png")),
+            GRASS("Трава", PLANT, 1, 200, new GrassFactory(), assignIcon("/plant/grass.png")),
+            SPROUT("Росток", PLANT, 1, 200, new SproutFactory(), assignIcon("/plant/sprout.png")),
+            TREE("Дерево", PLANT, 1, 200, new TreeFactory(), assignIcon("/plant/tree.png")),
     LANDFORM(null, new LandformFactory()),
-        PLAIN("Равнина", LANDFORM, 1, 200, new PlainFactory(), assignIcon("/landform/plain.png"));
+            PLAIN("Равнина", LANDFORM, 1, 200, new PlainFactory(), assignIcon("/landform/plain.png"));
 
 
     static {
@@ -155,6 +155,12 @@ public enum Items {
         return randomItem;
     }
 
-
-
+    public static List<Items> getOrganismItems() {
+        List<Items> organismItems = new ArrayList<>();
+        organismItems.addAll(CARNIVORE.getChildren());
+        organismItems.addAll(HERBIVORE.getChildren());
+        organismItems.addAll(PLANT.getChildren());
+        organismItems.addAll(LANDFORM.getChildren());
+        return organismItems;
+    }
 }
