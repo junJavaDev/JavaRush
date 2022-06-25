@@ -37,9 +37,9 @@ public class StartDayWorker implements Runnable{
         Set<Organism> population = cell.getPopulation();
         try {
             for (Organism organism : population) {
-                if (days.get() % 3 == 0) {
+//                if (days.get() % 2 == 0) {
                     organism.isReproducedTried = false;
-                }
+//                }
                 organism.setAge(organism.getAge() + 1);
                 Task task = new Task(organism, action -> {
                     organism.die(cell);

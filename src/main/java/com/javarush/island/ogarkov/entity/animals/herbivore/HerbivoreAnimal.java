@@ -10,7 +10,7 @@ import java.util.Set;
 public abstract class HerbivoreAnimal extends Animal {
 
     public HerbivoreAnimal() {
-        lifeLength = 50;
+        lifeLength = 100;
         hunger = foodPerSatiation * Setting.HERBIVORE_HUNGER;
     }
 

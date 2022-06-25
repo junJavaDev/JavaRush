@@ -28,7 +28,7 @@ public abstract class Organism implements Reproducible {
         idCounter.incrementAndGet();
         item = Items.valueOf(getClass().getSimpleName().toUpperCase());
         icon = item.getIcon();
-        weight = item.getWeight()/2;
+        weight = item.getWeight()*0.7;
         maxPerLocation = item.getMaxPerLocation();
         name = item.getName();
     }
@@ -119,9 +119,9 @@ public abstract class Organism implements Reproducible {
         }
     }
 
-
+    // TODO: 25.06.2022 исправить Weight
     public void die(Cell cell) {
-        if (age > lifeLength || weight < weight/10) {
+        if (age > lifeLength || weight <= 0) {
             atomicPollFrom(cell);
         }
     }

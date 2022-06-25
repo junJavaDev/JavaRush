@@ -154,7 +154,7 @@ public abstract class Animal extends Organism implements Eating, Movable {
     }
 
     public boolean isHungry() {
-        return hunger > satiety;
+        return weight< item.getWeight()*0.9;
     }
 
     public double getSatiety() {

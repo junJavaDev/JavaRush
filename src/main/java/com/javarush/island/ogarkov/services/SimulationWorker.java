@@ -38,7 +38,7 @@ public class SimulationWorker extends Thread{
             ExecutorService servicePool = Executors.newWorkStealingPool(Runtime.getRuntime().availableProcessors());
             workers.forEach(servicePool::submit);
             servicePool.submit(new StatisticsWorker(statistics));
-            if (hours.get() % 24 == 0) {
+            if (hours.get() % 34 == 0) {
                 servicePool.submit(new StartDayWorker(island.getTerritories()));
             }
             servicePool.shutdown();
