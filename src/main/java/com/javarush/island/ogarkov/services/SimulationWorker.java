@@ -16,12 +16,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class SimulationWorker extends Thread{
+public class SimulationWorker extends Thread {
+    private static final AtomicLong hours = new AtomicLong();
     private final Island island;
     private final Controller controller;
     private final Statistics statistics;
-    private static final AtomicLong hours = new AtomicLong();
-
 
     public SimulationWorker(Island island, Controller controller, Statistics statistics) {
         this.island = island;
@@ -35,7 +34,7 @@ public class SimulationWorker extends Thread{
 
         ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
         mainPool.scheduleWithFixedDelay(() -> {
-            ExecutorService servicePool = Executors.newWorkStealingPool(Runtime.getRuntime().availableProcessors());
+            ExecutorService servicePool = Executors.newWorkStealingPool();
             workers.forEach(servicePool::submit);
             servicePool.submit(new StatisticsWorker(statistics));
             if (hours.get() % 34 == 0) {
@@ -43,17 +42,16 @@ public class SimulationWorker extends Thread{
             }
             servicePool.shutdown();
             hours.incrementAndGet();
-        },1000, 100, TimeUnit.MILLISECONDS );
+        }, 1000, 100, TimeUnit.MILLISECONDS);
 
         ScheduledExecutorService updateablePool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
         updateablePool.scheduleWithFixedDelay(() -> {
-            ExecutorService servicePool = Executors.newWorkStealingPool(2);
+            ExecutorService servicePool = Executors.newWorkStealingPool();
             servicePool.execute(controller::prepareForUpdateView);
             servicePool.execute(() -> Platform.runLater(controller::updateView));
-        },1000, 15, TimeUnit.MILLISECONDS );
+        }, 1000, 15, TimeUnit.MILLISECONDS);
 
     }
-
 
     private List<OrganismWorker> createWorkers() {
         List<OrganismWorker> workers = new ArrayList<>();
@@ -64,7 +62,6 @@ public class SimulationWorker extends Thread{
         }
         return workers;
     }
-
 
 
 }

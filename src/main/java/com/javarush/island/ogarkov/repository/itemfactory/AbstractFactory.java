@@ -6,7 +6,7 @@ import com.javarush.island.ogarkov.util.Randomizer;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public abstract class AbstractFactory implements Factory{
+public abstract class AbstractFactory implements Factory {
     protected final AtomicLong created = new AtomicLong();
 
     protected Factory getRandomFactory(Items parent) {

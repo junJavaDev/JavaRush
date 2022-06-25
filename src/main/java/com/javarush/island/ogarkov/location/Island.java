@@ -11,7 +11,8 @@ public class Island {
         territories = new ArrayList<>();
         islandMap = new Territory[rows][cols];
     }
-    public List<Territory> getTerritories () {
+
+    public List<Territory> getTerritories() {
         return territories;
     }
 

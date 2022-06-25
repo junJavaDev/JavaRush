@@ -18,7 +18,6 @@ public class OrganismWorker implements Runnable {
     private final Items item;
     private final List<Territory> territories;
 
-
     public OrganismWorker(Items item, List<Territory> territories) {
         this.item = item;
         this.territories = territories;
@@ -48,7 +47,7 @@ public class OrganismWorker implements Runnable {
                     if (item.is(organismItem)) {
                         organism.reproduce(cell);
                         if (item.is(Items.ANIMAL)) {
-                            Animal animal = (Animal)organism;
+                            Animal animal = (Animal) organism;
                             animal.eat(cell);
                             animal.move(cell);
                         }
@@ -56,7 +55,6 @@ public class OrganismWorker implements Runnable {
                 });
                 tasks.add(task);
             }
-//            }
         } finally {
             cell.getLock().unlock();
         }

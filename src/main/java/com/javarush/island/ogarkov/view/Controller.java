@@ -6,7 +6,6 @@ import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.settings.Setting;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
@@ -40,8 +39,8 @@ public class Controller extends View {
 
     @FXML
     void initialize() {
-        createIslandField();
         createTerritoryField();
+        createIslandField();
         createStatisticsField();
         initUpdateableFields();
         updateView();
@@ -99,7 +98,6 @@ public class Controller extends View {
     }
 
 
-
     private void initUpdateableFields() {
         int islandSize = ISLAND_ROWS * ISLAND_COLS;
         int territorySize = TERRITORY_ROWS * TERRITORY_COLS;
@@ -146,23 +144,5 @@ public class Controller extends View {
             Items item = itemsValues[itemIndex];
             statisticsForUpdate[itemIndex] = item + " - " + statistics.getCreated().get(item) + "\n";
         }
-    }
-
-
-
-    @FXML
-    public void restart(ActionEvent actionEvent) {
-            //        updateView();
-//        new OrganismWorker(island).run();
-    }
-
-    @FXML
-    public void showStatistic(ActionEvent actionEvent) {
-//        List<Text> items = new ArrayList<>();
-//        for (Items item : Items.values()) {
-//            Text text = new Text(item + " - " + statistics.getCreated().get(item) + "\n");
-//            items.add(text);
-//        }
-//        initStatistic(items);
     }
 }

@@ -1,5 +1,7 @@
 package com.javarush.island.ogarkov.entity.plant;
 
-public class Bush extends Plant {
+import com.javarush.island.ogarkov.annotations.ItemData;
 
+@ItemData(name = "Куст", icon = "/herbivore/bush.png")
+public class Bush extends Plant {
 }

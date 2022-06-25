@@ -18,6 +18,9 @@ public class Cell implements Comparable<Cell> {
     private Items residentItem;
     private Landform landform;
 
+    public Cell(Territory territory) {
+        this.territory = territory;
+    }
 
     public Landform getLandform() {
         return landform;
@@ -25,10 +28,6 @@ public class Cell implements Comparable<Cell> {
 
     public void setLandform(Landform landform) {
         this.landform = landform;
-    }
-
-    public Cell(Territory territory) {
-        this.territory = territory;
     }
 
     public Set<Organism> getPopulation() {
@@ -51,40 +50,39 @@ public class Cell implements Comparable<Cell> {
         residentItem = item;
     }
 
-
     public Lock getLock() {
         return lock;
     }
 
     @Override
     public int compareTo(Cell secondCell) {
-                int result = 0;
-                Items firstItem = this.getResidentItem();
-                Items secondItem = secondCell.getResidentItem();
-                if (firstItem.is(CARNIVORE) && secondItem.isNot(CARNIVORE)) {
-                    result = 1;
-                } else if (firstItem.isNot(CARNIVORE) && secondItem.is(CARNIVORE)) {
-                    result = -1;
-                } else if (firstItem.is(HERBIVORE) && secondItem.isNot(HERBIVORE)) {
-                    result = 1;
-                } else if (firstItem.isNot(HERBIVORE) && secondItem.is(HERBIVORE)) {
-                    result = -1;
-                } else if (firstItem.is(PLANT) && secondItem.isNot(PLANT)) {
-                    result = 1;
-                } else if (firstItem.isNot(PLANT) && secondItem.is(PLANT)) {
-                    result = -1;
-                }
+        int result = 0;
+        Items firstItem = this.getResidentItem();
+        Items secondItem = secondCell.getResidentItem();
+        if (firstItem.is(CARNIVORE) && secondItem.isNot(CARNIVORE)) {
+            result = 1;
+        } else if (firstItem.isNot(CARNIVORE) && secondItem.is(CARNIVORE)) {
+            result = -1;
+        } else if (firstItem.is(HERBIVORE) && secondItem.isNot(HERBIVORE)) {
+            result = 1;
+        } else if (firstItem.isNot(HERBIVORE) && secondItem.is(HERBIVORE)) {
+            result = -1;
+        } else if (firstItem.is(PLANT) && secondItem.isNot(PLANT)) {
+            result = 1;
+        } else if (firstItem.isNot(PLANT) && secondItem.is(PLANT)) {
+            result = -1;
+        }
 
-                if (result == 0) {
-                    Set<Organism> firstPopulation = this.getPopulation();
-                    Set<Organism> secondPopulation = secondCell.getPopulation();
+        if (result == 0) {
+            Set<Organism> firstPopulation = this.getPopulation();
+            Set<Organism> secondPopulation = secondCell.getPopulation();
 
-                    double firstTerritoryWeight = firstItem.getWeight() * firstPopulation.size();
-                    double secondTerritoryWeight = secondItem.getWeight() * secondPopulation.size();
-                    result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
-                }
-                return result;
-            }
+            double firstTerritoryWeight = firstItem.getMaxWeight() * firstPopulation.size();
+            double secondTerritoryWeight = secondItem.getMaxWeight() * secondPopulation.size();
+            result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
+        }
+        return result;
+    }
 
 
 }

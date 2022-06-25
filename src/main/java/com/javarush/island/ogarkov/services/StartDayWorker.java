@@ -12,9 +12,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class StartDayWorker implements Runnable{
-    private final List<Territory> territories;
+public class StartDayWorker implements Runnable {
     private static final AtomicLong days = new AtomicLong();
+    private final List<Territory> territories;
 
     public StartDayWorker(List<Territory> territories) {
         this.territories = territories;
@@ -37,16 +37,13 @@ public class StartDayWorker implements Runnable{
         Set<Organism> population = cell.getPopulation();
         try {
             for (Organism organism : population) {
-//                if (days.get() % 2 == 0) {
-                    organism.isReproducedTried = false;
-//                }
+                organism.isReproducedTried = false;
                 organism.setAge(organism.getAge() + 1);
                 Task task = new Task(organism, action -> {
                     organism.die(cell);
                 });
                 tasks.add(task);
             }
-//            }
         } finally {
             cell.getLock().unlock();
         }

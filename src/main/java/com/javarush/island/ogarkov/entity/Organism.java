@@ -4,7 +4,6 @@ import com.javarush.island.ogarkov.interfaces.Reproducible;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.util.Randomizer;
-import javafx.scene.image.Image;
 
 import java.util.Objects;
 import java.util.Set;
@@ -12,24 +11,23 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class Organism implements Reproducible {
     private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
-
-    protected String name;
+    private static final AtomicLong oldDead = new AtomicLong(); // for debug only
+    private static final AtomicLong weightDead = new AtomicLong(); // for debug only
     protected final Items item;
-    protected final Image icon;
-    protected double weight;
     protected final int maxPerLocation;
+    private final long id = idCounter.incrementAndGet();
+    public boolean isReproducedTried;
+    protected String name;
+    protected double weight;
     protected Cell cell;
     protected int age;
-    public boolean isReproducedTried;
-    private long id = idCounter.incrementAndGet();
     protected int lifeLength = 10;
 
     public Organism() {
         idCounter.incrementAndGet();
         item = Items.valueOf(getClass().getSimpleName().toUpperCase());
-        icon = item.getIcon();
-        weight = item.getWeight()*0.7;
-        maxPerLocation = item.getMaxPerLocation();
+        maxPerLocation = item.getMaxCount();
+        weight = item.getMaxWeight();
         name = item.getName();
     }
 
@@ -121,7 +119,15 @@ public abstract class Organism implements Reproducible {
 
     // TODO: 25.06.2022 исправить Weight
     public void die(Cell cell) {
-        if (age > lifeLength || weight <= 0) {
+        if (age > lifeLength) {
+            if (item.isNot(Items.PLANT)) {
+                System.out.println(item + " OLD DIE " + oldDead.incrementAndGet());
+            }
+            atomicPollFrom(cell);
+        } else if (weight <= 0) {
+            if (item.isNot(Items.PLANT)) {
+                System.out.println(item + " WEIGHT DIE " + weightDead.incrementAndGet());
+            }
             atomicPollFrom(cell);
         }
     }
@@ -132,10 +138,6 @@ public abstract class Organism implements Reproducible {
 
     public void setAge(int age) {
         this.age = age;
-    }
-
-    public Image getIcon() {
-        return icon;
     }
 
     public double getWeight() {

@@ -10,7 +10,6 @@ import com.javarush.island.ogarkov.util.Sleeper;
 import com.javarush.island.ogarkov.view.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -40,18 +39,15 @@ public class Main extends Application {
         var territoryCreator = new TerritoryCreator();
         var islandCreator = new IslandCreator(territoryCreator);
         island = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
-        Sleeper.sleep(1000);
         statistics = new Statistics();
         controller = new Controller(island, statistics);
     }
 
-
     private void loadSimulationForm (Stage stage) throws IOException {
-        // Загрузка формы simulationForm.fxml
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/simulationForm.fxml"));
         fxmlLoader.setController(controller);
         stage.getIcons().add(new Image((Objects.requireNonNull(getClass().getResourceAsStream("/icon.png")))));
-        Scene scene = new Scene((Parent) fxmlLoader.load(), Setting.ISLAND_FORM_WIDTH, Setting.ISLAND_FORM_HEIGHT);
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(Setting.SIMULATION_NAME);
         stage.setScene(scene);
         stage.show();

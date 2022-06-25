@@ -15,6 +15,7 @@ public class CellView extends StackPane {
     private Text text;
     private ImageView imageView;
     private int index;
+
     public CellView() {
         init();
     }
@@ -26,7 +27,6 @@ public class CellView extends StackPane {
         getChildren().addAll(background, imageView, text);
         setAlignment(imageView, Pos.TOP_CENTER);
         setAlignment(text, Pos.BOTTOM_CENTER);
-//        setCellColor(Color.TRANSPARENT);
     }
 
     private void setBackgroundSize(double width, double height) {
@@ -35,9 +35,6 @@ public class CellView extends StackPane {
     }
 
     public void setIslandLayout(int row, int col) {
-//        setOnMouseClicked(event -> {
-//            UpdateViewWorker.setTerritoryToView(territory);
-//        });
         setBackgroundSize(ISLAND_CELL_WIDTH, ISLAND_CELL_HEIGHT);
         setLayoutX((col * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE)));
         setLayoutY((row * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE)));
@@ -51,13 +48,6 @@ public class CellView extends StackPane {
         setColor(DEFAULT_TERRITORY_COLOR);
     }
 
-//    public void setLeaderColor() {
-//        Items item = getResidentItem();
-//        if (item.is(CARNIVORE)) {
-//            setCellColor(Color.BLACK);
-//        } else setCellColor(Color.OLIVEDRAB);
-//    }
-
     public void updateView(Image image, Color color) {
         setImage(image);
         setColor(color);
@@ -70,10 +60,6 @@ public class CellView extends StackPane {
 
     public void setImage(Image image) {
         imageView.setImage(image);
-    }
-
-    public Rectangle getCellBackground() {
-        return background;
     }
 
     public void setColor(Color color) {

@@ -18,30 +18,22 @@ import java.util.concurrent.TimeUnit;
 public abstract class Animal extends Organism implements Eating, Movable {
 
     protected final double foodPerSatiation;
+    protected final int maxSpeed;
+    protected final Map<Items, Integer> foodRation;
+    protected final int maxPerLocation;
     protected double satiety;
     protected double hunger;
-    protected final int maxSpeed;
     protected int moves;
-    protected final Map<Items, Integer> foodRation;
     protected double maxWeight;
-    protected final int maxPerLocation;
 
     // TODO: 24.06.2022 убрать из энама эти лимиты
     public Animal() {
-        foodPerSatiation = item.getFoodPerSatiation();
+        foodPerSatiation = item.getMaxFood();
         satiety = foodPerSatiation * Setting.INITIAL_SATIETY;
         maxSpeed = item.getMaxSpeed();
         foodRation = item.getFoodRation();
-        maxPerLocation = item.getMaxPerLocation();
-        maxWeight = item.getWeight();
-    }
-
-    public int getMoves() {
-        return moves;
-    }
-
-    public void setMoves(int moves) {
-        this.moves = moves;
+        maxPerLocation = item.getMaxCount();
+        maxWeight = item.getMaxWeight();
     }
 
     @Override
@@ -49,23 +41,24 @@ public abstract class Animal extends Organism implements Eating, Movable {
         if (isHungry() && atomicEat(currentCell)) {
             return true;
         }
-           return atomicLosingWeight(currentCell, 5);
+        return atomicLosingWeight(currentCell, Setting.LOSING_WEIGHT_PERCENT);
     }
 
-    protected boolean atomicLosingWeight(Cell currentCell, int percent) {
-        currentCell.getLock().lock();
-        try {
-            if (currentCell.getPopulation().contains(this)) {
-                weight -= maxWeight * percent / 100;
-                weight = Math.max(0, weight);
-                return true;
+    @Override
+    public boolean move(Cell startCell) {
+        Cell destinationCell = getDestinationCell(startCell, maxSpeed);
+        return atomicMove(startCell, destinationCell);
+    }
+
+    private List<Cell> findFood(Cell currentCell) {
+        List<Cell> cellsWithFood = new ArrayList<>();
+        for (Cell cell : currentCell.getTerritory().getCells()) {
+            if (foodRation.containsKey(cell.getResidentItem())) {
+                cellsWithFood.add(cell);
             }
-            return false;
-        } finally {
-            currentCell.getLock().unlock();
         }
+        return cellsWithFood;
     }
-
 
     private boolean atomicEat(Cell currentCell) {
         currentCell.getLock().lock();
@@ -73,18 +66,18 @@ public abstract class Animal extends Organism implements Eating, Movable {
         try {
             List<Cell> cellsWithFood = findFood(currentCell);
             for (Cell cell : cellsWithFood) {
-                    boolean isLocked = cell.getLock().tryLock(5, TimeUnit.MILLISECONDS);
-                    Items residentItem = cell.getResidentItem();
-                    if (isLocked) {
-                        if (!cell.getPopulation().isEmpty() && foodRation.containsKey(residentItem)) {
-                            cellWithFood = cell;
-                            break;
-                        } else cell.getLock().unlock();
-                    }
+                boolean isLocked = cell.getLock().tryLock(Setting.TRYING_LOCK_MILLIS, TimeUnit.MILLISECONDS);
+                Items residentItem = cell.getResidentItem();
+                if (isLocked) {
+                    if (!cell.getPopulation().isEmpty() && foodRation.containsKey(residentItem)) {
+                        cellWithFood = cell;
+                        break;
+                    } else cell.getLock().unlock();
                 }
-                if (cellWithFood != null) {
-                    return eatIt(cellWithFood);
-                }
+            }
+            if (cellWithFood != null) {
+                return eatIt(cellWithFood);
+            }
             return false;
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
@@ -108,30 +101,18 @@ public abstract class Animal extends Organism implements Eating, Movable {
         return true;
     }
 
-    private List<Cell> findFood(Cell currentCell) {
-        List<Cell> cellsWithFood = new ArrayList<>();
-        for (Cell cell : currentCell.getTerritory().getCells()) {
-            if (foodRation.containsKey(cell.getResidentItem())) {
-                cellsWithFood.add(cell);
-            }
-        }
-        return cellsWithFood;
-    }
-
-    @Override
-    public boolean move(Cell startCell) {
-        Cell destinationCell = getDestinationCell(startCell, maxSpeed);
-        return atomicMove(startCell, destinationCell);
-    }
-
-
-    private boolean atomicMove(Cell startCell, Cell destinationCell) {
-        if (atomicSetTo(destinationCell)) {
-            if (atomicPollFrom(startCell)) {
+    protected boolean atomicLosingWeight(Cell currentCell, int percent) {
+        currentCell.getLock().lock();
+        try {
+            if (currentCell.getPopulation().contains(this)) {
+                weight -= maxWeight * percent / 100;
+                weight = Math.max(0, weight);
                 return true;
-            } else atomicPollFrom(destinationCell);
+            }
+            return false;
+        } finally {
+            currentCell.getLock().unlock();
         }
-        return false;
     }
 
     private Cell getDestinationCell(Cell startCell, int maxSpeed) {
@@ -153,12 +134,25 @@ public abstract class Animal extends Organism implements Eating, Movable {
         } else return null;
     }
 
+    private boolean atomicMove(Cell startCell, Cell destinationCell) {
+        if (atomicSetTo(destinationCell)) {
+            if (atomicPollFrom(startCell)) {
+                return true;
+            } else atomicPollFrom(destinationCell);
+        }
+        return false;
+    }
+
     public boolean isHungry() {
-        return weight< item.getWeight()*0.9;
+        return weight < hunger;
     }
 
     public double getSatiety() {
         return satiety;
+    }
+
+    public void setSatiety(double satiety) {
+        this.satiety = satiety;
     }
 
     public double getHunger() {
@@ -173,8 +167,11 @@ public abstract class Animal extends Organism implements Eating, Movable {
         return foodPerSatiation;
     }
 
-    public void setSatiety(double satiety) {
-        this.satiety = satiety;
+    public int getMoves() {
+        return moves;
     }
 
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
 }

@@ -23,6 +23,7 @@ public class FoodRation {
         HERBIVORE_FOOD.put(FLOWER, 100);
         HERBIVORE_FOOD.put(GRASS, 100);
         HERBIVORE_FOOD.put(SPROUT, 100);
+        HERBIVORE_FOOD.put(TREE, 100);
 
         WOLF_FOOD.put(HORSE, 10);
         WOLF_FOOD.put(DEER, 15);

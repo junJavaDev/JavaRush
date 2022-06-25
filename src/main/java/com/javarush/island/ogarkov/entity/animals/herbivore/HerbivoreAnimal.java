@@ -10,13 +10,18 @@ import java.util.Set;
 public abstract class HerbivoreAnimal extends Animal {
 
     public HerbivoreAnimal() {
-        lifeLength = 100;
+        lifeLength = Setting.HERBIVORE_LIFE_LENGTH;
         hunger = foodPerSatiation * Setting.HERBIVORE_HUNGER;
     }
 
     @Override
+    public boolean reproduce(Cell cell) {
+        return atomicReproduce(cell, Setting.HERBIVORE_CHANCE_TO_REPRODUCE);
+    }
+
+    @Override
     protected boolean eatIt(Cell cellWithFood) {
-            Set<Organism> population = cellWithFood.getPopulation();
+        Set<Organism> population = cellWithFood.getPopulation();
         while (weight < maxWeight) {
             Organism food = population.iterator().next();
             weight = Math.min(maxWeight, weight + food.getWeight());
@@ -27,6 +32,6 @@ public abstract class HerbivoreAnimal extends Animal {
                 break;
             }
         }
-            return true;
+        return true;
     }
 }

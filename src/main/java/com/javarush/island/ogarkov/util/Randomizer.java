@@ -6,16 +6,15 @@ public class Randomizer {
     private Randomizer() {
     }
 
-
-    public static int getIntOriginOne(int origin, int bound){
+    public static int getInt(int origin, int bound) {
         return ThreadLocalRandom.current().nextInt(origin, bound);
     }
 
-    public static int getIntOriginOne(int bound){
+    public static int getIntOriginOne(int bound) {
         return ThreadLocalRandom.current().nextInt(1, bound);
     }
 
-    public static int getInt(int bound){
-        return ThreadLocalRandom.current().nextInt(0, bound);
+    public static int getInt(int bound) {
+        return ThreadLocalRandom.current().nextInt(bound);
     }
 }
