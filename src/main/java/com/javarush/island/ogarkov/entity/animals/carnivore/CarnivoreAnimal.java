@@ -6,6 +6,7 @@ import com.javarush.island.ogarkov.settings.Setting;
 public abstract class CarnivoreAnimal extends Animal {
 
     public CarnivoreAnimal() {
+        lifeLength = 6;
         hunger = foodPerSatiation * Setting.CARNIVORE_HUNGER;
     }
 }

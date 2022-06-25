@@ -149,7 +149,7 @@ public enum Items {
     public Items getRandom() {
         Items randomItem = this;
         if (!randomItem.getChildren().isEmpty()) {
-            int randomItemIndex = Randomizer.getIntOriginOne(getChildren().size());
+            int randomItemIndex = Randomizer.getInt(getChildren().size());
             randomItem = children.get(randomItemIndex).getRandom();
         }
         return randomItem;

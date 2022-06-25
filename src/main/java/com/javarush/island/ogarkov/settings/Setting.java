@@ -22,15 +22,15 @@ public class Setting {
     public static final double INITIAL_SATIETY = 0.5;
     public static final double CARNIVORE_HUNGER = 0.8;
     public static final double HERBIVORE_HUNGER = 1;
-    public static final int CARNIVORE_PER_CELL = 10;
-    public static final int HERBIVORE_PER_CELL = 10;
+    public static final int CARNIVORE_PER_CELL = 5;
+    public static final int HERBIVORE_PER_CELL = 15;
     public static final int PLANT_PER_CELL = 50;
     public static final int PLANT_REPRODUCED_PER_EMPTY_CELL = 8;
 
     public static final int LANDFORM_PER_CELL = 1;
-    public static final int CARNIVORE_PROPABILITY = 50;
-    public static final int HERBIVORE_PROPABILITY = 100;
-    public static final int PLANT_PROPABILITY = 1000;
+    public static final int CARNIVORE_PROPABILITY = 5;
+    public static final int HERBIVORE_PROPABILITY = 50;
+    public static final int PLANT_PROPABILITY = 200;
     public static final Color DEFAULT_ISLAND_COLOR = Color.OLIVEDRAB;
     public static final Color DEFAULT_TERRITORY_COLOR = Color.LIGHTGRAY;
     public static final Color SELECTED_COLOR = Color.RED;

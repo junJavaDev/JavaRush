@@ -16,19 +16,23 @@ public abstract class Organism implements Reproducible {
     protected String name;
     protected final Items item;
     protected final Image icon;
-    protected final double weight;
+    protected double weight;
     protected final int maxPerLocation;
     protected Cell cell;
+    protected int age;
     public boolean isReproducedTried;
     private long id = idCounter.incrementAndGet();
+    protected int lifeLength = 10;
+
     public Organism() {
         idCounter.incrementAndGet();
         item = Items.valueOf(getClass().getSimpleName().toUpperCase());
         icon = item.getIcon();
-        weight = item.getWeight();
+        weight = item.getWeight()/2;
         maxPerLocation = item.getMaxPerLocation();
         name = item.getName();
     }
+
     @Override
     public boolean reproduce(Cell cell) {
         return atomicReproduce(cell, 50);
@@ -36,29 +40,33 @@ public abstract class Organism implements Reproducible {
 
     protected boolean atomicReproduce(Cell cell, int chance) {
         // TODO: 24.06.2022 вынести в настройки, добавить проверку на голод
-//        cell.getLock().lock();
-//        try {
+        cell.getLock().lock();
+        try {
             boolean isBorned = false;
             Set<Organism> population = cell.getPopulation();
             if (!isReproducedTried && population.contains(this) && population.size() < maxPerLocation && population.size() > 1) {
+                Organism pair = null;
                 for (Organism organism : population) {
-                    if (!this.equals(organism) && !organism.isReproducedTried) {
-                        int chanceToReproduce = Randomizer.getInt(100);
-                        if (chanceToReproduce < chance) {
-                            Organism born = item.getFactory().createItem();
-                            born.isReproducedTried = true;
-                            population.add(born);
-                            isBorned = true;
-                            organism.isReproducedTried = true;
-                        }
+                    if (!this.equals(organism)) {
+                        pair = organism;
+                        break;
                     }
-                    isReproducedTried = true;
                 }
+                if (pair != null) {
+                    int chanceToReproduce = Randomizer.getInt(100);
+                    if (chanceToReproduce < chance) {
+                        Organism born = item.getFactory().createItem();
+                        population.add(born);
+                        isBorned = true;
+                    }
+                    pair.isReproducedTried = true;
+                }
+                isReproducedTried = true;
             }
             return isBorned;
-//        } finally {
-//            cell.getLock().unlock();
-//        }
+        } finally {
+            cell.getLock().unlock();
+        }
     }
 
     public Items getItem() {
@@ -112,11 +120,19 @@ public abstract class Organism implements Reproducible {
     }
 
 
-    public Organism terminated() {
-        System.out.println("умирает (от голода или съедено)");
-        return Items.LANDFORM.getFactory().createItem();
+    public void die(Cell cell) {
+        if (age > lifeLength || weight < weight/10) {
+            atomicPollFrom(cell);
+        }
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public Image getIcon() {
         return icon;
@@ -136,9 +152,7 @@ public abstract class Organism implements Reproducible {
 
     @Override
     public String toString() {
-        return "Organizm{" +
-                "name='" + name + '\'' +
-                '}';
+        return "Organizm{" + "name='" + name + '\'' + '}';
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.view.Controller;
+import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,11 +14,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class SimulationWorker extends Thread{
     private final Island island;
     private final Controller controller;
     private final Statistics statistics;
+    private static final AtomicLong hours = new AtomicLong();
+
 
     public SimulationWorker(Island island, Controller controller, Statistics statistics) {
         this.island = island;
@@ -31,22 +35,22 @@ public class SimulationWorker extends Thread{
 
         ScheduledExecutorService mainPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
         mainPool.scheduleWithFixedDelay(() -> {
-            ExecutorService servicePool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+            ExecutorService servicePool = Executors.newWorkStealingPool(Runtime.getRuntime().availableProcessors());
             workers.forEach(servicePool::submit);
             servicePool.submit(new StatisticsWorker(statistics));
-//            servicePool.submit(new UpdateViewWorker(controller));
+            if (hours.get() % 24 == 0) {
+                servicePool.submit(new StartDayWorker(island.getTerritories()));
+            }
             servicePool.shutdown();
-        },1000, 50, TimeUnit.MILLISECONDS );
+            hours.incrementAndGet();
+        },1000, 100, TimeUnit.MILLISECONDS );
 
         ScheduledExecutorService updateablePool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
         updateablePool.scheduleWithFixedDelay(() -> {
-            ExecutorService servicePool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-//            servicePool.submit(new StatisticsWorker(statistics));
-            servicePool.submit(new UpdateViewWorker(controller));
-            servicePool.shutdown();
-        },1000, 100, TimeUnit.MILLISECONDS );
-
-
+            ExecutorService servicePool = Executors.newWorkStealingPool(2);
+            servicePool.execute(controller::prepareForUpdateView);
+            servicePool.execute(() -> Platform.runLater(controller::updateView));
+        },1000, 15, TimeUnit.MILLISECONDS );
 
     }
 
@@ -55,7 +59,7 @@ public class SimulationWorker extends Thread{
         List<OrganismWorker> workers = new ArrayList<>();
         for (Items organismItem : Items.getOrganismItems()) {
             List<Territory> territories = new ArrayList<>(island.getTerritories());
-//            Collections.shuffle(territories);
+            Collections.shuffle(territories);
             workers.add(new OrganismWorker(organismItem, territories));
         }
         return workers;

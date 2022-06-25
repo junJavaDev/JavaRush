@@ -9,12 +9,16 @@ import com.javarush.island.ogarkov.util.Randomizer;
 import java.util.Set;
 
 public abstract class Landform extends Organism {
+    public Landform() {
+        lifeLength = Integer.MAX_VALUE;
+    }
+
     @Override
     protected boolean atomicReproduce(Cell cell, int chance) {
-//            cell.getLock().lock();
-//            try {
+            cell.getLock().lock();
+            try {
                 boolean isReproduced = false;
-                if (cell.getResidentItem().is(Items.LANDFORM) && !isReproducedTried) {
+                if (cell.getResidentItem().is(Items.LANDFORM)) {
                     Set<Organism> population = cell.getPopulation();
                     Organism plant = Items.PLANT.getFactory().createItem();
                     Items newResidentItem = plant.getItem();
@@ -29,8 +33,8 @@ public abstract class Landform extends Organism {
                     isReproducedTried = true;
                 }
                 return isReproduced;
-//            } finally {
-//                cell.getLock().unlock();
-//            }
+            } finally {
+                cell.getLock().unlock();
+            }
     }
 }

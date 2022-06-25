@@ -12,7 +12,8 @@ import com.javarush.island.ogarkov.util.Randomizer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 public abstract class Animal extends Organism implements Eating, Movable {
 
@@ -20,6 +21,7 @@ public abstract class Animal extends Organism implements Eating, Movable {
     protected double satiety;
     protected double hunger;
     protected final int maxSpeed;
+    protected int moves;
     protected final Map<Items, Integer> foodRation;
     protected double maxWeight;
     protected final int maxPerLocation;
@@ -34,23 +36,86 @@ public abstract class Animal extends Organism implements Eating, Movable {
         maxWeight = item.getWeight();
     }
 
+    public int getMoves() {
+        return moves;
+    }
+
+    public void setMoves(int moves) {
+        this.moves = moves;
+    }
+
     @Override
     public boolean eat(Cell currentCell) {
-//        if (isEdible(food)) {
-//            if (isHungry()) {
-//                System.out.println(this.getClass().getSimpleName() + " пытается съесть " + food.getClass().getSimpleName());
-//                if (canEat(food)) {
-//                    setSatiety(Math.min(getSatiety() + food.getWeight(), getFoodPerSatiation()));
-//                    System.out.println(this.getClass().getSimpleName() + " съел " + food.getClass().getSimpleName());
-//                    food.terminated();
-//                }
-//            } else {
-//                System.out.println(this.getClass().getSimpleName() + " не голоден");
-//            }
-//        } else {
-//            System.out.println(this.getClass().getSimpleName() + " не ест такую пищу");
-//        }
+        if (isHungry() && atomicEat(currentCell)) {
+            return true;
+        }
+           return atomicLosingWeight(currentCell, 5);
+    }
+
+    protected boolean atomicLosingWeight(Cell currentCell, int percent) {
+        currentCell.getLock().lock();
+        try {
+            if (currentCell.getPopulation().contains(this)) {
+                weight -= maxWeight * percent / 100;
+                weight = Math.max(0, weight);
+                return true;
+            }
+            return false;
+        } finally {
+            currentCell.getLock().unlock();
+        }
+    }
+
+
+    private boolean atomicEat(Cell currentCell) {
+        currentCell.getLock().lock();
+        Cell cellWithFood = null;
+        try {
+            List<Cell> cellsWithFood = findFood(currentCell);
+            for (Cell cell : cellsWithFood) {
+                    boolean isLocked = cell.getLock().tryLock(5, TimeUnit.MILLISECONDS);
+                    Items residentItem = cell.getResidentItem();
+                    if (isLocked) {
+                        if (!cell.getPopulation().isEmpty() && foodRation.containsKey(residentItem)) {
+                            cellWithFood = cell;
+                            break;
+                        } else cell.getLock().unlock();
+                    }
+                }
+                if (cellWithFood != null) {
+                    return eatIt(cellWithFood);
+                }
+            return false;
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            currentCell.getLock().unlock();
+            if (cellWithFood != null) {
+                cellWithFood.getLock().unlock();
+            }
+        }
+    }
+
+    protected boolean eatIt(Cell cellWithFood) {
+        Set<Organism> population = cellWithFood.getPopulation();
+        Organism food = population.iterator().next();
+        weight = Math.min(maxWeight, weight + food.getWeight());
+        population.remove(food);
+        if (population.isEmpty()) {
+            population.add(cellWithFood.getLandform());
+            cellWithFood.setResidentItem(cellWithFood.getLandform().getItem());
+        }
         return true;
+    }
+
+    private List<Cell> findFood(Cell currentCell) {
+        List<Cell> cellsWithFood = new ArrayList<>();
+        for (Cell cell : currentCell.getTerritory().getCells()) {
+            if (foodRation.containsKey(cell.getResidentItem())) {
+                cellsWithFood.add(cell);
+            }
+        }
+        return cellsWithFood;
     }
 
     @Override
@@ -58,7 +123,6 @@ public abstract class Animal extends Organism implements Eating, Movable {
         Cell destinationCell = getDestinationCell(startCell, maxSpeed);
         return atomicMove(startCell, destinationCell);
     }
-
 
 
     private boolean atomicMove(Cell startCell, Cell destinationCell) {
@@ -85,44 +149,8 @@ public abstract class Animal extends Organism implements Eating, Movable {
             }
         }
         if (!cellsToMove.isEmpty()) {
-            return cellsToMove.stream()
-                    .min(Cell::compareTo)
-                    .orElseThrow();
-        }
-        else return null;
-    }
-//        }
-
-    // TODO: 16.06.2022 Добавить логику выбора ячейки, по принципу самой слабой единицы,
-    //  добавить логику перемещения, если голоден и нет еды
-    //  добавить логику выбора локации по принципу где есть еда
-
-    // TODO: 15.06.2022 закинуть логику передвижения в пул обновление отображения в контроллёр
-    //  добавить логику выбрать другую локацию, если на той территории нет растений или почвы,
-    //  добавить логику перемещения к таким же итемам в их популяцию
-    //  установить максимум на клетку равный максимум на локацию / 16
-    //  уменьшить цветки
-
-//        return cellFrom.getTerritory();
-//    }
-
-//    @Override
-//    public boolean reproduce() {
-//        System.out.println("Животное размножается (при наличии пары в их локации)");
-//        return false;
-//    }
-
-
-    private boolean canEat(Organism food) {
-        ThreadLocalRandom localRandom = ThreadLocalRandom.current();
-        int chance = localRandom.nextInt(100);
-        Map<Items, Integer> eatingPropabilities = item.getFoodRation();
-        int propability = eatingPropabilities.getOrDefault(food.getItem(), 0);
-        return chance < propability;
-    }
-
-    private boolean isEdible(Organism food) {
-        return item.getFoodRation().containsKey(food.getItem());
+            return cellsToMove.stream().min(Cell::compareTo).orElseThrow();
+        } else return null;
     }
 
     public boolean isHungry() {

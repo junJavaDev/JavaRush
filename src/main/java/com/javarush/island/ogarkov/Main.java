@@ -6,6 +6,7 @@ import com.javarush.island.ogarkov.repository.IslandCreator;
 import com.javarush.island.ogarkov.repository.TerritoryCreator;
 import com.javarush.island.ogarkov.services.SimulationWorker;
 import com.javarush.island.ogarkov.settings.Setting;
+import com.javarush.island.ogarkov.util.Sleeper;
 import com.javarush.island.ogarkov.view.Controller;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -39,6 +40,7 @@ public class Main extends Application {
         var territoryCreator = new TerritoryCreator();
         var islandCreator = new IslandCreator(territoryCreator);
         island = islandCreator.createIsland(Setting.ISLAND_ROWS, Setting.ISLAND_COLS);
+        Sleeper.sleep(1000);
         statistics = new Statistics();
         controller = new Controller(island, statistics);
     }
