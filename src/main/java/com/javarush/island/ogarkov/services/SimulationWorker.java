@@ -69,6 +69,7 @@ public class SimulationWorker extends Thread {
         mainPool.shutdown();
         updateablePool.shutdown();
         try {
+            workers.forEach(OrganismWorker::stopIt);
             if (!mainInnerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
                 mainInnerPool.shutdownNow();
             }
