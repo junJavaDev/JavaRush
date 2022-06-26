@@ -64,12 +64,13 @@ public class SimulationWorker extends Thread {
     }
 
     public void stopIt() {
+        workers.forEach(OrganismWorker::stopIt);
+        startDayWorker.stopIt();
         mainInnerPool.shutdown();
         updateableInnerPool.shutdown();
         mainPool.shutdown();
         updateablePool.shutdown();
         try {
-            workers.forEach(OrganismWorker::stopIt);
             if (!mainInnerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
                 mainInnerPool.shutdownNow();
             }
