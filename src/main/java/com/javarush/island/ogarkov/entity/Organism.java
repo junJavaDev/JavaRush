@@ -17,7 +17,7 @@ public abstract class Organism implements Reproducible {
     protected String name;
     protected double weight;
     protected int age;
-    protected int lifeLength = 10;
+    protected int lifeLength;
 
     public Organism() {
         idCounter.incrementAndGet();
