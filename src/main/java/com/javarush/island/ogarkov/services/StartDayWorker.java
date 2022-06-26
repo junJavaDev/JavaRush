@@ -2,11 +2,10 @@ package com.javarush.island.ogarkov.services;
 
 import com.javarush.island.ogarkov.entity.Organism;
 import com.javarush.island.ogarkov.location.Cell;
+import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
 
-import java.util.List;
-import java.util.Queue;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -16,8 +15,9 @@ public class StartDayWorker implements Runnable {
     private static final AtomicLong days = new AtomicLong();
     private final List<Territory> territories;
 
-    public StartDayWorker(List<Territory> territories) {
-        this.territories = territories;
+    public StartDayWorker(Island island) {
+        this.territories = new ArrayList<>(island.getTerritories());
+        Collections.shuffle(territories);
     }
 
     @Override
@@ -39,9 +39,7 @@ public class StartDayWorker implements Runnable {
             for (Organism organism : population) {
                 organism.isReproducedTried = false;
                 organism.setAge(organism.getAge() + 1);
-                Task task = new Task(organism, action -> {
-                    organism.die(cell);
-                });
+                Task task = new Task(organism, action -> organism.die(cell));
                 tasks.add(task);
             }
         } finally {

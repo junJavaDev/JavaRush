@@ -4,10 +4,10 @@ import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.util.Randomizer;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class AbstractFactory implements Factory {
-    protected final AtomicLong created = new AtomicLong();
+    protected final AtomicInteger created = new AtomicInteger();
 
     protected Factory getRandomFactory(Items parent) {
         if (!parent.getChildren().isEmpty()) {
@@ -19,7 +19,7 @@ public abstract class AbstractFactory implements Factory {
     }
 
     @Override
-    public long getCreatedItemsCount() {
+    public int getCreatedItemsCount() {
         return created.get();
     }
 

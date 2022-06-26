@@ -11,22 +11,17 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class Organism implements Reproducible {
     private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
-    private static final AtomicLong oldDead = new AtomicLong(); // for debug only
-    private static final AtomicLong weightDead = new AtomicLong(); // for debug only
+    private final long id = idCounter.incrementAndGet(); // TODO: 26.06.2022 добавить id в фабрике к имени, переделать equals, hashcode
     protected final Items item;
-    protected final int maxPerLocation;
-    private final long id = idCounter.incrementAndGet();
     public boolean isReproducedTried;
     protected String name;
     protected double weight;
-    protected Cell cell;
     protected int age;
     protected int lifeLength = 10;
 
     public Organism() {
         idCounter.incrementAndGet();
         item = Items.valueOf(getClass().getSimpleName().toUpperCase());
-        maxPerLocation = item.getMaxCount();
         weight = item.getMaxWeight();
         name = item.getName();
     }
@@ -37,12 +32,12 @@ public abstract class Organism implements Reproducible {
     }
 
     protected boolean atomicReproduce(Cell cell, int chance) {
-        // TODO: 24.06.2022 вынести в настройки, добавить проверку на голод
+        //need to fix logic
         cell.getLock().lock();
         try {
             boolean isBorned = false;
             Set<Organism> population = cell.getPopulation();
-            if (!isReproducedTried && population.contains(this) && population.size() < maxPerLocation && population.size() > 1) {
+            if (!isReproducedTried && population.contains(this) && population.size() < item.getMaxCount() && population.size() > 1) {
                 Organism pair = null;
                 for (Organism organism : population) {
                     if (!this.equals(organism)) {
@@ -77,7 +72,7 @@ public abstract class Organism implements Reproducible {
             if (item == cell.getResidentItem()) {
                 Set<Organism> population = cell.getPopulation();
                 int populationSize = population.size();
-                return populationSize < maxPerLocation && population.add(this);
+                return populationSize < item.getMaxCount() && population.add(this);
             } else return false;
         } finally {
             cell.getLock().unlock();
@@ -117,17 +112,9 @@ public abstract class Organism implements Reproducible {
         }
     }
 
-    // TODO: 25.06.2022 исправить Weight
     public void die(Cell cell) {
-        if (age > lifeLength) {
-            if (item.isNot(Items.PLANT)) {
-                System.out.println(item + " OLD DIE " + oldDead.incrementAndGet());
-            }
-            atomicPollFrom(cell);
-        } else if (weight <= 0) {
-            if (item.isNot(Items.PLANT)) {
-                System.out.println(item + " WEIGHT DIE " + weightDead.incrementAndGet());
-            }
+        //need to fix logic
+        if (age > lifeLength || weight <= 0) {
             atomicPollFrom(cell);
         }
     }
@@ -142,14 +129,6 @@ public abstract class Organism implements Reproducible {
 
     public double getWeight() {
         return weight;
-    }
-
-    public Cell getCell() {
-        return cell;
-    }
-
-    public void setTerritory(Cell cell) {
-        this.cell = cell;
     }
 
     @Override

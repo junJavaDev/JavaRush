@@ -8,7 +8,7 @@ public interface Factory {
 
     void addCreatedItem(Items item);
 
-    long getCreatedItemsCount();
+    int getCreatedItemsCount();
 
 
 }

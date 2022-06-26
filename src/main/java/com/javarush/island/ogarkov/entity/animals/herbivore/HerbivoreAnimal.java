@@ -11,7 +11,6 @@ public abstract class HerbivoreAnimal extends Animal {
 
     public HerbivoreAnimal() {
         lifeLength = Setting.HERBIVORE_LIFE_LENGTH;
-        hunger = foodPerSatiation * Setting.HERBIVORE_HUNGER;
     }
 
     @Override
@@ -22,9 +21,9 @@ public abstract class HerbivoreAnimal extends Animal {
     @Override
     protected boolean eatIt(Cell cellWithFood) {
         Set<Organism> population = cellWithFood.getPopulation();
-        while (weight < maxWeight) {
+        while (weight < item.getMaxWeight()) {
             Organism food = population.iterator().next();
-            weight = Math.min(maxWeight, weight + food.getWeight());
+            weight = Math.min(item.getMaxWeight(), weight + food.getWeight());
             population.remove(food);
             if (population.isEmpty()) {
                 population.add(cellWithFood.getLandform());

@@ -8,7 +8,6 @@ public abstract class CarnivoreAnimal extends Animal {
 
     public CarnivoreAnimal() {
         lifeLength = Setting.CARNIVORE_LIFE_LENGTH;
-        hunger = foodPerSatiation * Setting.CARNIVORE_HUNGER;
     }
 
     @Override

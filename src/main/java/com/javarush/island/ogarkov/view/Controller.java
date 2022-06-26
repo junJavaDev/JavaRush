@@ -75,7 +75,7 @@ public class Controller extends View {
         initTerritoryField(cells);
     }
 
-    // TODO: 23.06.2022 Добавить цвета 
+    // TODO: 23.06.2022 добавить иконки / цвета, убрать родителей
     private void createStatisticsField() {
         var texts = new ArrayList<Text>();
         for (Items item : Items.values()) {
@@ -88,7 +88,6 @@ public class Controller extends View {
     public void prepareForUpdateView() {
         prepareIslandForUpdateView();
         prepareTerritoryForUpdateView();
-        prepareStatisticForUpdateView();
     }
 
     public void updateView() {
@@ -138,11 +137,11 @@ public class Controller extends View {
         }
     }
 
-    private void prepareStatisticForUpdateView() {
+    public void prepareStatisticForUpdateView() {
         Items[] itemsValues = Items.values();
         for (int itemIndex = 0; itemIndex < itemsValues.length; itemIndex++) {
             Items item = itemsValues[itemIndex];
-            statisticsForUpdate[itemIndex] = item + " - " + statistics.getCreated().get(item) + "\n";
+            statisticsForUpdate[itemIndex] = item + " - " + statistics.getExisting().get(item) + "\n";
         }
     }
 }

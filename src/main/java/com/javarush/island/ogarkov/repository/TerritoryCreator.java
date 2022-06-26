@@ -43,14 +43,14 @@ public class TerritoryCreator {
     }
 
     public Set<Organism> createRandomPopulation() {
-        int maxProbability = PLANT_PROPABILITY + HERBIVORE_PROPABILITY + CARNIVORE_PROPABILITY;
+        int maxProbability = CELL_PLANT_PROBABILITY + CELL_HERBIVORE_PROBABILITY + CELL_CARNIVORE_PROBABILITY;
         int probability = Randomizer.getInt(maxProbability);
-        if (probability < PLANT_PROPABILITY) {
-            return createPopulation(PLANT, PLANT_PER_CELL);
-        } else if (probability < PLANT_PROPABILITY + HERBIVORE_PROPABILITY) {
-            return createPopulation(HERBIVORE, HERBIVORE_PER_CELL);
+        if (probability < CELL_PLANT_PROBABILITY) {
+            return createPopulation(PLANT, PLANT_INIT_PER_CELL);
+        } else if (probability < CELL_PLANT_PROBABILITY + CELL_HERBIVORE_PROBABILITY) {
+            return createPopulation(HERBIVORE, HERBIVORE_INIT_PER_CELL);
         } else
-            return createPopulation(CARNIVORE, CARNIVORE_PER_CELL);
+            return createPopulation(CARNIVORE, CARNIVORE_INIT_PER_CELL);
     }
 
     public Landform createRandomLandform() {

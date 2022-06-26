@@ -7,25 +7,34 @@ import java.util.Map;
 
 public class Statistics {
 
-    protected final Map<Items, Long> created;
-    protected final Map<Items, Long> terminated;
-    protected final Map<Items, Long> existing;
+    protected final Map<Items, Integer> created;
+    protected final Map<Items, Integer> existing;
+    protected final Map<Items, Integer> terminated;
 
     public Statistics() {
         this.created = new HashMap<>();
-        this.terminated = new HashMap<>();
         this.existing = new HashMap<>();
+        this.terminated = new HashMap<>();
+        init();
     }
 
-    public Map<Items, Long> getCreated() {
+    private void init() {
+        for (Items item : Items.values()) {
+            created.put(item, 0);
+            existing.put(item, 0);
+            terminated.put(item, 0);
+        }
+    }
+
+    public Map<Items, Integer> getCreated() {
         return created;
     }
 
-    public Map<Items, Long> getTerminated() {
+    public Map<Items, Integer> getTerminated() {
         return terminated;
     }
 
-    public Map<Items, Long> getExisting() {
+    public Map<Items, Integer> getExisting() {
         return existing;
     }
 }

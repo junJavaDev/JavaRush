@@ -17,23 +17,16 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class Animal extends Organism implements Eating, Movable {
 
-    protected final double foodPerSatiation;
-    protected final int maxSpeed;
     protected final Map<Items, Integer> foodRation;
-    protected final int maxPerLocation;
     protected double satiety;
     protected double hunger;
     protected int moves;
-    protected double maxWeight;
 
-    // TODO: 24.06.2022 убрать из энама эти лимиты
+    // TODO: 26.06.2022 обновить логику по satiety, hunger
     public Animal() {
-        foodPerSatiation = item.getMaxFood();
-        satiety = foodPerSatiation * Setting.INITIAL_SATIETY;
-        maxSpeed = item.getMaxSpeed();
+        satiety =  item.getMaxFood() * Setting.INIT_SATIETY;
         foodRation = item.getFoodRation();
-        maxPerLocation = item.getMaxCount();
-        maxWeight = item.getMaxWeight();
+        hunger = item.getMaxWeight() * Setting.HUNGER;
     }
 
     @Override
@@ -41,12 +34,12 @@ public abstract class Animal extends Organism implements Eating, Movable {
         if (isHungry() && atomicEat(currentCell)) {
             return true;
         }
-        return atomicLosingWeight(currentCell, Setting.LOSING_WEIGHT_PERCENT);
+        return atomicLosingWeight(currentCell);
     }
 
     @Override
     public boolean move(Cell startCell) {
-        Cell destinationCell = getDestinationCell(startCell, maxSpeed);
+        Cell destinationCell = getDestinationCell(startCell, item.getMaxSpeed());
         return atomicMove(startCell, destinationCell);
     }
 
@@ -92,7 +85,7 @@ public abstract class Animal extends Organism implements Eating, Movable {
     protected boolean eatIt(Cell cellWithFood) {
         Set<Organism> population = cellWithFood.getPopulation();
         Organism food = population.iterator().next();
-        weight = Math.min(maxWeight, weight + food.getWeight());
+        weight = Math.min(item.getMaxWeight(), weight + food.getWeight());
         population.remove(food);
         if (population.isEmpty()) {
             population.add(cellWithFood.getLandform());
@@ -101,11 +94,11 @@ public abstract class Animal extends Organism implements Eating, Movable {
         return true;
     }
 
-    protected boolean atomicLosingWeight(Cell currentCell, int percent) {
+    protected boolean atomicLosingWeight(Cell currentCell) {
         currentCell.getLock().lock();
         try {
             if (currentCell.getPopulation().contains(this)) {
-                weight -= maxWeight * percent / 100;
+                weight -= item.getMaxWeight() * Setting.LOSING_WEIGHT_PERCENT / 100;
                 weight = Math.max(0, weight);
                 return true;
             }
@@ -117,7 +110,7 @@ public abstract class Animal extends Organism implements Eating, Movable {
 
     private Cell getDestinationCell(Cell startCell, int maxSpeed) {
         List<Territory> adjacentTerritory = startCell.getTerritory().getAdjacentTerritory();
-        // TODO: 24.06.2022 рандомайзер можно улучшить
+        // TODO: 24.06.2022 рандомайзер можно улучшить, добавить зависимость от скорости животного
         Territory adjacent = adjacentTerritory.get(Randomizer.getInt(adjacentTerritory.size()));
 
         List<Cell> cellsToMove = new ArrayList<>();
@@ -157,14 +150,6 @@ public abstract class Animal extends Organism implements Eating, Movable {
 
     public double getHunger() {
         return hunger;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public double getFoodPerSatiation() {
-        return foodPerSatiation;
     }
 
     public int getMoves() {
