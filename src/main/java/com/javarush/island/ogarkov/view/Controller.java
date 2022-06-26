@@ -4,12 +4,15 @@ import com.javarush.island.ogarkov.entity.Statistics;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Island;
 import com.javarush.island.ogarkov.location.Territory;
+import com.javarush.island.ogarkov.services.SimulationWorker;
 import com.javarush.island.ogarkov.settings.Items;
 import com.javarush.island.ogarkov.settings.Setting;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.WindowEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,6 +27,7 @@ public class Controller extends View {
 
     private final Statistics statistics;
     private final Island island;
+    private SimulationWorker simulationWorker;
     private int selectedTerritoryIndex;
     private Image[] islandIconsForUpdate;
     private Color[] islandColorsForUpdate;
@@ -144,4 +148,14 @@ public class Controller extends View {
             statisticsForUpdate[itemIndex] = item + " - " + statistics.getExisting().get(item) + "\n";
         }
     }
+
+    public void setSimulationWorker(SimulationWorker simulationWorker) {
+        this.simulationWorker = simulationWorker;
+    }
+
+    public EventHandler<WindowEvent> getCloseEventHandler() {
+        return closeEventHandler;
+    }
+
+    private final javafx.event.EventHandler<WindowEvent> closeEventHandler = event -> simulationWorker.stopIt();
 }

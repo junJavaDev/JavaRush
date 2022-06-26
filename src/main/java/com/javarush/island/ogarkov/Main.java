@@ -32,6 +32,7 @@ public class Main extends Application {
         createSimulation();
         loadSimulationForm(stage);
         var simulationWorker = new SimulationWorker(island, controller, statistics);
+        controller.setSimulationWorker(simulationWorker);
         simulationWorker.start();
     }
 
@@ -52,5 +53,6 @@ public class Main extends Application {
         stage.setTitle(Setting.SIMULATION_NAME);
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(controller.getCloseEventHandler());
     }
 }
