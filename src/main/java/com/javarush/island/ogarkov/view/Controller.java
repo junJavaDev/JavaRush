@@ -154,8 +154,6 @@ public class Controller extends View {
     }
 
     public EventHandler<WindowEvent> getCloseEventHandler() {
-        return closeEventHandler;
+        return event -> simulationWorker.stopIt();
     }
-
-    private final javafx.event.EventHandler<WindowEvent> closeEventHandler = event -> simulationWorker.stopIt();
 }

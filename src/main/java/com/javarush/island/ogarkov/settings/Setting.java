@@ -29,10 +29,10 @@ public class Setting {
     public static final double INIT_SATIETY = 0.5;
     public static final double HUNGER = 0.8;
     public static final int LOSING_WEIGHT_PERCENT = 5;
-    public static final int CARNIVORE_CHANCE_TO_REPRODUCE = 25;
-    public static final int HERBIVORE_CHANCE_TO_REPRODUCE = 80;
+    public static final int CARNIVORE_CHANCE_TO_REPRODUCE = 20;
+    public static final int HERBIVORE_CHANCE_TO_REPRODUCE = 60;
     public static final int PLANT_CHANCE_TO_REPRODUCE = 30;
-    public static final int PLANT_REPRODUCED_PER_EMPTY_CELL = 14;
+    public static final int PLANT_REPRODUCED_PER_EMPTY_CELL = 8;
     public static final int CARNIVORE_LIFE_LENGTH = 30;
     public static final int HERBIVORE_LIFE_LENGTH = 60;
     public static final int PLANT_LIFE_LENGTH = 60;
