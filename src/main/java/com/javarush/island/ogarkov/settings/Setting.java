@@ -11,7 +11,7 @@ public class Setting {
     public static final String SIMULATION_NAME = "Island Simulation by Ogarkov";
     public static final String ENTITY_PATH = "com.javarush.island.ogarkov.entity";
     public static final int INITIAL_DELAY = 1000;
-    public static final int MAIN_DELAY = 100; // simulation speed, 100 to debug
+    public static final int MAIN_DELAY = 350; // simulation speed, 100 to debug
     public static final int UPDATE_DELAY = 30;
     public static final int ISLAND_ROWS = 20;
     public static final int ISLAND_COLS = 100;
