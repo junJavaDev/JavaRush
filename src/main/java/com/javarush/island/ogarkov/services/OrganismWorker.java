@@ -2,30 +2,26 @@ package com.javarush.island.ogarkov.services;
 
 import com.javarush.island.ogarkov.entity.Organism;
 import com.javarush.island.ogarkov.entity.animals.Animal;
-import com.javarush.island.ogarkov.exception.IslandException;
 import com.javarush.island.ogarkov.location.Cell;
 import com.javarush.island.ogarkov.location.Territory;
 import com.javarush.island.ogarkov.settings.Items;
-import com.javarush.island.ogarkov.settings.Setting;
 
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class OrganismWorker implements Runnable {
 
     private final Items item;
     private final List<Territory> territories;
-    private final ExecutorService workerPool;
+    private final Queue<Task> tasks;
+
 
     public OrganismWorker(Items item, List<Territory> territories) {
         this.item = item;
         this.territories = territories;
-        workerPool = Executors.newWorkStealingPool();
+        tasks = new ConcurrentLinkedQueue<>();
     }
 
     @Override
@@ -33,35 +29,23 @@ public class OrganismWorker implements Runnable {
         for (Territory territory : territories) {
             for (Cell cell : territory.getCells()) {
                 if (item.is(cell.getResidentItem())) {
-                    workerPool.execute(() -> processCell(cell));
+                        processCell(cell);
                 }
             }
         }
     }
 
-    public void stopIt() {
-        workerPool.shutdown();
-        try {
-            if (!workerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
-                workerPool.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            throw new IslandException(e);
-        }
-    }
-
     protected void processCell(Cell cell) {
-        Queue<Task> tasks = new ConcurrentLinkedQueue<>();
         cell.getLock().lock();
         Set<Organism> population = cell.getPopulation();
         try {
             for (Organism organism : population) {
-                Task task = new Task(organism, action -> {
-                    Items organismItem = organism.getItem();
+                Task task = new Task(organism, organismToAction -> {
+                    Items organismItem = organismToAction.getItem();
                     if (item.is(organismItem)) {
-                        organism.reproduce(cell);
+                        organismToAction.reproduce(cell);
                         if (item.is(Items.ANIMAL)) {
-                            Animal animal = (Animal) organism;
+                            Animal animal = (Animal) organismToAction;
                             animal.eat(cell);
                             animal.move(cell);
                         }

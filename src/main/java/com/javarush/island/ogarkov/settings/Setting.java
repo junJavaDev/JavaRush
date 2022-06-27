@@ -14,9 +14,10 @@ public class Setting {
     public static final int MAIN_DELAY = 350; // simulation speed, 100 to debug
     public static final int UPDATE_DELAY = 30;
     public static final int ISLAND_ROWS = 20;
-    public static final int ISLAND_COLS = 100;
+    public static final int ISLAND_COLS = 30;
     public static final int TERRITORY_ROWS = 5;
     public static final int TERRITORY_COLS = 5;
+    public static final int CORE_POOL_SIZE = 1;
     //=============================== /BASIC =======================================
 
     //=============================== INIT =========================================
@@ -37,7 +38,7 @@ public class Setting {
     public static final int HERBIVORE_LIFE_LENGTH = 60;
     public static final int PLANT_LIFE_LENGTH = 60;
     public static final int LANDFORM_LIFE_LENGTH = Integer.MAX_VALUE;
-    public static final int TRYING_LOCK_MILLIS = 5;
+    public static final int TRYING_LOCK_MILLIS = 10;
     public static final String EMPTY_STRING = "";
     //=============================== /INIT ========================================
 

@@ -1,7 +1,6 @@
 package com.javarush.island.ogarkov.entity.animals;
 
 import com.javarush.island.ogarkov.entity.Organism;
-import com.javarush.island.ogarkov.exception.IslandException;
 import com.javarush.island.ogarkov.interfaces.Eating;
 import com.javarush.island.ogarkov.interfaces.Movable;
 import com.javarush.island.ogarkov.location.Cell;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 public abstract class Animal extends Organism implements Eating, Movable {
 
@@ -60,7 +58,7 @@ public abstract class Animal extends Organism implements Eating, Movable {
         try {
             List<Cell> cellsWithFood = findFood(currentCell);
             for (Cell cell : cellsWithFood) {
-                boolean isLocked = cell.getLock().tryLock(Setting.TRYING_LOCK_MILLIS, TimeUnit.MILLISECONDS);
+                boolean isLocked = cell.getLock().tryLock();
                 if (isLocked) {
                     Items residentItem = cell.getResidentItem();
                     if (!cell.getPopulation().isEmpty() && foodRation.containsKey(residentItem)) {
@@ -73,8 +71,6 @@ public abstract class Animal extends Organism implements Eating, Movable {
                 return eatIt(cellWithFood);
             }
             return false;
-        } catch (InterruptedException e) {
-            throw new IslandException(e);
         } finally {
             currentCell.getLock().unlock();
             if (cellWithFood != null) {

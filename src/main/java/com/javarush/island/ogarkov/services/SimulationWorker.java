@@ -12,10 +12,7 @@ import javafx.application.Platform;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class SimulationWorker extends Thread {
@@ -28,8 +25,6 @@ public class SimulationWorker extends Thread {
     private final ScheduledExecutorService mainPool;
     private final ScheduledExecutorService updateablePool;
     private final ExecutorService mainInnerPool;
-    private final ExecutorService updateableInnerPool;
-
 
     public SimulationWorker(Island island, Controller controller, Statistics statistics) {
         this.island = island;
@@ -37,13 +32,11 @@ public class SimulationWorker extends Thread {
         workers = createWorkers();
         statisticsWorker = new StatisticsWorker(island, controller, statistics);
         startDayWorker = new StartDayWorker(island);
-        mainPool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
-        updateablePool = Executors.newScheduledThreadPool(Runtime.getRuntime().availableProcessors());
+        mainPool = Executors.newScheduledThreadPool(Setting.CORE_POOL_SIZE);
         mainInnerPool = Executors.newWorkStealingPool();
-        updateableInnerPool = Executors.newWorkStealingPool();
+        updateablePool = Executors.newScheduledThreadPool(Setting.CORE_POOL_SIZE);
     }
 
-    // TODO: 26.06.2022 добавить условие завершения симуляции + выход по закрытию окна
     @Override
     public void run() {
         mainPool.scheduleWithFixedDelay(() -> {
@@ -53,29 +46,21 @@ public class SimulationWorker extends Thread {
                 mainInnerPool.submit(startDayWorker);
             }
             hours.incrementAndGet();
-
         }, Setting.INITIAL_DELAY, Setting.MAIN_DELAY, TimeUnit.MILLISECONDS);
 
         updateablePool.scheduleWithFixedDelay(() -> {
-            updateableInnerPool.submit(controller::prepareForUpdateView);
-            updateableInnerPool.submit(() -> Platform.runLater(controller::updateView));
-
+            Platform.runLater(controller::updateView);
+            controller.prepareForUpdateView();
         }, Setting.INITIAL_DELAY, Setting.UPDATE_DELAY, TimeUnit.MILLISECONDS);
     }
 
     public void stopIt() {
-        workers.forEach(OrganismWorker::stopIt);
-        startDayWorker.stopIt();
         mainInnerPool.shutdown();
-        updateableInnerPool.shutdown();
         mainPool.shutdown();
         updateablePool.shutdown();
         try {
             if (!mainInnerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
                 mainInnerPool.shutdownNow();
-            }
-            if (!updateableInnerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
-                updateableInnerPool.shutdownNow();
             }
             if (!mainPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
                 mainPool.shutdownNow();

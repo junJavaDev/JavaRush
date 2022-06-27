@@ -83,5 +83,4 @@ public class StatisticsWorker implements Runnable, StatisticsAction {
                 .mapToInt(existing::get)
                 .sum());
     }
-
 }
