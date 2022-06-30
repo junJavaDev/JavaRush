@@ -47,7 +47,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.javarush.island.ogarkov.Main</mainClass>
+                    <mainClass>ru.javarush.island.ogarkov.Main</mainClass>
                 </configuration>
             </plugin>
         </plugins>
