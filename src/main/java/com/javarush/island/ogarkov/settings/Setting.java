@@ -71,14 +71,15 @@ public class Setting {
     public static final int TERRITORY_GRID_SIZE = 2;
     public static final Color DEFAULT_ISLAND_COLOR = Color.OLIVEDRAB;
     public static final Color DEFAULT_TERRITORY_COLOR = Color.LIGHTGRAY;
-    public static final Color SELECTED_COLOR = Color.RED;
+    public static final Color SELECTED_COLOR = Color.DARKGREEN;
     public static final Map<Items, Color> ISLAND_COLORS = new HashMap<>();
-    static {
-        ISLAND_COLORS.put(Items.BEAR, Color.BROWN);
-        ISLAND_COLORS.put(Items.WOLF, Color.BLACK);
-        ISLAND_COLORS.put(Items.EAGLE, Color.BLACK);
-        ISLAND_COLORS.put(Items.BOA, Color.BLACK);
-        ISLAND_COLORS.put(Items.FOX, Color.BLACK);
-    }
+    // TODO: 30.06.2022 убрать цвет?
+//    static {
+//        ISLAND_COLORS.put(Items.BEAR, Color.BROWN);
+//        ISLAND_COLORS.put(Items.WOLF, Color.BLACK);
+//        ISLAND_COLORS.put(Items.EAGLE, Color.BLACK);
+//        ISLAND_COLORS.put(Items.BOA, Color.BLACK);
+//        ISLAND_COLORS.put(Items.FOX, Color.BLACK);
+//    }
     //=============================== /VIEW ========================================
 }

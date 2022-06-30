@@ -47,6 +47,7 @@ public class Controller extends View {
         createIslandField();
         createStatisticsField();
         initUpdateableFields();
+        initSliderSpeed();
         updateView();
     }
 
@@ -149,9 +150,14 @@ public class Controller extends View {
         }
     }
 
+    private void initSliderSpeed() {
+        sliderSpeed.setOnMouseReleased(mouseEvent -> simulationWorker.changeSpeed(sliderSpeed.valueProperty().intValue() * -1));
+    }
+
     public void setSimulationWorker(SimulationWorker simulationWorker) {
         this.simulationWorker = simulationWorker;
     }
+
 
     public EventHandler<WindowEvent> getCloseEventHandler() {
         return event -> simulationWorker.stopIt();

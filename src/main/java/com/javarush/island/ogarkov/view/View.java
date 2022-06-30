@@ -2,6 +2,7 @@ package com.javarush.island.ogarkov.view;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -16,6 +17,9 @@ public class View {
 
     @FXML
     private AnchorPane islandField;
+
+    @FXML
+    protected Slider sliderSpeed;
 
     @FXML
     private AnchorPane mainPane;
@@ -42,9 +46,9 @@ public class View {
     protected void initTerritoryField(List<CellView> cells) {
         rightPane.setPrefWidth(200);
         int territoryWidth = TERRITORY_COLS * (TERRITORY_CELL_WIDTH + TERRITORY_GRID_SIZE) - TERRITORY_GRID_SIZE;
-        int territoryHeigh = TERRITORY_ROWS * (TERRITORY_CELL_HEIGHT + TERRITORY_GRID_SIZE) - TERRITORY_GRID_SIZE;
+//        int territoryHeigh = TERRITORY_ROWS * (TERRITORY_CELL_HEIGHT + TERRITORY_GRID_SIZE) - TERRITORY_GRID_SIZE;
         territoryField.setLayoutX((rightPane.getPrefWidth() - territoryWidth) / 2);
-        territoryField.setLayoutY((scrollStatisticsField.getLayoutY() - territoryHeigh) / 2);
+//        territoryField.setLayoutY((scrollStatisticsField.getLayoutY() - territoryHeigh) / 2);
         scrollStatisticsField.setLayoutX((rightPane.getPrefWidth() - scrollStatisticsField.getPrefWidth()) / 2);
         territoryField.getChildren().addAll(cells);
     }

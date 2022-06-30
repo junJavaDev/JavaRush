@@ -22,7 +22,7 @@ public class SimulationWorker extends Thread {
     private final List<OrganismWorker> workers;
     private final StatisticsWorker statisticsWorker;
     private final StartDayWorker startDayWorker;
-    private final ScheduledExecutorService mainPool;
+    private ScheduledExecutorService mainPool;
     private final ScheduledExecutorService updateablePool;
     private final ExecutorService mainInnerPool;
 
@@ -32,26 +32,15 @@ public class SimulationWorker extends Thread {
         workers = createWorkers();
         statisticsWorker = new StatisticsWorker(island, controller, statistics);
         startDayWorker = new StartDayWorker(island);
-        mainPool = Executors.newScheduledThreadPool(Setting.CORE_POOL_SIZE);
+        mainPool = Executors.newSingleThreadScheduledExecutor();
         mainInnerPool = Executors.newWorkStealingPool();
-        updateablePool = Executors.newScheduledThreadPool(Setting.CORE_POOL_SIZE);
+        updateablePool = Executors.newSingleThreadScheduledExecutor();
     }
 
     @Override
     public void run() {
-        mainPool.scheduleWithFixedDelay(() -> {
-            workers.forEach(mainInnerPool::submit);
-            mainInnerPool.submit(statisticsWorker);
-            if (hours.get() % 24 == 0) {
-                mainInnerPool.submit(startDayWorker);
-            }
-            hours.incrementAndGet();
-        }, Setting.INITIAL_DELAY, Setting.MAIN_DELAY, TimeUnit.MILLISECONDS);
-
-        updateablePool.scheduleWithFixedDelay(() -> {
-            Platform.runLater(controller::updateView);
-            controller.prepareForUpdateView();
-        }, Setting.INITIAL_DELAY, Setting.UPDATE_DELAY, TimeUnit.MILLISECONDS);
+        mainPool.scheduleWithFixedDelay(this::lifeCycle, Setting.INITIAL_DELAY, Setting.MAIN_DELAY, TimeUnit.MILLISECONDS);
+        updateablePool.scheduleWithFixedDelay(this::updateCycle, Setting.INITIAL_DELAY, Setting.UPDATE_DELAY, TimeUnit.MILLISECONDS);
     }
 
     public void stopIt() {
@@ -83,5 +72,30 @@ public class SimulationWorker extends Thread {
         return workers;
     }
 
+    public void changeSpeed(long period) {
+        mainPool.shutdown();
+        try {
+            if (mainPool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS)) {
+                mainPool = Executors.newSingleThreadScheduledExecutor();
+                mainPool.scheduleWithFixedDelay(this::lifeCycle, period, period, TimeUnit.MILLISECONDS);
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void lifeCycle() {
+        workers.forEach(mainInnerPool::submit);
+        mainInnerPool.submit(statisticsWorker);
+        if (hours.get() % 24 == 0) {
+            mainInnerPool.submit(startDayWorker);
+        }
+        hours.incrementAndGet();
+    }
+
+    private void updateCycle() {
+        Platform.runLater(controller::updateView);
+        controller.prepareForUpdateView();
+    }
 
 }

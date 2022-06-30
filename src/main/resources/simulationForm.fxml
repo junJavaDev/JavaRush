@@ -1,21 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane fx:id="mainPane" prefHeight="760" prefWidth="1200" xmlns="http://javafx.com/javafx/18"
-            xmlns:fx="http://javafx.com/fxml/1">
-   <ScrollPane fx:id="scrollIslandField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-               AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
-      <AnchorPane fx:id="islandField" style="-fx-background-color: olivedrab;"/>
+<AnchorPane fx:id="mainPane" prefHeight="760" prefWidth="1200" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <ScrollPane fx:id="scrollIslandField" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="islandField" style="-fx-background-color: olivedrab;" />
    </ScrollPane>
-   <AnchorPane fx:id="rightPane" prefWidth="200.0" style="-fx-background-color: olivedrab;"
-               AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <AnchorPane fx:id="territoryField" style="-fx-background-color: lightgrey;"/>
-      <ScrollPane fx:id="scrollStatisticsField" prefHeight="458" prefWidth="197.0" fitToWidth="true" layoutX="1.0"
-                  layoutY="300.0" AnchorPane.topAnchor="300.0" AnchorPane.bottomAnchor="0.0">
-         <TextFlow fx:id="statisticsField" style="-fx-background-color: lightgrey;"/>
+   <AnchorPane fx:id="rightPane" prefWidth="200.0" style="-fx-background-color: olivedrab;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="territoryField" style="-fx-background-color: lightgrey;" />
+      <ScrollPane fx:id="scrollStatisticsField" fitToWidth="true" layoutX="1.0" layoutY="320.0" prefHeight="440.0" prefWidth="198.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="320.0">
+         <TextFlow fx:id="statisticsField" style="-fx-background-color: lightgrey;" />
       </ScrollPane>
+      <Slider fx:id="sliderSpeed" layoutX="1.0" layoutY="300.0" max="-100.0" min="-800.0" prefHeight="19.0" prefWidth="198.0" value="-450.0" />
+      <Label layoutX="85.0" layoutY="284.0" text="Speed" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="174.0" layoutY="284.0" text="max">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
+      <Label layoutX="2.0" layoutY="284.0" text="min">
+         <font>
+            <Font name="System Bold" size="10.0" />
+         </font>
+      </Label>
    </AnchorPane>
 </AnchorPane>
