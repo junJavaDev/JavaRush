@@ -4,8 +4,8 @@ public interface StatisticsAction {
 
     void calculateCreated();
 
-    void calculateTerminated();
+    void calculateDead();
 
-    void calculateExisting();
+    void calculateAlive();
 
 }

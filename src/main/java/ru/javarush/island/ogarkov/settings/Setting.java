@@ -1,9 +1,7 @@
 package ru.javarush.island.ogarkov.settings;
 
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class Setting {
     // TODO: 26.06.2022 добавить загрузку из yaml
@@ -63,23 +61,27 @@ public class Setting {
     //=============================== /FOOD_RATION =================================
 
     //=============================== VIEW =========================================
+    public static final Image ALIVE_OVERLAY = new Image(String.valueOf(Setting.class.getResource("/ogarkov/statistics/alive.png")));
+    public static final Image DEAD_OVERLAY = new Image(String.valueOf(Setting.class.getResource("/ogarkov/statistics/dead.png")));
+    public static final int STATISTICS_LINE_SPACING = 6;
     public static final int ISLAND_CELL_WIDTH = 35;
     public static final int ISLAND_CELL_HEIGHT = 35;
     public static final int TERRITORY_CELL_WIDTH = 35;
     public static final int TERRITORY_CELL_HEIGHT = 50;
+    public static final int STATISTICS_LINE_HEIGHT = 14;
+    public static final int STATISTICS_FIELD_HEIGHT = STATISTICS_LINE_HEIGHT*2+11;
+    public static final int STATISTICS_FIELD_WIDTH = 178;
+    public static final int STATISTICS_ICON_SIZE = 24;
     public static final int ISLAND_GRID_SIZE = 12;
     public static final int TERRITORY_GRID_SIZE = 2;
     public static final Color DEFAULT_ISLAND_COLOR = Color.OLIVEDRAB;
     public static final Color DEFAULT_TERRITORY_COLOR = Color.LIGHTGRAY;
     public static final Color SELECTED_COLOR = Color.DARKGREEN;
-    public static final Map<Items, Color> ISLAND_COLORS = new HashMap<>();
-    // TODO: 30.06.2022 убрать цвет?
-//    static {
-//        ISLAND_COLORS.put(Items.BEAR, Color.BROWN);
-//        ISLAND_COLORS.put(Items.WOLF, Color.BLACK);
-//        ISLAND_COLORS.put(Items.EAGLE, Color.BLACK);
-//        ISLAND_COLORS.put(Items.BOA, Color.BLACK);
-//        ISLAND_COLORS.put(Items.FOX, Color.BLACK);
-//    }
+    public static final Color DIAGRAM_MAX_COLOR = Color.rgb(137,202,120,0.6);
+    public static final Color DIAGRAM_MIDDLE_COLOR = Color.rgb(229,192,123,0.6);
+    public static final Color DIAGRAM_MIN_COLOR = Color.rgb(239,89,11,0.6);
+    public static final int DIAGRAM_MAX_PLANTS = 5000;
+    public static final int DIAGRAM_MAX_ANIMALS = 1000;
+    public static final Color STATISTICS_COLOR = Color.LIGHTGRAY;
     //=============================== /VIEW ========================================
 }

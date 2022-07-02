@@ -9,9 +9,10 @@ import ru.javarush.island.ogarkov.settings.Items;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class OrganismWorker implements Runnable {
+public class OrganismWorker implements Callable<Boolean> {
 
     private final Items item;
     private final List<Territory> territories;
@@ -25,7 +26,7 @@ public class OrganismWorker implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Boolean call() {
         for (Territory territory : territories) {
             for (Cell cell : territory.getCells()) {
                 if (item.is(cell.getResidentItem())) {
@@ -33,6 +34,7 @@ public class OrganismWorker implements Runnable {
                 }
             }
         }
+        return true;
     }
 
     protected void processCell(Cell cell) {

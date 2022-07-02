@@ -10,9 +10,7 @@ import ru.javarush.island.ogarkov.repository.itemfactory.landform.PlainFactory;
 import ru.javarush.island.ogarkov.repository.itemfactory.plant.*;
 import ru.javarush.island.ogarkov.util.Randomizer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public enum Items {
     ANIMAL(null, new AnimalFactory()),
@@ -155,8 +153,8 @@ public enum Items {
         return randomItem;
     }
 
-    public static List<Items> getOrganismItems() {
-        List<Items> organismItems = new ArrayList<>();
+    public static Set<Items> getOrganismItems() {
+        Set<Items> organismItems = new HashSet<>();
         organismItems.addAll(CARNIVORE.getChildren());
         organismItems.addAll(HERBIVORE.getChildren());
         organismItems.addAll(PLANT.getChildren());

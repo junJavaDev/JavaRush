@@ -12,8 +12,8 @@ import static ru.javarush.island.ogarkov.settings.Setting.*;
 
 public class CellView extends StackPane {
     private Rectangle background;
-    private Text text;
-    private ImageView imageView;
+    private Text itemsCount;
+    private ImageView icon;
     private int index;
 
     public CellView() {
@@ -22,11 +22,11 @@ public class CellView extends StackPane {
 
     private void init() {
         background = new Rectangle();
-        imageView = new ImageView();
-        text = new Text();
-        getChildren().addAll(background, imageView, text);
-        setAlignment(imageView, Pos.TOP_CENTER);
-        setAlignment(text, Pos.BOTTOM_CENTER);
+        icon = new ImageView();
+        itemsCount = new Text();
+        getChildren().addAll(background, icon, itemsCount);
+        setAlignment(icon, Pos.TOP_CENTER);
+        setAlignment(itemsCount, Pos.BOTTOM_CENTER);
     }
 
     private void setBackgroundSize(double width, double height) {
@@ -55,19 +55,19 @@ public class CellView extends StackPane {
 
     public void updateView(Image image, Color color, String text) {
         updateView(image, color);
-        setText(text);
+        setItemsCount(text);
     }
 
     public void setImage(Image image) {
-        imageView.setImage(image);
+        icon.setImage(image);
     }
 
     public void setColor(Color color) {
         background.setFill(color);
     }
 
-    public void setText(String text) {
-        this.text.setText(text);
+    public void setItemsCount(String itemsCount) {
+        this.itemsCount.setText(itemsCount);
     }
 
     public int getIndex() {

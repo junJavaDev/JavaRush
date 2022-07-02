@@ -19,9 +19,9 @@ public class SimulationWorker extends Thread {
     private static final AtomicLong hours = new AtomicLong();
     private final Island island;
     private final Controller controller;
-    private final List<OrganismWorker> workers;
+    private final List<Callable<Boolean>> workers;
+    private final List<Callable<Boolean>> workersAtNewDay;
     private final StatisticsWorker statisticsWorker;
-    private final StartDayWorker startDayWorker;
     private ScheduledExecutorService mainPool;
     private final ScheduledExecutorService updateablePool;
     private final ExecutorService mainInnerPool;
@@ -29,11 +29,13 @@ public class SimulationWorker extends Thread {
     public SimulationWorker(Island island, Controller controller, Statistics statistics) {
         this.island = island;
         this.controller = controller;
+        statisticsWorker = new StatisticsWorker(island, statistics);
         workers = createWorkers();
-        statisticsWorker = new StatisticsWorker(island, controller, statistics);
-        startDayWorker = new StartDayWorker(island);
+        StartDayWorker startDayWorker = new StartDayWorker(island);
+        workersAtNewDay = new ArrayList<>(workers);
+        workersAtNewDay.add(startDayWorker);
         mainPool = Executors.newSingleThreadScheduledExecutor();
-        mainInnerPool = Executors.newWorkStealingPool();
+        mainInnerPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         updateablePool = Executors.newSingleThreadScheduledExecutor();
     }
 
@@ -62,8 +64,8 @@ public class SimulationWorker extends Thread {
         }
     }
 
-    private List<OrganismWorker> createWorkers() {
-        List<OrganismWorker> workers = new ArrayList<>();
+    private List<Callable<Boolean>> createWorkers() {
+        List<Callable<Boolean>> workers = new ArrayList<>();
         for (Items organismItem : Items.getOrganismItems()) {
             List<Territory> territories = new ArrayList<>(island.getTerritories());
             Collections.shuffle(territories);
@@ -85,17 +87,24 @@ public class SimulationWorker extends Thread {
     }
 
     private void lifeCycle() {
-        workers.forEach(mainInnerPool::submit);
-        mainInnerPool.submit(statisticsWorker);
-        if (hours.get() % 24 == 0) {
-            mainInnerPool.submit(startDayWorker);
+
+        try {
+            if (hours.get() % 24 != 0) {
+                mainInnerPool.invokeAll(workers);
+            } else {
+                mainInnerPool.invokeAll(workersAtNewDay);
+            }
+        } catch (InterruptedException e) {
+            throw new IslandException(e);
         }
+        statisticsWorker.calculate();
+        controller.prepareForUpdateView();
+        Platform.runLater(controller::updateView);
         hours.incrementAndGet();
     }
 
     private void updateCycle() {
-        Platform.runLater(controller::updateView);
-        controller.prepareForUpdateView();
+//        Platform.runLater(controller::updateView);
     }
 
 }

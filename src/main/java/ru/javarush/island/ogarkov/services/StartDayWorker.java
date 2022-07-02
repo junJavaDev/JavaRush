@@ -6,10 +6,11 @@ import ru.javarush.island.ogarkov.location.Island;
 import ru.javarush.island.ogarkov.location.Territory;
 
 import java.util.*;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class StartDayWorker implements Runnable {
+public class StartDayWorker implements Callable<Boolean> {
     private static final AtomicLong days = new AtomicLong();
     private final List<Territory> territories;
     private final Queue<Task> tasks;
@@ -21,13 +22,14 @@ public class StartDayWorker implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Boolean call() {
         for (Territory territory : territories) {
             for (Cell cell : territory.getCells()) {
                     processCell(cell);
             }
         }
         days.incrementAndGet();
+        return true;
     }
 
     protected void processCell(Cell cell) {
