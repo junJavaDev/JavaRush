@@ -7,14 +7,20 @@ public class Randomizer {
     }
 
     public static int getInt(int origin, int bound) {
-        return ThreadLocalRandom.current().nextInt(origin, bound);
+        return ThreadLocalRandom
+                .current()
+                .nextInt(origin, bound);
     }
 
     public static int getIntOriginOne(int bound) {
-        return ThreadLocalRandom.current().nextInt(1, bound);
+        return ThreadLocalRandom
+                .current()
+                .nextInt(1, bound);
     }
 
     public static int getInt(int bound) {
-        return ThreadLocalRandom.current().nextInt(bound);
+        return ThreadLocalRandom
+                .current()
+                .nextInt(bound);
     }
 }

@@ -58,6 +58,15 @@ public enum Items {
         addToHigherItem();
     }
 
+    public static Set<Items> getLowerItems() {
+        Set<Items> organismItems = new HashSet<>();
+        organismItems.addAll(CARNIVORE.getLower());
+        organismItems.addAll(HERBIVORE.getLower());
+        organismItems.addAll(PLANT.getLower());
+        organismItems.addAll(LANDFORM.getLower());
+        return organismItems;
+    }
+
     public double getMaxWeight() {
         return maxWeight;
     }
@@ -98,6 +107,15 @@ public enum Items {
         return !this.is(other);
     }
 
+    public Items getRandom() {
+        Items randomItem = this;
+        if (!randomItem.getLower().isEmpty()) {
+            int randomItemIndex = Randomizer.getInt(getLower().size());
+            randomItem = lowerItems.get(randomItemIndex).getRandom();
+        }
+        return randomItem;
+    }
+
     public Factory getFactory() {
         return factory;
     }
@@ -108,12 +126,6 @@ public enum Items {
 
     public String getName() {
         return name;
-    }
-
-    private void addToHigherItem() {
-        if (this.higherItem != null) {
-            this.higherItem.lowerItems.add(this);
-        }
     }
 
     public void setIcon(Image icon) {
@@ -144,21 +156,9 @@ public enum Items {
         this.name = name;
     }
 
-    public Items getRandom() {
-        Items randomItem = this;
-        if (!randomItem.getLower().isEmpty()) {
-            int randomItemIndex = Randomizer.getInt(getLower().size());
-            randomItem = lowerItems.get(randomItemIndex).getRandom();
+    private void addToHigherItem() {
+        if (this.higherItem != null) {
+            this.higherItem.lowerItems.add(this);
         }
-        return randomItem;
-    }
-
-    public static Set<Items> getLowerItems() {
-        Set<Items> organismItems = new HashSet<>();
-        organismItems.addAll(CARNIVORE.getLower());
-        organismItems.addAll(HERBIVORE.getLower());
-        organismItems.addAll(PLANT.getLower());
-        organismItems.addAll(LANDFORM.getLower());
-        return organismItems;
     }
 }

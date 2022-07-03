@@ -15,13 +15,13 @@ import static ru.javarush.island.ogarkov.settings.Setting.*;
 
 public class View {
     @FXML
-    private AnchorPane mainPane;
+    protected AnchorPane mainPane;
     @FXML
-    private AnchorPane islandField;
+    protected AnchorPane islandField;
     @FXML
     protected Slider sliderSpeed;
     @FXML
-    private AnchorPane rightPane;
+    protected AnchorPane rightPane;
     @FXML
     protected AnchorPane plantStatisticsPane;
     @FXML
@@ -31,13 +31,13 @@ public class View {
     @FXML
     protected VBox animalStatisticsField;
     @FXML
-    private AnchorPane territoryField;
+    protected AnchorPane territoryField;
     @FXML
-    private ScrollPane scrollIslandField;
+    protected ScrollPane scrollIslandField;
     @FXML
-    private ScrollPane scrollStatisticsField;
+    protected ScrollPane scrollStatisticsField;
     @FXML
-    private Label speedLabel;
+    protected Label speedLabel;
 
     protected void initIslandField(List<CellView> cells) {
         islandField.getChildren().addAll(cells);

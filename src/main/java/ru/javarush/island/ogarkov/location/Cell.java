@@ -10,7 +10,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static ru.javarush.island.ogarkov.settings.Items.ANIMAL;
 
-// Участок локации, ячейка
 public class Cell implements Comparable<Cell> {
     private final Lock lock = new ReentrantLock(true);
     public Territory territory;

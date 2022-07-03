@@ -23,7 +23,6 @@ public class Setting {
     public static final int CELL_CARNIVORE_PROBABILITY = 1;
     public static final int CELL_HERBIVORE_PROBABILITY = 20;
     public static final int CELL_PLANT_PROBABILITY = 120;
-    public static final int CELL_ALL_PROBABILITIES = CELL_CARNIVORE_PROBABILITY + CELL_HERBIVORE_PROBABILITY + CELL_PLANT_PROBABILITY;
     public static final double INIT_SATIETY = 0.5;
     public static final double HERBIVORE_HUNGER = 0.95;
     public static final double CARNIVORE_HUNGER = 0.7;

@@ -22,9 +22,6 @@ public class ItemsLoader {
         loadFoodRations();
     }
 
-    private static void setPlantMaxCount() {
-    }
-
     private static void loadItemData(Class<?> clazz) {
         ItemData itemData = clazz.getAnnotation(ItemData.class);
         Items item = Items.valueOf(clazz.getSimpleName().toUpperCase());

@@ -45,16 +45,35 @@ public class TerritoryCreator {
     }
 
     public Set<Organism> createRandomPopulation() {
-        int probability = Randomizer.getInt(CELL_ALL_PROBABILITIES);
+        int plantHerbivoreProbability =
+                CELL_PLANT_PROBABILITY +
+                        CELL_HERBIVORE_PROBABILITY;
+        int allProbabilities =
+                plantHerbivoreProbability +
+                        CELL_CARNIVORE_PROBABILITY;
+
+        int probability = Randomizer
+                .getInt(allProbabilities);
+
         if (probability < CELL_PLANT_PROBABILITY) {
-            return createPopulation(Items.PLANT, PLANT_INIT_PER_CELL);
-        } else if (probability < CELL_PLANT_PROBABILITY + CELL_HERBIVORE_PROBABILITY) {
-            return createPopulation(Items.HERBIVORE, HERBIVORE_INIT_PER_CELL);
-        } else
-            return createPopulation(Items.CARNIVORE, CARNIVORE_INIT_PER_CELL);
+            return createPopulation(
+                    Items.PLANT,
+                    PLANT_INIT_PER_CELL
+            );
+        } else if (probability < plantHerbivoreProbability) {
+            return createPopulation(
+                    Items.HERBIVORE,
+                    HERBIVORE_INIT_PER_CELL
+            );
+        } else return createPopulation(
+                    Items.CARNIVORE,
+                    CARNIVORE_INIT_PER_CELL
+            );
     }
 
     public Landform createRandomLandform() {
-        return (Landform) Items.LANDFORM.getFactory().createItem();
+        return (Landform) Items.LANDFORM
+                .getFactory()
+                .createItem();
     }
 }
