@@ -18,7 +18,6 @@ public class OrganismWorker implements Callable<Boolean> {
     private final List<Territory> territories;
     private final Queue<Task> tasks;
 
-
     public OrganismWorker(Items item, List<Territory> territories) {
         this.item = item;
         this.territories = territories;

@@ -8,6 +8,8 @@ import java.util.Set;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+import static ru.javarush.island.ogarkov.settings.Items.ANIMAL;
+
 // Участок локации, ячейка
 public class Cell implements Comparable<Cell> {
     private final Lock lock = new ReentrantLock(true);
@@ -54,29 +56,24 @@ public class Cell implements Comparable<Cell> {
 
     @Override
     public int compareTo(Cell secondCell) {
-//        int result = 0;
+        int result = 0;
         Items firstItem = this.getResidentItem();
         Items secondItem = secondCell.getResidentItem();
-//        if (firstItem.is(CARNIVORE) && secondItem.isNot(CARNIVORE)) {
-//            result = 1;
-//        } else if (firstItem.isNot(CARNIVORE) && secondItem.is(CARNIVORE)) {
-//            result = -1;
-//        } else if (firstItem.is(HERBIVORE) && secondItem.isNot(HERBIVORE)) {
-//            result = 1;
-//        } else if (firstItem.isNot(HERBIVORE) && secondItem.is(HERBIVORE)) {
-//            result = -1;
-//        } else if (firstItem.is(PLANT) && secondItem.isNot(PLANT)) {
-//            result = 1;
-//        } else if (firstItem.isNot(PLANT) && secondItem.is(PLANT)) {
-//            result = -1;
-//        }
+        if (firstItem.is(ANIMAL) && secondItem.isNot(ANIMAL)) {
+            result = 1;
+        } else if (firstItem.isNot(ANIMAL) && secondItem.is(ANIMAL)) {
+            result = -1;
+        }
 
-        Set<Organism> firstPopulation = this.getPopulation();
-        Set<Organism> secondPopulation = secondCell.getPopulation();
+        if (result == 0) {
+            Set<Organism> firstPopulation = this.getPopulation();
+            Set<Organism> secondPopulation = secondCell.getPopulation();
 
-        double firstTerritoryWeight = firstItem.getMaxWeight() * firstPopulation.size();
-        double secondTerritoryWeight = secondItem.getMaxWeight() * secondPopulation.size();
-        return Double.compare(firstTerritoryWeight, secondTerritoryWeight);
+            double firstTerritoryWeight = firstItem.getMaxWeight() * firstPopulation.size();
+            double secondTerritoryWeight = secondItem.getMaxWeight() * secondPopulation.size();
+            result = Double.compare(firstTerritoryWeight, secondTerritoryWeight);
+        }
+        return result;
     }
 
 

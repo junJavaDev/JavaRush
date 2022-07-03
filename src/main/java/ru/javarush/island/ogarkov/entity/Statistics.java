@@ -19,14 +19,6 @@ public class Statistics {
         init();
     }
 
-    private void init() {
-        for (Items item : Items.getOrganismItems()) {
-            created.put(item, 0);
-            alive.put(item, 0);
-            dead.put(item, 0);
-        }
-    }
-
     public List<Map.Entry<Items, Integer>> getSortedAlive(Items item) {
         return alive.entrySet()
                 .stream()
@@ -34,7 +26,6 @@ public class Statistics {
                 .sorted((e1, e2) -> -e1.getValue().compareTo(e2.getValue()))
                 .toList();
     }
-
 
     public Map<Items, Integer> getCreated() {
         return created;
@@ -46,5 +37,13 @@ public class Statistics {
 
     public Map<Items, Integer> getAlive() {
         return alive;
+    }
+
+    private void init() {
+        for (Items item : Items.getLowerItems()) {
+            created.put(item, 0);
+            alive.put(item, 0);
+            dead.put(item, 0);
+        }
     }
 }

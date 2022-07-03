@@ -30,10 +30,13 @@ public class TerritoryCreator {
         return territory;
     }
 
-    public Set<Organism> createPopulation(Items item, int maxCount) {
+    public Set<Organism> createPopulation(Items item, int minCount) {
         var population = new HashSet<Organism>();
-        int amount = Randomizer.getIntOriginOne(maxCount);
         Items randomItem = item.getRandom();
+        int amount;
+        if (minCount < item.getMaxCount()) {
+            amount = Randomizer.getInt(minCount, item.getMaxCount());
+        } else amount = minCount;
         for (int i = 0; i < amount; i++) {
             Organism resident = randomItem.getFactory().createItem();
             population.add(resident);
@@ -42,8 +45,7 @@ public class TerritoryCreator {
     }
 
     public Set<Organism> createRandomPopulation() {
-        int maxProbability = CELL_PLANT_PROBABILITY + CELL_HERBIVORE_PROBABILITY + CELL_CARNIVORE_PROBABILITY;
-        int probability = Randomizer.getInt(maxProbability);
+        int probability = Randomizer.getInt(CELL_ALL_PROBABILITIES);
         if (probability < CELL_PLANT_PROBABILITY) {
             return createPopulation(Items.PLANT, PLANT_INIT_PER_CELL);
         } else if (probability < CELL_PLANT_PROBABILITY + CELL_HERBIVORE_PROBABILITY) {

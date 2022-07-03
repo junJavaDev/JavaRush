@@ -20,18 +20,24 @@ public class CellView extends StackPane {
         init();
     }
 
-    private void init() {
-        background = new Rectangle();
-        icon = new ImageView();
-        itemsCount = new Text();
-        getChildren().addAll(background, icon, itemsCount);
-        setAlignment(icon, Pos.TOP_CENTER);
-        setAlignment(itemsCount, Pos.BOTTOM_CENTER);
+    public void setImage(Image image) {
+        icon.setImage(image);
     }
 
-    private void setBackgroundSize(double width, double height) {
-        background.setWidth(width);
-        background.setHeight(height);
+    public void setColor(Color color) {
+        background.setFill(color);
+    }
+
+    public void setItemsCount(String itemsCount) {
+        this.itemsCount.setText(itemsCount);
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public void setIslandLayout(int row, int col) {
@@ -58,23 +64,17 @@ public class CellView extends StackPane {
         setItemsCount(text);
     }
 
-    public void setImage(Image image) {
-        icon.setImage(image);
+    private void init() {
+        background = new Rectangle();
+        icon = new ImageView();
+        itemsCount = new Text();
+        getChildren().addAll(background, icon, itemsCount);
+        setAlignment(icon, Pos.TOP_CENTER);
+        setAlignment(itemsCount, Pos.BOTTOM_CENTER);
     }
 
-    public void setColor(Color color) {
-        background.setFill(color);
-    }
-
-    public void setItemsCount(String itemsCount) {
-        this.itemsCount.setText(itemsCount);
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
+    private void setBackgroundSize(double width, double height) {
+        background.setWidth(width);
+        background.setHeight(height);
     }
 }

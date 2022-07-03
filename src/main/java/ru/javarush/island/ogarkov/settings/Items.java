@@ -42,7 +42,7 @@ public enum Items {
             PLAIN(LANDFORM, new PlainFactory());
 
     private final Factory factory;
-    private final Items parent;
+    private final Items higherItem;
     private String name;
     private double maxWeight;
     private int maxCount;
@@ -50,12 +50,12 @@ public enum Items {
     private double maxFood;
     private Image icon;
     private Map<Items, Integer> foodRation;
-    private final List<Items> children = new ArrayList<>();
+    private final List<Items> lowerItems = new ArrayList<>();
 
-    Items(Items parent, Factory factory) {
-        this.parent = parent;
+    Items(Items higherItem, Factory factory) {
+        this.higherItem = higherItem;
         this.factory = factory;
-        addToParentChildren();
+        addToHigherItem();
     }
 
     public double getMaxWeight() {
@@ -82,14 +82,14 @@ public enum Items {
         return icon;
     }
 
-    public List<Items> getChildren() {
-        return children;
+    public List<Items> getLower() {
+        return lowerItems;
     }
 
     public boolean is(Items other) {
         boolean result = (this == other);
-        if (this.parent != null) {
-            result = (result || this.parent.is(other));
+        if (this.higherItem != null) {
+            result = (result || this.higherItem.is(other));
         }
         return result;
     }
@@ -102,17 +102,17 @@ public enum Items {
         return factory;
     }
 
-    public Items getParent() {
-        return parent;
+    public Items getHigher() {
+        return higherItem;
     }
 
     public String getName() {
         return name;
     }
 
-    private void addToParentChildren() {
-        if (this.parent != null) {
-            this.parent.children.add(this);
+    private void addToHigherItem() {
+        if (this.higherItem != null) {
+            this.higherItem.lowerItems.add(this);
         }
     }
 
@@ -146,19 +146,19 @@ public enum Items {
 
     public Items getRandom() {
         Items randomItem = this;
-        if (!randomItem.getChildren().isEmpty()) {
-            int randomItemIndex = Randomizer.getInt(getChildren().size());
-            randomItem = children.get(randomItemIndex).getRandom();
+        if (!randomItem.getLower().isEmpty()) {
+            int randomItemIndex = Randomizer.getInt(getLower().size());
+            randomItem = lowerItems.get(randomItemIndex).getRandom();
         }
         return randomItem;
     }
 
-    public static Set<Items> getOrganismItems() {
+    public static Set<Items> getLowerItems() {
         Set<Items> organismItems = new HashSet<>();
-        organismItems.addAll(CARNIVORE.getChildren());
-        organismItems.addAll(HERBIVORE.getChildren());
-        organismItems.addAll(PLANT.getChildren());
-        organismItems.addAll(LANDFORM.getChildren());
+        organismItems.addAll(CARNIVORE.getLower());
+        organismItems.addAll(HERBIVORE.getLower());
+        organismItems.addAll(PLANT.getLower());
+        organismItems.addAll(LANDFORM.getLower());
         return organismItems;
     }
 }

@@ -43,11 +43,47 @@ public class Controller extends View {
         this.statistics = statistics;
     }
 
+    public void prepareForUpdateView() {
+        prepareIslandForUpdateView();
+        prepareTerritoryForUpdateView();
+        prepareStatisticForUpdateView();
+    }
+
+    public void updateView() {
+        updateIslandField(
+                islandIconsForUpdate,
+                islandColorsForUpdate
+        );
+        updateTerritoryField(
+                territoryIconsForUpdate,
+                territoryColorsForUpdate,
+                territoryTextsForUpdate
+        );
+        updateStatisticsField(
+                statisticsIconsForUpdate,
+                statisticsAliveForUpdate,
+                statisticsDeadForUpdate,
+                statisticsDiagramForUpdate
+        );
+    }
+
+    public void setSimulationWorker(SimulationWorker simulationWorker) {
+        this.simulationWorker = simulationWorker;
+    }
+
+    public EventHandler<WindowEvent> getCloseEventHandler() {
+        return event -> simulationWorker.stopIt();
+    }
+
     @FXML
-    void initialize() {
+    private void initialize() {
         createTerritoryField();
         createIslandField();
-        createStatisticsField(PLANT, CARNIVORE, HERBIVORE);
+        createStatisticsField(
+                PLANT,
+                CARNIVORE,
+                HERBIVORE
+        );
         initUpdateableFields();
         initSliderSpeed();
         updateView();
@@ -64,6 +100,9 @@ public class Controller extends View {
                 cell.setOnMouseClicked(event -> {
                     CellView source = (CellView) event.getSource();
                     selectedTerritoryIndex = source.getIndex();
+                    prepareIslandForUpdateView();
+                    prepareTerritoryForUpdateView();
+                    updateView();
                 });
             }
         }
@@ -84,9 +123,13 @@ public class Controller extends View {
 
     private void createStatisticsField(Items... parent) {
         for (Items parents : parent) {
-            for (Items item : parents.getChildren()) {
+            for (Items item : parents.getLower()) {
                 StatisticsView statisticsView = new StatisticsView();
-                statisticsView.updateView(item.getIcon(), EMPTY_STRING, EMPTY_STRING);
+                statisticsView.updateView(
+                        item.getIcon(),
+                        EMPTY_STRING,
+                        EMPTY_STRING
+                );
                 if (item.is(ANIMAL)) {
                     addStatisticsView(animalStatisticsField, statisticsView);
                 } else if (item.is(PLANT)) {
@@ -98,25 +141,10 @@ public class Controller extends View {
         updateMaxHeight(animalStatisticsPane);
     }
 
-
-
-    public void prepareForUpdateView() {
-        prepareIslandForUpdateView();
-        prepareTerritoryForUpdateView();
-        prepareStatisticForUpdateView();
-    }
-
-    public void updateView() {
-        updateIslandField(islandIconsForUpdate, islandColorsForUpdate);
-        updateTerritoryField(territoryIconsForUpdate, territoryColorsForUpdate, territoryTextsForUpdate);
-        updateStatisticsField(statisticsIconsForUpdate, statisticsAliveForUpdate, statisticsDeadForUpdate, statisticsDiagramForUpdate);
-    }
-
-
     private void initUpdateableFields() {
         int islandSize = ISLAND_ROWS * ISLAND_COLS;
         int territorySize = TERRITORY_ROWS * TERRITORY_COLS;
-        int statisticsSize = Items.getOrganismItems().size()-1;
+        int statisticsSize = Items.getLowerItems().size()- LANDFORM.getLower().size();
         Arrays.fill(islandIconsForUpdate = new Image[islandSize], PLAIN.getIcon());
         Arrays.fill(islandColorsForUpdate = new Color[islandSize], DEFAULT_ISLAND_COLOR);
         Arrays.fill(territoryIconsForUpdate = new Image[territorySize], PLAIN.getIcon());
@@ -147,12 +175,16 @@ public class Controller extends View {
         Cell leader = selectedTerritory.foundLeader();
         for (int cellIndex = 0; cellIndex < cells.size(); cellIndex++) {
             Cell cell = cells.get(cellIndex);
-            territoryIconsForUpdate[cellIndex] = cell.getResidentItem().getIcon();
+            territoryIconsForUpdate[cellIndex] =
+                    cell
+                            .getResidentItem()
+                            .getIcon();
             territoryColorsForUpdate[cellIndex] =
                     cell == leader ?
                             SELECTED_COLOR :
                             DEFAULT_TERRITORY_COLOR;
-            territoryTextsForUpdate[cellIndex] = String.valueOf(cell.getPopulation().size());
+            territoryTextsForUpdate[cellIndex] =
+                    String.valueOf(cell.getPopulation().size());
         }
     }
 
@@ -161,10 +193,13 @@ public class Controller extends View {
         var animalList = statistics.getSortedAlive(ANIMAL);
         int plantsCount = plantList.size();
         int maxAlivePlants = plantList.get(0).getValue();
-        if (maxAlivePlants < DIAGRAM_MAX_PLANTS) maxAlivePlants = DIAGRAM_MAX_PLANTS;
+        if (maxAlivePlants < DIAGRAM_MAX_PLANTS) {
+            maxAlivePlants = DIAGRAM_MAX_PLANTS;
+        }
         int maxAliveAnimals = animalList.get(0).getValue();
-        if (maxAliveAnimals < DIAGRAM_MAX_ANIMALS) maxAliveAnimals = DIAGRAM_MAX_ANIMALS;
-
+        if (maxAliveAnimals < DIAGRAM_MAX_ANIMALS) {
+            maxAliveAnimals = DIAGRAM_MAX_ANIMALS;
+        }
 
         List<Map.Entry<Items, Integer>> aliveList = new ArrayList<>(plantList);
         aliveList.addAll(animalList);
@@ -186,15 +221,11 @@ public class Controller extends View {
     }
 
     private void initSliderSpeed() {
-        sliderSpeed.setOnMouseReleased(mouseEvent -> simulationWorker.changeSpeed(sliderSpeed.valueProperty().intValue() * -1));
-    }
-
-    public void setSimulationWorker(SimulationWorker simulationWorker) {
-        this.simulationWorker = simulationWorker;
-    }
-
-
-    public EventHandler<WindowEvent> getCloseEventHandler() {
-        return event -> simulationWorker.stopIt();
+        sliderSpeed.setOnMouseReleased(
+                mouseEvent -> simulationWorker
+                        .changeSpeed(
+                                sliderSpeed
+                                        .valueProperty()
+                                        .intValue() * -1));
     }
 }

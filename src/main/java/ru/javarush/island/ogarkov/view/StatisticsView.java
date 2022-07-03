@@ -28,6 +28,34 @@ public class StatisticsView extends StackPane {
         init();
     }
 
+    public void updateView(Image itemIcon, String aliveCount, String deadCount) {
+        this.itemIcon.setImage(itemIcon);
+        this.aliveCount.setText(aliveCount);
+        this.deadCount.setText(deadCount);
+    }
+
+    public void updateDiagram(double percent) {
+        percent = percent > 1 ?
+                1 : percent < 0 ?
+                0 : percent;
+
+        if (percent > 0.66) {
+            diagram.setFill(DIAGRAM_MAX_COLOR);
+        } else if (percent > 0.33) {
+            diagram.setFill(DIAGRAM_MIDDLE_COLOR);
+        } else diagram.setFill(DIAGRAM_MIN_COLOR);
+
+        if (percent > 0) {
+            diagram.setWidth(background.getWidth() * percent);
+        } else {
+            diagram.setWidth(background.getWidth());
+        }
+    }
+
+    public double getBackgroundHeight() {
+        return background.getHeight();
+    }
+
     private void init() {
         createCounts();
         background = createBackground(STATISTICS_COLOR);
@@ -66,7 +94,6 @@ public class StatisticsView extends StackPane {
         return lines;
     }
 
-
     private ImageView createIcon(int iconSize) {
         ImageView icon = new ImageView();
         icon.setFitWidth(iconSize);
@@ -95,44 +122,8 @@ public class StatisticsView extends StackPane {
     }
 
     private Text createText(FontWeight fontWeight) {
-        Text text = new Text("fdfd");
+        Text text = new Text();
         text.setFont(Font.font("System", fontWeight, STATISTICS_LINE_HEIGHT));
         return text;
-    }
-
-    public void updateView(Image itemIcon, String aliveCount, String deadCount) {
-        this.itemIcon.setImage(itemIcon);
-        this.aliveCount.setText(aliveCount);
-        this.deadCount.setText(deadCount);
-    }
-
-    public void setColor(Color color) {
-        background.setFill(color);
-    }
-
-    public void updateDiagram(double percent) {
-        percent = percent > 1 ?
-                1 : percent < 0 ?
-                0 : percent;
-
-        if (percent > 0.66) {
-            diagram.setFill(DIAGRAM_MAX_COLOR);
-        } else if (percent > 0.33) {
-            diagram.setFill(DIAGRAM_MIDDLE_COLOR);
-        } else diagram.setFill(DIAGRAM_MIN_COLOR);
-
-        if (percent > 0) {
-            diagram.setWidth(background.getWidth() * percent);
-        } else {
-            diagram.setWidth(background.getWidth());
-        }
-    }
-
-    public double getBackgroundHeight() {
-        return background.getHeight();
-    }
-
-    public ImageView getItemIcon() {
-        return itemIcon;
     }
 }

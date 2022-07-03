@@ -9,15 +9,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class AbstractFactory implements Factory {
     protected final AtomicInteger created = new AtomicInteger();
 
-    protected Factory getRandomFactory(Items parent) {
-        if (!parent.getChildren().isEmpty()) {
-            List<Items> children = parent.getChildren();
-            int childrenCount = children.size();
-            int randomChildIndex = Randomizer.getInt(childrenCount);
-            return children.get(randomChildIndex).getFactory();
-        } else return parent.getFactory();
-    }
-
     @Override
     public int getCreatedItemsCount() {
         return created.get();
@@ -26,9 +17,18 @@ public abstract class AbstractFactory implements Factory {
     @Override
     public void addCreatedItem(Items item) {
         created.incrementAndGet();
-        if (item.getParent() != null) {
-            Items parentItem = item.getParent();
+        if (item.getHigher() != null) {
+            Items parentItem = item.getHigher();
             parentItem.getFactory().addCreatedItem(parentItem);
         }
+    }
+
+    protected Factory getRandomFactory(Items parent) {
+        if (!parent.getLower().isEmpty()) {
+            List<Items> children = parent.getLower();
+            int childrenCount = children.size();
+            int randomChildIndex = Randomizer.getInt(childrenCount);
+            return children.get(randomChildIndex).getFactory();
+        } else return parent.getFactory();
     }
 }

@@ -16,14 +16,13 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class SimulationWorker extends Thread {
-    private static final AtomicLong hours = new AtomicLong();
+    private static final AtomicLong halfDay = new AtomicLong();
     private final Island island;
     private final Controller controller;
     private final List<Callable<Boolean>> workers;
     private final List<Callable<Boolean>> workersAtNewDay;
     private final StatisticsWorker statisticsWorker;
     private ScheduledExecutorService mainPool;
-    private final ScheduledExecutorService updateablePool;
     private final ExecutorService mainInnerPool;
 
     public SimulationWorker(Island island, Controller controller, Statistics statistics) {
@@ -36,19 +35,16 @@ public class SimulationWorker extends Thread {
         workersAtNewDay.add(startDayWorker);
         mainPool = Executors.newSingleThreadScheduledExecutor();
         mainInnerPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
-        updateablePool = Executors.newSingleThreadScheduledExecutor();
     }
 
     @Override
     public void run() {
         mainPool.scheduleWithFixedDelay(this::lifeCycle, Setting.INITIAL_DELAY, Setting.MAIN_DELAY, TimeUnit.MILLISECONDS);
-        updateablePool.scheduleWithFixedDelay(this::updateCycle, Setting.INITIAL_DELAY, Setting.UPDATE_DELAY, TimeUnit.MILLISECONDS);
     }
 
     public void stopIt() {
         mainInnerPool.shutdown();
         mainPool.shutdown();
-        updateablePool.shutdown();
         try {
             if (!mainInnerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
                 mainInnerPool.shutdownNow();
@@ -56,22 +52,9 @@ public class SimulationWorker extends Thread {
             if (!mainPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
                 mainPool.shutdownNow();
             }
-            if (!updateablePool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
-                updateablePool.shutdownNow();
-            }
         } catch (InterruptedException e) {
             throw new IslandException(e);
         }
-    }
-
-    private List<Callable<Boolean>> createWorkers() {
-        List<Callable<Boolean>> workers = new ArrayList<>();
-        for (Items organismItem : Items.getOrganismItems()) {
-            List<Territory> territories = new ArrayList<>(island.getTerritories());
-            Collections.shuffle(territories);
-            workers.add(new OrganismWorker(organismItem, territories));
-        }
-        return workers;
     }
 
     public void changeSpeed(long period) {
@@ -86,10 +69,19 @@ public class SimulationWorker extends Thread {
         }
     }
 
-    private void lifeCycle() {
+    private List<Callable<Boolean>> createWorkers() {
+        List<Callable<Boolean>> workers = new ArrayList<>();
+        for (Items organismItem : Items.getLowerItems()) {
+            List<Territory> territories = new ArrayList<>(island.getTerritories());
+            Collections.shuffle(territories);
+            workers.add(new OrganismWorker(organismItem, territories));
+        }
+        return workers;
+    }
 
+    private void lifeCycle() {
         try {
-            if (hours.get() % 24 != 0) {
+            if (halfDay.get() % 2 != 0) {
                 mainInnerPool.invokeAll(workers);
             } else {
                 mainInnerPool.invokeAll(workersAtNewDay);
@@ -100,11 +92,6 @@ public class SimulationWorker extends Thread {
         statisticsWorker.calculate();
         controller.prepareForUpdateView();
         Platform.runLater(controller::updateView);
-        hours.incrementAndGet();
+        halfDay.incrementAndGet();
     }
-
-    private void updateCycle() {
-//        Platform.runLater(controller::updateView);
-    }
-
 }

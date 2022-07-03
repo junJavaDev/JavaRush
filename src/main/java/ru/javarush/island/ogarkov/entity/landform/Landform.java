@@ -14,25 +14,26 @@ public abstract class Landform extends Organism {
     }
 
     @Override
-    protected boolean atomicReproduce(Cell cell, int chance) {
+    public void reproduce(Cell cell) {
+        atomicPlantSpawn(cell);
+    }
+
+    protected void atomicPlantSpawn(Cell cell) {
         cell.getLock().lock();
         try {
-            boolean isReproduced = false;
             if (cell.getResidentItem().is(Items.LANDFORM)) {
                 Set<Organism> population = cell.getPopulation();
+                population.remove(this);
                 Organism plant = Items.PLANT.getFactory().createItem();
                 Items newResidentItem = plant.getItem();
                 population.add(plant);
                 cell.setResidentItem(newResidentItem);
-                int plantsToReproduce = Randomizer.getIntOriginOne(Setting.PLANT_REPRODUCED_PER_EMPTY_CELL);
-                for (int plantIndex = 1; plantIndex < plantsToReproduce; plantIndex++) {
+                int plantsToSpawn = Randomizer.getIntOriginOne(Setting.PLANT_SPAWNED_PER_EMPTY_CELL);
+                for (int plantIndex = 1; plantIndex < plantsToSpawn; plantIndex++) {
                     Organism nextPlant = newResidentItem.getFactory().createItem();
                     population.add(nextPlant);
                 }
-                isReproduced = true;
-                isReproducedTried = true;
             }
-            return isReproduced;
         } finally {
             cell.getLock().unlock();
         }

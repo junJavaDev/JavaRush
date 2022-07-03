@@ -11,13 +11,14 @@ import java.util.concurrent.atomic.AtomicLong;
 
 public abstract class Organism implements Reproducible {
     private final static AtomicLong idCounter = new AtomicLong(System.currentTimeMillis());
-    private final long id = idCounter.incrementAndGet(); // TODO: 26.06.2022 добавить id в фабрике к имени, переделать equals, hashcode
+    private final long id = idCounter.incrementAndGet();
     protected final Items item;
-    public boolean isReproducedTried;
+    public boolean isReproduced;
     protected String name;
     protected double weight;
     protected int age;
     protected int lifeLength;
+    protected int chanceToReproduce;
 
     public Organism() {
         idCounter.incrementAndGet();
@@ -25,19 +26,43 @@ public abstract class Organism implements Reproducible {
         weight = item.getMaxWeight();
         name = item.getName();
     }
-
     @Override
     public void reproduce(Cell cell) {
-        atomicReproduce(cell, 50);
+        atomicReproduce(cell, chanceToReproduce);
     }
 
-    protected boolean atomicReproduce(Cell cell, int chance) {
-        //need to fix logic
+    public Items getItem() {
+        return item;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void die(Cell cell) {
+        if (age > lifeLength || weight == 0) {
+            if (age > lifeLength) {
+                System.out.println(item + "AGE DEAD");
+            } else {
+                System.out.println(item + "WEIGHT DEAD");
+            }
+            atomicPollFrom(cell);
+        }
+    }
+
+    protected void atomicReproduce(Cell cell, int chance) {
         cell.getLock().lock();
         try {
-            boolean isBorned = false;
             Set<Organism> population = cell.getPopulation();
-            if (!isReproducedTried && population.contains(this) && population.size() < item.getMaxCount() && population.size() > 1) {
+            if (!isReproduced && population.contains(this) && population.size() < item.getMaxCount() && population.size() > 1) {
                 Organism pair = null;
                 for (Organism organism : population) {
                     if (!this.equals(organism)) {
@@ -50,21 +75,16 @@ public abstract class Organism implements Reproducible {
                     if (chanceToReproduce < chance) {
                         Organism born = item.getFactory().createItem();
                         population.add(born);
-                        isBorned = true;
+                        pair.isReproduced = true;
+                        isReproduced = true;
                     }
-                    pair.isReproducedTried = true;
                 }
-                isReproducedTried = true;
             }
-            return isBorned;
         } finally {
             cell.getLock().unlock();
         }
     }
 
-    public Items getItem() {
-        return item;
-    }
 
     protected boolean atomicAddTo(Cell cell) {
         cell.getLock().lock();
@@ -110,30 +130,6 @@ public abstract class Organism implements Reproducible {
         } finally {
             cell.getLock().unlock();
         }
-    }
-
-    public void die(Cell cell) {
-        //need to fix logic
-        if (age > lifeLength || weight <= 0) {
-            atomicPollFrom(cell);
-        }
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    @Override
-    public String toString() {
-        return "Organizm{" + "name='" + name + '\'' + '}';
     }
 
     @Override

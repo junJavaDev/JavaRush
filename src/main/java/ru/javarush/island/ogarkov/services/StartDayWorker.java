@@ -1,9 +1,11 @@
 package ru.javarush.island.ogarkov.services;
 
 import ru.javarush.island.ogarkov.entity.Organism;
+import ru.javarush.island.ogarkov.entity.animals.Animal;
 import ru.javarush.island.ogarkov.location.Cell;
 import ru.javarush.island.ogarkov.location.Island;
 import ru.javarush.island.ogarkov.location.Territory;
+import ru.javarush.island.ogarkov.settings.Items;
 
 import java.util.*;
 import java.util.concurrent.Callable;
@@ -37,8 +39,15 @@ public class StartDayWorker implements Callable<Boolean> {
         Set<Organism> population = cell.getPopulation();
         try {
             for (Organism organism : population) {
-                organism.isReproducedTried = false;
+                Items item = organism.getItem();
+                if (days.get() % 4 == 0 && organism.getAge() > 3) {
+                    organism.isReproduced = false;
+                }
                 organism.setAge(organism.getAge() + 1);
+                if (item.is(Items.ANIMAL)) {
+                    Animal animal = (Animal)organism;
+                    animal.setMoves(item.getMaxSpeed());
+                }
                 Task task = new Task(organism, organismToAction -> organismToAction.die(cell));
                 tasks.add(task);
             }

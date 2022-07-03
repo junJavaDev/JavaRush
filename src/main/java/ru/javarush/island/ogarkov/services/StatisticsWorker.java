@@ -6,7 +6,6 @@ import ru.javarush.island.ogarkov.location.Cell;
 import ru.javarush.island.ogarkov.location.Island;
 import ru.javarush.island.ogarkov.location.Territory;
 import ru.javarush.island.ogarkov.settings.Items;
-import ru.javarush.island.ogarkov.view.Controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,14 +31,14 @@ public class StatisticsWorker implements StatisticsAction {
     @Override
     public void calculateCreated() {
         Map<Items, Integer> created = statistics.getCreated();
-        for (Items item : Items.getOrganismItems()) {
+        for (Items item : Items.getLowerItems()) {
             created.put(item, item.getFactory().getCreatedItemsCount());
         }
     }
 
     @Override
     public void calculateDead() {
-        for (Items item : Items.getOrganismItems()) {
+        for (Items item : Items.getLowerItems()) {
             int created = statistics.getCreated().get(item);
             int existing = statistics.getAlive().get(item);
             statistics.getDead().put(item, created - existing);
