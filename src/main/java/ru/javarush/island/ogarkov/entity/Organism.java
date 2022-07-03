@@ -49,11 +49,6 @@ public abstract class Organism implements Reproducible {
 
     public void die(Cell cell) {
         if (age > lifeLength || weight == 0) {
-            if (age > lifeLength) {
-                System.out.println(item + "AGE DEAD");
-            } else {
-                System.out.println(item + "WEIGHT DEAD");
-            }
             atomicPollFrom(cell);
         }
     }
@@ -62,7 +57,9 @@ public abstract class Organism implements Reproducible {
         cell.getLock().lock();
         try {
             Set<Organism> population = cell.getPopulation();
-            if (!isReproduced && population.contains(this) && population.size() < item.getMaxCount() && population.size() > 1) {
+            if (!isReproduced && population.contains(this)
+                    && population.size() < item.getMaxCount()
+                    && population.size() > 1) {
                 Organism pair = null;
                 for (Organism organism : population) {
                     if (!this.equals(organism)) {
@@ -92,7 +89,9 @@ public abstract class Organism implements Reproducible {
             if (item == cell.getResidentItem()) {
                 Set<Organism> population = cell.getPopulation();
                 int populationSize = population.size();
-                return populationSize < item.getMaxCount() && population.add(this);
+                return populationSize <
+                        item.getMaxCount()
+                        && population.add(this);
             } else return false;
         } finally {
             cell.getLock().unlock();

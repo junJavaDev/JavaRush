@@ -46,9 +46,16 @@ public class Main extends Application {
     }
 
     private void loadSimulationForm (Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/ogarkov/simulationForm.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                Main.class
+                        .getResource("/ogarkov/simulationForm.fxml")
+        );
         fxmlLoader.setController(controller);
-        stage.getIcons().add(new Image((Objects.requireNonNull(getClass().getResourceAsStream("/ogarkov/icon.png")))));
+        stage.getIcons().add(
+                new Image(
+                        (Objects.requireNonNull(getClass()
+                                .getResourceAsStream("/ogarkov/icon.png")))
+                ));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(Setting.SIMULATION_NAME);
         stage.setScene(scene);
