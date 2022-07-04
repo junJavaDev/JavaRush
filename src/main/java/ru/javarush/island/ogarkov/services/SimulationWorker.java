@@ -1,5 +1,6 @@
 package ru.javarush.island.ogarkov.services;
 
+import javafx.application.Platform;
 import ru.javarush.island.ogarkov.entity.Statistics;
 import ru.javarush.island.ogarkov.exception.IslandException;
 import ru.javarush.island.ogarkov.location.Island;
@@ -7,7 +8,6 @@ import ru.javarush.island.ogarkov.location.Territory;
 import ru.javarush.island.ogarkov.settings.Items;
 import ru.javarush.island.ogarkov.settings.Setting;
 import ru.javarush.island.ogarkov.view.Controller;
-import javafx.application.Platform;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,6 +24,8 @@ public class SimulationWorker extends Thread {
     private final StatisticsWorker statisticsWorker;
     private ScheduledExecutorService mainPool;
     private final ExecutorService mainInnerPool;
+    private final int initialDelay;
+    private final int mainDelay;
 
     public SimulationWorker(Island island, Controller controller, Statistics statistics) {
         this.island = island;
@@ -35,21 +37,23 @@ public class SimulationWorker extends Thread {
         workersAtNewDay.add(startDayWorker);
         mainPool = Executors.newSingleThreadScheduledExecutor();
         mainInnerPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        initialDelay = Setting.get().getInitialDelay();
+        mainDelay = Setting.get().getMainDelay();
     }
 
     @Override
     public void run() {
-        mainPool.scheduleWithFixedDelay(this::lifeCycle, Setting.INITIAL_DELAY, Setting.MAIN_DELAY, TimeUnit.MILLISECONDS);
+        mainPool.scheduleWithFixedDelay(this::lifeCycle, initialDelay, mainDelay, TimeUnit.MILLISECONDS);
     }
 
     public void stopIt() {
         mainInnerPool.shutdown();
         mainPool.shutdown();
         try {
-            if (!mainInnerPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
+            if (!mainInnerPool.awaitTermination(initialDelay, TimeUnit.MILLISECONDS)) {
                 mainInnerPool.shutdownNow();
             }
-            if (!mainPool.awaitTermination(Setting.INITIAL_DELAY, TimeUnit.MILLISECONDS)) {
+            if (!mainPool.awaitTermination(initialDelay, TimeUnit.MILLISECONDS)) {
                 mainPool.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -71,7 +75,7 @@ public class SimulationWorker extends Thread {
 
     private List<Callable<Boolean>> createWorkers() {
         List<Callable<Boolean>> workers = new ArrayList<>();
-        for (Items organismItem : Items.getLowerItems()) {
+        for (Items organismItem : Items.getAllLowerItems()) {
             List<Territory> territories = new ArrayList<>(island.getTerritories());
             Collections.shuffle(territories);
             workers.add(new OrganismWorker(organismItem, territories));

@@ -8,7 +8,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
         maxCount = 30,
         maxSpeed = 1,
         maxFood = 3,
-        icon = "/ogarkov/carnivore/boa.png"
+        icon = "/ogarkov/icons/carnivore/boa.png"
 )
 public class Boa extends CarnivoreAnimal {
 }

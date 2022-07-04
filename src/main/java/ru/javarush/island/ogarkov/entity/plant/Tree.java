@@ -4,7 +4,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
 
 @ItemData(
         name = "Дерево",
-        icon = "/ogarkov/plant/tree.png"
+        icon = "/ogarkov/icons/plant/tree.png"
 )
 public class Tree extends Plant {
 }

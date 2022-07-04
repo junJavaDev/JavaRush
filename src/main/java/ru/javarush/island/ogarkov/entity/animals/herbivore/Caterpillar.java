@@ -7,7 +7,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
         maxWeight = 0.01,
         maxCount = 1000,
         maxFood = 0.01,
-        icon = "/ogarkov/herbivore/caterpillar.png"
+        icon = "/ogarkov/icons/herbivore/caterpillar.png"
 )
 public class Caterpillar extends HerbivoreAnimal {
 }

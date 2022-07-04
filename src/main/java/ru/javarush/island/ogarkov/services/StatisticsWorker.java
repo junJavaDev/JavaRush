@@ -31,14 +31,14 @@ public class StatisticsWorker implements StatisticsAction {
     @Override
     public void calculateCreated() {
         Map<Items, Integer> created = statistics.getCreated();
-        for (Items item : Items.getLowerItems()) {
+        for (Items item : Items.getAllLowerItems()) {
             created.put(item, item.getFactory().getCreatedItemsCount());
         }
     }
 
     @Override
     public void calculateDead() {
-        for (Items item : Items.getLowerItems()) {
+        for (Items item : Items.getAllLowerItems()) {
             int created = statistics.getCreated().get(item);
             int existing = statistics.getAlive().get(item);
             statistics.getDead().put(item, created - existing);

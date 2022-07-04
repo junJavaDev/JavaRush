@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static ru.javarush.island.ogarkov.settings.Setting.TRYING_LOCK_MILLIS;
-
 public abstract class Animal extends Organism implements Eating, Movable {
 
     protected final Map<Items, Integer> foodRation;
@@ -26,9 +24,9 @@ public abstract class Animal extends Organism implements Eating, Movable {
     protected int moves;
 
     public Animal() {
-        satiety = item.getMaxFood() * Setting.INIT_SATIETY;
+        satiety = item.getMaxFood() * Setting.get().getInitSatiety();
         foodRation = item.getFoodRation();
-        weight = item.getMaxWeight() * Setting.INIT_WEIGHT;
+        weight = item.getMaxWeight() * Setting.get().getInitWeight();
     }
 
     @Override
@@ -85,7 +83,10 @@ public abstract class Animal extends Organism implements Eating, Movable {
         try {
             List<Cell> cellsWithFood = findFood(currentCell);
             for (Cell cell : cellsWithFood) {
-                boolean isLocked = cell.getLock().tryLock(TRYING_LOCK_MILLIS, TimeUnit.MILLISECONDS);
+                boolean isLocked = cell.getLock().tryLock(
+                        Setting.get().getTryingLockMillis(),
+                        TimeUnit.MILLISECONDS
+                );
                 if (isLocked) {
                     Items residentItem = cell.getResidentItem();
                     if (!cell.getPopulation().isEmpty() && foodRation.containsKey(residentItem)) {
@@ -113,7 +114,7 @@ public abstract class Animal extends Organism implements Eating, Movable {
         currentCell.getLock().lock();
         try {
             if (currentCell.getPopulation().contains(this)) {
-                double losingWeight = item.getMaxWeight() * Setting.LOSING_WEIGHT_PERCENT;
+                double losingWeight = item.getMaxWeight() * Setting.get().getLosingWeightPercent();
                 weight = Math.max(0, weight - losingWeight);
                 satiety = Math.max(0, satiety - losingWeight);
             }

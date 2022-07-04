@@ -13,8 +13,6 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import ru.javarush.island.ogarkov.settings.Setting;
 
-import static ru.javarush.island.ogarkov.settings.Setting.*;
-
 public class StatisticsView extends StackPane {
     private Rectangle background;
     private Rectangle diagram;
@@ -23,8 +21,26 @@ public class StatisticsView extends StackPane {
     private Text deadCount;
     private VBox lines;
     private HBox field;
+    private final Color diagramMaxColor;
+    private final Color diagramMiddleColor;
+    private final Color diagramMinColor;
+    private final Color statisticsColor;
+    private final int statisticsLineHeight;
+    private final int statisticsLineSpacing;
+    private final int statisticsFieldWidth;
+    private final int statisticsFieldHeight;
+    private final int statisticsIconSize;
 
     public StatisticsView() {
+        diagramMaxColor = Setting.get().getDiagramMaxColor();
+        diagramMiddleColor = Setting.get().getDiagramMiddleColor();
+        diagramMinColor = Setting.get().getDiagramMinColor();
+        statisticsColor = Setting.get().getStatisticsColor();
+        statisticsLineHeight = Setting.get().getStatisticsLineHeight();
+        statisticsLineSpacing = Setting.get().getStatisticsLineSpacing();
+        statisticsFieldHeight = statisticsLineHeight * 2 + Setting.get().getStatisticsFieldSpacing();
+        statisticsFieldWidth = Setting.get().getStatisticsFieldWidth();
+        statisticsIconSize = Setting.get().getStatisticsIconSize();
         init();
     }
 
@@ -40,10 +56,10 @@ public class StatisticsView extends StackPane {
                 0 : percent;
 
         if (percent > 0.66) {
-            diagram.setFill(DIAGRAM_MAX_COLOR);
+            diagram.setFill(diagramMaxColor);
         } else if (percent > 0.33) {
-            diagram.setFill(DIAGRAM_MIDDLE_COLOR);
-        } else diagram.setFill(DIAGRAM_MIN_COLOR);
+            diagram.setFill(diagramMiddleColor);
+        } else diagram.setFill(diagramMinColor);
 
         if (percent > 0) {
             diagram.setWidth(background.getWidth() * percent);
@@ -58,8 +74,8 @@ public class StatisticsView extends StackPane {
 
     private void init() {
         createCounts();
-        background = createBackground(STATISTICS_COLOR);
-        diagram = createBackground(DIAGRAM_MIN_COLOR);
+        background = createBackground(statisticsColor);
+        diagram = createBackground(diagramMinColor);
         setAlignment(diagram, Pos.CENTER_LEFT);
         createField();
         getChildren().addAll(background, diagram, field);
@@ -69,14 +85,14 @@ public class StatisticsView extends StackPane {
         StackPane itemIconPane = createItemIconPane();
         lines = createLines();
         field = new HBox(itemIconPane, lines);
-        field.setSpacing(Setting.STATISTICS_LINE_SPACING);
+        field.setSpacing(statisticsLineSpacing);
     }
 
     private Rectangle createBackground(Color color) {
         Rectangle background = new Rectangle();
         background.setFill(color);
-        background.setWidth(STATISTICS_FIELD_WIDTH);
-        background.setHeight(STATISTICS_FIELD_HEIGHT);
+        background.setWidth(statisticsFieldWidth);
+        background.setHeight(statisticsFieldHeight);
         return background;
     }
 
@@ -86,8 +102,8 @@ public class StatisticsView extends StackPane {
     }
 
     private VBox createLines() {
-        ImageView aliveIcon = createIcon(ALIVE_OVERLAY);
-        ImageView deadIcon = createIcon(DEAD_OVERLAY);
+        ImageView aliveIcon = createIcon(Setting.get().getAliveIcon());
+        ImageView deadIcon = createIcon(Setting.get().getDeadIcon());
         HBox aliveLine = createLine(aliveIcon, aliveCount);
         HBox deadLine = createLine(deadIcon, deadCount);
         lines = new VBox(aliveLine, deadLine);
@@ -102,20 +118,20 @@ public class StatisticsView extends StackPane {
     }
 
     private ImageView createIcon(Image image) {
-        ImageView icon = createIcon(Setting.STATISTICS_LINE_HEIGHT);
+        ImageView icon = createIcon(statisticsLineHeight);
         icon.setImage(image);
         return icon;
     }
 
     private HBox createLine(ImageView icon, Text count) {
         HBox line = new HBox(icon, count);
-        line.setSpacing(Setting.STATISTICS_LINE_SPACING);
+        line.setSpacing(statisticsLineSpacing);
         line.setAlignment(Pos.CENTER_LEFT);
         return line;
     }
 
     private StackPane createItemIconPane() {
-        itemIcon = createIcon(Setting.STATISTICS_ICON_SIZE);
+        itemIcon = createIcon(statisticsIconSize);
         StackPane itemIconPane = new StackPane(itemIcon);
         itemIconPane.setAlignment(Pos.CENTER);
         return itemIconPane;
@@ -123,7 +139,7 @@ public class StatisticsView extends StackPane {
 
     private Text createText(FontWeight fontWeight) {
         Text text = new Text();
-        text.setFont(Font.font("System", fontWeight, STATISTICS_LINE_HEIGHT));
+        text.setFont(Font.font("System", fontWeight, statisticsLineHeight));
         return text;
     }
 }

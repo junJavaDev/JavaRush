@@ -19,8 +19,6 @@ import java.util.List;
 import java.util.Map;
 
 import static ru.javarush.island.ogarkov.settings.Items.*;
-import static ru.javarush.island.ogarkov.settings.Setting.*;
-
 
 public class Controller extends View {
 
@@ -37,10 +35,36 @@ public class Controller extends View {
     private String[] statisticsAliveForUpdate;
     private String[] statisticsDeadForUpdate;
     private double[] statisticsDiagramForUpdate;
+    private final int islandRows;
+    private final int islandCols;
+    private final int territoryRows;
+    private final int territoryCols;
+    private final Color defaultIslandColor;
+    private final Color defaultTerritoryColor;
+    private final Color selectedColor;
+    private final int islandCellWidth;
+    private final int islandCellHeight;
+    private final int islandGridSize;
+    private final int territoryCellWidth;
+    private final int territoryCellHeight;
+    private final int territoryGridSize;
 
     public Controller(Island island, Statistics statistics) {
         this.island = island;
         this.statistics = statistics;
+        islandRows = Setting.get().getIslandRows();
+        islandCols = Setting.get().getIslandCols();
+        territoryRows = Setting.get().getTerritoryRows();
+        territoryCols = Setting.get().getTerritoryCols();
+        defaultIslandColor = Setting.get().getDefaultIslandColor();
+        defaultTerritoryColor = Setting.get().getDefaultTerritoryColor();
+        selectedColor = Setting.get().getSelectedColor();
+        islandCellWidth = Setting.get().getIslandCellWidth();
+        islandCellHeight = Setting.get().getIslandCellHeight();
+        islandGridSize = Setting.get().getIslandGridSize();
+        territoryCellWidth = Setting.get().getTerritoryCellWidth();
+        territoryCellHeight = Setting.get().getTerritoryCellHeight();
+        territoryGridSize = Setting.get().getTerritoryGridSize();
     }
 
     public void prepareForUpdateView() {
@@ -91,13 +115,20 @@ public class Controller extends View {
 
     private void createIslandField() {
         var cells = new ArrayList<CellView>();
-        for (int row = 0; row < ISLAND_ROWS; row++) {
-            for (int col = 0; col < ISLAND_COLS; col++) {
-                var cell = new CellView();
-                cell.setIslandLayout(row, col);
-                cells.add(cell);
-                cell.setIndex(cells.size() - 1);
-                cell.setOnMouseClicked(event -> {
+        for (int row = 0; row < islandRows; row++) {
+            for (int col = 0; col < islandCols; col++) {
+                var cellView = new CellView();
+                cellView.setLayout(
+                        row,
+                        col,
+                        islandCellWidth,
+                        islandCellHeight,
+                        islandGridSize,
+                        defaultIslandColor
+                        );
+                cells.add(cellView);
+                cellView.setIndex(cells.size() - 1);
+                cellView.setOnMouseClicked(event -> {
                     CellView source = (CellView) event.getSource();
                     selectedTerritoryIndex = source.getIndex();
                     prepareIslandForUpdateView();
@@ -111,24 +142,33 @@ public class Controller extends View {
 
     private void createTerritoryField() {
         var cells = new ArrayList<CellView>();
-        for (int row = 0; row < Setting.TERRITORY_ROWS; row++) {
-            for (int col = 0; col < Setting.TERRITORY_COLS; col++) {
+        for (int row = 0; row < territoryRows; row++) {
+            for (int col = 0; col < territoryCols; col++) {
                 var cellView = new CellView();
-                cellView.setTerritoryLayout(row, col);
+                cellView.setLayout(
+                        row,
+                        col,
+                        territoryCellWidth,
+                        territoryCellHeight,
+                        territoryGridSize,
+                        defaultTerritoryColor
+                );
                 cells.add(cellView);
             }
         }
-        initTerritoryField(cells);
+        int territoryWidth = territoryCols * (territoryCellWidth + territoryGridSize) - territoryGridSize;
+        int territoryHeight = territoryRows * (territoryCellHeight + territoryGridSize) - territoryGridSize;
+        initTerritoryField(cells, territoryWidth, territoryHeight);
     }
 
     private void createStatisticsField(Items... parent) {
         for (Items parents : parent) {
-            for (Items item : parents.getLower()) {
+            for (Items item : parents.getLowerItems()) {
                 StatisticsView statisticsView = new StatisticsView();
                 statisticsView.updateView(
                         item.getIcon(),
-                        EMPTY_STRING,
-                        EMPTY_STRING
+                        "",
+                        ""
                 );
                 if (item.is(ANIMAL)) {
                     addStatisticsView(animalStatisticsField, statisticsView);
@@ -142,17 +182,17 @@ public class Controller extends View {
     }
 
     private void initUpdateableFields() {
-        int islandSize = ISLAND_ROWS * ISLAND_COLS;
-        int territorySize = TERRITORY_ROWS * TERRITORY_COLS;
-        int statisticsSize = Items.getLowerItems().size()- LANDFORM.getLower().size();
+        int islandSize = islandRows * islandCols;
+        int territorySize = territoryRows * territoryCols;
+        int statisticsSize = Items.getAllLowerItems().size()- LANDFORM.getLowerItems().size();
         Arrays.fill(islandIconsForUpdate = new Image[islandSize], PLAIN.getIcon());
-        Arrays.fill(islandColorsForUpdate = new Color[islandSize], DEFAULT_ISLAND_COLOR);
+        Arrays.fill(islandColorsForUpdate = new Color[islandSize], defaultIslandColor);
         Arrays.fill(territoryIconsForUpdate = new Image[territorySize], PLAIN.getIcon());
-        Arrays.fill(territoryColorsForUpdate = new Color[territorySize], DEFAULT_TERRITORY_COLOR);
-        Arrays.fill(territoryTextsForUpdate = new String[territorySize], EMPTY_STRING);
+        Arrays.fill(territoryColorsForUpdate = new Color[territorySize], defaultTerritoryColor);
+        Arrays.fill(territoryTextsForUpdate = new String[territorySize], "");
         Arrays.fill(statisticsIconsForUpdate = new Image[statisticsSize], PLAIN.getIcon());
-        Arrays.fill(statisticsAliveForUpdate = new String[statisticsSize], EMPTY_STRING);
-        Arrays.fill(statisticsDeadForUpdate = new String[statisticsSize], EMPTY_STRING);
+        Arrays.fill(statisticsAliveForUpdate = new String[statisticsSize], "");
+        Arrays.fill(statisticsDeadForUpdate = new String[statisticsSize], "");
         Arrays.fill(statisticsDiagramForUpdate = new double[statisticsSize], 0.001);
     }
 
@@ -164,8 +204,8 @@ public class Controller extends View {
             islandIconsForUpdate[terIndex] = item.getIcon();
             islandColorsForUpdate[terIndex] =
                     terIndex == selectedTerritoryIndex ?
-                            SELECTED_COLOR :
-                            DEFAULT_ISLAND_COLOR;
+                            selectedColor :
+                            defaultIslandColor;
         }
     }
 
@@ -181,8 +221,8 @@ public class Controller extends View {
                             .getIcon();
             territoryColorsForUpdate[cellIndex] =
                     cell == leader ?
-                            SELECTED_COLOR :
-                            DEFAULT_TERRITORY_COLOR;
+                            selectedColor :
+                            defaultTerritoryColor;
             territoryTextsForUpdate[cellIndex] =
                     String.valueOf(cell.getPopulation().size());
         }
@@ -193,12 +233,12 @@ public class Controller extends View {
         var animalList = statistics.getSortedAlive(ANIMAL);
         int plantsCount = plantList.size();
         int maxAlivePlants = plantList.get(0).getValue();
-        if (maxAlivePlants < DIAGRAM_MAX_PLANTS) {
-            maxAlivePlants = DIAGRAM_MAX_PLANTS;
+        if (maxAlivePlants < Setting.get().getDiagramMaxPlants()) {
+            maxAlivePlants = Setting.get().getDiagramMaxPlants();
         }
         int maxAliveAnimals = animalList.get(0).getValue();
-        if (maxAliveAnimals < DIAGRAM_MAX_ANIMALS) {
-            maxAliveAnimals = DIAGRAM_MAX_ANIMALS;
+        if (maxAliveAnimals < Setting.get().getDiagramMaxAnimals()) {
+            maxAliveAnimals = Setting.get().getDiagramMaxAnimals();
         }
 
         List<Map.Entry<Items, Integer>> aliveList = new ArrayList<>(plantList);

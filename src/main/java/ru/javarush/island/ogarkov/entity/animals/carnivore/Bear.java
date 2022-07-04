@@ -9,11 +9,11 @@ import ru.javarush.island.ogarkov.settings.Setting;
         maxCount = 5,
         maxSpeed = 2,
         maxFood = 80,
-        icon = "/ogarkov/carnivore/bear.png"
+        icon = "/ogarkov/icons/carnivore/bear.png"
 )
 public class Bear extends CarnivoreAnimal {
 
     public Bear() {
-        chanceToReproduce = Setting.LOWER_CHANCE_TO_REPRODUCE;
+        chanceToReproduce = Setting.get().getLowerChanceToReproduce();
     }
 }

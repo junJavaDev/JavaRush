@@ -8,7 +8,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
         maxCount = 30,
         maxSpeed = 3,
         maxFood = 8,
-        icon = "/ogarkov/carnivore/wolf.png"
+        icon = "/ogarkov/icons/carnivore/wolf.png"
 )
 public class Wolf extends CarnivoreAnimal {
 }

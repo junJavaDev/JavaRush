@@ -11,8 +11,6 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
-import static ru.javarush.island.ogarkov.settings.Setting.*;
-
 public class View {
     @FXML
     protected AnchorPane mainPane;
@@ -43,12 +41,10 @@ public class View {
         islandField.getChildren().addAll(cells);
     }
 
-    protected void initTerritoryField(List<CellView> cells) {
+    protected void initTerritoryField(List<CellView> cells, int territoryWidth, int territoryHeight) {
         rightPane.setPrefWidth(200);
-        int territoryWidth = TERRITORY_COLS * (TERRITORY_CELL_WIDTH + TERRITORY_GRID_SIZE) - TERRITORY_GRID_SIZE;
-        int territoryHeigh = TERRITORY_ROWS * (TERRITORY_CELL_HEIGHT + TERRITORY_GRID_SIZE) - TERRITORY_GRID_SIZE;
         territoryField.setLayoutX((rightPane.getPrefWidth() - territoryWidth) / 2);
-        territoryField.setLayoutY((speedLabel.getLayoutY() - territoryHeigh + territoryField.getLayoutY()) / 2);
+        territoryField.setLayoutY((speedLabel.getLayoutY() - territoryHeight + territoryField.getLayoutY()) / 2);
         scrollStatisticsField.setLayoutX((rightPane.getPrefWidth() - scrollStatisticsField.getPrefWidth()) / 2);
         territoryField.getChildren().addAll(cells);
     }

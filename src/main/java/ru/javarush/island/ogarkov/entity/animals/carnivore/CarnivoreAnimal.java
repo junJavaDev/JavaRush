@@ -6,14 +6,14 @@ import ru.javarush.island.ogarkov.settings.Setting;
 public abstract class CarnivoreAnimal extends Animal {
 
     public CarnivoreAnimal() {
-        lifeLength = Setting.CARNIVORE_LIFE_LENGTH;
-        hunger = item.getMaxFood() * Setting.CARNIVORE_HUNGER;
-        chanceToReproduce = Setting.CARNIVORE_CHANCE_TO_REPRODUCE;
+        lifeLength = Setting.get().getCarnivoreLifeLength();
+        hunger = item.getMaxFood() * Setting.get().getCarnivoreHunger();
+        chanceToReproduce = Setting.get().getCarnivoreChanceToReproduce();
     }
 
     @Override
     public void reproduce(Cell cell) {
-        if (weight > item.getMaxWeight() * Setting.CARNIVORE_WEIGHT_TO_REPRODUCE) {
+        if (weight > item.getMaxWeight() * Setting.get().getCarnivoreWeightToReproduce()) {
             atomicReproduce(cell, chanceToReproduce);
         }
     }

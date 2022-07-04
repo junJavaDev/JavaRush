@@ -9,7 +9,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
         maxCount = 140,
         maxSpeed = 3,
         maxFood = 10,
-        icon = "/ogarkov/herbivore/goat.png"
+        icon = "/ogarkov/icons/herbivore/goat.png"
 )
 public class Goat extends HerbivoreAnimal {
 }

@@ -7,7 +7,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
         maxCount = 200,
         maxSpeed = 4,
         maxFood = 0.15,
-        icon = "/ogarkov/herbivore/duck.png"
+        icon = "/ogarkov/icons/herbivore/duck.png"
 )
 public class Duck extends HerbivoreAnimal {
 }

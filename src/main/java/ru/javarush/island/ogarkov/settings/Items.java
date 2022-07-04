@@ -1,6 +1,8 @@
 package ru.javarush.island.ogarkov.settings;
 
 import javafx.scene.image.Image;
+import lombok.Getter;
+import lombok.Setter;
 import ru.javarush.island.ogarkov.repository.itemfactory.Factory;
 import ru.javarush.island.ogarkov.repository.itemfactory.animals.AnimalFactory;
 import ru.javarush.island.ogarkov.repository.itemfactory.animals.carnivore.*;
@@ -12,6 +14,7 @@ import ru.javarush.island.ogarkov.util.Randomizer;
 
 import java.util.*;
 
+@Getter
 public enum Items {
     ANIMAL(null, new AnimalFactory()),
         CARNIVORE(ANIMAL, new CarnivoreFactory()),
@@ -43,14 +46,21 @@ public enum Items {
 
     private final Factory factory;
     private final Items higherItem;
-    private String name;
-    private double maxWeight;
-    private int maxCount;
-    private int maxSpeed;
-    private double maxFood;
-    private Image icon;
-    private Map<Items, Integer> foodRation;
     private final List<Items> lowerItems = new ArrayList<>();
+    @Setter
+    private String name;
+    @Setter
+    private double maxWeight;
+    @Setter
+    private int maxCount;
+    @Setter
+    private int maxSpeed;
+    @Setter
+    private double maxFood;
+    @Setter
+    private Image icon;
+    @Setter
+    private Map<Items, Integer> foodRation;
 
     Items(Items higherItem, Factory factory) {
         this.higherItem = higherItem;
@@ -58,41 +68,13 @@ public enum Items {
         addToHigherItem();
     }
 
-    public static Set<Items> getLowerItems() {
+    public static Set<Items> getAllLowerItems() {
         Set<Items> organismItems = new HashSet<>();
-        organismItems.addAll(CARNIVORE.getLower());
-        organismItems.addAll(HERBIVORE.getLower());
-        organismItems.addAll(PLANT.getLower());
-        organismItems.addAll(LANDFORM.getLower());
+        organismItems.addAll(CARNIVORE.getLowerItems());
+        organismItems.addAll(HERBIVORE.getLowerItems());
+        organismItems.addAll(PLANT.getLowerItems());
+        organismItems.addAll(LANDFORM.getLowerItems());
         return organismItems;
-    }
-
-    public double getMaxWeight() {
-        return maxWeight;
-    }
-
-    public int getMaxCount() {
-        return maxCount;
-    }
-
-    public int getMaxSpeed() {
-        return maxSpeed;
-    }
-
-    public double getMaxFood() {
-        return maxFood;
-    }
-
-    public Map<Items, Integer> getFoodRation() {
-        return foodRation;
-    }
-
-    public Image getIcon() {
-        return icon;
-    }
-
-    public List<Items> getLower() {
-        return lowerItems;
     }
 
     public boolean is(Items other) {
@@ -107,53 +89,17 @@ public enum Items {
         return !this.is(other);
     }
 
-    public Items getRandom() {
+    public Items getRandomItem() {
         Items randomItem = this;
-        if (!randomItem.getLower().isEmpty()) {
-            int randomItemIndex = Randomizer.getInt(getLower().size());
-            randomItem = lowerItems.get(randomItemIndex).getRandom();
+        if (!randomItem.getLowerItems().isEmpty()) {
+            int randomItemIndex = Randomizer.getInt(getLowerItems().size());
+            randomItem = lowerItems.get(randomItemIndex).getRandomItem();
         }
         return randomItem;
     }
 
     public Factory getFactory() {
         return factory;
-    }
-
-    public Items getHigher() {
-        return higherItem;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setIcon(Image icon) {
-        this.icon = icon;
-    }
-
-    public void setMaxWeight(double maxWeight) {
-        this.maxWeight = maxWeight;
-    }
-
-    public void setMaxCount(int maxCount) {
-        this.maxCount = maxCount;
-    }
-
-    public void setFoodRation(Map<Items, Integer> foodRation) {
-        this.foodRation = foodRation;
-    }
-
-    public void setMaxSpeed(int maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public void setMaxFood(double maxFood) {
-        this.maxFood = maxFood;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     private void addToHigherItem() {

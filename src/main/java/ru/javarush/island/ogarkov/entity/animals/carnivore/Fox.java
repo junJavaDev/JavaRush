@@ -8,7 +8,7 @@ import ru.javarush.island.ogarkov.annotations.ItemData;
         maxCount = 30,
         maxSpeed = 2,
         maxFood = 2,
-        icon = "/ogarkov/carnivore/fox.png"
+        icon = "/ogarkov/icons/carnivore/fox.png"
 )
 public class Fox extends CarnivoreAnimal {
 }

@@ -1,14 +1,12 @@
 package ru.javarush.island.ogarkov.settings;
 
-import ru.javarush.island.ogarkov.annotations.ItemData;
 import javafx.scene.image.Image;
 import org.reflections.Reflections;
+import ru.javarush.island.ogarkov.annotations.ItemData;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import static ru.javarush.island.ogarkov.settings.Setting.FOOD_RATION;
 
 public class ItemsLoader {
 
@@ -16,7 +14,7 @@ public class ItemsLoader {
     }
 
     public static void loadItems() {
-        Reflections reflections = new Reflections(Setting.ENTITY_PATH);
+        Reflections reflections = new Reflections(Setting.get().getEntityPath());
         Set<Class<?>> itemsClasses = reflections.getTypesAnnotatedWith(ItemData.class);
         itemsClasses.forEach(ItemsLoader::loadItemData);
         loadFoodRations();
@@ -34,7 +32,7 @@ public class ItemsLoader {
     }
 
     private static void loadFoodRations() {
-        for (String[][] strings : FOOD_RATION) {
+        for (String[][] strings : Setting.get().getFoodRation()) {
             Items item = Items.valueOf(strings[0][0].toUpperCase());
             Map<Items, Integer> foodRation = new HashMap<>();
             for (int probabilityIndex = 0; probabilityIndex < strings[1].length; probabilityIndex++) {

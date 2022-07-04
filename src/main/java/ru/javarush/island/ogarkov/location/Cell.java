@@ -1,5 +1,7 @@
 package ru.javarush.island.ogarkov.location;
 
+import lombok.Getter;
+import lombok.Setter;
 import ru.javarush.island.ogarkov.entity.Organism;
 import ru.javarush.island.ogarkov.entity.landform.Landform;
 import ru.javarush.island.ogarkov.settings.Items;
@@ -10,47 +12,19 @@ import java.util.concurrent.locks.ReentrantLock;
 
 import static ru.javarush.island.ogarkov.settings.Items.ANIMAL;
 
+@Getter
 public class Cell implements Comparable<Cell> {
     private final Lock lock = new ReentrantLock(true);
-    public Territory territory;
+    private final Territory territory;
+    @Setter
     private Set<Organism> population;
+    @Setter
     private Items residentItem;
+    @Setter
     private Landform landform;
 
     public Cell(Territory territory) {
         this.territory = territory;
-    }
-
-    public Landform getLandform() {
-        return landform;
-    }
-
-    public void setLandform(Landform landform) {
-        this.landform = landform;
-    }
-
-    public Set<Organism> getPopulation() {
-        return population;
-    }
-
-    public void setPopulation(Set<Organism> population) {
-        this.population = population;
-    }
-
-    public Territory getTerritory() {
-        return territory;
-    }
-
-    public Items getResidentItem() {
-        return residentItem;
-    }
-
-    public void setResidentItem(Items item) {
-        residentItem = item;
-    }
-
-    public Lock getLock() {
-        return lock;
     }
 
     @Override

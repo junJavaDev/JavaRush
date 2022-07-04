@@ -40,7 +40,7 @@ public class Statistics {
     }
 
     private void init() {
-        for (Items item : Items.getLowerItems()) {
+        for (Items item : Items.getAllLowerItems()) {
             created.put(item, 0);
             alive.put(item, 0);
             dead.put(item, 0);

@@ -8,8 +8,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
-import static ru.javarush.island.ogarkov.settings.Setting.*;
-
 public class CellView extends StackPane {
     private Rectangle background;
     private Text itemsCount;
@@ -40,18 +38,11 @@ public class CellView extends StackPane {
         this.index = index;
     }
 
-    public void setIslandLayout(int row, int col) {
-        setBackgroundSize(ISLAND_CELL_WIDTH, ISLAND_CELL_HEIGHT);
-        setLayoutX((col * (ISLAND_CELL_WIDTH + ISLAND_GRID_SIZE)));
-        setLayoutY((row * (ISLAND_CELL_HEIGHT + ISLAND_GRID_SIZE)));
-        setColor(DEFAULT_ISLAND_COLOR);
-    }
-
-    public void setTerritoryLayout(int row, int col) {
-        setBackgroundSize(TERRITORY_CELL_WIDTH, TERRITORY_CELL_HEIGHT);
-        setLayoutX((col * (TERRITORY_CELL_WIDTH + TERRITORY_GRID_SIZE)));
-        setLayoutY((row * (TERRITORY_CELL_HEIGHT + TERRITORY_GRID_SIZE)));
-        setColor(DEFAULT_TERRITORY_COLOR);
+    public void setLayout(int row, int col, int width, int height, int islandGridSize, Color color) {
+        setBackgroundSize(width, height);
+        setLayoutX((col * (width + islandGridSize)));
+        setLayoutY((row * (height + islandGridSize)));
+        setColor(color);
     }
 
     public void updateView(Image image, Color color) {

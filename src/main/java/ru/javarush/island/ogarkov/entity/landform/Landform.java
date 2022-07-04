@@ -10,7 +10,7 @@ import java.util.Set;
 
 public abstract class Landform extends Organism {
     public Landform() {
-        lifeLength = Setting.LANDFORM_LIFE_LENGTH;
+        lifeLength = Setting.get().getLandformLifeLength();
     }
 
     @Override
@@ -28,7 +28,7 @@ public abstract class Landform extends Organism {
                 Items newResidentItem = plant.getItem();
                 population.add(plant);
                 cell.setResidentItem(newResidentItem);
-                int plantsToSpawn = Randomizer.getIntOriginOne(Setting.PLANT_SPAWNED_PER_EMPTY_CELL);
+                int plantsToSpawn = Randomizer.getIntOriginOne(Setting.get().getPlantSpawnedPerEmptyCell());
                 for (int plantIndex = 1; plantIndex < plantsToSpawn; plantIndex++) {
                     Organism nextPlant = newResidentItem.getFactory().createItem();
                     population.add(nextPlant);

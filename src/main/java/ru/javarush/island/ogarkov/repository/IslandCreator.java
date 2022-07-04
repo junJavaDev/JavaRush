@@ -2,13 +2,11 @@ package ru.javarush.island.ogarkov.repository;
 
 import ru.javarush.island.ogarkov.location.Island;
 import ru.javarush.island.ogarkov.location.Territory;
+import ru.javarush.island.ogarkov.settings.Setting;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import static ru.javarush.island.ogarkov.settings.Setting.TERRITORY_COLS;
-import static ru.javarush.island.ogarkov.settings.Setting.TERRITORY_ROWS;
 
 public class IslandCreator {
 
@@ -22,7 +20,10 @@ public class IslandCreator {
         Island island = new Island(rows, cols);
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
-                Territory territory = territoryCreator.createTerritory(TERRITORY_COLS, TERRITORY_ROWS);
+                Territory territory = territoryCreator.createTerritory(
+                        Setting.get().getTerritoryCols(),
+                        Setting.get().getTerritoryRows()
+                );
                 island.getIslandMap()[row][col] = territory;
                 island.getTerritories().add(territory);
             }

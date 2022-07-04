@@ -10,14 +10,14 @@ import java.util.Set;
 public abstract class HerbivoreAnimal extends Animal {
 
     public HerbivoreAnimal() {
-        lifeLength = Setting.HERBIVORE_LIFE_LENGTH;
-        hunger = item.getMaxFood() * Setting.HERBIVORE_HUNGER;
-        chanceToReproduce = Setting.HERBIVORE_CHANCE_TO_REPRODUCE;
+        lifeLength = Setting.get().getHerbivoreLifeLength();
+        hunger = item.getMaxFood() * Setting.get().getHerbivoreHunger();
+        chanceToReproduce = Setting.get().getHerbivoreChanceToReproduce();
     }
 
     @Override
     public void reproduce(Cell cell) {
-        if (weight > item.getMaxWeight() * Setting.HERBIVORE_WEIGHT_TO_REPRODUCE) {
+        if (weight > item.getMaxWeight() * Setting.get().getHerbivoreWeightToReproduce()) {
             atomicReproduce(cell, chanceToReproduce);
         }
     }

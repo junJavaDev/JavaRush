@@ -17,15 +17,15 @@ public abstract class AbstractFactory implements Factory {
     @Override
     public void addCreatedItem(Items item) {
         created.incrementAndGet();
-        if (item.getHigher() != null) {
-            Items parentItem = item.getHigher();
+        if (item.getHigherItem() != null) {
+            Items parentItem = item.getHigherItem();
             parentItem.getFactory().addCreatedItem(parentItem);
         }
     }
 
     protected Factory getRandomFactory(Items parent) {
-        if (!parent.getLower().isEmpty()) {
-            List<Items> children = parent.getLower();
+        if (!parent.getLowerItems().isEmpty()) {
+            List<Items> children = parent.getLowerItems();
             int childrenCount = children.size();
             int randomChildIndex = Randomizer.getInt(childrenCount);
             return children.get(randomChildIndex).getFactory();

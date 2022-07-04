@@ -9,10 +9,10 @@ import ru.javarush.island.ogarkov.settings.Setting;
         maxCount = 500,
         maxSpeed = 1,
         maxFood = 0.01,
-        icon = "/ogarkov/herbivore/mouse.png"
+        icon = "/ogarkov/icons/herbivore/mouse.png"
 )
 public class Mouse extends HerbivoreAnimal {
     public Mouse() {
-        chanceToReproduce = Setting.HIGHER_CHANCE_TO_REPRODUCE;
+        chanceToReproduce = Setting.get().getHigherChanceToReproduce();
     }
 }
