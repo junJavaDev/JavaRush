@@ -3,6 +3,7 @@ package ru.javarush.island.ogarkov.settings;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
+@SuppressWarnings("unused")
 public class Default {
         // This class is used by reflection in class Setting, method loadFromDefault()
         //==================================== BASIC ==============================================
