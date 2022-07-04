@@ -1,0 +1,62 @@
+# island size
+islandRows: 20
+islandCols: 30
+
+# territory size
+territoryRows: 5
+territoryCols: 5
+
+# chance that cell will be created with this organism
+cellCarnivoreProbability: 1
+cellHerbivoreProbability: 20
+cellPlantProbability: 120
+
+# init organism per cell when created simulation
+carnivoreInitPerCell: 4
+herbivoreInitPerCell: 30
+plantInitPerCell: 30
+
+# plants spawned per empty cell
+plantSpawnedPerEmptyCell: 35
+
+# init animals satiety, hunger, weight when created simulation
+initSatiety: 0.5
+herbivoreHunger: 0.95
+carnivoreHunger: 0.7
+initWeight: 0.6
+
+# losing weight, when animal is not eaten
+losingWeightPercent: 0.035
+
+# animal weight, that need to reproduce
+carnivoreWeightToReproduce: 0.65
+herbivoreWeightToReproduce: 0.75
+
+# chance to reproduce
+lowerChanceToReproduce: 18
+higherChanceToReproduce: 90
+carnivoreChanceToReproduce: 22
+herbivoreChanceToReproduce: 75
+plantChanceToReproduce: 30
+
+# life length
+carnivoreLifeLength: 25
+herbivoreLifeLength: 25
+plantLifeLength: 2000
+
+# island view size
+islandCellWidth: 35
+islandCellHeight: 35
+islandGridSize: 12
+
+# territory view size
+territoryCellWidth: 35
+territoryCellHeight: 50
+territoryGridSize: 2
+
+# statistics view size
+statisticsIconSize: 24
+
+# the maximum value diagram will not decrease until it reaches this value
+diagramMaxPlants: 5000
+diagramMaxAnimals: 1000
