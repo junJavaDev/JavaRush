@@ -7,7 +7,7 @@ import ru.javarush.island.ogarkov.location.Island;
 import ru.javarush.island.ogarkov.location.Territory;
 import ru.javarush.island.ogarkov.settings.Items;
 import ru.javarush.island.ogarkov.settings.Setting;
-import ru.javarush.island.ogarkov.view.Controller;
+import ru.javarush.island.ogarkov.view.javafx.Controller;
 
 import java.util.ArrayList;
 import java.util.Collections;
