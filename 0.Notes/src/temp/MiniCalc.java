@@ -1,4 +1,4 @@
-package Temp;// Обычно вам потребуются пакеты swing и awt,
+package temp;// Обычно вам потребуются пакеты swing и awt,
 // даже если вы работаете только с Swing.
 import javax.swing.*;
 import java.awt.*;

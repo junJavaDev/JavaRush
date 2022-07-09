@@ -1,7 +1,6 @@
-package Temp;
+package temp;
 
 import java.io.*;
-import java.util.Locale;
 import java.util.Set;
 import java.util.TreeSet;
 

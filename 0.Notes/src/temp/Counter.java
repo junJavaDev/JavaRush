@@ -1,4 +1,4 @@
-package Temp;
+package temp;
 
 public class Counter {
     public int countSheeps(Boolean[] arrayOfSheeps) {

@@ -1,4 +1,4 @@
-package Temp;
+package temp;
 
 public class Cat {
 

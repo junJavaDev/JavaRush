@@ -1,4 +1,4 @@
-package Temp;
+package temp;
 
 public abstract class Pet {
     public static void main(String[] args) {
