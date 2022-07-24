@@ -15,7 +15,7 @@ import static org.mockito.Mockito.times;
 public class HippodromeTest {
 
     @Test
-    void testConstructor_ShouldIllegalArgumentException_WhenParamIsNull() {
+    void testConstructor_ShouldIllegalArgumentException_WhenHorsesParamIsNull() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> new Hippodrome(null)
@@ -23,7 +23,7 @@ public class HippodromeTest {
     }
 
     @Test
-    void testConstructor_ShouldExceptionMassage_WhenParamIsNull() {
+    void testConstructor_ShouldExceptionMassage_WhenHorsesParamIsNull() {
         String expected = "Horses cannot be null.";
         String actual = null;
         try {
@@ -35,7 +35,7 @@ public class HippodromeTest {
     }
 
     @Test
-    void testConstructor_ShouldIllegalArgumentException_WhenParamIsEmpty() {
+    void testConstructor_ShouldIllegalArgumentException_WhenHorsesParamIsEmpty() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> new Hippodrome(Collections.emptyList())
@@ -43,7 +43,7 @@ public class HippodromeTest {
     }
 
     @Test
-    void testConstructor_ShouldExceptionMassage_WhenParamIsEmpty() {
+    void testConstructor_ShouldExceptionMassage_WhenHorsesParamIsEmpty() {
         String expected = "Horses cannot be empty.";
         String actual = null;
         try {
@@ -55,7 +55,7 @@ public class HippodromeTest {
     }
 
     @Test
-    void testGetHorses_ShouldReturn_ListParamOfConstructor() {
+    void testGetHorses_ShouldReturn_HorsesParamOfConstructor() {
         List<Horse> expected = new ArrayList<>();
         for (int horseNumber = 1; horseNumber <= 30; horseNumber++) {
             expected.add(new Horse("Name" + horseNumber, horseNumber, horseNumber));
