@@ -65,15 +65,16 @@ public class HippodromeTest {
     }
 
     @Test
-    void testMove_ShouldCallMove_ForAllHorses () {
-        Horse mockHorse = Mockito.mock(Horse.class);
+    void testMove_ShouldCallMove_ForAllHorses() {
         List<Horse> horses = new ArrayList<>();
         for (int horseNumber = 1; horseNumber <= 50; horseNumber++) {
-            horses.add(mockHorse);
+            horses.add(Mockito.mock(Horse.class));
         }
         Hippodrome hippodrome = new Hippodrome(horses);
         hippodrome.move();
-        Mockito.verify(mockHorse, times(50)).move();
+        for (Horse mockHorse : horses) {
+            Mockito.verify(mockHorse, times(1)).move();
+        }
     }
 
     @Test
