@@ -2,11 +2,19 @@
 <head>
     <title>RPG</title>
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
-    <link href="/css/my.css" rel="stylesheet">
+    <link href="/css/my.css?0" rel="stylesheet" type="text/css">
 </head>
 <body>
 <h1>RPG admin panel</h1>
-<table id="table1">
+<h2>Accounts list:</h2>
+<label for="selectCountPerPage">Count per page: </label>
+<select id="selectCountPerPage">
+    <option value="3">3</option>
+    <option value="5">5</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+</select>
+<table id="table">
     <thead>
     <tr>
         <th>#</th>
@@ -14,12 +22,15 @@
         <th>Title</th>
         <th>Race</th>
         <th>Profession</th>
-        <th>Level</th>
         <th>Birthday</th>
         <th>Banned</th>
+        <th>Level</th>
     </tr>
     </thead>
 </table>
+<div id="pageButtons">
+</div>
+
 </body>
-<script type="text/javascript" src="/js/xhr.js"></script>
+<script type="text/javascript" src="/js/xhr.js?0"></script>
 </html>
