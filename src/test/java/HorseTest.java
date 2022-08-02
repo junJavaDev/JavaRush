@@ -137,7 +137,7 @@ public class HorseTest {
             "10, 20, 0.5, 25",
             "0.1, 0.5, 0.9, 0.59"
     })
-    void testMove_ShouldAssignValidValueToDistance(double speed, double distance, double randomDouble, double expected) {
+    void testMove_ShouldAssign_ValidValueToDistance(double speed, double distance, double randomDouble, double expected) {
         try (MockedStatic<Horse> horseMockedStatic = Mockito.mockStatic(Horse.class)) {
             horseMockedStatic
                     .when(() -> Horse.getRandomDouble(anyDouble(), anyDouble()))
