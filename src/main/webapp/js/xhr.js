@@ -6,15 +6,10 @@ updateTable(0, 3)
 
 
 selectCountPerPage.onchange = function () {
+    console.log("HELLO2")
     const countPerPage = selectCountPerPage.options[selectCountPerPage.selectedIndex].value;
     updateTable(0, countPerPage)
-
 }
-
-// function setSomeString(newStr) {
-//     someString = newStr
-//     console.log(someString)
-// }
 
 
 function updateTable(pageNumber, countPerPage) {
@@ -22,30 +17,29 @@ function updateTable(pageNumber, countPerPage) {
         .then(accountsCount => {
             let pages = Math.ceil(accountsCount / countPerPage)
             updatePagesButton(pages, pageNumber, countPerPage)
-            console.log(pages)
             return getAccountsData(pageNumber, countPerPage)
         })
-        .then(data => drawTable(data))
+        .then(data => drawTable(data, pageNumber, countPerPage))
         .catch(err => console.log(err))
 }
 
 function updatePagesButton(pages, pageNumber, countPerPage) {
     const pageButtons = document.getElementById('pageButtons')
-        let buttons = [];
-        buttons.push(document.createTextNode('Pages:'))
-        for (let buttonNumber = 1; buttonNumber <= pages; buttonNumber++) {
-            const button = document.createElement('button')
-            const buttonText = document.createTextNode('' + buttonNumber);
-            if (pageNumber + 1 === buttonNumber) {
-                button.style.background = "darkseagreen";
-            }
-            button.appendChild(buttonText);
-            button.onclick = function () {
-                updateTable(buttonNumber - 1, countPerPage)
-            };
-            buttons.push(button)
+    let buttons = [];
+    buttons.push(document.createTextNode('Pages:'))
+    for (let buttonNumber = 1; buttonNumber <= pages; buttonNumber++) {
+        const button = document.createElement('button')
+        const buttonText = document.createTextNode('' + buttonNumber);
+        if (pageNumber + 1 === buttonNumber) {
+            button.style.background = "darkseagreen";
         }
-        pageButtons.replaceChildren(...buttons)
+        button.appendChild(buttonText);
+        button.onclick = function () {
+            updateTable(buttonNumber - 1, countPerPage)
+        };
+        buttons.push(button)
+    }
+    pageButtons.replaceChildren(...buttons)
 }
 
 function getAccountsCount() {
@@ -80,7 +74,22 @@ function sendRequest(method, url, body = null) {
     });
 }
 
-function drawTable(data) {
+function deleteAccount(id) {
+    console.log(accountsURL + '/' + id)
+    return sendRequest('DELETE', accountsURL + '/' + id)
+}
+
+function updateTableAfterDel(tbody, pageNumber, countPerPage) {
+    const isLastRow = tbody.childElementCount === 1
+    const isNotLastPage = pageNumber > 0
+    if (isLastRow && isNotLastPage) {
+        updateTable(pageNumber - 1, countPerPage);
+    } else {
+        updateTable(pageNumber, countPerPage);
+    }
+}
+
+function drawTable(data, pageNumber, countPerPage) {
     const tbody = document.getElementById('tableBody')
     let rows = [];
     for (const rowIndex in data) {
@@ -92,22 +101,147 @@ function drawTable(data) {
                 month: 'numeric',
                 year: 'numeric'
             });
-        row.appendChild(createTd(rowData['id']));
-        row.appendChild(createTd(rowData['name']));
-        row.appendChild(createTd(rowData['title']));
-        row.appendChild(createTd(rowData['race']));
-        row.appendChild(createTd(rowData['profession']));
-        row.appendChild(createTd(rowData['level']));
-        row.appendChild(createTd(birthday));
-        row.appendChild(createTd(rowData['banned']));
+
+        const editImageSrc = '/img/edit.png'
+        const delImageSrc = '/img/delete.png'
+        const saveImageSrc = '/img/save.png'
+
+        const editImage = document.createElement('img')
+        editImage.src = editImageSrc
+        const delImage = document.createElement('img')
+        delImage.src = delImageSrc
+
+        const tdId = row.insertCell(0)
+        const tdName = row.insertCell(1)
+        const tdTitle = row.insertCell(2)
+        const tdRace = row.insertCell(3)
+        const tdProfession = row.insertCell(4)
+        const tdLevel = row.insertCell(5)
+        const tdBirthday = row.insertCell(6)
+        const tdBanned = row.insertCell(7)
+        const tdEditImage = row.insertCell(8)
+        const tdDelImage = row.insertCell(9)
+
+        const id = rowData['id']
+        tdId.appendChild(document.createTextNode(id))
+        tdName.appendChild(parseToTextNode('name'));
+        tdTitle.appendChild(parseToTextNode('title'));
+        tdRace.appendChild(parseToTextNode('race'));
+        tdProfession.appendChild(parseToTextNode('profession'));
+        tdLevel.appendChild(parseToTextNode('level'));
+        tdBirthday.appendChild(document.createTextNode(birthday));
+        tdBanned.appendChild(parseToTextNode('banned'));
+        tdEditImage.appendChild(editImage);
+        tdDelImage.appendChild(delImage);
+
+
+        editImage.onclick = function () {
+            updateTable(pageNumber, countPerPage)
+
+            editImage.src = saveImageSrc
+
+
+            delImage.hidden = true
+
+            const tdNameEdit = createInputField(tdName.innerText)
+            const tdTitleEdit = createInputField(tdTitle.innerText)
+            const tdRaceSelect = createSelect(races, tdRace.innerText)
+            const tdProfessionSelect = createSelect(professions, tdProfession.innerText)
+            const tdBannedSelect = createSelect(banned, tdBanned.innerText)
+
+            tdName.replaceChild(tdNameEdit, tdName.firstChild)
+            tdTitle.replaceChild(tdTitleEdit, tdTitle.firstChild)
+            tdRace.replaceChild(tdRaceSelect, tdRace.firstChild);
+            tdProfession.replaceChild(tdProfessionSelect, tdProfession.firstChild);
+            tdBanned.replaceChild(tdBannedSelect, tdBanned.firstChild);
+
+            editImage.onclick = function () {
+                const body = {
+                    name: tdNameEdit.value,
+                    title: tdTitleEdit.value,
+                    race: tdRaceSelect.value,
+                    profession: tdProfessionSelect.value,
+                    banned: tdBannedSelect.value
+                }
+                console.log(body)
+                sendRequest('POST', accountsURL + '/' + id, body)
+                    .then(() => updateTable(pageNumber, countPerPage))
+            };
+
+        };
+
+        delImage.onclick = function () {
+            console.log(id);
+            deleteAccount(id)
+                .then(() => updateTableAfterDel(tbody, pageNumber, countPerPage))
+        };
+
+
         rows.push(row)
+
+        function parseToTextNode(index) {
+            return document.createTextNode(rowData[index])
+        }
+
+        function createInputField(value) {
+            const input = document.createElement('input');
+            input.type = 'text'
+            input.value = value
+            return input
+        }
+
+        function createSelect(options, selectedOption) {
+            const select = document.createElement('select')
+            for (let index = 0; index < options.length; index++) {
+                const option = document.createElement('option')
+                option.innerText = options[index];
+                select.add(option);
+                console.log("opt index = " + options[index] + "selected opt" + selectedOption)
+                if (options[index] === selectedOption) {
+                    select.selectedIndex = index
+                }
+            }
+
+
+            // for (const textOption of options) {
+            //     const option = document.createElement('option')
+            //     option.innerText = textOption;
+            //     if (textOption === 'ORC') {
+            //         select. = 'selected'
+            //     }
+            //     select.add(option);
+            // }
+            return select
+        }
     }
-    tbody.replaceChildren(...rows)
+    tbody.replaceChildren(...rows);
+
+
+    const races = [
+        'DWARF',
+        'ELF',
+        'GIANT',
+        'HUMAN',
+        'ORC',
+        'TROLL',
+        'HOBBIT',
+    ]
+
+    const professions = [
+        'CLERIC',
+        'DRUID',
+        'NAZGUL',
+        'PALADIN',
+        'ROGUE',
+        'SORCERER',
+        'WARLOCK',
+        'WARRIOR',
+    ]
+
+    const banned = [
+        'true',
+        'false'
+    ];
 }
 
-function createTd(text) {
-    const td = document.createElement("td");
-    const cellText = document.createTextNode(text);
-    td.appendChild(cellText)
-    return td
-}
+
