@@ -1,8 +1,9 @@
 <html lang="en">
 <head>
+    <meta charset="utf-8">
     <title>RPG</title>
     <script src=https://code.jquery.com/jquery-3.6.0.min.js></script>
-    <link href="/css/my.css?version=001" rel="stylesheet" type="text/css">
+    <!--    <link href="/css/my.css?version=001" rel="stylesheet" type="text/css">-->
 </head>
 <body>
 <h1>RPG admin panel</h1>
@@ -14,7 +15,7 @@
     <option value="10">10</option>
     <option value="20">20</option>
 </select>
-<table id="table">
+<table id="tableAccountsInfo">
     <thead>
     <tr>
         <th>#</th>
@@ -34,12 +35,62 @@
 <br>
 <div id="pageButtons"></div>
 
+<div id="creator">
+    <hr>
+    <h2>Create new account:</h2>
+    <form>
+
+    <table id="creatorTable">
+        <tbody>
+        <tr id="createName">
+            <td><label for="inputName">Name:</label></td>
+            <td><input id="inputName" minlength="1" maxlength="12" required></td>
+        </tr>
+        <tr id="createTitle">
+            <td><label for="inputTitle">Title:</label></td>
+            <td><input id="inputTitle" minlength="1" maxlength="30" required></td>
+        </tr>
+        <tr id="createRace">
+            <td><label for="selectRace">Race:</label></td>
+            <td><select id="selectRace"></select></td>
+        </tr>
+        <tr id="createProfession">
+            <td><label for="selectProfession">Profession:</label></td>
+            <td><select id="selectProfession"></select></td>
+        </tr>
+        <tr id="createLevel">
+            <td><label for="inputLevel">Level:</label></td>
+            <td><input id="inputLevel" type="number" min="0" max="100" required></td>
+        </tr>
+        <tr id="createBirthday">
+            <td><label for="inputBirthday">Birthday:</label></td>
+            <td><input id="inputBirthday" type="date" required></td>
+        </tr>
+        <tr id="createBanned">
+            <td><label for="selectBanned">Banned:</label></td>
+            <td><select id="selectBanned"></select></td>
+        </tr>
+        </tbody>
+    </table>
+        <p><input id="createAccount" type="submit" value="Create account"></p>
+    </form>
+</div>
+
+
 </body>
 
 
 <script>
+    const dateNow = Date.now()
+
+    const link = document.createElement('link')
+    link.href = "css/my.css?" + dateNow
+    link.rel = "stylesheet"
+    link.type = "text/css"
+    document.head.appendChild(link)
+
     const js = document.createElement('script');
-    js.src = "js/xhr.js?"+Date.now();
+    js.src = "js/xhr.js?" + dateNow;
     document.body.appendChild(js)
 </script>
 

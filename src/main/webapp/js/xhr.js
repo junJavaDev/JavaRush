@@ -1,12 +1,51 @@
-const accountsURL = '/rest/players'
-const countAllAccountsURL = '/rest/players/count'
+const accountsURL = 'rest/players'
+const countAllAccountsURL = accountsURL + '/count'
 const selectCountPerPage = document.getElementById('selectCountPerPage')
+
+const races = [
+    'DWARF',
+    'ELF',
+    'GIANT',
+    'HUMAN',
+    'ORC',
+    'TROLL',
+    'HOBBIT',
+]
+
+const professions = [
+    'CLERIC',
+    'DRUID',
+    'NAZGUL',
+    'PALADIN',
+    'ROGUE',
+    'SORCERER',
+    'WARLOCK',
+    'WARRIOR',
+]
+
+const banned = [
+    'true',
+    'false'
+];
 
 updateTable(0, 3)
 
+const inputName = document.getElementById('inputName')
+const inputTitle = document.getElementById('inputTitle')
+let selectRace = document.getElementById('selectRace')
+const selectProfession = document.getElementById('selectProfession')
+const inputLevel = document.getElementById('inputLevel')
+const inputBirthday = document.getElementById('inputBirthday')
+const selectBanned = document.getElementById('selectBanned')
+
+selectRace.innerHTML = (createSelect(races).innerHTML)
+selectProfession.innerHTML = (createSelect(professions).innerHTML)
+selectBanned.innerHTML = (createSelect(banned).innerHTML)
+
+
+
 
 selectCountPerPage.onchange = function () {
-    console.log("HELLO2")
     const countPerPage = selectCountPerPage.options[selectCountPerPage.selectedIndex].value;
     updateTable(0, countPerPage)
 }
@@ -102,9 +141,9 @@ function drawTable(data, pageNumber, countPerPage) {
                 year: 'numeric'
             });
 
-        const editImageSrc = '/img/edit.png'
-        const delImageSrc = '/img/delete.png'
-        const saveImageSrc = '/img/save.png'
+        const editImageSrc = 'img/edit.png'
+        const delImageSrc = 'img/delete.png'
+        const saveImageSrc = 'img/save.png'
 
         const editImage = document.createElement('img')
         editImage.src = editImageSrc
@@ -133,11 +172,7 @@ function drawTable(data, pageNumber, countPerPage) {
         tdBanned.appendChild(parseToTextNode('banned'));
         tdEditImage.appendChild(editImage);
         tdDelImage.appendChild(delImage);
-
-
         editImage.onclick = function () {
-            updateTable(pageNumber, countPerPage)
-
             editImage.src = saveImageSrc
 
 
@@ -183,65 +218,47 @@ function drawTable(data, pageNumber, countPerPage) {
             return document.createTextNode(rowData[index])
         }
 
-        function createInputField(value) {
-            const input = document.createElement('input');
-            input.type = 'text'
-            input.value = value
-            return input
-        }
-
-        function createSelect(options, selectedOption) {
-            const select = document.createElement('select')
-            for (let index = 0; index < options.length; index++) {
-                const option = document.createElement('option')
-                option.innerText = options[index];
-                select.add(option);
-                console.log("opt index = " + options[index] + "selected opt" + selectedOption)
-                if (options[index] === selectedOption) {
-                    select.selectedIndex = index
-                }
-            }
 
 
-            // for (const textOption of options) {
-            //     const option = document.createElement('option')
-            //     option.innerText = textOption;
-            //     if (textOption === 'ORC') {
-            //         select. = 'selected'
-            //     }
-            //     select.add(option);
-            // }
-            return select
-        }
+
     }
     tbody.replaceChildren(...rows);
 
 
-    const races = [
-        'DWARF',
-        'ELF',
-        'GIANT',
-        'HUMAN',
-        'ORC',
-        'TROLL',
-        'HOBBIT',
-    ]
 
-    const professions = [
-        'CLERIC',
-        'DRUID',
-        'NAZGUL',
-        'PALADIN',
-        'ROGUE',
-        'SORCERER',
-        'WARLOCK',
-        'WARRIOR',
-    ]
-
-    const banned = [
-        'true',
-        'false'
-    ];
 }
+
+function createSelect(options, selectedOption) {
+    const select = document.createElement('select')
+    for (let index = 0; index < options.length; index++) {
+        const option = document.createElement('option')
+        option.innerText = options[index];
+        select.add(option);
+        console.log("opt index = " + options[index] + "selected opt" + selectedOption)
+        if (options[index] === selectedOption) {
+            select.selectedIndex = index
+        }
+    }
+
+
+    // for (const textOption of options) {
+    //     const option = document.createElement('option')
+    //     option.innerText = textOption;
+    //     if (textOption === 'ORC') {
+    //         select. = 'selected'
+    //     }
+    //     select.add(option);
+    // }
+    return select
+}
+
+function createInputField(value) {
+    const input = document.createElement('input');
+    input.type = 'text'
+    input.value = value
+    return input
+}
+
+
 
 

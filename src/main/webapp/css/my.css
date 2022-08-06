@@ -1,12 +1,12 @@
-#table   {
+#tableAccountsInfo   {
     border-collapse: collapse;
     border: 1px solid black;
 }
-#table  th {
+#tableAccountsInfo  th {
     border: 1px solid black;
     padding: 5px;
 }
-#table  td {
+#tableAccountsInfo  td {
     border: 1px solid black;
     padding: 5px;
 }
