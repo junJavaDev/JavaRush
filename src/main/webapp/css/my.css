@@ -98,11 +98,17 @@ h2 {
     border: 2px solid #3E3935;
     border-radius: 4px;
     table-layout: fixed;
-    padding: 5px;
+}
+
+#tableAccountsInfo {
+    padding: 2px;
+}
+
+#createAccountTable {
+    padding: 6px;
 }
 
 #tableAccountsInfo th {
-    border: 1px solid black;
     padding: 5px;
     background: #1B1A18;
     color: #fc0
