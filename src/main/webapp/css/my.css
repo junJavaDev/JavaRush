@@ -98,6 +98,7 @@ h2 {
     border: 2px solid #3E3935;
     border-radius: 4px;
     table-layout: fixed;
+    padding: 5px;
 }
 
 #tableAccountsInfo th {
