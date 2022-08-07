@@ -1,9 +1,7 @@
-const accountsURL = 'rest/players'
+﻿const accountsURL = 'rest/players'
 const countAllAccountsURL = accountsURL + '/count'
-let pageNumber = 0;
-let countPerPage = 5;
 const selectCountPerPage = document.getElementById('selectCountPerPage')
-let selectRace = document.getElementById('selectRace')
+const selectRace = document.getElementById('selectRace')
 const selectProfession = document.getElementById('selectProfession')
 const selectBanned = document.getElementById('selectBanned')
 const tbody = document.getElementById('tableBody')
@@ -13,12 +11,14 @@ const banned = ['false', 'true'];
 const editImageSrc = 'img/edit.png'
 const delImageSrc = 'img/delete.png'
 const saveImageSrc = 'img/save.png'
+window.pageNumber = 0;
+window.countPerPage = 5;
 
+updateTable(window.pageNumber)
 drawAccountCreator()
-updateTable(pageNumber)
 
 selectCountPerPage.onchange = function () {
-    countPerPage = selectCountPerPage.options[selectCountPerPage.selectedIndex].value;
+    window.countPerPage = selectCountPerPage.options[selectCountPerPage.selectedIndex].value;
     updateTable(0)
 }
 
@@ -26,7 +26,8 @@ function drawAccountCreator() {
     selectRace.innerHTML = (createSelect(races).innerHTML)
     selectProfession.innerHTML = (createSelect(professions).innerHTML)
     selectBanned.innerHTML = (createSelect(banned).innerHTML)
-    document.getElementById('createAccountForm').addEventListener('submit', submitForm);
+    document.getElementById('createAccountForm')
+        .addEventListener('submit', submitForm);
 }
 
 function submitForm(event) {
@@ -41,14 +42,13 @@ function submitForm(event) {
         }
     });
     sendRequest('POST', accountsURL, body)
-        .then(() => updateTable(pageNumber))
+        .then(() => updateTable(window.pageNumber))
     clearInput()
 }
 
 function clearInput() {
     const formInput = document.querySelectorAll('#createAccountTable input');
     for (const input of formInput) {
-        console.log(input)
         input.value = "";
     }
     const formSelect = document.querySelectorAll('#createAccountTable select');
@@ -58,24 +58,25 @@ function clearInput() {
 }
 
 function updateTable(pageNumber) {
+    window.pageNumber = pageNumber;
     getAccountsCount()
         .then(accountsCount => {
-            let pages = Math.ceil(accountsCount / countPerPage)
-            updatePagesButton(pages, pageNumber)
-            return getAccountsData(pageNumber)
+            let pages = Math.ceil(accountsCount / window.countPerPage)
+            updatePagesButton(pages, window.pageNumber)
+            return getAccountsData(window.pageNumber)
         })
-        .then(data => drawTable(data, pageNumber))
+        .then(data => drawTable(data, window.pageNumber))
         .catch(err => console.log(err))
 }
 
-function updatePagesButton(pages, pageNumber) {
+function updatePagesButton(pages) {
     const pageButtons = document.getElementById('pageButtons')
     let buttons = [];
     buttons.push(document.createTextNode('Pages:'))
     for (let buttonNumber = 1; buttonNumber <= pages; buttonNumber++) {
         const button = document.createElement('button')
         const buttonText = document.createTextNode('' + buttonNumber);
-        if (pageNumber + 1 === buttonNumber) {
+        if (window.pageNumber + 1 === buttonNumber) {
             button.style.color = "#fc0";
             button.style.fontWeight = "bold";
             button.style.fontSize = "24px"
@@ -93,12 +94,12 @@ function getAccountsCount() {
     return sendRequest('GET', countAllAccountsURL)
 }
 
-function getAccountsData(pageNumber) {
-    return sendRequest('GET', getPlayersURLWithParam(pageNumber, countPerPage))
+function getAccountsData() {
+    return sendRequest('GET', getPlayersURLWithParam())
 }
 
-function getPlayersURLWithParam(pageNumber, pageSize) {
-    return accountsURL + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize
+function getPlayersURLWithParam() {
+    return accountsURL + "?pageNumber=" + window.pageNumber + "&pageSize=" + window.countPerPage
 }
 
 function sendRequest(method, url, body = null) {
@@ -124,7 +125,7 @@ function sendRequest(method, url, body = null) {
 
 
 
-function drawTable(data, pageNumber) {
+function drawTable(data) {
     let rows = [];
     for (const rowIndex in data) {
         const rowData = data[rowIndex];
@@ -185,11 +186,11 @@ function drawTable(data, pageNumber) {
 
         function updateTableAfterDel() {
             const isLastRow = tbody.childElementCount === 1
-            const isNotLastPage = pageNumber > 0
+            const isNotLastPage = window.pageNumber > 0
             if (isLastRow && isNotLastPage) {
-                updateTable(pageNumber - 1);
+                updateTable(window.pageNumber - 1);
             } else {
-                updateTable(pageNumber);
+                updateTable(window.pageNumber);
             }
         }
 
@@ -216,7 +217,7 @@ function drawTable(data, pageNumber) {
                     banned: tdBannedSelect.value
                 }
                 sendRequest('POST', accountsURL + '/' + id, body)
-                    .then(() => updateTable(pageNumber))
+                    .then(() => updateTable(window.pageNumber))
             };
         }
     }
