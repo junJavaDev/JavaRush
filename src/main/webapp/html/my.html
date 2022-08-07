@@ -62,7 +62,7 @@
                             id="inputName"
                             minlength="1"
                             maxlength="12"
-                            pattern="[\u0400-\u04ffa-zA-Z\s]{3,12}"
+                            pattern="^[\u0400-\u04ffa-zA-Z][\u0400-\u04ffa-zA-Z\s]{1,10}[\u0400-\u04ffa-zA-Z]$"
                             placeholder="3-12 cyrillic latin"
                             required
                     >
@@ -78,7 +78,7 @@
                             id="inputTitle"
                             minlength="1"
                             maxlength="30"
-                            pattern="[\u0400-\u04ffa-zA-Z_\s.,:]{3,30}"
+                            pattern="^[\u0400-\u04ffa-zA-Z][\u0400-\u04ffa-zA-Z_\s.,:]{1,28}[\u0400-\u04ffa-zA-Z.]$"
                             placeholder="3-30 cyrillic latin .,:"
                             required
                     >
