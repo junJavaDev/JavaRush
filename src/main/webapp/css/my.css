@@ -1,12 +1,17 @@
-#tableAccountsInfo td {
-    height: 44px;
+table {
+    margin-left: auto;
+    margin-right: auto;
 }
 
-#createAccountTable input,
-#createAccountTable select {
-    width: 160px;
-    background: #d8d8d8;
-    border: 2px solid #3E3935;
+body {
+    text-align: center;
+    background: #190C08;
+    color: #E1D4B0;
+}
+
+h2 {
+    font-family: "Diablo", serif;
+    color: #d8d8d8;
 }
 
 .container {
@@ -24,8 +29,25 @@
     color: #d8d8d8
 }
 
-#tableAccountsInfo input,
-#tableAccountsInfo select,
+.id, .edit, .delete, .level {
+    text-align: center;
+}
+
+.birthday {
+    text-align: right;
+}
+
+#tableAccountsInfo td {
+    height: 44px;
+}
+
+#createAccountTable input,
+#createAccountTable select {
+    width: 160px;
+    background: #d8d8d8;
+    border: 2px solid #3E3935;
+}
+
 #selectCountPerPage {
     background: #d8d8d8;
     border: 2px solid #3E3935;
@@ -45,22 +67,8 @@
     text-align: right;
 }
 
-h2 {
-    font-family: "Diablo", serif;
-    color: #d8d8d8;
-}
-
 #separator {
-
     border: 2px solid #3E3935;
-}
-
-.id, .edit, .delete, .level {
-    text-align: center;
-}
-
-.birthday {
-    text-align: right;
 }
 
 #pageButtons button {
@@ -81,17 +89,8 @@ h2 {
 
 #createButton {
     width: 186px;
-}
-
-table {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-body {
-    text-align: center;
-    background: #190C08;
-    color: #E1D4B0;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #createAccountTable,
@@ -99,7 +98,6 @@ body {
     border: 2px solid #3E3935;
     border-radius: 4px;
     table-layout: fixed;
-
 }
 
 #tableAccountsInfo th {
@@ -122,11 +120,6 @@ body {
     width: 32px;
     transition: width 0.05s;
 }
-
-#body {
-    background: black;
-}
-
 
 #id {
     width: 30px;
@@ -180,13 +173,13 @@ body {
 #titleEdit,
 #raceEdit,
 #professionEdit,
-#bannedEdit{
+#bannedEdit {
     width: 100%;
 }
 
 #inputName:invalid,
 #inputTitle:invalid,
-#inputLevel:invalid{
+#inputLevel:invalid {
     color: red
 }
 

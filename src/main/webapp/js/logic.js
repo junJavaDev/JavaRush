@@ -41,7 +41,7 @@ function submitForm(event) {
         }
     });
     sendRequest('POST', accountsURL, body)
-        .then(() => updateTable(0, 5))
+        .then(() => updateTable(pageNumber))
     clearInput()
 }
 
@@ -170,9 +170,8 @@ function drawTable(data, pageNumber) {
         tdBanned.appendChild(parseToTextNode('banned'));
         tdEditImage.appendChild(editImage);
         tdDelImage.appendChild(delImage);
-
-        editImage.onclick = editOnClick
-        delImage.onclick = deleteAccount
+        editImage.onclick = () => editOnClick()
+        delImage.onclick = () => deleteAccount()
         rows.push(row)
 
         function parseToTextNode(index) {
@@ -181,7 +180,7 @@ function drawTable(data, pageNumber) {
 
         function deleteAccount() {
             sendRequest('DELETE', accountsURL + '/' + id)
-                .then(() => updateTableAfterDel)
+                .then(() => updateTableAfterDel())
         }
 
         function updateTableAfterDel() {
