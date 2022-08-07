@@ -1,68 +1,74 @@
 const accountsURL = 'rest/players'
 const countAllAccountsURL = accountsURL + '/count'
+let pageNumber = 0;
+let countPerPage = 5;
 const selectCountPerPage = document.getElementById('selectCountPerPage')
-
-const races = [
-    'DWARF',
-    'ELF',
-    'GIANT',
-    'HUMAN',
-    'ORC',
-    'TROLL',
-    'HOBBIT',
-]
-
-const professions = [
-    'CLERIC',
-    'DRUID',
-    'NAZGUL',
-    'PALADIN',
-    'ROGUE',
-    'SORCERER',
-    'WARLOCK',
-    'WARRIOR',
-]
-
-const banned = [
-    'true',
-    'false'
-];
-
-updateTable(0, 3)
-
-const inputName = document.getElementById('inputName')
-const inputTitle = document.getElementById('inputTitle')
 let selectRace = document.getElementById('selectRace')
 const selectProfession = document.getElementById('selectProfession')
-const inputLevel = document.getElementById('inputLevel')
-const inputBirthday = document.getElementById('inputBirthday')
 const selectBanned = document.getElementById('selectBanned')
+const tbody = document.getElementById('tableBody')
+const races = ['DWARF', 'ELF', 'GIANT', 'HUMAN', 'ORC', 'TROLL', 'HOBBIT']
+const professions = ['CLERIC', 'DRUID', 'NAZGUL', 'PALADIN', 'ROGUE', 'SORCERER', 'WARLOCK', 'WARRIOR']
+const banned = ['false', 'true'];
+const editImageSrc = 'img/edit.png'
+const delImageSrc = 'img/delete.png'
+const saveImageSrc = 'img/save.png'
 
-selectRace.innerHTML = (createSelect(races).innerHTML)
-selectProfession.innerHTML = (createSelect(professions).innerHTML)
-selectBanned.innerHTML = (createSelect(banned).innerHTML)
-
-
-
+drawAccountCreator()
+updateTable(pageNumber)
 
 selectCountPerPage.onchange = function () {
-    const countPerPage = selectCountPerPage.options[selectCountPerPage.selectedIndex].value;
-    updateTable(0, countPerPage)
+    countPerPage = selectCountPerPage.options[selectCountPerPage.selectedIndex].value;
+    updateTable(0)
 }
 
+function drawAccountCreator() {
+    selectRace.innerHTML = (createSelect(races).innerHTML)
+    selectProfession.innerHTML = (createSelect(professions).innerHTML)
+    selectBanned.innerHTML = (createSelect(banned).innerHTML)
+    document.getElementById('createAccountForm').addEventListener('submit', submitForm);
+}
 
-function updateTable(pageNumber, countPerPage) {
+function submitForm(event) {
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    let body = {};
+    formData.forEach((value, key) => {
+        body[key] = value;
+        if (key === 'birthday') {
+            const birthday = document.getElementById("inputBirthday")
+            body[key] = birthday.valueAsNumber
+        }
+    });
+    sendRequest('POST', accountsURL, body)
+        .then(() => updateTable(0, 5))
+    clearInput()
+}
+
+function clearInput() {
+    const formInput = document.querySelectorAll('#createAccountTable input');
+    for (const input of formInput) {
+        console.log(input)
+        input.value = "";
+    }
+    const formSelect = document.querySelectorAll('#createAccountTable select');
+    for (const select of formSelect) {
+        select.selectedIndex = "0"
+    }
+}
+
+function updateTable(pageNumber) {
     getAccountsCount()
         .then(accountsCount => {
             let pages = Math.ceil(accountsCount / countPerPage)
-            updatePagesButton(pages, pageNumber, countPerPage)
-            return getAccountsData(pageNumber, countPerPage)
+            updatePagesButton(pages, pageNumber)
+            return getAccountsData(pageNumber)
         })
-        .then(data => drawTable(data, pageNumber, countPerPage))
+        .then(data => drawTable(data, pageNumber))
         .catch(err => console.log(err))
 }
 
-function updatePagesButton(pages, pageNumber, countPerPage) {
+function updatePagesButton(pages, pageNumber) {
     const pageButtons = document.getElementById('pageButtons')
     let buttons = [];
     buttons.push(document.createTextNode('Pages:'))
@@ -70,11 +76,13 @@ function updatePagesButton(pages, pageNumber, countPerPage) {
         const button = document.createElement('button')
         const buttonText = document.createTextNode('' + buttonNumber);
         if (pageNumber + 1 === buttonNumber) {
-            button.style.background = "darkseagreen";
+            button.style.color = "#fc0";
+            button.style.fontWeight = "bold";
+            button.style.fontSize = "24px"
         }
         button.appendChild(buttonText);
         button.onclick = function () {
-            updateTable(buttonNumber - 1, countPerPage)
+            updateTable(buttonNumber - 1)
         };
         buttons.push(button)
     }
@@ -85,12 +93,12 @@ function getAccountsCount() {
     return sendRequest('GET', countAllAccountsURL)
 }
 
-function getAccountsData(pageNumber, countPerPage) {
+function getAccountsData(pageNumber) {
     return sendRequest('GET', getPlayersURLWithParam(pageNumber, countPerPage))
 }
 
 function getPlayersURLWithParam(pageNumber, pageSize) {
-    return accountsURL + "?" + "pageNumber=" + pageNumber + "&" + "pageSize=" + pageSize
+    return accountsURL + "?pageNumber=" + pageNumber + "&pageSize=" + pageSize
 }
 
 function sendRequest(method, url, body = null) {
@@ -113,37 +121,20 @@ function sendRequest(method, url, body = null) {
     });
 }
 
-function deleteAccount(id) {
-    console.log(accountsURL + '/' + id)
-    return sendRequest('DELETE', accountsURL + '/' + id)
-}
 
-function updateTableAfterDel(tbody, pageNumber, countPerPage) {
-    const isLastRow = tbody.childElementCount === 1
-    const isNotLastPage = pageNumber > 0
-    if (isLastRow && isNotLastPage) {
-        updateTable(pageNumber - 1, countPerPage);
-    } else {
-        updateTable(pageNumber, countPerPage);
-    }
-}
 
-function drawTable(data, pageNumber, countPerPage) {
-    const tbody = document.getElementById('tableBody')
+
+function drawTable(data, pageNumber) {
     let rows = [];
     for (const rowIndex in data) {
         const rowData = data[rowIndex];
         const row = document.createElement("tr");
-        const birthday = new Date(rowData['birthday'])
+        const birthday = new Date(Number(rowData['birthday']))
             .toLocaleString('en', {
                 day: 'numeric',
                 month: 'numeric',
                 year: 'numeric'
             });
-
-        const editImageSrc = 'img/edit.png'
-        const delImageSrc = 'img/delete.png'
-        const saveImageSrc = 'img/save.png'
 
         const editImage = document.createElement('img')
         editImage.src = editImageSrc
@@ -161,7 +152,14 @@ function drawTable(data, pageNumber, countPerPage) {
         const tdEditImage = row.insertCell(8)
         const tdDelImage = row.insertCell(9)
 
+        tdId.className = "id"
+        tdLevel.className = "level"
+        tdBirthday.className = "birthday"
+        tdEditImage.className = "edit"
+        tdDelImage.className = "delete"
+
         const id = rowData['id']
+
         tdId.appendChild(document.createTextNode(id))
         tdName.appendChild(parseToTextNode('name'));
         tdTitle.appendChild(parseToTextNode('title'));
@@ -172,18 +170,38 @@ function drawTable(data, pageNumber, countPerPage) {
         tdBanned.appendChild(parseToTextNode('banned'));
         tdEditImage.appendChild(editImage);
         tdDelImage.appendChild(delImage);
-        editImage.onclick = function () {
+
+        editImage.onclick = editOnClick
+        delImage.onclick = deleteAccount
+        rows.push(row)
+
+        function parseToTextNode(index) {
+            return document.createTextNode(rowData[index])
+        }
+
+        function deleteAccount() {
+            sendRequest('DELETE', accountsURL + '/' + id)
+                .then(() => updateTableAfterDel)
+        }
+
+        function updateTableAfterDel() {
+            const isLastRow = tbody.childElementCount === 1
+            const isNotLastPage = pageNumber > 0
+            if (isLastRow && isNotLastPage) {
+                updateTable(pageNumber - 1);
+            } else {
+                updateTable(pageNumber);
+            }
+        }
+
+        function editOnClick() {
             editImage.src = saveImageSrc
-
-
             delImage.hidden = true
-
-            const tdNameEdit = createInputField(tdName.innerText)
-            const tdTitleEdit = createInputField(tdTitle.innerText)
-            const tdRaceSelect = createSelect(races, tdRace.innerText)
-            const tdProfessionSelect = createSelect(professions, tdProfession.innerText)
-            const tdBannedSelect = createSelect(banned, tdBanned.innerText)
-
+            const tdNameEdit = createInputField(tdName.innerText, 'nameEdit')
+            const tdTitleEdit = createInputField(tdTitle.innerText, 'titleEdit')
+            const tdRaceSelect = createSelect(races, tdRace.innerText, 'raceEdit')
+            const tdProfessionSelect = createSelect(professions, tdProfession.innerText, 'professionEdit')
+            const tdBannedSelect = createSelect(banned, tdBanned.innerText, 'bannedEdit')
             tdName.replaceChild(tdNameEdit, tdName.firstChild)
             tdTitle.replaceChild(tdTitleEdit, tdTitle.firstChild)
             tdRace.replaceChild(tdRaceSelect, tdRace.firstChild);
@@ -198,62 +216,32 @@ function drawTable(data, pageNumber, countPerPage) {
                     profession: tdProfessionSelect.value,
                     banned: tdBannedSelect.value
                 }
-                console.log(body)
                 sendRequest('POST', accountsURL + '/' + id, body)
-                    .then(() => updateTable(pageNumber, countPerPage))
+                    .then(() => updateTable(pageNumber))
             };
-
-        };
-
-        delImage.onclick = function () {
-            console.log(id);
-            deleteAccount(id)
-                .then(() => updateTableAfterDel(tbody, pageNumber, countPerPage))
-        };
-
-
-        rows.push(row)
-
-        function parseToTextNode(index) {
-            return document.createTextNode(rowData[index])
         }
-
-
-
-
     }
     tbody.replaceChildren(...rows);
-
-
-
 }
 
-function createSelect(options, selectedOption) {
+
+function createSelect(options, selectedOption, id) {
     const select = document.createElement('select')
+    select.id = id;
     for (let index = 0; index < options.length; index++) {
         const option = document.createElement('option')
         option.innerText = options[index];
         select.add(option);
-        console.log("opt index = " + options[index] + "selected opt" + selectedOption)
         if (options[index] === selectedOption) {
             select.selectedIndex = index
         }
     }
-
-
-    // for (const textOption of options) {
-    //     const option = document.createElement('option')
-    //     option.innerText = textOption;
-    //     if (textOption === 'ORC') {
-    //         select. = 'selected'
-    //     }
-    //     select.add(option);
-    // }
     return select
 }
 
-function createInputField(value) {
+function createInputField(value, id) {
     const input = document.createElement('input');
+    input.id = id;
     input.type = 'text'
     input.value = value
     return input
