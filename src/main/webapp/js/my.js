@@ -65,7 +65,7 @@ function updateTable(pageNumber) {
             updatePagesButton(pages, window.pageNumber)
             return getAccountsData(window.pageNumber)
         })
-        .then(data => drawTable(data, window.pageNumber))
+        .then(data => drawTable(data))
         .catch(err => console.log(err))
 }
 
@@ -128,55 +128,89 @@ function sendRequest(method, url, body = null) {
 function drawTable(data) {
     let rows = [];
     for (const rowIndex in data) {
-        const rowData = data[rowIndex];
         const row = document.createElement("tr");
-        const birthday = new Date(Number(rowData['birthday']))
-            .toLocaleString('en', {
-                day: 'numeric',
-                month: 'numeric',
-                year: 'numeric'
-            });
-
-        const editImage = document.createElement('img')
-        editImage.src = editImageSrc
-        const delImage = document.createElement('img')
-        delImage.src = delImageSrc
-
-        const tdId = row.insertCell(0)
-        const tdName = row.insertCell(1)
-        const tdTitle = row.insertCell(2)
-        const tdRace = row.insertCell(3)
-        const tdProfession = row.insertCell(4)
-        const tdLevel = row.insertCell(5)
-        const tdBirthday = row.insertCell(6)
-        const tdBanned = row.insertCell(7)
-        const tdEditImage = row.insertCell(8)
-        const tdDelImage = row.insertCell(9)
-
-        tdId.className = "id"
-        tdLevel.className = "level"
-        tdBirthday.className = "birthday"
-        tdEditImage.className = "edit"
-        tdDelImage.className = "delete"
-
-        const id = rowData['id']
-
-        tdId.appendChild(document.createTextNode(id))
-        tdName.appendChild(parseToTextNode('name'));
-        tdTitle.appendChild(parseToTextNode('title'));
-        tdRace.appendChild(parseToTextNode('race'));
-        tdProfession.appendChild(parseToTextNode('profession'));
-        tdLevel.appendChild(parseToTextNode('level'));
-        tdBirthday.appendChild(document.createTextNode(birthday));
-        tdBanned.appendChild(parseToTextNode('banned'));
-        tdEditImage.appendChild(editImage);
-        tdDelImage.appendChild(delImage);
-        editImage.onclick = () => editOnClick()
-        delImage.onclick = () => deleteAccount()
+        drawRow(row, data, rowIndex)
         rows.push(row)
 
-        function parseToTextNode(index) {
-            return document.createTextNode(rowData[index])
+        function drawRow(row, data, rowIndex) {
+            row.innerHTML = ""
+            const rowData = data[rowIndex];
+            const birthday = new Date(Number(rowData['birthday']))
+                .toLocaleString('en', {
+                    day: 'numeric',
+                    month: 'numeric',
+                    year: 'numeric'
+                });
+
+            const editImage = document.createElement('img')
+            editImage.src = editImageSrc
+            const delImage = document.createElement('img')
+            delImage.src = delImageSrc
+
+            const tdId = row.insertCell(0)
+            const tdName = row.insertCell(1)
+            const tdTitle = row.insertCell(2)
+            const tdRace = row.insertCell(3)
+            const tdProfession = row.insertCell(4)
+            const tdLevel = row.insertCell(5)
+            const tdBirthday = row.insertCell(6)
+            const tdBanned = row.insertCell(7)
+            const tdEditImage = row.insertCell(8)
+            const tdDelImage = row.insertCell(9)
+
+            tdId.className = "id"
+            tdLevel.className = "level"
+            tdBirthday.className = "birthday"
+            tdEditImage.className = "edit"
+            tdDelImage.className = "delete"
+
+            const id = rowData['id']
+
+            tdId.appendChild(document.createTextNode(id))
+            tdName.appendChild(parseToTextNode('name'));
+            tdTitle.appendChild(parseToTextNode('title'));
+            tdRace.appendChild(parseToTextNode('race'));
+            tdProfession.appendChild(parseToTextNode('profession'));
+            tdLevel.appendChild(parseToTextNode('level'));
+            tdBirthday.appendChild(document.createTextNode(birthday));
+            tdBanned.appendChild(parseToTextNode('banned'));
+            tdEditImage.appendChild(editImage);
+            tdDelImage.appendChild(delImage);
+            editImage.onclick = () => editOnClick()
+            delImage.onclick = () => deleteAccount()
+
+            function editOnClick() {
+                editImage.src = saveImageSrc
+                delImage.hidden = true
+                const tdNameEdit = createInputField(tdName.innerText, 'nameEdit')
+                const tdTitleEdit = createInputField(tdTitle.innerText, 'titleEdit')
+                const tdRaceSelect = createSelect(races, tdRace.innerText, 'raceEdit')
+                const tdProfessionSelect = createSelect(professions, tdProfession.innerText, 'professionEdit')
+                const tdBannedSelect = createSelect(banned, tdBanned.innerText, 'bannedEdit')
+                tdName.replaceChild(tdNameEdit, tdName.firstChild)
+                tdTitle.replaceChild(tdTitleEdit, tdTitle.firstChild)
+                tdRace.replaceChild(tdRaceSelect, tdRace.firstChild);
+                tdProfession.replaceChild(tdProfessionSelect, tdProfession.firstChild);
+                tdBanned.replaceChild(tdBannedSelect, tdBanned.firstChild);
+
+                editImage.onclick = function () {
+                    const body = {
+                        name: tdNameEdit.value,
+                        title: tdTitleEdit.value,
+                        race: tdRaceSelect.value,
+                        profession: tdProfessionSelect.value,
+                        banned: tdBannedSelect.value
+                    }
+                    sendRequest('POST', accountsURL + '/' + id, body)
+                        .then(() => getAccountsData(window.pageNumber))
+                        .then(data => drawRow(row, data, rowIndex))
+                        .catch(err => console.log(err))
+
+                };
+            }
+            function parseToTextNode(index) {
+                return document.createTextNode(rowData[index])
+            }
         }
 
         function deleteAccount() {
@@ -194,32 +228,7 @@ function drawTable(data) {
             }
         }
 
-        function editOnClick() {
-            editImage.src = saveImageSrc
-            delImage.hidden = true
-            const tdNameEdit = createInputField(tdName.innerText, 'nameEdit')
-            const tdTitleEdit = createInputField(tdTitle.innerText, 'titleEdit')
-            const tdRaceSelect = createSelect(races, tdRace.innerText, 'raceEdit')
-            const tdProfessionSelect = createSelect(professions, tdProfession.innerText, 'professionEdit')
-            const tdBannedSelect = createSelect(banned, tdBanned.innerText, 'bannedEdit')
-            tdName.replaceChild(tdNameEdit, tdName.firstChild)
-            tdTitle.replaceChild(tdTitleEdit, tdTitle.firstChild)
-            tdRace.replaceChild(tdRaceSelect, tdRace.firstChild);
-            tdProfession.replaceChild(tdProfessionSelect, tdProfession.firstChild);
-            tdBanned.replaceChild(tdBannedSelect, tdBanned.firstChild);
 
-            editImage.onclick = function () {
-                const body = {
-                    name: tdNameEdit.value,
-                    title: tdTitleEdit.value,
-                    race: tdRaceSelect.value,
-                    profession: tdProfessionSelect.value,
-                    banned: tdBannedSelect.value
-                }
-                sendRequest('POST', accountsURL + '/' + id, body)
-                    .then(() => updateTable(window.pageNumber))
-            };
-        }
     }
     tbody.replaceChildren(...rows);
 }
