@@ -211,12 +211,13 @@ function drawTable(data) {
             function parseToTextNode(index) {
                 return document.createTextNode(rowData[index])
             }
+            function deleteAccount() {
+                sendRequest('DELETE', accountsURL + '/' + id)
+                    .then(() => updateTableAfterDel())
+            }
         }
 
-        function deleteAccount() {
-            sendRequest('DELETE', accountsURL + '/' + id)
-                .then(() => updateTableAfterDel())
-        }
+
 
         function updateTableAfterDel() {
             const isLastRow = tbody.childElementCount === 1
