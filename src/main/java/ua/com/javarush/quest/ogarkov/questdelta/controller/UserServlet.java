@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
+import static ua.com.javarush.quest.ogarkov.questdelta.util.UriString.*;
+
+@MultipartConfig(fileSizeThreshold = 1 << 20)
 @WebServlet(name = "UserServlet", value = "/user")
 public class UserServlet extends HttpServlet {
 
@@ -22,18 +25,24 @@ public class UserServlet extends HttpServlet {
     private final UserService userService = UserService.INSTANCE;
     private final AvatarService avatarService = AvatarService.INSTANCE;
 
+
+    @Override
+    public void init() {
+        getServletContext().setAttribute("roles", Role.values());
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         long userId = getUserId(request);
         Optional<User> optionalUser = userService.get(userId);
         optionalUser.ifPresent(user -> request.setAttribute("user", user));
-        Jsp.forward(request, response, "user");
+        Jsp.forward(request, response, USER);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = getUserId(req);
-        Part data = req.getPart("image");
+        Part data = req.getPart("avatar");
 
         String avatar = "avatar-" + System.currentTimeMillis();
         avatarService.uploadAvatar(avatar, data.getInputStream());
@@ -45,7 +54,7 @@ public class UserServlet extends HttpServlet {
                 .role(Role.valueOf(req.getParameter("role")))
                 .build();
         postUser(req, user);
-        Jsp.redirect(resp, "users");
+        Jsp.redirect(resp, USERS);
     }
 
     private void postUser(HttpServletRequest req, User user) {

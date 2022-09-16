@@ -13,9 +13,7 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class Jsp {
     public void forward(HttpServletRequest request, HttpServletResponse response, String uriString) throws ServletException, IOException {
-        String path = uriString.contains(".jsp")
-                ? "WEB-INF/%s".formatted(uriString)
-                : "WEB-INF/%s.jsp".formatted(uriString);
+        String path = "WEB-INF%s.jsp".formatted(uriString);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);
     }

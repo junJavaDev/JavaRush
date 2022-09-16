@@ -13,9 +13,9 @@
 
             <!-- Avatar input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="userImage">Login</label>
+                <label class="col-md-4 control-label" for="userAvatar">Avatar</label>
                 <div class="col-md-4">
-                    <input id="userImage" name="image" type="file" class="form-control input-md">
+                    <input id="userAvatar" name="avatar" type="file" class="form-control input-md">
                 </div>
             </div>
 
@@ -77,4 +77,4 @@
         </fieldset>
     </form>
 </div>
-<%@ include file="components/header.jsp" %>
+<%@ include file="components/footer.jsp" %>
