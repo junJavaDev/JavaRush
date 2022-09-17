@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -37,11 +37,15 @@
                     <c:otherwise>
                         <li><a href="${pageContext.request.contextPath}/login"
                                class="nav-link px-2 link-dark">Login</a></li>
-                        <li><a href="${pageContext.request.contextPath}/signup" class="nav-link px-2 link-dark">Sign-up</a>
+                        <li><a href="${pageContext.request.contextPath}/signup"
+                               class="nav-link px-2 link-dark">Sign-up</a>
                         </li>
                     </c:otherwise>
                 </c:choose>
             </ul>
         </div>
+        <a href="javascript:insertParam('locale', 'RU');">RU</a>
+        <a href="javascript:insertParam('locale', 'EN');">EN</a>
+
     </header>
 </div>

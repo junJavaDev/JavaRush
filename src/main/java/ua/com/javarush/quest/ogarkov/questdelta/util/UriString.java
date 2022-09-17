@@ -4,11 +4,11 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class UriString {
-    public final String ROOT = "/";
-    public final String USERS = "/users";
-    public final String LOGIN = "/login";
-    public final String SIGNUP = "/signup";
-    public final String PROFILE = "/profile";
-    public final String LOGOUT = "/logout";
-    public final String USER = "/user";
+    public static final String ROOT = "/";
+    public static final String USERS = "/users";
+    public static final String LOGIN = "/login";
+    public static final String SIGNUP = "/signup";
+    public static final String PROFILE = "/profile";
+    public static final String LOGOUT = "/logout";
+    public static final String USER = "/user";
 }

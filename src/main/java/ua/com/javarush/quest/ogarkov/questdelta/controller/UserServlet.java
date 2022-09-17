@@ -16,7 +16,7 @@ import java.util.Optional;
 import static ua.com.javarush.quest.ogarkov.questdelta.util.UriString.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "UserServlet", value = "/user")
+@WebServlet(name = "UserServlet", value = USER)
 public class UserServlet extends HttpServlet {
 
 

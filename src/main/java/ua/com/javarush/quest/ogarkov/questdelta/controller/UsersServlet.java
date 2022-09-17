@@ -13,7 +13,7 @@ import java.util.Collection;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.util.UriString.*;
 
-@WebServlet(name = "UsersServlet", value = {ROOT, USERS})
+@WebServlet(name = "UsersServlet", value = {USERS})
 public class UsersServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = -8048051397301683584L;

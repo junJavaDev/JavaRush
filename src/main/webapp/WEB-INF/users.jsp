@@ -10,6 +10,7 @@
             <th scope="col">Avatar</th>
             <th scope="col">Login</th>
             <th scope="col">Role</th>
+            <th scope="col">Locale</th>
         </tr>
         </thead>
         <tbody class="table-group-divider">
@@ -19,6 +20,7 @@
                     <td><img src="images/${user.avatar}" height="40" alt="${user.avatar}"></td>
                     <td><a href="user?id=${user.id}">${user.login}</a></td>
                     <td>${user.role}</td>
+                    <td>${user.locale}</td>
                 </tr>
         </c:forEach>
         </tbody>

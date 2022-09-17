@@ -12,17 +12,17 @@ import java.util.regex.Pattern;
 
 @UtilityClass
 public class Jsp {
-    public void forward(HttpServletRequest request, HttpServletResponse response, String uriString) throws ServletException, IOException {
+    public static void forward(HttpServletRequest request, HttpServletResponse response, String uriString) throws ServletException, IOException {
         String path = "WEB-INF%s.jsp".formatted(uriString);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);
     }
 
-    public void redirect(HttpServletResponse response, String uri) throws IOException {
+    public static void redirect(HttpServletResponse response, String uri) throws IOException {
         response.sendRedirect(uri);
     }
 
-    public String getCommand(HttpServletRequest request) {
+    public static String getCommand(HttpServletRequest request) {
         String uri = request.getRequestURI();
         Matcher matcher = Pattern.compile("/[a-z]*").matcher(uri);
         if (matcher.find()) {
