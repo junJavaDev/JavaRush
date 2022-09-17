@@ -23,18 +23,20 @@ public class LocaleSelector implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession httpSession = request.getSession();
-        Optional<Object> user = Optional.ofNullable(httpSession.getAttribute("user"));
+        Optional<Object> sessionUser = Optional.ofNullable(httpSession.getAttribute("user"));
         Optional<String> localeParam = Optional.ofNullable(request.getParameter("locale"));
         Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute("locale"));
 
         if (localeParam.isPresent()) {
             Locale chosenLocale = Locale.valueOf(localeParam.get());
-            user.ifPresent(opUser -> ((User) opUser).setLocale(chosenLocale));
-            httpSession.setAttribute("locale", chosenLocale);
+            sessionUser.ifPresent(opUser -> ((User) opUser).setLocale(chosenLocale));
+            httpSession.setAttribute("locale", chosenLocale.name());
         } else if (sessionLocale.isEmpty()) {
-            httpSession.setAttribute("locale", user.isPresent()
-                    ? ((User) user.get()).getLocale()
-                    : Locale.EN);
+            httpSession.setAttribute("locale", sessionUser
+                    .map(user -> ((User) user)
+                            .getLocale()
+                            .name())
+                    .orElseGet(Locale.EN::name));
         }
         chain.doFilter(request, response);
     }
