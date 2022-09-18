@@ -18,6 +18,15 @@ public class UserRepository extends AbstractRepository<User>{
         map.put(3L, User.with()
                 .id(3L).login("admin").password("admin")
                 .avatar("no_image").role(Role.ADMIN).locale(Locale.RU).build());
+        setLastId(new TreeSet<>(map.keySet()).last());
+    }
+
+    @Override
+    public void update(User upgradedUser) {
+        long id = upgradedUser.getId();
+        var existUser = Optional.ofNullable(map.get(id));
+        existUser.ifPresent(user -> upgradedUser.setLocale(user.getLocale()));
+        map.put(id, upgradedUser);
     }
 
     @Override
@@ -30,8 +39,5 @@ public class UserRepository extends AbstractRepository<User>{
                         && isOk(pattern, user, User::getRole))
                 .toList();
     }
-
-    //Temp
-
 
 }

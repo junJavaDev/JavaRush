@@ -26,8 +26,9 @@
         </tbody>
     </table>
 
+
 <div class="d-grid gap-2 col-6 mx-auto">
-    <button class="btn btn-success" type="button" onclick="document.location='${pageContext.request.contextPath}/signup'">Create new user</button>
+    <button class="btn btn-success" type="button" onclick="document.location='${pageContext.request.contextPath}/signup?id=0'">Create new user</button>
 </div>
 </div>
 

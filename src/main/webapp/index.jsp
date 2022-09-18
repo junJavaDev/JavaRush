@@ -6,7 +6,7 @@
 </head>
 <body>
 <script type="text/javascript">
-        window.location.href = "${pageContext.request.contextPath}/users";
+    window.location.href = "${pageContext.request.contextPath}/users";
 </script>
 </body>
 </html>

@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Locale;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 
 import java.util.Optional;
 
@@ -29,7 +30,11 @@ public class LocaleSelector implements Filter {
 
         if (localeParam.isPresent()) {
             Locale chosenLocale = Locale.valueOf(localeParam.get());
-            sessionUser.ifPresent(opUser -> ((User) opUser).setLocale(chosenLocale));
+            sessionUser.ifPresent(opUser -> {
+                User user = (User) opUser;
+                user.setLocale(chosenLocale);
+            });
+
             httpSession.setAttribute("locale", chosenLocale.name());
         } else if (sessionLocale.isEmpty()) {
             httpSession.setAttribute("locale", sessionUser

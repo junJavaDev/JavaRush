@@ -20,6 +20,10 @@ public abstract class AbstractRepository <T extends AbstractEntity> implements R
         return patternFieldValue == null || patternFieldValue.equals(currentFieldValue);
     }
 
+    protected void setLastId(long lastId) {
+        id.set(lastId);
+    }
+
     @Override
     public Optional<T> get(long id) {
         return Optional.ofNullable(map.get(id));
