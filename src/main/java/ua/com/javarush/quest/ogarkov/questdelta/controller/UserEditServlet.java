@@ -4,7 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Locale;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.AvatarService;
@@ -13,13 +13,14 @@ import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 
 import java.io.IOException;
 import java.io.Serial;
+import java.util.Objects;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.UriString.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
 @WebServlet(name = "UserServlet", value = {USER, SIGNUP})
-public class UserServlet extends HttpServlet {
+public class UserEditServlet extends HttpServlet {
 
 
     @Serial
@@ -35,9 +36,12 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        long userId = getUserId(request);
-        Optional<User> optionalUser = userService.get(userId);
-        optionalUser.ifPresent(user -> request.setAttribute("user", user));
+        boolean isUserEdit = Objects.equals(request.getRequestURI(), USER);
+        if (isUserEdit) {
+            long userId = getUserId(request);
+            Optional<User> optionalUser = userService.get(userId);
+            optionalUser.ifPresent(user -> request.setAttribute("user", user));
+        }
         Jsp.forward(request, response, USER);
     }
 
@@ -51,7 +55,7 @@ public class UserServlet extends HttpServlet {
                 .login(req.getParameter("login"))
                 .password(req.getParameter("password"))
                 .role(Role.valueOf(req.getParameter("role")))
-                .locale(Locale.EN)
+                .language(Language.EN)
                 .build();
         postUser(req, user);
 
@@ -59,6 +63,7 @@ public class UserServlet extends HttpServlet {
         user.setAvatar(avatar);
         avatarService.uploadAvatar(avatar, data.getInputStream());
         // При обновлении создаётся новый юзер, пока старый лежит в сессии
+        // После редактирования своего профиля - перезаписывается сессия
         HttpSession session = req.getSession();
         Optional<Object> currentId = Optional.ofNullable(session.getAttribute("userId"));
         if (currentId.isPresent() && (Long) currentId.get() == id) {

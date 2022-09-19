@@ -6,6 +6,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public abstract class AbstractRepository <T extends AbstractEntity> implements Repository <T> {
 
@@ -32,6 +33,20 @@ public abstract class AbstractRepository <T extends AbstractEntity> implements R
     @Override
     public Collection<T> getAll() {
         return map.values();
+    }
+
+    @Override
+    public Collection<T> getAll(int pageNumber, int pageSize) {
+        Collection<T> entities = map.values();
+        long currentPage =
+                entities.size()/pageSize >= pageNumber-1
+                ? pageNumber-1
+                : 0L;
+        return entities.stream()
+                .sorted(Comparator.comparingLong(AbstractEntity::getId))
+                .skip(currentPage * pageSize)
+                .limit(pageSize)
+                .collect(Collectors.toList());
     }
 
     @Override

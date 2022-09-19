@@ -25,6 +25,12 @@ public enum UserService {
         return userRepository.getAll();
     }
 
+    public Collection<User> getAll(int pageNumber, int pageSize) {
+        return userRepository.getAll(pageNumber, pageSize);
+    }
+
+
+
     public void create(User user) {
         userRepository.create(user);
     }

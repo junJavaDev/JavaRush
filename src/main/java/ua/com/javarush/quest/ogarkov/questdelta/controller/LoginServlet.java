@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.UriString.LOGIN;
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.LOGIN;
 
 @WebServlet(LOGIN)
 public class LoginServlet extends HttpServlet {
@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             User user = optionalUser.get();
             session.setAttribute("user", user); //must be UserDTO
             session.setAttribute("userId", user.getId()); //must be UserDTO
-            session.setAttribute("locale", user.getLocale().name());
+            session.setAttribute("locale", user.getLanguage().name());
             Jsp.redirect(resp, "users");
 
         } else {

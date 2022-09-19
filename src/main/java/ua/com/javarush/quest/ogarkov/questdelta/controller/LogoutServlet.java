@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.UriString.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
 
 @WebServlet(LOGOUT)
 public class LogoutServlet extends HttpServlet {

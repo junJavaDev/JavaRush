@@ -13,6 +13,8 @@ public interface Repository<T extends AbstractEntity> {
 
     Collection<T> getAll();
 
+    Collection<T> getAll(int pageNumber, int pageSize);
+
     void create(T entity);
 
     void update(T entity);

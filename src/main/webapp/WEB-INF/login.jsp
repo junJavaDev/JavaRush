@@ -1,20 +1,27 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="components/header.jsp" %>
 
+<fmt:message key="login.login_label" var="loginLabel"/>
+<fmt:message key="login.password_label" var="passwordLabel"/>
+<fmt:message key="login.login_form_legend" var="loginFormLegend"/>
 
+<fmt:message key="login.password_placeholder" var="passwordPlaceholder"/>
+<fmt:message key="login.login_placeholder" var="loginPlaceholder"/>
+
+<fmt:message key="login.sign_in" var="signIn"/>
 <div class="container">
     <form class="form-horizontal" action="${pageContext.request.contextPath}/login" method="post">
         <fieldset>
 
             <!-- Form Name -->
-            <legend>Login form</legend>
+            <legend>${loginFormLegend}</legend>
 
-            <!-- Text input-->
+            <!-- Login input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="userLogin">Login</label>
+                <label class="col-md-4 control-label" for="userLogin">${loginLabel}</label>
                 <div class="col-md-4">
-                    <input id="userLogin" name="login" type="text" placeholder="set login" class="form-control input-md"
+                    <input id="userLogin" name="login" type="text" placeholder="${loginPlaceholder}" class="form-control input-md"
                            required=""
                            value="${requestScope.user.login}">
 
@@ -23,9 +30,9 @@
 
             <!-- Password input-->
             <div class="form-group">
-                <label class="col-md-4 control-label" for="userPassword">Password</label>
+                <label class="col-md-4 control-label" for="userPassword">${passwordLabel}</label>
                 <div class="col-md-4">
-                    <input id="userPassword" name="password" type="password" placeholder="pass req"
+                    <input id="userPassword" name="password" type="password" placeholder="${passwordPlaceholder}"
                            class="form-control input-md" required=""
                            value="${requestScope.user.password}">
 
@@ -37,7 +44,7 @@
                 <label class="col-md-4 control-label" for="submit"></label>
                 <div class="col-md-4">
                     <button id="submit" name="Sign-in" class="btn btn-success">
-                        Sign-in
+                        ${signIn}
                     </button>
                 </div>
             </div>

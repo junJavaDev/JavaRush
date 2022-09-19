@@ -9,14 +9,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Locale;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
-import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 
 import java.util.Optional;
 
 @WebFilter(value = "/*")
-public class LocaleSelector implements Filter {
+public class Language implements Filter {
 
     @Override
     @SneakyThrows
@@ -25,23 +23,23 @@ public class LocaleSelector implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession httpSession = request.getSession();
         Optional<Object> sessionUser = Optional.ofNullable(httpSession.getAttribute("user"));
-        Optional<String> localeParam = Optional.ofNullable(request.getParameter("locale"));
-        Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute("locale"));
+        Optional<String> localeParam = Optional.ofNullable(request.getParameter("lang"));
+        Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute("lang"));
 
         if (localeParam.isPresent()) {
-            Locale chosenLocale = Locale.valueOf(localeParam.get());
+            ua.com.javarush.quest.ogarkov.questdelta.entity.Language chosenLanguage = ua.com.javarush.quest.ogarkov.questdelta.entity.Language.valueOf(localeParam.get());
             sessionUser.ifPresent(opUser -> {
                 User user = (User) opUser;
-                user.setLocale(chosenLocale);
+                user.setLanguage(chosenLanguage);
             });
 
-            httpSession.setAttribute("locale", chosenLocale.name());
+            httpSession.setAttribute("lang", chosenLanguage.name());
         } else if (sessionLocale.isEmpty()) {
-            httpSession.setAttribute("locale", sessionUser
+            httpSession.setAttribute("lang", sessionUser
                     .map(user -> ((User) user)
-                            .getLocale()
+                            .getLanguage()
                             .name())
-                    .orElseGet(Locale.EN::name));
+                    .orElseGet(ua.com.javarush.quest.ogarkov.questdelta.entity.Language.EN::name));
         }
         chain.doFilter(request, response);
     }

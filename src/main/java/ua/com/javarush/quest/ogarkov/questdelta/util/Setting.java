@@ -3,7 +3,8 @@ package ua.com.javarush.quest.ogarkov.questdelta.util;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
-public class UriString {
+public class Setting {
+    public static final int DEFAULT_PAGE_SIZE = 10;
     public static final String ROOT = "/";
     public static final String USERS = "/users";
     public static final String LOGIN = "/login";

@@ -1,6 +1,6 @@
 package ua.com.javarush.quest.ogarkov.questdelta.entity;
 
-public enum Locale {
+public enum Language {
     RU,
     EN,
     UA,

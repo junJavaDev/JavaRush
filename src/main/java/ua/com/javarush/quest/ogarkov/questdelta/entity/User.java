@@ -17,7 +17,7 @@ public class User extends AbstractEntity {
     String password;
     String avatar;
     Role role;
-    Locale locale;
+    Language language;
     Collection<Quest> quests;
     Collection<GameSession> gameSessions;
 
