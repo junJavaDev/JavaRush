@@ -1,6 +1,7 @@
 package ua.com.javarush.quest.ogarkov.questdelta.repository;
 
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 
@@ -79,22 +80,38 @@ public class UserRepository extends AbstractRepository<User>{
     }
 
     @Override
-    public void update(User upgradedUser) {
-        long id = upgradedUser.getId();
-        var existUser = Optional.ofNullable(map.get(id));
-        existUser.ifPresent(user -> upgradedUser.setLanguage(user.getLanguage()));
-        map.put(id, upgradedUser);
+    public void update(User updUser) {
+        long updId = updUser.getId();
+        User existUser = map.get(updId);
+
+        if (existUser != null) {
+            updUser.setLanguage(existUser.getLanguage());
+        }
+        map.put(updId, updUser);
     }
+
+//    @Override
+//    public Collection<User> find(User pattern) {
+//        return map.values().stream()
+//                .filter(user -> isOk(pattern, user, User::getId)
+//                        && isOk(pattern, user, User::getAvatar)
+//                        && isOk(pattern, user, User::getLogin)
+//                        && isOk(pattern, user, User::getPassword)
+//                        && isOk(pattern, user, User::getRole))
+//                .toList();
+//    }
 
     @Override
     public Collection<User> find(User pattern) {
-        return map.values().stream()
-                .filter(user -> isOk(pattern, user, User::getId)
-                        && isOk(pattern, user, User::getAvatar)
-                        && isOk(pattern, user, User::getLogin)
-                        && isOk(pattern, user, User::getPassword)
-                        && isOk(pattern, user, User::getRole))
-                .toList();
+        return super.find(
+                pattern,
+                User::getId,
+                User::getAvatar,
+                User::getLogin,
+                User::getPassword,
+                User::getRole,
+                User::getLanguage
+        );
     }
 
 }

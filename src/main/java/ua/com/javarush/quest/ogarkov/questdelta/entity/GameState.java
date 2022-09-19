@@ -1,8 +1,5 @@
 package ua.com.javarush.quest.ogarkov.questdelta.entity;
 
-public enum Language {
-    RU,
-    EN,
-    UA,
-    BY
+public enum GameState {
+    PLAY, WIN, LOST
 }

@@ -13,9 +13,9 @@ import java.util.Collection;
 public class User extends AbstractEntity {
 
     Long id;
+    String avatar;
     String login;
     String password;
-    String avatar;
     Role role;
     Language language;
     Collection<Quest> quests;

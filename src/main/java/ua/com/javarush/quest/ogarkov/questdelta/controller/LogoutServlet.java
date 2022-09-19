@@ -21,11 +21,11 @@ public class LogoutServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession();
-        var oldLocale = Optional.ofNullable(session.getAttribute("locale"));
+        var oldLocale = Optional.ofNullable(session.getAttribute("lang"));
         String redirectURI = LOGIN;
         session.invalidate();
         if (oldLocale.isPresent()) {
-            redirectURI = redirectURI + "?locale=" + oldLocale.get();
+            redirectURI = redirectURI + "?lang=" + oldLocale.get();
         }
         Jsp.redirect(resp, redirectURI);
     }

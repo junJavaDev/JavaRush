@@ -9,12 +9,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 
 import java.util.Optional;
 
 @WebFilter(value = "/*")
-public class Language implements Filter {
+public class LanguageSelector implements Filter {
 
     @Override
     @SneakyThrows
@@ -27,7 +28,7 @@ public class Language implements Filter {
         Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute("lang"));
 
         if (localeParam.isPresent()) {
-            ua.com.javarush.quest.ogarkov.questdelta.entity.Language chosenLanguage = ua.com.javarush.quest.ogarkov.questdelta.entity.Language.valueOf(localeParam.get());
+            Language chosenLanguage = Language.valueOf(localeParam.get());
             sessionUser.ifPresent(opUser -> {
                 User user = (User) opUser;
                 user.setLanguage(chosenLanguage);
@@ -39,7 +40,7 @@ public class Language implements Filter {
                     .map(user -> ((User) user)
                             .getLanguage()
                             .name())
-                    .orElseGet(ua.com.javarush.quest.ogarkov.questdelta.entity.Language.EN::name));
+                    .orElseGet(Language.EN::name));
         }
         chain.doFilter(request, response);
     }

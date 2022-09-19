@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
             User user = optionalUser.get();
             session.setAttribute("user", user); //must be UserDTO
             session.setAttribute("userId", user.getId()); //must be UserDTO
-            session.setAttribute("locale", user.getLanguage().name());
+            session.setAttribute("lang", user.getLanguage().name());
             Jsp.redirect(resp, "users");
 
         } else {

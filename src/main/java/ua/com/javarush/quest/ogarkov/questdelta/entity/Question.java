@@ -4,17 +4,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.time.ZonedDateTime;
+import java.util.Map;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Builder(builderMethodName = "with")
-public class GameSession extends AbstractEntity{
+public class Question extends AbstractEntity{
     Long id;
-    Long userId;
     Long questId;
-    String gameImage;
+    String image;
     GameState gameState;
-    ZonedDateTime startTime;
-    Long currentQuestionId;
+    Map<Answer, Long> answers;
+    String text;
 }

@@ -13,8 +13,8 @@ public enum UserService {
 
     private final Repository<User> userRepository = new UserRepository();
 
-    public Collection<User> find(User patternUser) {
-        return userRepository.find(patternUser);
+    public Collection<User> find(User pattern) {
+        return userRepository.find(pattern);
     }
 
     public Optional<User> get(long id) {
@@ -28,8 +28,6 @@ public enum UserService {
     public Collection<User> getAll(int pageNumber, int pageSize) {
         return userRepository.getAll(pageNumber, pageSize);
     }
-
-
 
     public void create(User user) {
         userRepository.create(user);

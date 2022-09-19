@@ -12,4 +12,5 @@ public class Setting {
     public static final String PROFILE = "/profile";
     public static final String LOGOUT = "/logout";
     public static final String USER = "/user";
+    public static final String ABOUT = "/about";
 }
