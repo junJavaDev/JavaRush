@@ -12,10 +12,7 @@
                     <a class="nav-link link-dark" href="${rootPath}/quests">${navbarMenuQuests}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-dark" href="${rootPath}/create">${navbarMenuCreate}</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link link-dark" href="${rootPath}/game">${navbarMenuPlay}</a>
+                    <a class="nav-link link-dark" href="${rootPath}/play">${navbarMenuPlay}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-dark" href="${rootPath}/statistic">${navbarMenuStatistic}</a>

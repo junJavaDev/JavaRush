@@ -8,17 +8,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.Serial;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.ABOUT;
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.STATISTIC;
 
-@WebServlet(name = "aboutServlet", value = ABOUT)
-public class AboutServlet extends HttpServlet {
+@WebServlet(name = "statisticServlet", value = STATISTIC)
+public class StatisticServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 6316268318161580029L;
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Jsp.forward(request, response, ABOUT);
+        Jsp.forward(request, response, STATISTIC);
     }
 }

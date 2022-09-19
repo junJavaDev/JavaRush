@@ -11,7 +11,7 @@ public enum QuestService {
 
     INSTANCE;
 
-    private final Repository<Quest> questRepository = new QuestRepository();
+    private final Repository<Quest> questRepository = QuestRepository.getInstance();
 
     public Collection<Quest> find(Quest pattern) {
         return questRepository.find(pattern);

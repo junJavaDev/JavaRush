@@ -11,7 +11,7 @@ public enum AnswerService {
 
     INSTANCE;
 
-    private final Repository<Answer> answerRepository = new AnswerRepository();
+    private final Repository<Answer> answerRepository = AnswerRepository.getInstance();
 
     public Collection<Answer> find(Answer pattern) {
         return answerRepository.find(pattern);

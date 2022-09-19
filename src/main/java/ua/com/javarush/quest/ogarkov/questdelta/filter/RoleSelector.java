@@ -4,6 +4,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
@@ -31,10 +32,14 @@ public class RoleSelector implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String command = Jsp.getCommand(request);
-        Object user = request.getSession().getAttribute("user");
+        HttpSession session = request.getSession();
+        Object user = session.getAttribute("user");
+
         Role role = (Objects.isNull(user))
                 ? Role.GUEST
                 : ((User) user).getRole();
+
+        session.setAttribute("role", role.name());
         if (uriMap.get(role).contains(command)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {

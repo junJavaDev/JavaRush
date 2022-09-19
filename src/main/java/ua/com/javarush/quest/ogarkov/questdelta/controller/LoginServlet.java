@@ -15,6 +15,7 @@ import java.io.Serial;
 import java.util.Optional;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.LOGIN;
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.PROFILE;
 
 @WebServlet(LOGIN)
 public class LoginServlet extends HttpServlet {
@@ -29,7 +30,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         String login = req.getParameter("login");
         String password = req.getParameter("password");
         Optional<User> optionalUser = userService
@@ -45,10 +46,11 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user); //must be UserDTO
             session.setAttribute("userId", user.getId()); //must be UserDTO
             session.setAttribute("lang", user.getLanguage().name());
-            Jsp.redirect(resp, "users");
+            Jsp.redirect(resp, PROFILE);
 
         } else {
             req.setAttribute("error", "User not found");
+            Jsp.forward(req, resp, LOGIN);
         }
     }
 }

@@ -10,6 +10,7 @@
 <fmt:message key="header.signup" var="headerSignup"/>
 <fmt:message key="header.language" var="headerLanguage"/>
 <fmt:message key="header.users_edit" var="usersEdit"/>
+<fmt:message key="header.user_create" var="userCreate"/>
 
 <c:set var="rootPath">${pageContext.request.contextPath}</c:set>
 
@@ -34,19 +35,22 @@
             <div class="d-flex flex-row justify-content-between">
 
                 <div class="d-flex flex-column">
-                    <%-- Start navbar position --%>
-                    <ul class="nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
-                               aria-expanded="false">
-                                ${headerAdminCP}
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="${rootPath}/users">${usersEdit}</a></li>
-                                <%--                            <li><a class="dropdown-item" href="javascript:insertParam('lang', 'EN');">EN</a></li>--%>
-                            </ul>
-                        </li>
-                    </ul>
+
+                    <c:if test="${sessionScope.role.equals('ADMIN') || sessionScope.role.equals('MODERATOR')}">
+                        <%-- Start navbar position --%>
+                        <ul class="nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false">
+                                        ${headerAdminCP}
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="${rootPath}/users">${usersEdit}</a></li>
+                                    <li><a class="dropdown-item" href='${rootPath}/user?id=0'>${userCreate}</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </c:if>
                 </div>
 
                 <div class="d-flex flex-column">

@@ -1,12 +1,22 @@
 package ua.com.javarush.quest.ogarkov.questdelta.repository;
 
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 
 import java.util.Collection;
 
 public class QuestRepository extends AbstractRepository<Quest> {
+
+    public static class QuestRepositoryHolder {
+        public static final QuestRepository HOLDER_INSTANCE = new QuestRepository();
+    }
+
+    public static QuestRepository getInstance() {
+        return QuestRepository.QuestRepositoryHolder.HOLDER_INSTANCE;
+    }
+
+    private QuestRepository() {
+    }
+    
 //    @Override
 //    public Collection<Quest> find(Quest pattern) {
 //        return map.values().stream()

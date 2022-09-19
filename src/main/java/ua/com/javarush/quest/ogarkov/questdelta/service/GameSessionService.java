@@ -11,7 +11,7 @@ public enum GameSessionService {
 
     INSTANCE;
 
-    private final Repository<GameSession> gameSessionRepository = new GameSessionRepository();
+    private final Repository<GameSession> gameSessionRepository = GameSessionRepository.getInstance();
 
     public Collection<GameSession> find(GameSession pattern) {
         return gameSessionRepository.find(pattern);

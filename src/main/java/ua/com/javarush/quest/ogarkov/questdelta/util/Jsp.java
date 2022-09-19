@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @UtilityClass
 public class Jsp {
     public static void forward(HttpServletRequest request, HttpServletResponse response, String uriString) throws ServletException, IOException {
-        String path = "WEB-INF%s.jsp".formatted(uriString);
+        String path = "WEB-INF/pages%s.jsp".formatted(uriString);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);
     }

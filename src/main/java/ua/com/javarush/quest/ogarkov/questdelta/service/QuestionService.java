@@ -11,7 +11,7 @@ public enum QuestionService {
 
     INSTANCE;
 
-    private final Repository<Question> questionRepository = new QuestionRepository();
+    private final Repository<Question> questionRepository = QuestionRepository.getInstance();
 
     public Collection<Question> find(Question pattern) {
         return questionRepository.find(pattern);
