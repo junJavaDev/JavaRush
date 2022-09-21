@@ -9,27 +9,31 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Optional;
 
-public enum AvatarService {
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.DEFAULT_USER_AVATAR;
+
+public enum ImageService {
     INSTANCE;
 
     private final Path root = Path.of(
-            Objects.requireNonNull(AvatarService.class.getResource("/"))
+            Objects.requireNonNull(ImageService.class.getResource("/"))
                     .toString()
                     .replace("file:/", "")
                     .concat("../images/")
     );
 
     @SneakyThrows
-    AvatarService() {
+    ImageService() {
         Files.createDirectories(root);
     }
 
     @SneakyThrows
-    public void uploadAvatar(String name, InputStream data) {
+    public boolean uploadAvatar(String name, InputStream data) {
         try (data) {
             if (data.available() > 0) {
                 Files.copy(data, root.resolve(name), StandardCopyOption.REPLACE_EXISTING);
+                return true;
             }
+            return false;
         }
     }
 
@@ -37,6 +41,6 @@ public enum AvatarService {
     public Optional<Path> getAvatarPath(String filename) {
         return Files.exists(root.resolve(filename))
                 ? Optional.of(root.resolve(filename))
-                : Optional.of(root.resolve("no_image.jpg"));
+                : Optional.of(root.resolve(DEFAULT_USER_AVATAR));
     }
 }

@@ -18,10 +18,6 @@ public abstract class AbstractRepository<T extends AbstractEntity> implements Re
         return patternFieldValue == null || patternFieldValue.equals(currentFieldValue);
     }
 
-    protected void setLastId(long lastId) {
-        id.set(lastId);
-    }
-
     @Override
     public Optional<T> get(long id) {
         return Optional.ofNullable(map.get(id));
@@ -48,7 +44,10 @@ public abstract class AbstractRepository<T extends AbstractEntity> implements Re
 
     @Override
     public void create(T entity) {
-        entity.setId(id.incrementAndGet());
+        Long entityId = entity.getId();
+        if (entityId == null || entityId < 1 || map.containsKey(entityId)) {
+            entity.setId(id.incrementAndGet());
+        }
         update(entity);
     }
 

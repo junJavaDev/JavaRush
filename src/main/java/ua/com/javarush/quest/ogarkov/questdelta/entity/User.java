@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
 import java.util.Collection;
+
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
 
 @Data
 @EqualsAndHashCode(callSuper = false)

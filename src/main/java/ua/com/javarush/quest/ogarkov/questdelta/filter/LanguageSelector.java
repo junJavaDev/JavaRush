@@ -14,6 +14,8 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 
 import java.util.Optional;
 
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.DEFAULT_LANGUAGE;
+
 @WebFilter(value = "/*")
 public class LanguageSelector implements Filter {
 
@@ -40,7 +42,7 @@ public class LanguageSelector implements Filter {
                     .map(user -> ((User) user)
                             .getLanguage()
                             .name())
-                    .orElseGet(Language.EN::name));
+                    .orElseGet(DEFAULT_LANGUAGE::name));
         }
         chain.doFilter(request, response);
     }

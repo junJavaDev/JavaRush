@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public class AnswerRepository extends AbstractRepository<Answer> {
 
-    public static class AnswerRepositoryHolder {
+    private static class AnswerRepositoryHolder {
         public static final AnswerRepository HOLDER_INSTANCE = new AnswerRepository();
     }
 
@@ -24,7 +24,7 @@ public class AnswerRepository extends AbstractRepository<Answer> {
                 pattern,
                 Answer::getId,
                 Answer::getQuestionId,
-                Answer::getCorrect,
+                Answer::getNextQuestionId,
                 Answer::getText
         );
     }

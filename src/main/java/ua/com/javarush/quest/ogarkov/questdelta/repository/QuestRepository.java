@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public class QuestRepository extends AbstractRepository<Quest> {
 
-    public static class QuestRepositoryHolder {
+    private static class QuestRepositoryHolder {
         public static final QuestRepository HOLDER_INSTANCE = new QuestRepository();
     }
 
@@ -34,7 +34,8 @@ public class QuestRepository extends AbstractRepository<Quest> {
                 Quest::getId,
                 Quest::getName,
                 Quest::getAuthorId,
-                Quest::getFirstQuestion
+                Quest::getText,
+                Quest::getImage
         );
     }
 }

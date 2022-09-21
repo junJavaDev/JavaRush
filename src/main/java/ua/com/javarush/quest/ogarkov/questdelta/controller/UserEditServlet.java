@@ -7,9 +7,10 @@ import jakarta.servlet.http.*;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
-import ua.com.javarush.quest.ogarkov.questdelta.service.AvatarService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
+import ua.com.javarush.quest.ogarkov.questdelta.util.StringUtils;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -26,7 +27,7 @@ public class UserEditServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 4074368236695365147L;
     private final UserService userService = UserService.INSTANCE;
-    private final AvatarService avatarService = AvatarService.INSTANCE;
+    private final ImageService imageService = ImageService.INSTANCE;
 
 
     @Override
@@ -59,9 +60,11 @@ public class UserEditServlet extends HttpServlet {
                 .build();
         postUser(req, user);
 
-        String avatar = "avatar-" + user.getId();
-        user.setAvatar(avatar);
-        avatarService.uploadAvatar(avatar, data.getInputStream());
+        String avatar = "avatar-" + user.getId() + StringUtils.getFileExtension(data.getSubmittedFileName());
+        boolean isUploaded = imageService.uploadAvatar(avatar, data.getInputStream());
+        if (isUploaded) {
+            user.setAvatar(avatar);
+        }
         // При обновлении создаётся новый юзер, пока старый лежит в сессии
         // После редактирования своего профиля - перезаписывается сессия
         HttpSession session = req.getSession();

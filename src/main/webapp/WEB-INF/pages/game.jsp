@@ -4,4 +4,6 @@
 
 Здесь будет запуск последней игры
 
+
+
 <%@ include file="components/footer.jsp" %>

@@ -10,6 +10,6 @@ import lombok.EqualsAndHashCode;
 public class Answer extends AbstractEntity{
     Long id;
     Long questionId;
-    Boolean correct;
+    Long nextQuestionId;
     String text;
 }

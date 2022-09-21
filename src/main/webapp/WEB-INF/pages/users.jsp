@@ -23,7 +23,7 @@
         <c:forEach var="user" items="${requestScope.users}">
             <tr class="align-middle">
                 <th scope="row">${user.id}</th>
-                <td><img src="images/${user.avatar}" height="40" alt="${user.avatar}"></td>
+                <td><img src="images/${user.avatar != null ? user.avatar : "no_image.jpg"}" height="40" alt="${user.avatar}"></td>
                 <td><a href="user?id=${user.id}">${user.login}</a></td>
                 <td><fmt:message key="role.${user.role.name().toLowerCase()}"/></td>
             </tr>

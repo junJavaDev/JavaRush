@@ -4,6 +4,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -12,8 +14,9 @@ import java.util.Map;
 public class Question extends AbstractEntity{
     Long id;
     Long questId;
-    String image;
     GameState gameState;
-    Map<Answer, Long> answers;
+    String name;
     String text;
+    String image;
+    Collection<Answer> answers;
 }

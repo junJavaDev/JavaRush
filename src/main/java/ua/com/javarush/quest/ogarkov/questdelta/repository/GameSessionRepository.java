@@ -25,7 +25,6 @@ public class GameSessionRepository extends AbstractRepository<GameSession> {
                 GameSession::getId,
                 GameSession::getUserId,
                 GameSession::getQuestId,
-                GameSession::getGameImage,
                 GameSession::getGameState,
                 GameSession::getStartTime,
                 GameSession::getCurrentQuestionId

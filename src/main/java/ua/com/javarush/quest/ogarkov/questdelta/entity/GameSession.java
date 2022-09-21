@@ -13,8 +13,8 @@ public class GameSession extends AbstractEntity{
     Long id;
     Long userId;
     Long questId;
-    String gameImage;
     GameState gameState;
     ZonedDateTime startTime;
+    ZonedDateTime lastSeen;
     Long currentQuestionId;
 }

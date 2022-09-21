@@ -36,7 +36,7 @@
 
                 <div class="d-flex flex-column">
 
-                    <c:if test="${sessionScope.role.equals('ADMIN') || sessionScope.role.equals('MODERATOR')}">
+<%--                    <c:if test="${sessionScope.role.equals('ADMIN') || sessionScope.role.equals('MODERATOR')}">--%>
                         <%-- Start navbar position --%>
                         <ul class="nav">
                             <li class="nav-item dropdown">
@@ -50,7 +50,7 @@
                                 </ul>
                             </li>
                         </ul>
-                    </c:if>
+<%--                    </c:if>--%>
                 </div>
 
                 <div class="d-flex flex-column">

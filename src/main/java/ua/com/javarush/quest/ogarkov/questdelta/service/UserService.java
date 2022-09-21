@@ -11,7 +11,7 @@ public enum UserService {
 
     INSTANCE;
 
-    private final Repository<User> userRepository = new UserRepository();
+    private final Repository<User> userRepository = UserRepository.getInstance();
 
     public Collection<User> find(User pattern) {
         return userRepository.find(pattern);

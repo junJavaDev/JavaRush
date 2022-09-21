@@ -1,6 +1,7 @@
 package ua.com.javarush.quest.ogarkov.questdelta.util;
 
 import lombok.experimental.UtilityClass;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 
 @UtilityClass
 public class Setting {
@@ -16,4 +17,6 @@ public class Setting {
     public static final String QUESTS = "/quests";
     public static final String PLAY = "/play";
     public static final String STATISTIC = "/statistic";
+    public static final String DEFAULT_USER_AVATAR = "no_image.jpg";
+    public static final Language DEFAULT_LANGUAGE = Language.EN;
 }
