@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
 
@@ -20,8 +21,11 @@ public class User extends AbstractEntity {
     String login;
     String password;
     Role role;
-    Language language;
-    Collection<Quest> quests;
-    Collection<GameSession> gameSessions;
+    @Builder.Default
+    Language language = Language.EN;
+    @Builder.Default
+    Collection<Quest> quests = new ArrayList<>();
+    @Builder.Default
+    Collection<GameSession> gameSessions = new HashSet<>();
 
 }

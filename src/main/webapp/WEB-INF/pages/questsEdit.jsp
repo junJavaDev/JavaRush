@@ -10,54 +10,45 @@
 <fmt:message key="quests.start_new_game_btn" var="startNewGameBtn"/>
 <fmt:message key="quests.continue_game_btn" var="continueGameBtn"/>
 
-<div class="container-md my-3">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+<div class="container-md">
+    <table class="table table-hover ">
+        <thead>
+        <tr class="align-middle">
+            <th scope="col">${idTableHeader}</th>
+            <th scope="col">${authorTableHeader}</th>
+            <th scope="col">${imageTableHeader}</th>
+            <th scope="col">${nameTableHeader}</th>
+            <th scope="col">${controlTableHeader}</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider">
         <c:forEach var="quest" items="${requestScope.quests}">
-            <div class="col">
-                <div class="card h-100">
+            <tr class="align-middle">
+                <th scope="row">${quest.id}</th>
+                <th scope="row">${quest.authorId}</th>
+                <td>
                     <c:choose>
                         <c:when test="${quest.image != null}">
-                            <img src="images/quests/${quest.id}/${quest.image}"
-                                 class="card-img-top" style="max-height: 250px"
-                                 alt="${quest.image}">
+                            <img src="images/quests/${quest.id}/${quest.image}" height="40" alt="${quest.image}">
                         </c:when>
                         <c:otherwise>
-                            <img src="images/quest_no_image.jpg" class="card-img-top" style="max-height: 250px" alt="${quest.image}">
+                            <img src="images/no_image.jpg" height="40" alt="${quest.image}">
                         </c:otherwise>
                     </c:choose>
-                    <div class="card-body">
-                        <h5 class="card-title">${quest.name}</h5>
-                        <p class="card-text">${quest.text}</p>
-
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="flex-column align-self-end">
-                            </div>
-                            <div class="flex-column align-self-end">
-                                <button class="btn btn-outline-secondary" type="button"
-                                        onclick="document.location='${rootPath}/play?questId=${quest.id}'">
-                                        ${requestScope.openQuests.contains(quest.id) ? continueGameBtn : startNewGameBtn}
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-footer">
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="flex-column align-self-end">
-                                <small class="text-muted">id: <b>${quest.id}</b></small>
-                            </div>
-                            <div class="flex-column align-self-end">
-                                <small class="text-muted">author: <b>${requestScope.userNames.get(quest.id)}</b></small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+                </td>
+                <td>${quest.name}</td>
+                <td>
+                    <button class="btn btn-outline-secondary" type="button"
+                            onclick="document.location='${rootPath}/play?questId=${quest.id}'">
+                            ${requestScope.openQuests.contains(quest.id) ? continueGameBtn : startNewGameBtn}
+                    </button>
+                </td>
+            </tr>
         </c:forEach>
-    </div>
+        </tbody>
+    </table>
 
-    <div class="d-flex flex-row justify-content-between my-5" >
+    <div class="d-flex flex-row justify-content-between">
 
         <div class="d-flex flex-column">
             <%--left side--%>
@@ -95,18 +86,15 @@
                     ${requestScope.countPerPage} ${requestScope.pageSize}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '3');">3</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '9');">9</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '18');">18</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '48');">48</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '5');">5</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '10');">10</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '20');">20</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '50');">50</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('pageSize', '100');">100</a></li>
                 </ul>
             </div>
         </div>
     </div>
 </div>
-
-
-
-
 
 <%@ include file="components/footer.jsp" %>

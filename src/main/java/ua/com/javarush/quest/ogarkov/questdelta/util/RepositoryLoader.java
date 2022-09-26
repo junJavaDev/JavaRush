@@ -72,17 +72,25 @@ public class RepositoryLoader {
 
         //---------------------------- Квесты -----------------------------------
         Quest jrQuest = Quest.with()
-                .id(1L)
+//                .id(1L)
                 .authorId(admin.getId())
                 .name("JavaRush quest")
                 .text("Добро пожаловать на первый текстовый квест от команды JavaRush. Будет очень интересно)")
-                .image("quest_image")
                 .build();
         questRepository.create(jrQuest);
 
-        List<Quest> quests = new ArrayList<>();
-        quests.add(jrQuest);
-        admin.setQuests(quests);
+        admin.getQuests().add(jrQuest);
+
+        Quest jrQuest2 = Quest.with()
+                .id(1L)
+                .authorId(admin.getId())
+                .name("JavaRush quest2")
+                .text("Добро пожаловать на второй текстовый квест от команды JavaRush. Будет очень интересно)")
+                .image("quest_image.jpg")
+                .build();
+        questRepository.create(jrQuest2);
+
+        admin.getQuests().add(jrQuest2);
 
         //---------------------------- /Квесты -----------------------------------
 

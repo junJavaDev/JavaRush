@@ -10,7 +10,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
-import ua.com.javarush.quest.ogarkov.questdelta.util.StringUtils;
+import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -60,7 +60,7 @@ public class UserEditServlet extends HttpServlet {
                 .build();
         postUser(req, user);
 
-        String avatar = "avatar-" + user.getId() + StringUtils.getFileExtension(data.getSubmittedFileName());
+        String avatar = "avatar-" + user.getId() + ReqParser.getFileExtension(data.getSubmittedFileName());
         boolean isUploaded = imageService.uploadAvatar(avatar, data.getInputStream());
         if (isUploaded) {
             user.setAvatar(avatar);

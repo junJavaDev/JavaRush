@@ -23,7 +23,6 @@ public class RoleSelector implements Filter {
     private final Map<Role, List<String>> uriMap = Map.of(
             Role.GUEST, List.of(ROOT, USERS, LOGIN, SIGNUP),
             Role.USER, List.of(ROOT, USERS, LOGIN, SIGNUP, PROFILE, LOGOUT),
-            Role.MODERATOR, List.of(ROOT, USERS, LOGIN, SIGNUP, PROFILE, LOGOUT),
             Role.ADMIN, List.of(ROOT, USERS, LOGIN, SIGNUP, PROFILE, LOGOUT, USER)
     );
 

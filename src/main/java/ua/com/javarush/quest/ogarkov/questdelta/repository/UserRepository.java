@@ -48,8 +48,7 @@ public class UserRepository extends AbstractRepository<User>{
                 User::getAvatar,
                 User::getLogin,
                 User::getPassword,
-                User::getRole,
-                User::getLanguage
+                User::getRole
         );
     }
 

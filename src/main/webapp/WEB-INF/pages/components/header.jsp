@@ -46,6 +46,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="${rootPath}/users">${usersEdit}</a></li>
                                     <li><a class="dropdown-item" href='${rootPath}/user?id=0'>${userCreate}</a></li>
+                                    <li><a class="dropdown-item" href='${rootPath}/questsEdit'>${userCreate}</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -64,8 +65,8 @@
                     <ul class="nav">
                         <c:choose>
                             <c:when test="${not empty sessionScope.user}">
-                                <li><a href="${rootPath}/profile"
-                                       class="nav-link px-2 link-dark">${headerProfile}</a></li>
+                                <li><a href="${rootPath}/profile?id=${sessionScope.user.id}"
+                                       class="nav-link px-2 link-dark"><b>${sessionScope.user.login}</b></a></li>
                                 <li><a href="${pageContext.request.contextPath}/logout"
                                        class="nav-link px-2 link-dark">${headerLogout}</a></li>
                             </c:when>

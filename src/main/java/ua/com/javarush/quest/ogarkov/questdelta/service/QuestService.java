@@ -1,6 +1,7 @@
 package ua.com.javarush.quest.ogarkov.questdelta.service;
 
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestRepository;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.Repository;
 
@@ -24,6 +25,11 @@ public enum QuestService {
     public Collection<Quest> getAll() {
         return questRepository.getAll();
     }
+
+    public Collection<Quest> getAll(int pageNumber, int pageSize) {
+        return questRepository.getAll(pageNumber, pageSize);
+    }
+
 
     public void create(Quest quest) {
         questRepository.create(quest);

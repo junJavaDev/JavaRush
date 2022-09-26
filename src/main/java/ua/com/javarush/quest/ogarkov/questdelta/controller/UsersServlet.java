@@ -51,6 +51,4 @@ public class UsersServlet extends HttpServlet {
         request.setAttribute("users", users);
         Jsp.forward(request, response, USERS);
     }
-
-
 }
