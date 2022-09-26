@@ -35,11 +35,11 @@
                     <input id="userPassword" name="password" type="password" placeholder="${passwordPlaceholder}"
                            class="form-control input-md" required=""
                            value="admin">
+
                 </div>
             </div>
-
-            <!-- Button -->
             <div class="form-group" style="text-align: center">
+            <!-- Button -->
             <button class="btn btn-outline-secondary mx-auto my-4" id="submit" name="Sign-in">
                 ${signIn}
             </button>

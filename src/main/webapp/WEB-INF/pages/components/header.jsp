@@ -46,7 +46,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="${rootPath}/users">${usersEdit}</a></li>
                                     <li><a class="dropdown-item" href='${rootPath}/user?id=0'>${userCreate}</a></li>
-                                    <li><a class="dropdown-item" href='${rootPath}/questsEdit'>${userCreate}</a></li>
+                                    <li><a class="dropdown-item" href='${rootPath}/quest-create'>Создать квест</a></li>
                                 </ul>
                             </li>
                         </ul>

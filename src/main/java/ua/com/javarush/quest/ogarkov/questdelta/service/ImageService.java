@@ -27,9 +27,10 @@ public enum ImageService {
     }
 
     @SneakyThrows
-    public boolean uploadAvatar(String name, InputStream data) {
+    public boolean uploadImage(String name, InputStream data) {
         try (data) {
             if (data.available() > 0) {
+                Files.createDirectories(root.resolve(name).getParent());
                 Files.copy(data, root.resolve(name), StandardCopyOption.REPLACE_EXISTING);
                 return true;
             }

@@ -61,7 +61,7 @@ public class UserEditServlet extends HttpServlet {
         postUser(req, user);
 
         String avatar = "avatar-" + user.getId() + ReqParser.getFileExtension(data.getSubmittedFileName());
-        boolean isUploaded = imageService.uploadAvatar(avatar, data.getInputStream());
+        boolean isUploaded = imageService.uploadImage(avatar, data.getInputStream());
         if (isUploaded) {
             user.setAvatar(avatar);
         }

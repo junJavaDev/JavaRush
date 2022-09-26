@@ -35,8 +35,7 @@ public class QuestRepository extends AbstractRepository<Quest> {
                 Quest::getName,
                 Quest::getAuthorId,
                 Quest::getText,
-                Quest::getFirstQuestionId,
-                Quest::getImage
+                Quest::getFirstQuestionId
         );
     }
 }

@@ -17,29 +17,24 @@
                 <div class="card h-100">
                     <c:choose>
                         <c:when test="${quest.image != null}">
-                            <img src="images/quests/${quest.id}/${quest.image}"
+                            <img src="images/${quest.image}"
                                  class="card-img-top" style="max-height: 250px"
                                  alt="${quest.image}">
                         </c:when>
                         <c:otherwise>
-                            <img src="images/quest_no_image.jpg" class="card-img-top" style="max-height: 250px" alt="${quest.image}">
+                            <img src="images/quest_no_image.jpg" class="card-img-top" style="max-height: 250px"
+                                 alt="${quest.image}">
                         </c:otherwise>
                     </c:choose>
                     <div class="card-body">
                         <h5 class="card-title">${quest.name}</h5>
                         <p class="card-text">${quest.text}</p>
-
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="flex-column align-self-end">
-                            </div>
-                            <div class="flex-column align-self-end">
-                                <button class="btn btn-outline-secondary" type="button"
-                                        onclick="document.location='${rootPath}/play?questId=${quest.id}'">
-                                        ${requestScope.openQuests.contains(quest.id) ? continueGameBtn : startNewGameBtn}
-                                </button>
-                            </div>
-                        </div>
-
+                    </div>
+                    <div class="d-flex flex-column align-items-end mx-3 mb-3">
+                        <button class="btn btn-outline-secondary" type="button"
+                                onclick="document.location='${rootPath}/play?questId=${quest.id}'">
+                                ${requestScope.openQuests.contains(quest.id) ? continueGameBtn : startNewGameBtn}
+                        </button>
                     </div>
                     <div class="card-footer">
                         <div class="d-flex flex-row justify-content-between">
@@ -57,7 +52,7 @@
         </c:forEach>
     </div>
 
-    <div class="d-flex flex-row justify-content-between my-5" >
+    <div class="d-flex flex-row justify-content-between my-5">
 
         <div class="d-flex flex-column">
             <%--left side--%>
@@ -104,9 +99,6 @@
         </div>
     </div>
 </div>
-
-
-
 
 
 <%@ include file="components/footer.jsp" %>
