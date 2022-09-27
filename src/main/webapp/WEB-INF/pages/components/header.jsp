@@ -16,10 +16,27 @@
 
 <!DOCTYPE html>
 <html>
+
+
+
 <head>
     <title>Title</title>
-    <link href="${rootPath}/css/custom.css" rel="stylesheet" crossorigin="anonymous">
+<%--    <link href="${rootPath}/css/custom.css" rel="stylesheet" crossorigin="anonymous">--%>
 </head>
+<script>
+    const dateNow = Date.now()
+
+    const link = document.createElement('link')
+    link.href = "${rootPath}/css/custom.css?" + dateNow
+    link.rel = "stylesheet"
+    link.type = "text/css"
+    link.crossorigin = "anonymous"
+    document.head.appendChild(link)
+
+    // const js = document.createElement('script');
+    // js.src = "js/my.js?" + dateNow;
+    // document.body.appendChild(js)
+</script>
 <body>
 
 <%--    Navbar--%>

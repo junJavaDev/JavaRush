@@ -4,9 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -18,5 +16,6 @@ public class Question extends AbstractEntity{
     String name;
     String text;
     String image;
-    Collection<Answer> answers;
+    @Builder.Default
+    List<Answer> answers = new ArrayList<>();
 }

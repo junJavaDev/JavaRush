@@ -3,27 +3,24 @@ package ua.com.javarush.quest.ogarkov.questdelta.controller;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestionRepository;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.*;
 import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
 import java.io.IOException;
 import java.io.Serial;
-import java.util.Optional;
-
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import java.util.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "questCreator", value="/quest-create")
-public class QuestCreator extends HttpServlet {
+@WebServlet(name = "questEditor", value="/quest-edit")
+public class QuestEditor extends HttpServlet {
 
     @Serial
     private static final long serialVersionUID = 7582798421846485830L;
@@ -33,7 +30,31 @@ public class QuestCreator extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Jsp.forward(req, resp, "/questCreator");
+        Optional<User> optUser = ReqParser.getUser(req);
+        Long questId = ReqParser.getId(req, "id");
+        Optional<Quest> optQuest = questService.get(questId);
+        if (optUser.isPresent() && optQuest.isPresent()) {
+            User user = optUser.get();
+            Quest quest = optQuest.get();
+
+            if (Objects.equals(user.getId(), quest.getAuthorId()) || user.getRole() == Role.ADMIN) {
+                long questionIndex = ReqParser.getId(req, "questionIndex");
+                List<Question> questions = quest.getQuestions();
+                Question question = questions.get((int)questionIndex);
+                List<Map.Entry<Answer, Question>> answers = new ArrayList<>();
+                for (Answer answer : question.getAnswers()) {
+                    Question nextQuestion = questionService.get(answer.getNextQuestionId()).orElseThrow();
+//                    int nextQuestionIndex = questions.indexOf(nextQuestion);
+//                    String nextQuestionCountPrefix = (1 + nextQuestionIndex) + " ";
+                    answers.add(Map.entry(answer, nextQuestion));
+                }
+
+                req.setAttribute("quest", quest);
+                req.setAttribute("question", question);
+                req.setAttribute("answers", answers);
+                Jsp.forward(req, resp, "/questEditor");
+            }
+        } else Jsp.redirect(resp, "/login");
     }
 
     @Override
@@ -66,7 +87,7 @@ public class QuestCreator extends HttpServlet {
         }
 
 
-        Jsp.redirect(resp, "/quest-edit");
+        Jsp.redirect(resp, "/questEditor");
 
     }
 }

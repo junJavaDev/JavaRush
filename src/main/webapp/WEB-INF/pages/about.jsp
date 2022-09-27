@@ -10,9 +10,19 @@
          class="img-thumbnail rounded d-block mx-auto mb-3" style="max-width: 400px; max-height: 400px"
          alt="${sessionScope.user.avatar}">
 
-        <ul class="list-group list-group-flush mb-4">
-            <li class="list-group-item">Автор: Огарков Александр</li>
-            <li class="list-group-item">JavaRush университет, группа Delta</li>
-        </ul>
+    <table class="table mb-4" style="width: 400px;">
+        <tr>
+            <td style="text-align: right; width: 200px">Группа:</td>
+            <td style="text-align: left">Delta</td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 200px">Университет:</td>
+            <td style="text-align: left">JavaRush</td>
+        </tr>
+        <tr>
+            <td style="text-align: right; width: 200px">Автор сайта:</td>
+            <td style="text-align: left;">Огарков Александр</td>
+        </tr>
+    </table>
 </div>
 <%@ include file="components/footer.jsp" %>

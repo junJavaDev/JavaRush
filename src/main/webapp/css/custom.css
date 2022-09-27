@@ -1,8 +1,16 @@
-
 @import "bootstrap.min.css";
 
 .quest-image {
     max-width: 400px !important;
     max-height: 400px !important;
-
 }
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+}
+/*.table-wrapper-scroll-y {*/
+/*    display: block;*/
+/*}*/
+

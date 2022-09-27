@@ -94,7 +94,7 @@ public class RepositoryLoader {
 
         Question question2 = Question.with()
                 .questId(jrQuestId).gameState(PLAY)
-                .name("Принятие вызова.")
+                .name("Принятие вызова")
                 .text("Ты принял вызов.\nПоднимешься на мостик к капитану?")
                 .image("2.jpg").build();
 
@@ -128,7 +128,7 @@ public class RepositoryLoader {
                 .text("Твою ложь разоблачили.\nПоражение.")
                 .image("7.jpg").build();
 
-        Collection<Question> jrQuestQuestions = new ArrayList<>();
+        Collection<Question> jrQuestQuestions = jrQuest.getQuestions();
         jrQuestQuestions.add(question1);
         jrQuestQuestions.add(question2);
         jrQuestQuestions.add(question3);
@@ -136,7 +136,6 @@ public class RepositoryLoader {
         jrQuestQuestions.add(question5);
         jrQuestQuestions.add(question6);
         jrQuestQuestions.add(question7);
-        jrQuest.setQuestions(jrQuestQuestions);
 
         questionRepository.create(question1);
         questionRepository.create(question2);
@@ -162,7 +161,7 @@ public class RepositoryLoader {
                 .build();
 
         Answer answer2 = Answer.with()
-                .text("Отклонить вызов вызов")
+                .text("Отклонить вызов")
                 .questionId(question1.getId())
                 .nextQuestionId(question3.getId())
                 .build();
@@ -198,19 +197,15 @@ public class RepositoryLoader {
         answerRepository.create(answer5);
         answerRepository.create(answer6);
 
-        Collection<Answer> answersQ1 = new ArrayList<>();
-        Collection<Answer> answersQ2 = new ArrayList<>();
-        Collection<Answer> answersQ4 = new ArrayList<>();
+        List<Answer> answersQ1 = question1.getAnswers();
+        List<Answer> answersQ2 = question2.getAnswers();
+        List<Answer> answersQ4 = question4.getAnswers();
         answersQ1.add(answer1);
         answersQ1.add(answer2);
         answersQ2.add(answer3);
         answersQ2.add(answer4);
         answersQ4.add(answer5);
         answersQ4.add(answer6);
-
-        question1.setAnswers(answersQ1);
-        question2.setAnswers(answersQ2);
-        question4.setAnswers(answersQ4);
         //---------------------------- Связи -----------------------------------
 
     }

@@ -18,5 +18,6 @@ public class Quest extends AbstractEntity{
     String text;
     String image;
     Long firstQuestionId;
-    Collection<Question> questions;
+    @Builder.Default
+    List<Question> questions = new ArrayList<>();
 }

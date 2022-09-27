@@ -27,29 +27,39 @@
             <td style="text-align: left">${requestScope.answersCreated}</td>
         </tr>
         <tr>
-            <td style="text-align: right; width: 230px">Best player:</td>
-            <td style="text-align: left"><a href="${rootPath}/profile?id=${requestScope.bestPlayerID}">${requestScope.bestPlayerLogin}</a></td>
+            <td style="text-align: right; width: 230px">
+                Best player:<br>
+                wins:
+            </td>
+            <td style="text-align: left; width: 230px">
+                <a href="${rootPath}/profile?id=${requestScope.bestPlayerID}">
+                ${requestScope.bestPlayerLogin}</a><br>
+                ${requestScope.bestPlayerWins}</td>
         </tr>
+
         <tr>
-            <td style="text-align: right; width: 230px">${requestScope.bestPlayerLogin} wins:</td>
-            <td style="text-align: left">${requestScope.bestPlayerWins}</td>
+            <td style="text-align: right; width: 230px">
+                Worst player:<br>
+                loses:
+            </td>
+            <td style="text-align: left; width: 230px">
+                <a href="${rootPath}/profile?id=${requestScope.worstPlayerID}">
+                    ${requestScope.worstPlayerLogin}</a><br>
+                ${requestScope.worstPlayerLoses}</td>
         </tr>
+
+
         <tr>
-            <td style="text-align: right; width: 230px">Worst player:</td>
-            <td style="text-align: left"><a href="${rootPath}/profile?id=${requestScope.worstPlayerID}">${requestScope.worstPlayerLogin}</a></td>
+            <td style="text-align: right; width: 230px">
+                Most popular quest:<br>
+                launches:
+            </td>
+            <td style="text-align: left; width: 230px">
+                <a href="${rootPath}/play?questId=${requestScope.mostPopularQuestID}">
+                    ${requestScope.mostPopularQuestName}</a><br>
+                ${requestScope.mostPopularQuestLaunches}</td>
         </tr>
-        <tr>
-            <td style="text-align: right; width: 230px">${requestScope.worstPlayerLogin} loses:</td>
-            <td style="text-align: left">${requestScope.worstPlayerLoses}</td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 230px">Most popular quest:</td>
-            <td style="text-align: left"><a href="${rootPath}/play?questId=${requestScope.mostPopularQuestID}">${requestScope.mostPopularQuestName}</a></td>
-        </tr>
-        <tr>
-            <td style="text-align: right; width: 230px">${requestScope.mostPopularQuestName} launches:</td>
-            <td style="text-align: left">${requestScope.mostPopularQuestLaunches}</td>
-        </tr>
+
     </table>
 </div>
 
