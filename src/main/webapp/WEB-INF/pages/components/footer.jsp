@@ -11,6 +11,8 @@
 <script src="${rootPath}/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/insert.param-1.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/post.to.url-1.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/form.validation-1.0.js"></script>
 <%@ include file="bodyCloseTags.txt" %>
 
 

@@ -90,43 +90,43 @@ public class RepositoryLoader {
                 .questId(jrQuestId).gameState(PLAY)
                 .name("Старт. Потеря памяти")
                 .text("Ты потерял память.\nПринять вызов НЛО?")
-                .image("1.jpg").build();
+                .image("quests/1/1.jpg").build();
 
         Question question2 = Question.with()
                 .questId(jrQuestId).gameState(PLAY)
                 .name("Принятие вызова")
                 .text("Ты принял вызов.\nПоднимешься на мостик к капитану?")
-                .image("2.jpg").build();
+                .image("quests/1/2.jpg").build();
 
         Question question3 = Question.with()
                 .questId(jrQuestId).gameState(LOSE)
                 .name("Отказ от вызова")
                 .text("Ты отклонил вызов.\nПоражение.")
-                .image("3.jpg").build();
+                .image("quests/1/3.jpg").build();
 
         Question question4 = Question.with()
                 .questId(jrQuestId).gameState(PLAY)
                 .name("На мостике")
                 .text("Ты поднялся на мостик.\nТы кто?")
-                .image("4.jpg").build();
+                .image("quests/1/4.jpg").build();
 
         Question question5 = Question.with()
                 .questId(jrQuestId).gameState(LOSE)
                 .name("Отказ подниматься на мостик")
                 .text("Ты не пошёл на переговоры.\nПоражение.")
-                .image("5.jpg").build();
+                .image("quests/1/5.jpg").build();
 
         Question question6 = Question.with()
                 .questId(jrQuestId).gameState(WIN)
                 .name("Рассказал о себе")
                 .text("Тебя вернули домой\nПобеда.")
-                .image("6.jpg").build();
+                .image("quests/1/6.jpg").build();
 
         Question question7 = Question.with()
                 .questId(jrQuestId).gameState(LOSE)
                 .name("Скрыл данные о себе")
                 .text("Твою ложь разоблачили.\nПоражение.")
-                .image("7.jpg").build();
+                .image("quests/1/7.jpg").build();
 
         Collection<Question> jrQuestQuestions = jrQuest.getQuestions();
         jrQuestQuestions.add(question1);

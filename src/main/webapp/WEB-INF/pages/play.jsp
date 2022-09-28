@@ -46,7 +46,7 @@
 <div class="card align-items-center mx-auto my-3" style="width: 500px">
     <h5 class="card-title my-3">${requestScope.question.name}</h5>
     <img class="img-thumbnail quest-image" style="width: 400px"
-         src="${rootPath}/images/quests/${requestScope.question.questId}/${requestScope.question.image}" alt="wtf">
+         src="${rootPath}/images/${requestScope.question.image}" alt="wtf">
     <div class="card-body m-2" style="width: 400px">
 
         <p class="card-text">${requestScope.question.text}</p>

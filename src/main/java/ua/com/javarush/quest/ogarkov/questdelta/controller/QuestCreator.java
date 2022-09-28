@@ -66,7 +66,7 @@ public class QuestCreator extends HttpServlet {
         }
 
 
-        Jsp.redirect(resp, "/quest-edit");
+        Jsp.redirect(resp, "/quest-edit?id=" + questId);
 
     }
 }

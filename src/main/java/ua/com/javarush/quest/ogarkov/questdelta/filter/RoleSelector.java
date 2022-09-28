@@ -42,7 +42,7 @@ public class RoleSelector implements Filter {
         if (uriMap.get(role).contains(command)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            Jsp.redirect(response, USERS);
+            Jsp.redirect(response, ROOT);
         }
     }
 }

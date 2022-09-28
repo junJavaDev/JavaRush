@@ -39,6 +39,11 @@ public enum ImageService {
     }
 
     @SneakyThrows
+    public boolean deleteImage(String name) {
+        return Files.deleteIfExists(root.resolve(name));
+    }
+
+    @SneakyThrows
     public Optional<Path> getAvatarPath(String filename) {
         return Files.exists(root.resolve(filename))
                 ? Optional.of(root.resolve(filename))
