@@ -18,19 +18,17 @@ public class Jsp {
         requestDispatcher.forward(request, response);
     }
 
-    public static void redirect(HttpServletResponse response, String uri) throws IOException {
-        response.sendRedirect(uri);
+    public static void redirect(HttpServletRequest request, HttpServletResponse response, String uri) throws IOException {
+         response.sendRedirect(request.getContextPath() + uri);
     }
 
     public static String getCommand(HttpServletRequest request) {
         String uri = request.getRequestURI();
-        Matcher matcher = Pattern.compile("/[a-z]*").matcher(uri);
+        Matcher matcher = Pattern.compile(".*(/[a-z-]*)").matcher(uri.substring(uri.lastIndexOf("/")));
         if (matcher.find()) {
             return matcher.group();
         } else {
             throw new UnsupportedOperationException("incorrect uri" + uri);
         }
     }
-
-
 }

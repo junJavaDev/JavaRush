@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 
-@WebFilter({ROOT, USERS, LOGIN, SIGNUP, PROFILE, LOGOUT, USER})
+@WebFilter({ROOT, USERS, SIGNUP, PROFILE, LOGOUT, USER})
 public class RoleSelector implements Filter {
 
     private final Map<Role, List<String>> uriMap = Map.of(
@@ -42,7 +42,7 @@ public class RoleSelector implements Filter {
         if (uriMap.get(role).contains(command)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            Jsp.redirect(response, ROOT);
+            Jsp.redirect(request, response, ROOT);
         }
     }
 }

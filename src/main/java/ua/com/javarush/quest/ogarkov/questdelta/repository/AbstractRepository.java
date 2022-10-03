@@ -31,15 +31,8 @@ public abstract class AbstractRepository<T extends AbstractEntity> implements Re
     @Override
     public Collection<T> getAll(int pageNumber, int pageSize) {
         Collection<T> entities = map.values();
-        long currentPage =
-                entities.size() / pageSize >= pageNumber - 1
-                        ? pageNumber - 1
-                        : 0L;
-        return entities.stream()
-                .sorted(Comparator.comparingLong(AbstractEntity::getId))
-                .skip(currentPage * pageSize)
-                .limit(pageSize)
-                .collect(Collectors.toList());
+        long currentPage = entities.size() / pageSize >= pageNumber - 1 ? pageNumber - 1 : 0L;
+        return entities.stream().sorted(Comparator.comparingLong(AbstractEntity::getId)).skip(currentPage * pageSize).limit(pageSize).collect(Collectors.toList());
     }
 
     @Override
@@ -56,7 +49,8 @@ public abstract class AbstractRepository<T extends AbstractEntity> implements Re
 
     @SafeVarargs
     protected final <V> Collection<T> find(T pattern, Function<T, V>... fieldGetter) {
-        return map.values().stream()
+        return map.values()
+                .stream()
                 .filter(value ->
                         Arrays.stream(fieldGetter)
                                 .allMatch(function ->

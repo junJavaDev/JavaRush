@@ -1,4 +1,4 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.quest;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -8,10 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.*;
-import ua.com.javarush.quest.ogarkov.questdelta.service.AnswerService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.*;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -19,9 +16,11 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.*;
 
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
+
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "questEditor", value = "/quest-edit")
-public class QuestEditor extends HttpServlet {
+@WebServlet(name = "questEdit", value = QUEST_EDIT)
+public class EditQuestServlet extends HttpServlet {
 
     @Serial
     private static final long serialVersionUID = 7582798421846485830L;
@@ -29,6 +28,7 @@ public class QuestEditor extends HttpServlet {
     private final QuestionService questionService = QuestionService.INSTANCE;
     private final AnswerService answerService = AnswerService.INSTANCE;
     private final ImageService imageService = ImageService.INSTANCE;
+    private final UserService userService = UserService.INSTANCE;
 
     @Override
     public void init() {
@@ -59,9 +59,9 @@ public class QuestEditor extends HttpServlet {
                 req.setAttribute("quest", quest);
                 req.setAttribute("question", question);
                 req.setAttribute("answers", answers);
-                Jsp.forward(req, resp, "/questEditor");
+                Jsp.forward(req, resp, "/quest/editQuest");
             }
-        } else Jsp.redirect(resp, "/login");
+        } else Jsp.redirect(req, resp, LOGIN);
     }
 
     @Override
@@ -71,35 +71,22 @@ public class QuestEditor extends HttpServlet {
         if (optQuest.isPresent()) {
             Quest quest = optQuest.get();
 
-            //------------------- Удаление вопроса ----------------------//
             String questionDeleteParam = req.getParameter("questionDelete");
             String questionCreateParam = req.getParameter("questionCreate");
             String questionUpdateParam = req.getParameter("questionUpdate");
             String answerCreateParam = req.getParameter("answerCreate");
             String answerDeleteParam = req.getParameter("answerDelete");
+            String questDeleteParam = req.getParameter("questDelete");
             long questionIndex = ReqParser.getId(req, "questionIndex");
 
-
+            //------------------- Удаление вопроса ----------------------//
             if (questionDeleteParam != null) {
                 long questionToDeleteId = Long.parseLong(questionDeleteParam);
                 Optional<Question> optQuestion = questionService.get(questionToDeleteId);
                 if (optQuestion.isPresent()) {
                     Question question = optQuestion.get();
                     if (!Objects.equals(quest.getFirstQuestionId(), question.getId())) {
-                        for (Answer answer : question.getAnswers()) {
-                            answerService.delete(answer);
-                        }
-
-                        Collection<Answer> answers = answerService.find(Answer.with().nextQuestionId(question.getId()).build());
-                        for (Answer answer : answers) {
-                            Optional<Question> questionWithAnswer = questionService.get(answer.getQuestionId());
-                            questionWithAnswer.ifPresent(value -> value.getAnswers().remove(answer));
-                            answerService.delete(answer);
-                        }
-
-                        imageService.deleteImage(quest.getImage());
-                        quest.getQuestions().remove(question);
-                        questionService.delete(question);
+                        questionDelete(quest, question);
                     }
                 }
                 //------------------- Удаление вопроса ----------------------//
@@ -108,7 +95,7 @@ public class QuestEditor extends HttpServlet {
                 Question question = Question.with().gameState(GameState.PLAY).build();
                 questionService.create(question);
                 quest.getQuestions().add(question);
-                Jsp.redirect(resp, "/quest-edit?id=" + questId + "&questionIndex=" + (quest.getQuestions().size() - 1));
+                Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + (quest.getQuestions().size() - 1));
                 return;
                 //------------------- Создание вопроса ----------------------//
                 //------------------- Создание ответа ----------------------//
@@ -124,7 +111,7 @@ public class QuestEditor extends HttpServlet {
                         .build();
                 answerService.create(answer);
                 question.getAnswers().add(answer);
-                Jsp.redirect(resp, "/quest-edit?id=" + questId + "&questionIndex=" + questionIndex);
+                Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
                 return;
             } else if (answerDeleteParam != null) {
                 long answerId = Long.parseLong(answerDeleteParam);
@@ -138,7 +125,7 @@ public class QuestEditor extends HttpServlet {
                     }
                     answerService.delete(answer);
                 }
-                Jsp.redirect(resp, "/quest-edit?id=" + questId + "&questionIndex=" + questionIndex);
+                Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
                 return;
             } else if (questionUpdateParam != null) {
                 String name = req.getParameter("name");
@@ -154,10 +141,49 @@ public class QuestEditor extends HttpServlet {
                 if (isUploaded) {
                     question.setImage(image);
                 }
-                Jsp.redirect(resp, "/quest-edit?id=" + questId + "&questionIndex=" + questionIndex);
+                Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
+                return;
+            } else if (questDeleteParam != null) {
+                long questDeleteId = Long.parseLong(questDeleteParam);
+                Optional<Quest> optQuestDelete = questService.get(questDeleteId);
+                if (optQuestDelete.isPresent()) {
+                    Quest questDelete = optQuestDelete.get();
+                    for (int qIndex = 0; qIndex < questDelete.getQuestions().size(); qIndex++) {
+                        questionDelete(questDelete, questDelete.getQuestions().get(qIndex));
+                    }
+                    if (questDelete.getImage() != null) {
+                        imageService.deleteImage(questDelete.getImage());
+                    }
+                    Optional<User> optAuthor = userService.get(questDelete.getAuthorId());
+                    if (optAuthor.isPresent()) {
+                        User author = optAuthor.get();
+                        author.getQuests().remove(questDelete);
+                    }
+                    questService.delete(questDelete);
+                }
+                Jsp.redirect(req, resp, QUESTS_EDIT);
                 return;
             }
-            Jsp.redirect(resp, "/quest-edit?id=" + questId + "&questionIndex=" + questionIndex);
+            Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
         }
     }
+
+    private void questionDelete(Quest quest, Question question) {
+        for (Answer answer : question.getAnswers()) {
+            answerService.delete(answer);
+        }
+
+        Collection<Answer> answers = answerService.find(Answer.with().nextQuestionId(question.getId()).build());
+        for (Answer answer : answers) {
+            Optional<Question> questionWithAnswer = questionService.get(answer.getQuestionId());
+            questionWithAnswer.ifPresent(value -> value.getAnswers().remove(answer));
+            answerService.delete(answer);
+        }
+        if (question.getImage() != null) {
+            imageService.deleteImage(question.getImage());
+        }
+        quest.getQuestions().remove(question);
+        questionService.delete(question);
+    }
+
 }

@@ -1,12 +1,10 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.GameSession;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.GameState;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.GameSessionService;
@@ -18,7 +16,8 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.PROFILE;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.ROOT;
 
 @WebServlet(name = "profileServlet", value = PROFILE)
 public class ProfileServlet extends HttpServlet {
@@ -39,8 +38,8 @@ public class ProfileServlet extends HttpServlet {
             request.setAttribute("user", user);
             request.setAttribute("wins", wins);
             request.setAttribute("loses", loses);
-            Jsp.forward(request, response, PROFILE);
-        } else Jsp.redirect(response, ROOT);
+            Jsp.forward(request, response, "/user/profile");
+        } else Jsp.redirect(request, response, ROOT);
 
 
     }

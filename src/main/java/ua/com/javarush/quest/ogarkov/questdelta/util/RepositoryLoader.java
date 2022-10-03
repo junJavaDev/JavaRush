@@ -45,7 +45,7 @@ public class RepositoryLoader {
         userRepository.create(User.with()
                 .login("user3").password("user3").role(USER).build());
         userRepository.create(User.with()
-                .login("user4").password("user4").avatar("no_image").role(USER).build());
+                .login("user4").password("user4").role(USER).build());
         userRepository.create(User.with()
                 .login("user5").password("user5").role(USER).build());
         userRepository.create(User.with()

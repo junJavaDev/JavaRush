@@ -1,4 +1,4 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,8 +14,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.LOGIN;
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.PROFILE;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @WebServlet(LOGIN)
 public class LoginServlet extends HttpServlet {
@@ -26,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Jsp.forward(req, resp, LOGIN);
+        Jsp.forward(req, resp, "/user/login");
     }
 
     @Override
@@ -46,11 +45,14 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user); //must be UserDTO
             session.setAttribute("userId", user.getId()); //must be UserDTO
             session.setAttribute("lang", user.getLanguage().name());
-            Jsp.redirect(resp, PROFILE);
+            String uri = PROFILE + "?id=" + user.getId();
+            Jsp.redirect(req, resp, uri);
 
         } else {
             req.setAttribute("error", "User not found");
-            Jsp.forward(req, resp, LOGIN);
+            Jsp.redirect(req, resp, ROOT);
+
+//            Jsp.forward(req, resp, "/user/login");
         }
     }
 }

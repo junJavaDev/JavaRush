@@ -1,29 +1,28 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.quest;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.GameState;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestionRepository;
 import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
 import java.io.IOException;
 import java.io.Serial;
-import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.QUEST_CREATE;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.QUEST_EDIT;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "questCreator", value="/quest-create")
-public class QuestCreator extends HttpServlet {
+@WebServlet(name = "questCreate", value=QUEST_CREATE)
+public class CreateQuestServlet extends HttpServlet {
 
     @Serial
     private static final long serialVersionUID = 7582798421846485830L;
@@ -33,7 +32,7 @@ public class QuestCreator extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Jsp.forward(req, resp, "/questCreator");
+        Jsp.forward(req, resp, "/quest/createQuest");
     }
 
     @Override
@@ -44,7 +43,7 @@ public class QuestCreator extends HttpServlet {
         Part data = req.getPart("image");
 
 
-        Question firstQuestion = Question.with().build();
+        Question firstQuestion = Question.with().gameState(GameState.PLAY).build();
         questionService.create(firstQuestion);
 
         Quest quest = Quest.with()
@@ -66,7 +65,7 @@ public class QuestCreator extends HttpServlet {
         }
 
 
-        Jsp.redirect(resp, "/quest-edit?id=" + questId);
+        Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId);
 
     }
 }

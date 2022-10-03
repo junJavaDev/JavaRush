@@ -23,7 +23,10 @@ public class ImageServlet extends HttpServlet {
     @Override
     @SneakyThrows
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
-        String nameImage = req.getRequestURI().replace("/images/", "");
+        String requestURI = req.getRequestURI();
+        String imagesString = "/images/";
+        int imagesIndex = requestURI.lastIndexOf(imagesString);
+        String nameImage = requestURI.substring(imagesIndex+imagesString.length());
         Optional<Path> file = imageService.getAvatarPath(nameImage);
         if (file.isPresent()) {
             try (ServletOutputStream outputStream = resp.getOutputStream()) {

@@ -1,4 +1,4 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.quest;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -21,11 +21,11 @@ import java.io.Serial;
 import java.util.List;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.QUESTS;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "questionCreator", value = "/question-create")
-public class QuestionCreator extends HttpServlet {
+@WebServlet(name = "questionCreator", value = QUESTION_CREATE)
+public class QuestionCreatorServlet extends HttpServlet {
 
 
     @Serial
@@ -41,7 +41,7 @@ public class QuestionCreator extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Jsp.forward(req, resp, "/questionCreator");
+        Jsp.forward(req, resp, "/quest/createQuestion");
     }
 
     @Override
@@ -76,8 +76,8 @@ public class QuestionCreator extends HttpServlet {
             if (isUploaded) {
                 question.setImage(image);
             }
-            Jsp.redirect(resp, "/quest-edit?id=" + questId + "&questionIndex=" + questionIndex);
-        } else Jsp.redirect(resp, QUESTS);
+            Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
+        } else Jsp.redirect(req, resp, QUESTS);
 
     }
 }

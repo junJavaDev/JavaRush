@@ -14,7 +14,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.DEFAULT_LANGUAGE;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.DEFAULT_LANGUAGE;
 
 @WebFilter(value = "/*")
 public class LanguageSelector implements Filter {

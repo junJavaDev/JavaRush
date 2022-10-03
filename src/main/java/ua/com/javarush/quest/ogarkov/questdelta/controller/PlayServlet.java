@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.util.Params.*;
 
 @WebServlet(name = "playServlet", value = PLAY)
 public class PlayServlet extends HttpServlet {
@@ -31,7 +32,7 @@ public class PlayServlet extends HttpServlet {
     private static final long serialVersionUID = -195113263125943009L;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Long questId = ReqParser.getId(req, "questId");
+        Long questId = ReqParser.getId(req, "id");
         Optional<User> optUser = ReqParser.getUser(req);
 
         if (optUser.isPresent()) {
@@ -54,8 +55,8 @@ public class PlayServlet extends HttpServlet {
                         gameSession.setGameState(question.getGameState());
                         req.setAttribute("question", question);
                         req.setAttribute("quest", quest);
-                        Jsp.forward(req, resp, PLAY);
-                } else Jsp.redirect(resp, QUESTS);
+                        Jsp.forward(req, resp, "/play");
+                } else Jsp.redirect(req, resp, QUESTS);
             } else if (!user.getGameSessions().isEmpty()) {
                 GameSession gameSession = gameSessionService.getLastGame(user);
                 long currentQuestionId = gameSession.getCurrentQuestionId();
@@ -67,15 +68,15 @@ public class PlayServlet extends HttpServlet {
                 gameSession.setGameState(question.getGameState());
                 req.setAttribute("question", question);
                 req.setAttribute("quest", questService.get(gameSession.getQuestId()).orElseThrow());
-                Jsp.forward(req, resp, PLAY);
-            } else Jsp.redirect(resp, QUESTS);
-        } else Jsp.redirect(resp, LOGIN);
+                Jsp.forward(req, resp, "/play");
+            } else Jsp.redirect(req, resp, QUESTS);
+        } else Jsp.redirect(req, resp, LOGIN);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        long questId = ReqParser.getId(req, "questId");
+        long questId = ReqParser.getId(req, "id");
 
         User user = ReqParser.getUser(req).orElseThrow();
         Quest quest = questService.get(questId).orElseThrow();
@@ -91,9 +92,9 @@ public class PlayServlet extends HttpServlet {
                 gameSession.setGameState(question.getGameState());
                 req.setAttribute("question", question);
                 req.setAttribute("quest", quest);
-                Jsp.forward(req, resp, PLAY);
+                Jsp.forward(req, resp, "/play");
             } else {
-                Jsp.redirect(resp, PLAY + "?questId=" + questId);
+                Jsp.redirect(req, resp, PLAY + "?id=" + questId);
             }
 
         } else {
@@ -109,11 +110,11 @@ public class PlayServlet extends HttpServlet {
                 gs.setGameState(question.getGameState());
                 req.setAttribute("question", question);
                 req.setAttribute("quest", quest);
-                Jsp.forward(req, resp, PLAY);
+                Jsp.forward(req, resp, "/play");
             } else if (answerId == -2) {
                user.getGameSessions().remove(gameSession);
-               Jsp.redirect(resp, QUESTS);
-            } else Jsp.redirect(resp, PLAY + "?questId=" + questId);
+               Jsp.redirect(req, resp, QUESTS);
+            } else Jsp.redirect(req, resp, PLAY + "?id=" + questId);
 
         }
     }

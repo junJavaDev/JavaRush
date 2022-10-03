@@ -1,4 +1,4 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.quest;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,9 +17,10 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.*;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.QUESTS;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.QUESTS;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.QUESTS_EDIT;
 
-@WebServlet(name = "questsServlet", value = QUESTS)
+@WebServlet(name = "questsServlet", value = {QUESTS, QUESTS_EDIT})
 public class QuestsServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = -776002015199337931L;
@@ -63,20 +64,30 @@ public class QuestsServlet extends HttpServlet {
         }
 
         Collection<Quest> quests = questService.getAll(pageNumber, pageSize);
-        Map<Long, String> userNames = new HashMap<>();
+        Map<Long, String> authors = new HashMap<>();
         for (Quest quest : quests) {
             String userName = "Deleted";
             Optional<User> user = userService.get(quest.getAuthorId());
             if (user.isPresent()) {
                 userName = user.get().getLogin();
             }
-            userNames.put(quest.getId(), userName);
+            authors.put(quest.getId(), userName);
         }
-        request.setAttribute("userNames", userNames);
+        request.setAttribute("authors", authors);
         request.setAttribute("pages", pages);
         request.setAttribute("activePage", pageNumber);
         request.setAttribute("pageSize", pageSize);
         request.setAttribute("quests", quests);
-        Jsp.forward(request, response, QUESTS);
+        if (request.getRequestURI().endsWith("/quests")) {
+            Jsp.forward(request, response, "/quest/quests");
+        } else {
+            Jsp.forward(request, response, "/quest/editQuests");
+        }
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }

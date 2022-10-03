@@ -9,7 +9,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.DEFAULT_USER_AVATAR;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.DEFAULT_AVATAR;
 
 public enum ImageService {
     INSTANCE;
@@ -45,8 +45,9 @@ public enum ImageService {
 
     @SneakyThrows
     public Optional<Path> getAvatarPath(String filename) {
-        return Files.exists(root.resolve(filename))
+        Path path = root.resolve(filename);
+        return Files.exists(path)
                 ? Optional.of(root.resolve(filename))
-                : Optional.of(root.resolve(DEFAULT_USER_AVATAR));
+                : Optional.of(root.resolve(DEFAULT_AVATAR));
     }
 }

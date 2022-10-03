@@ -1,4 +1,4 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.user;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @WebServlet(LOGOUT)
 public class LogoutServlet extends HttpServlet {
@@ -27,6 +27,6 @@ public class LogoutServlet extends HttpServlet {
         if (oldLocale.isPresent()) {
             redirectURI = redirectURI + "?lang=" + oldLocale.get();
         }
-        Jsp.redirect(resp, redirectURI);
+        Jsp.redirect(req, resp, redirectURI);
     }
 }

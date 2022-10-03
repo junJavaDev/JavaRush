@@ -1,4 +1,4 @@
-package ua.com.javarush.quest.ogarkov.questdelta.controller;
+package ua.com.javarush.quest.ogarkov.questdelta.controller.user;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -14,13 +14,12 @@ import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
 import java.io.IOException;
 import java.io.Serial;
-import java.util.Objects;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "UserServlet", value = {USER, SIGNUP})
+@WebServlet(name = "UserEditServlet", value = {USER, SIGNUP, USER_EDIT})
 public class UserEditServlet extends HttpServlet {
 
 
@@ -37,19 +36,16 @@ public class UserEditServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        boolean isUserEdit = Objects.equals(request.getRequestURI(), USER);
-        if (isUserEdit) {
             long userId = getUserId(request);
             Optional<User> optionalUser = userService.get(userId);
             optionalUser.ifPresent(user -> request.setAttribute("user", user));
-        }
-        Jsp.forward(request, response, USER);
+        Jsp.forward(request, response, "/user/editUser");
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = getUserId(req);
-        Part data = req.getPart("avatar");
+        Part data = req.getPart("image");
 
         User user = User.with()
                 .id(id)
@@ -60,7 +56,7 @@ public class UserEditServlet extends HttpServlet {
                 .build();
         postUser(req, user);
 
-        String avatar = "avatar-" + user.getId() + ReqParser.getFileExtension(data.getSubmittedFileName());
+        String avatar = "users/" + user.getId() + ReqParser.getFileExtension(data.getSubmittedFileName());
         boolean isUploaded = imageService.uploadImage(avatar, data.getInputStream());
         if (isUploaded) {
             user.setAvatar(avatar);
@@ -73,7 +69,7 @@ public class UserEditServlet extends HttpServlet {
             session.setAttribute("user", user);
         }
 
-        Jsp.redirect(resp, USERS);
+        Jsp.redirect(req, resp, USERS);
     }
 
     private void postUser(HttpServletRequest req, User user) {

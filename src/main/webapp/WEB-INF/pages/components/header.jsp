@@ -1,41 +1,20 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:setLocale value="${sessionScope.lang}"/>
-<fmt:setBundle basename="lang/language"/>
-<fmt:message key="header.admin_cp" var="headerAdminCP"/>
-<fmt:message key="header.profile" var="headerProfile"/>
-<fmt:message key="header.logout" var="headerLogout"/>
-<fmt:message key="header.login" var="headerLogin"/>
-<fmt:message key="header.signup" var="headerSignup"/>
-<fmt:message key="header.language" var="headerLanguage"/>
-<fmt:message key="header.users_edit" var="usersEdit"/>
-<fmt:message key="header.user_create" var="userCreate"/>
-
-<c:set var="rootPath">${pageContext.request.contextPath}</c:set>
+<%@ include file="variables.jsp" %>
 
 <!DOCTYPE html>
 <html>
-
-
-
 <head>
-    <title>Title</title>
-<%--    <link href="${rootPath}/css/custom.css" rel="stylesheet" crossorigin="anonymous">--%>
+    <title>${langTitle}</title>
 </head>
 <script>
     const dateNow = Date.now()
-
     const link = document.createElement('link')
     link.href = "${rootPath}/css/custom.css?" + dateNow
     link.rel = "stylesheet"
     link.type = "text/css"
     link.crossorigin = "anonymous"
     document.head.appendChild(link)
-
-    // const js = document.createElement('script');
-    // js.src = "js/my.js?" + dateNow;
-    // document.body.appendChild(js)
 </script>
 <body>
 
@@ -47,27 +26,35 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
         <div class="container-md">
-
             <div class="d-flex flex-row justify-content-between">
-
                 <div class="d-flex flex-column">
-
-<%--                    <c:if test="${sessionScope.role.equals('ADMIN') || sessionScope.role.equals('MODERATOR')}">--%>
-                        <%-- Start navbar position --%>
-                        <ul class="nav">
+                    <%-- Start navbar position --%>
+                    <ul class="nav">
+                        <c:if test="${sessionScope.role == Role.ADMIN}">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false">
-                                        ${headerAdminCP}
+                                        ${langAdminCP}
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="${rootPath}/users">${usersEdit}</a></li>
-                                    <li><a class="dropdown-item" href='${rootPath}/user?id=0'>${userCreate}</a></li>
-                                    <li><a class="dropdown-item" href='${rootPath}/quest-create'>Создать квест</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="${rootPath}${s.users}">${langUsersEdit}</a></li>
+                                    <li><a class="dropdown-item"
+                                           href="${rootPath}${s.questsEdit}">${langQuestsEdit}</a></li>
+                                    <li><a class="dropdown-item"
+                                           href='${rootPath}${s.user}?${s.paramId}=${s.zero}'>${langUserCreate}</a></li>
+                                    <li><a class="dropdown-item"
+                                           href='${rootPath}${s.questCreate}'>${langQuestCreate}</a></li>
                                 </ul>
                             </li>
-                        </ul>
-<%--                    </c:if>--%>
+                        </c:if>
+                        <c:if test="${sessionScope.role == Role.USER}">
+                            <li class="nav-item">
+                                <a class="nav-link px-2 link-dark"
+                                   href='${rootPath}${s.questCreate}'>${langQuestCreate}</a>
+                            </li>
+                        </c:if>
+                    </ul>
                 </div>
 
                 <div class="d-flex flex-column">
@@ -82,16 +69,16 @@
                     <ul class="nav">
                         <c:choose>
                             <c:when test="${not empty sessionScope.user}">
-                                <li><a href="${rootPath}/profile?id=${sessionScope.user.id}"
+                                <li><a href="${rootPath}${s.profile}?${s.paramId}=${sessionScope.user.id}"
                                        class="nav-link px-2 link-dark"><b>${sessionScope.user.login}</b></a></li>
-                                <li><a href="${pageContext.request.contextPath}/logout"
-                                       class="nav-link px-2 link-dark">${headerLogout}</a></li>
+                                <li><a href="${rootPath}${s.logout}"
+                                       class="nav-link px-2 link-dark">${langLogout}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="${pageContext.request.contextPath}/login"
-                                       class="nav-link px-2 link-dark">${headerLogin}</a></li>
-                                <li><a href="${pageContext.request.contextPath}/signup"
-                                       class="nav-link px-2 link-dark">${headerSignup}</a>
+                                <li><a href="${rootPath}${s.login}"
+                                       class="nav-link px-2 link-dark">${langLogin}</a></li>
+                                <li><a href="${rootPath}${s.signup}"
+                                       class="nav-link px-2 link-dark">${langSignup}</a>
                                 </li>
                             </c:otherwise>
                         </c:choose>
@@ -99,12 +86,15 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown"
                                aria-expanded="false">
-                                ${headerLanguage}
+                                ${langLanguage}
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="javascript:insertParam('lang', 'RU');">RU</a></li>
-                                <li><a class="dropdown-item" href="javascript:insertParam('lang', 'EN');">EN</a></li>
-                                <%--                        <li><hr class="dropdown-divider"></li>--%>
+                                <li><a class="dropdown-item"
+                                       href="javascript:insertParam('${s.paramLang}', '${Language.RU}');">${langLanguageRU}</a>
+                                </li>
+                                <li><a class="dropdown-item"
+                                       href="javascript:insertParam('${s.paramLang}', '${Language.EN}');">${langLanguageEN}</a>
+                                </li>
                             </ul>
                         </li>
                     </ul>
@@ -112,7 +102,4 @@
             </div>
         </div>
     </div>
-
 </nav>
-
-<%--</div>--%>

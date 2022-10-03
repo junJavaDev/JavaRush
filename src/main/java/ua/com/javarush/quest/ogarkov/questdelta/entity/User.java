@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.*;
-
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Builder(builderMethodName = "with")

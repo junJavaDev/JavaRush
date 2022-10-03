@@ -18,9 +18,9 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Setting.STATISTIC;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.STATISTICS;
 
-@WebServlet(name = "statisticServlet", value = STATISTIC)
+@WebServlet(name = "statisticServlet", value = STATISTICS)
 public class StatisticServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 6316268318161580029L;
@@ -74,7 +74,7 @@ public class StatisticServlet extends HttpServlet {
         request.setAttribute("bestPlayerWins", bestPlayerWins);
         request.setAttribute("worstPlayerLoses", worstPlayerLoses);
         request.setAttribute("mostPopularQuestLaunches", mostPopularQuestLaunches);
-        Jsp.forward(request, response, STATISTIC);
+        Jsp.forward(request, response, "/statistics");
     }
 
     private Map.Entry<Long, List<GameSession>> getLeader(GameSession pattern, Function<GameSession, Long> function) {
