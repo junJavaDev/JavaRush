@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../components/header.jsp" %>
+<%@ include file="/WEB-INF/pages/components/header.jsp" %>
 
 <div class="card align-items-center mx-auto my-3 w500">
     <!-- Form Name -->
@@ -16,10 +16,10 @@
             <div class="row">
 
                 <!-- Password input-->
-                <%@ include file="form-elements/passwordInput.jsp" %>
+                <%@ include file="/WEB-INF/pages/user/form-elements/passwordInput.jsp" %>
 
                 <!-- Avatar input-->
-                <%@ include file="form-elements/avatarInput.jsp" %>
+                <%@ include file="/WEB-INF/pages/user/form-elements/avatarInput.jsp" %>
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-around my-3">
@@ -33,4 +33,4 @@
     </form>
 </div>
 
-<%@ include file="../components/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/components/footer.jsp" %>

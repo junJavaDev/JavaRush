@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../components/header.jsp" %>
+<%@ include file="/WEB-INF/pages/components/header.jsp" %>
 
 
 <div class="container-md">
@@ -111,4 +111,4 @@
     </div>
 </div>
 
-<%@ include file="../components/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/components/footer.jsp" %>

@@ -12,9 +12,9 @@ public class Listener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        RepositoryLoader.load();
         ServletContext servletContext = sce.getServletContext();
         servletContext.setAttribute("s", Setting.get());
+        RepositoryLoader.load();
     }
 
 

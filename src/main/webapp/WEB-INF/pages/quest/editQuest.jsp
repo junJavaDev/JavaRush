@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../components/header.jsp" %>
+<%@ include file="/WEB-INF/pages/components/header.jsp" %>
 
 
 <div class="container-md">
@@ -49,6 +49,10 @@
                             onclick="postToUrl('${rootPath}${s.questEdit}?${s.paramId}=${param.id}', {'${s.paramQuestDelete}':'${param.id}'});">
                         ${langQuestDeleteBtn}
                     </button>
+                    <button class="btn btn-outline-danger" type="button"
+                            onclick="postToUrl('${rootPath}${s.questEdit}?${s.paramId}=${param.id}', {'${s.paramQuestDelete}':'${param.id}'});">
+                        lool
+                    </button>
                     <button class="btn btn-outline-secondary" type="button"
                             onclick="postToUrl('${rootPath}${s.questEdit}?${s.paramId}=${param.id}', {'${s.paramQuestionCreate}':'${langCreateBtn}'});">
                         ${langQuestionAddBtn}
@@ -92,7 +96,7 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-12 my-2">
+                                        <div class="col-md-12 my-2 qe-img-box">
                                             <c:choose>
                                                 <c:when test="${requestScope.question.image != null}">
                                                     <img src="${rootPath}${s.imgDir}${requestScope.question.image}"
@@ -231,4 +235,4 @@
 </div>
 
 
-<%@ include file="../components/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/components/footer.jsp" %>

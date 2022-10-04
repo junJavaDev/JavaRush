@@ -56,7 +56,7 @@ public class Default {
         private static final String FORM_VALIDATION = "form.validation-1.0.js";
         public static final String DEFAULT_AVATAR = "no_avatar.jpg";
         private static final String DEFAULT_IMAGE = "no_image.jpg";
-        private static final String IMAGE_ABOUT = "pacific.jpg";
+        private static final String IMAGE_ABOUT = "broken_rifle.png";
         public static final Language DEFAULT_LANGUAGE = Language.EN;
         //====================================== /VIEW ===============================================
 }

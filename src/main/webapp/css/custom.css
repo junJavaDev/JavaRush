@@ -5,8 +5,19 @@
     max-height: 300px !important;
 }
 
-.quests-image {
-    max-height: 250px !important;
+.img-box {
+    position: relative;
+    overflow:hidden;
+    height:250px;
+}
+
+.img-box img {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    height:250px;
+    object-fit:cover;
 }
 
 .profile-image {
@@ -48,11 +59,25 @@
 .quest-editor {
     height: 570px;
 }
+.quest-creator {
+    height: 410px;
+}
 
-.quest-editor-image {
+.qe-img-box {
+    position: relative;
+    overflow:hidden;
+    height:180px;
+}
+
+.qe-img-box img {
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    height:180px;
+    object-fit:cover;
     max-width: inherit;
     text-align: center;
-    height: 180px;
 }
 
 .text-sm {

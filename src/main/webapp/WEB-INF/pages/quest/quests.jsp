@@ -1,15 +1,17 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../components/header.jsp" %>
+<%@ include file="/WEB-INF/pages/components/header.jsp" %>
 
 <div class="container-md my-3">
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <c:forEach var="quest" items="${requestScope.quests}">
             <div class="col">
                 <div class="card h-100">
-                    <img src="${rootPath}${s.imgDir}${not empty quest.image ? quest.image : s.defaultImage}"
-                         class="card-img-top quests-image"
-                         alt="${langImage}">
+                    <div class="img-box">
+                        <img src="${rootPath}${s.imgDir}${not empty quest.image ? quest.image : s.defaultImage}"
+                             class="card-img-top quests-image"
+                             alt="${langImage}">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">${quest.name}</h5>
                         <p class="card-text">${quest.text}</p>
@@ -92,4 +94,4 @@
 </div>
 
 
-<%@ include file="../components/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/components/footer.jsp" %>

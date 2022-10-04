@@ -77,7 +77,6 @@
 <fmt:message key="login.password_label" var="langPasswordLabel"/>
 <fmt:message key="login.password_placeholder" var="langPasswordPlaceholder"/>
 <%--User Role--%>
-<fmt:message key="user.role_label" var="roleLabel"/>
 <fmt:message key="role.admin" var="roleAdmin"/>
 <fmt:message key="role.moderator" var="roleModerator"/>
 <fmt:message key="role.user" var="roleUser"/>

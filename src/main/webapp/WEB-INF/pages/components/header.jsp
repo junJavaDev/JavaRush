@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="variables.jsp" %>
+<%@ include file="/WEB-INF/pages/components/variables.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,13 +19,10 @@
 <body>
 
 <%--    Navbar--%>
-<nav class="navbar navbar-expand-lg bg-light">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03"
-            aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-        <div class="container-md">
+<div class="container-md ">
+
+    <nav class="navbar bg-light">
+        <div class="w-100">
             <div class="d-flex flex-row justify-content-between">
                 <div class="d-flex flex-column">
                     <%-- Start navbar position --%>
@@ -60,7 +57,7 @@
                 <div class="d-flex flex-column">
                     <%-- Middle navbar position --%>
                     <ul class="nav mx-auto">
-                        <%@ include file="navbarMenuList.jsp" %>
+                        <%@ include file="/WEB-INF/pages/components/navbarMenuList.jsp" %>
                     </ul>
                 </div>
 
@@ -101,5 +98,5 @@
                 </div>
             </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</div>

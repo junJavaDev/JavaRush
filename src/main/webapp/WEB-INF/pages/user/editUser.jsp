@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="../components/header.jsp" %>
+<%@ include file="/WEB-INF/pages/components/header.jsp" %>
 
 <div class="card align-items-center mx-auto my-3 w500">
 
@@ -22,24 +22,24 @@
             <div class="row">
                 <!-- Login input-->
                 <div class="col-md-6">
-                    <%@ include file="form-elements/loginInput.jsp" %>
+                    <%@ include file="/WEB-INF/pages/user/form-elements/loginInput.jsp" %>
                 </div>
                 <!-- Password input-->
                 <div class="col-md-6">
-                    <%@ include file="form-elements/passwordInput.jsp" %>
+                    <%@ include file="/WEB-INF/pages/user/form-elements/passwordInput.jsp" %>
                 </div>
                 <!-- Role select -->
                 <div ${sessionScope.role == Role.GUEST
                         ? "class='col-md-6'"
                         : ""}>
-                    <%@ include file="form-elements/roleSelect.jsp" %>
+                    <%@ include file="/WEB-INF/pages/user/form-elements/roleSelect.jsp" %>
                 </div>
                 <!-- Keyword input -->
                 <c:if test="${sessionScope.role == Role.GUEST}">
-                    <%@ include file="form-elements/keyWord.jsp" %>
+                    <%@ include file="/WEB-INF/pages/user/form-elements/keyWord.jsp" %>
                 </c:if>
                 <!-- Avatar input-->
-                <%@ include file="form-elements/avatarInput.jsp" %>
+                <%@ include file="/WEB-INF/pages/user/form-elements/avatarInput.jsp" %>
                 <!-- Buttons -->
                 <div class="d-flex justify-content-around my-3">
                     <button id="submit" name="${requestScope.user.id>0?s.updateBtn:s.createBtn}"
@@ -55,4 +55,4 @@
     </form>
 </div>
 
-<%@ include file="../components/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/components/footer.jsp" %>

@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ include file="WEB-INF/pages/components/header.jsp" %>
+<%@ include file="/WEB-INF/pages/components/header.jsp" %>
 
 <div class="card align-items-center mx-auto my-3 w600">
         <p class="fw-normal fs-4 text-center mt-3">${langWelcome},
@@ -23,4 +23,4 @@
     </div>
 </div>
 
-<%@ include file="WEB-INF/pages/components/footer.jsp" %>
+<%@ include file="/WEB-INF/pages/components/footer.jsp" %>
