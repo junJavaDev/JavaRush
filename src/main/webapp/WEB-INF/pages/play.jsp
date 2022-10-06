@@ -4,7 +4,9 @@
 
 <div class="card align-items-center mx-auto my-3 w500">
     <img class="img-thumbnail quest-image mt-3 mx-3"
-         src="${rootPath}${s.imgDir}${requestScope.question.image}" alt="${langImage}">
+         src="${rootPath}${s.imgDir}${not empty requestScope.question.image
+         ? requestScope.question.image
+         : s.defaultImage}" alt="${langImage}">
     <div class="card-body w400">
 
         <p class="card-text mb-2">${requestScope.question.text}</p>

@@ -61,17 +61,22 @@
                         <p class="fw-normal fs-4 my-3 text-center">Add quest content (optional)</p>
                         <div class="col-md-10 mx-auto">
                             <!-- Text area-->
-                            <label class="control-label mb-2" for="questPattern">Paste the quest content</label>
-
+                            <label class="control-label mb-2" for="questPattern">Paste the
+                                <a class="text-decoration-none" data-bs-toggle="modal"
+                                   data-bs-target="#contentModal" href="#"> quest content</a>
+                            </label>
                             <textarea class="form-control" style="min-height: 200px"
                                       id="questPattern"
                                       name="content"
                                       placeholder="pattern must be..."></textarea>
 
-
                             <!--File input-->
+                            <!-- Button trigger modal -->
                             <div class="form-group">
-                                <label class="control-label my-2" for="twineFile">or Load twine file</label>
+                                <label class="control-label my-2" for="twineFile">or load
+                                    <a class="text-decoration-none" data-bs-toggle="modal"
+                                       data-bs-target="#twineModal" href="#"> Twine file</a>
+                                </label>
                                 <input id="twineFile" name="twine" type="file"
                                        class="form-control input-md mb-3">
                             </div>
@@ -82,4 +87,45 @@
         </div>
     </form>
 </div>
+
+<!-- Content Modal-->
+<div class="modal fade" id="contentModal" tabindex="-1" aria-labelledby="contentModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="contentModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                contentModal
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Twine Modal -->
+<div class="modal fade" id="twineModal" tabindex="-1" aria-labelledby="twineModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="twineModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                twineModal
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="window.open('https://twinery.org/2')">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    Open Twine
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <%@ include file="/WEB-INF/pages/components/footer.jsp" %>
