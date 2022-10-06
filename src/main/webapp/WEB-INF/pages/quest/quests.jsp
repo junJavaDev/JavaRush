@@ -19,8 +19,8 @@
                     <div class="d-flex justify-content-between mx-3 mb-3">
                         <c:if test="${sessionScope.role == Role.ADMIN || sessionScope.user.id == quest.authorId}">
                             <button class="btn btn-outline-secondary" type="button"
-                                    onclick="document.location='${rootPath}${s.questEdit}?${s.paramId}=${quest.id}'">
-                                    ${langEdit}
+                                    onclick="document.location='${rootPath}${s.editQuestContent}?${s.paramId}=${quest.id}'">
+                                    ${langEditorBtn}
                             </button>
                         </c:if>
                         <button class="btn btn-outline-secondary" type="button"

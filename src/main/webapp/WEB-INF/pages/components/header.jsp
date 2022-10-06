@@ -37,18 +37,18 @@
                                     <li><a class="dropdown-item"
                                            href="${rootPath}${s.users}">${langUsersEdit}</a></li>
                                     <li><a class="dropdown-item"
-                                           href="${rootPath}${s.questsEdit}">${langQuestsEdit}</a></li>
+                                           href="${rootPath}${s.editQuests}">${langQuestsEdit}</a></li>
                                     <li><a class="dropdown-item"
                                            href='${rootPath}${s.user}?${s.paramId}=${s.zero}'>${langUserCreate}</a></li>
                                     <li><a class="dropdown-item"
-                                           href='${rootPath}${s.questCreate}'>${langQuestCreate}</a></li>
+                                           href='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'>${langQuestCreate}</a></li>
                                 </ul>
                             </li>
                         </c:if>
                         <c:if test="${sessionScope.role == Role.USER}">
                             <li class="nav-item">
                                 <a class="nav-link px-2 link-dark"
-                                   href='${rootPath}${s.questCreate}'>${langQuestCreate}</a>
+                                   href='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'>${langQuestCreate}</a>
                             </li>
                         </c:if>
                     </ul>

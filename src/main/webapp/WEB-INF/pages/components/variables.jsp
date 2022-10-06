@@ -88,6 +88,9 @@
 <fmt:message key="buttons.create_btn" var="langCreateBtn"/>
 <fmt:message key="buttons.delete_btn" var="langDeleteBtn"/>
 <fmt:message key="buttons.save_btn" var="langSaveBtn"/>
+<fmt:message key="buttons.edit_btn" var="langEditBtn"/>
+<fmt:message key="buttons.editor_btn" var="langEditorBtn"/>
+<fmt:message key="buttons.pencil_btn" var="langPencilBtn"/>
 <fmt:message key="play.start_again" var="langStartAgainBtn"/>
 <fmt:message key="play.complete_quest" var="langCompleteQuestBtn"/>
 

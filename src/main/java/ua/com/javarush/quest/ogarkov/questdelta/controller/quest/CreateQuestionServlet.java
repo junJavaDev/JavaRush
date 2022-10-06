@@ -46,7 +46,7 @@ public class CreateQuestionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Long id = ReqParser.getId(req, "id");
+        Long id = ReqParser.getLong(req, "id");
 
         Optional<Quest> optQuest = questService.get(id);
         if (optQuest.isPresent()) {
@@ -76,7 +76,7 @@ public class CreateQuestionServlet extends HttpServlet {
             if (isUploaded) {
                 question.setImage(image);
             }
-            Jsp.redirect(req, resp, QUEST_EDIT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
+            Jsp.redirect(req, resp, EDIT_QUEST_CONTENT + "?id=" + questId + "&" + PARAM_QUESTION_INDEX + "=" + questionIndex);
         } else Jsp.redirect(req, resp, QUESTS);
 
     }

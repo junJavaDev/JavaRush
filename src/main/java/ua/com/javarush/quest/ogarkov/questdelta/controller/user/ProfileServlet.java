@@ -28,7 +28,7 @@ public class ProfileServlet extends HttpServlet {
 
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        Long id = ReqParser.getId(request, "id");
+        Long id = ReqParser.getLong(request, "id");
         Optional<User> optUser = userService.get(id);
 
         if (optUser.isPresent()) {

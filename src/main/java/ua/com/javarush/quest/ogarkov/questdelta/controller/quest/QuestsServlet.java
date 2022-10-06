@@ -18,9 +18,9 @@ import java.io.Serial;
 import java.util.*;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.QUESTS;
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.QUESTS_EDIT;
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.EDIT_QUESTS;
 
-@WebServlet(name = "questsServlet", value = {QUESTS, QUESTS_EDIT})
+@WebServlet(name = "questsServlet", value = {QUESTS, EDIT_QUESTS})
 public class QuestsServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = -776002015199337931L;

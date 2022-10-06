@@ -4,8 +4,8 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 
 @SuppressWarnings("unused")
 public class Default {
-        public static final String QUEST_EDIT = "/quest-edit";
-        public static final String QUEST_CREATE = "/quest-create";
+        public static final String EDIT_QUEST_CONTENT = "/content-edit";
+        public static final String EDIT_QUEST = "/quest-edit";
         public static final int DEFAULT_PAGE_SIZE = 10;
         public static final String ROOT = "/";
         public static final String USERS = "/users";
@@ -14,7 +14,7 @@ public class Default {
         public static final String PROFILE = "/profile";
         public static final String LOGOUT = "/logout";
         public static final String USER = "/user";
-        public static final String QUESTS_EDIT = "/quests-edit";
+        public static final String EDIT_QUESTS = "/quests-edit";
         public static final String PROFILE_EDIT = "/profile-edit";
         public static final String USER_EDIT = "/user-edit";
         public static final String QUESTION_CREATE = "/question-create";

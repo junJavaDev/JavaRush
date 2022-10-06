@@ -18,7 +18,6 @@ import java.io.Serial;
 import java.util.Optional;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Params.*;
 
 @WebServlet(name = "playServlet", value = PLAY)
 public class PlayServlet extends HttpServlet {
@@ -32,7 +31,7 @@ public class PlayServlet extends HttpServlet {
     private static final long serialVersionUID = -195113263125943009L;
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Long questId = ReqParser.getId(req, "id");
+        Long questId = ReqParser.getLong(req, "id");
         Optional<User> optUser = ReqParser.getUser(req);
 
         if (optUser.isPresent()) {
@@ -76,7 +75,7 @@ public class PlayServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        long questId = ReqParser.getId(req, "id");
+        long questId = ReqParser.getLong(req, "id");
 
         User user = ReqParser.getUser(req).orElseThrow();
         Quest quest = questService.get(questId).orElseThrow();

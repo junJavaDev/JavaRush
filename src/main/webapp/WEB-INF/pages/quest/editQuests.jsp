@@ -25,7 +25,12 @@
                     <img src="${rootPath}${s.imgDir}${not empty quest.image ? quest.image : s.defaultImage}" height="40"
                          alt="${langImage}">
                 </td>
-                <td>${quest.name}</td>
+                <td>${quest.name}
+                    <a class="text-decoration-none fw-bold"
+                       href="${rootPath}${s.editQuest}?${s.paramId}=${quest.id}">
+                            ${langPencilBtn}
+                    </a>
+                </td>
                 <td>
                     <a class="text-decoration-none"
                        href="${rootPath}${s.profile}?${s.paramId}=${quest.authorId}">
@@ -43,13 +48,13 @@
                 </td>
                 <td>
                     <a class="text-decoration-none"
-                       href="${rootPath}${s.questEdit}?${s.paramId}=${quest.id}">
+                       href="${rootPath}${s.editQuestContent}?${s.paramId}=${quest.id}">
                             ${langEdit}
                     </a>
                 </td>
                 <td>
                     <a class="text-decoration-none"
-                       href="javascript:postToUrl('${rootPath}${s.questEdit}?${s.paramId}=${quest.id}', {'${s.paramQuestDelete}':'${quest.id}'});">
+                       href="javascript:postToUrl('${rootPath}${s.editQuestContent}?${s.paramId}=${quest.id}', {'${s.paramQuestDelete}':'${quest.id}'});">
                             ${langTableDelete}
                     </a>
                 </td>
@@ -62,7 +67,7 @@
 
         <div class="d-flex flex-column">
             <button class="btn btn-outline-secondary" type="button"
-                    onclick="document.location='${rootPath}${s.questCreate}'">
+                    onclick="document.location='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'">
                 ${langQuestCreateLegend}
             </button>
         </div>

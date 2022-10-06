@@ -23,9 +23,9 @@ public class Setting {
     private String profile;
     private String logout;
     private String user;
-    private String questsEdit;
-    private String questEdit;
-    private String questCreate;
+    private String editQuests;
+    private String editQuestContent;
+    private String editQuest;
     private String questionCreate;
     private String about;
     private String paramId;

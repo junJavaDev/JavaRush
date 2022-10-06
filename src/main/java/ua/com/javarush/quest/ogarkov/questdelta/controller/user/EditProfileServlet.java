@@ -20,8 +20,8 @@ import java.util.Optional;
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "ProfileEditServlet", value = PROFILE_EDIT)
-public class ProfileEditServlet extends HttpServlet {
+@WebServlet(name = "EditProfileServlet", value = PROFILE_EDIT)
+public class EditProfileServlet extends HttpServlet {
 
 
     @Serial
@@ -34,7 +34,7 @@ public class ProfileEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Optional<User> optUser = ReqParser.getUser(request);
         if (optUser.isPresent()) {
-            long id = ReqParser.getId(request, "id");
+            long id = ReqParser.getLong(request, "id");
             User user = optUser.get();
             if (id == user.getId()) {
                 User dto = User

@@ -19,8 +19,8 @@ import java.util.Optional;
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "UserEditServlet", value = {USER, SIGNUP, USER_EDIT})
-public class UserEditServlet extends HttpServlet {
+@WebServlet(name = "EditUserServlet", value = {USER, SIGNUP, USER_EDIT})
+public class EditUserServlet extends HttpServlet {
 
 
     @Serial

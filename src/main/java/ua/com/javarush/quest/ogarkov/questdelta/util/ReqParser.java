@@ -17,7 +17,7 @@ public class ReqParser {
         return extension;
     }
 
-    public Long getId(HttpServletRequest req, String key) {
+    public Long getLong(HttpServletRequest req, String key) {
         String inputId = req.getParameter(key);
         return positiveLong(inputId);
     }
