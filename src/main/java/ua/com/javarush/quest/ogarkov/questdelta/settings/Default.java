@@ -13,11 +13,10 @@ public class Default {
         public static final String SIGNUP = "/signup";
         public static final String PROFILE = "/profile";
         public static final String LOGOUT = "/logout";
-        public static final String USER = "/user";
         public static final String EDIT_QUESTS = "/quests-edit";
         public static final String PROFILE_EDIT = "/profile-edit";
-        public static final String USER_EDIT = "/user-edit";
-        public static final String QUESTION_CREATE = "/question-create";
+        public static final String EDIT_USER = "/user-edit";
+        public static final String CREATE_QUESTION = "/question-create";
         public static final String ABOUT = "/about";
         public static final String QUESTS = "/quests";
         public static final String PLAY = "/play";

@@ -24,7 +24,7 @@ import java.util.Optional;
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "questionCreator", value = QUESTION_CREATE)
+@WebServlet(name = "questionCreator", value = CREATE_QUESTION)
 public class CreateQuestionServlet extends HttpServlet {
 
 

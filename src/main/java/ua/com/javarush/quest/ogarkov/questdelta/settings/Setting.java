@@ -22,11 +22,11 @@ public class Setting {
     private String signup;
     private String profile;
     private String logout;
-    private String user;
     private String editQuests;
     private String editQuestContent;
     private String editQuest;
-    private String questionCreate;
+    private String editUser;
+    private String createQuestion;
     private String about;
     private String paramId;
     private String paramPageNumber;
@@ -50,7 +50,6 @@ public class Setting {
     private String inputGameState;
     private String imgDir;
     private String profileEdit;
-    private String userEdit;
     private String signInBtn;
     private String updateBtn;
     private String createBtn;

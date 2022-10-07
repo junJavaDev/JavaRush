@@ -48,7 +48,7 @@
     </c:if>
     <c:if test="${sessionScope.role == Role.ADMIN}">
         <button class="btn btn-outline-secondary mx-auto my-3" type="button"
-                onclick="document.location='${rootPath}${s.userEdit}?${s.paramId}=${param.id}'">
+                onclick="document.location='${rootPath}${s.editUser}?${s.paramId}=${param.id}'">
                 ${langEditUser}
         </button>
     </c:if>

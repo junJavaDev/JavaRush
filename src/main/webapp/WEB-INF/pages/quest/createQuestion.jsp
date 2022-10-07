@@ -6,7 +6,7 @@
 <div class="card align-items-center mx-auto my-3 w500">
     <p class="fw-normal fs-4 my-3 mx-auto">${langQuestionCreateLegend}</p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${s.questionCreate}?${s.paramId}=${param.id}"
+    <form class="form-horizontal needs-validation" action="${rootPath}${s.createQuestion}?${s.paramId}=${param.id}"
           method="post" enctype="multipart/form-data" novalidate>
         <fieldset>
 

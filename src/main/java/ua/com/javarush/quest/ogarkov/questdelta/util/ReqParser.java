@@ -17,6 +17,14 @@ public class ReqParser {
         return extension;
     }
 
+    public String getCommand (HttpServletRequest req) {
+        String requestURI = req.getRequestURI();
+        int lastSeparatorIndex = requestURI.lastIndexOf('/');
+        return lastSeparatorIndex >= 0
+                ? requestURI.substring(lastSeparatorIndex)
+                : requestURI;
+    }
+
     public Long getLong(HttpServletRequest req, String key) {
         String inputId = req.getParameter(key);
         return positiveLong(inputId);

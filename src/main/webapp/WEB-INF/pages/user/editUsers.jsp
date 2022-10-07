@@ -29,7 +29,7 @@
                        href="${rootPath}${s.profile}?${s.paramId}=${user.id}">${langProfile}</a></td>
                 <td>${user.language}</td>
                 <td><a class="text-decoration-none"
-                       href="${rootPath}${s.user}?${s.paramId}=${user.id}">
+                       href="${rootPath}${s.editUser}?${s.paramId}=${user.id}">
                         ${langEdit}
                 </a>
                 </td>
@@ -50,7 +50,7 @@
 
         <div class="d-flex flex-column">
             <button class="btn btn-outline-secondary" type="button"
-                    onclick="document.location='${rootPath}${s.user}?${s.paramId}=${s.zero}'">
+                    onclick="document.location='${rootPath}${s.editUser}?${s.paramId}=${s.zero}'">
                 ${сreateUserBtn}
             </button>
         </div>

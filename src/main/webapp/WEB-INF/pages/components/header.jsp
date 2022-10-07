@@ -6,6 +6,7 @@
 <html>
 <head>
     <title>${langTitle}</title>
+    <link rel="shortcut icon" href="${rootPath}/favicon.ico?" type="image/x-icon" />
     <link href="${rootPath}/css/custom.css" rel="stylesheet" type="text/css">
 </head>
 <%--<script>--%>
@@ -40,7 +41,7 @@
                                     <li><a class="dropdown-item"
                                            href="${rootPath}${s.editQuests}">${langQuestsEdit}</a></li>
                                     <li><a class="dropdown-item"
-                                           href='${rootPath}${s.user}?${s.paramId}=${s.zero}'>${langUserCreate}</a></li>
+                                           href='${rootPath}${s.editUser}?${s.paramId}=${s.zero}'>${langUserCreate}</a></li>
                                     <li><a class="dropdown-item"
                                            href='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'>${langQuestCreate}</a></li>
                                 </ul>

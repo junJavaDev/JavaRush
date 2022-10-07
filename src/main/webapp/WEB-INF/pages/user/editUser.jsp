@@ -16,7 +16,7 @@
         </c:choose>
     </p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${s.user}?${s.paramId}=${param.id}" method="post"
+    <form class="form-horizontal needs-validation" action="${rootPath}${s.editUser}?${s.paramId}=${param.id}" method="post"
           enctype="multipart/form-data" novalidate>
         <fieldset class="w400">
             <div class="row">
