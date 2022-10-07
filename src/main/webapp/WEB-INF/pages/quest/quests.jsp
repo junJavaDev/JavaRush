@@ -25,7 +25,7 @@
                         </c:if>
                         <button class="btn btn-outline-secondary" type="button"
                                 onclick="document.location='${rootPath}${s.play}?${s.paramId}=${quest.id}'">
-                                ${requestScope.openQuests.contains(quest.id) ? continueGameBtn : startNewGameBtn}
+                                ${requestScope.openQuests.contains(quest.id) ? langContinueGameBtn : langStartNewGameBtn}
                         </button>
                     </div>
                     <div class="card-footer">

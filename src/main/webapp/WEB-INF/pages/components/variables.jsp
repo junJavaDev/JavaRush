@@ -38,6 +38,8 @@
 <fmt:message key="headers.author" var="langAuthor"/>
 <fmt:message key="headers.questions" var="langQuestions"/>
 <fmt:message key="headers.play" var="langPlay"/>
+<fmt:message key="headers.open" var="langOpen"/>
+<fmt:message key="headers.close" var="langClose"/>
 
 
 <%--Header Menu--%>
@@ -163,35 +165,39 @@
 
 <fmt:message key="question.create_legend" var="langQuestionCreateLegend"/>
 
-<fmt:message key="quests.start_new_game_btn" var="startNewGameBtn"/>
-<fmt:message key="quests.continue_game_btn" var="continueGameBtn"/>
+<fmt:message key="quests.start_new_game_btn" var="langStartNewGameBtn"/>
+<fmt:message key="quests.continue_game_btn" var="langContinueGameBtn"/>
 
-<%--<fmt:message key="quests.name_table_header" var="nameTableHeader"/>--%>
-<%--<fmt:message key="quests.author_table_header" var="authorTableHeader"/>--%>
-<%--<fmt:message key="headers.image" var="imageTableHeader"/>--%>
-<%--<fmt:message key="quests.control_table_header" var="controlTableHeader"/>--%>
+<%--Twine help--%>
+<fmt:message key="twine.modal_title" var="langTwineTitle"/>
+<fmt:message key="twine.about" var="langTwineAbout"/>
+<fmt:message key="twine.show_passages" var="langTwineShowPassages"/>
+<fmt:message key="twine.question_with_answers" var="langTwineQuestionWithAnswers"/>
+<fmt:message key="twine.no_formatting" var="langTwineNoFormatting"/>
+<fmt:message key="twine.question" var="langTwineQuestion"/>
+<fmt:message key="twine.win" var="langTwineWin"/>
+<fmt:message key="twine.lose" var="langTwineLose"/>
+<fmt:message key="twine.publish_file" var="langTwinePublishFile"/>
 
-<%--<fmt:message key="login.login_label" var="langLoginLabel"/>--%>
-<%--<fmt:message key="login.password_label" var="langPasswordLabel"/>--%>
-<%--<fmt:message key="login.login_form_legend" var="loginFormLegend"/>--%>
+<fmt:message key="content.title" var="langContentTitle"/>
+<fmt:message key="content.paste_the" var="langContentPastThe"/>
+<fmt:message key="content.quest_content" var="langContentQuestContent"/>
+<fmt:message key="content.quest_content_placeholder" var="langContentQuestContentPlaceholder"/>
+<fmt:message key="content.or_load" var="langContentOrLoad"/>
+<fmt:message key="content.twine_file" var="langContentTwineFile"/>
 
-<%--<fmt:message key="login.password_placeholder" var="langPasswordPlaceholder"/>--%>
-<%--<fmt:message key="login.login_placeholder" var="langLoginPlaceholder"/>--%>
 
-<%--<fmt:message key="login.sign_in" var="langSignInBtn"/>--%>
-<%--<fmt:message key="login.login_label" var="langLoginLabel"/>--%>
-<%--<fmt:message key="login.password_label" var="langPasswordLabel"/>--%>
-<%--<fmt:message key="login.login_form_legend" var="loginFormLegend"/>--%>
+<fmt:message key="content.modal_title" var="langContentModalTitle"/>
+<fmt:message key="content.about" var="langContentAbout"/>
+<fmt:message key="content.rules" var="langContentRules"/>
+<fmt:message key="content.marks" var="langContentMarks"/>
+<fmt:message key="content.question_name_format" var="langContentQuestionNameFormat"/>
+<fmt:message key="content.question_format" var="langContentQuestionFormat"/>
+<fmt:message key="content.answer_format" var="langContentAnswerFormat"/>
+<fmt:message key="content.no_answers" var="langContentNoAnswers"/>
+<fmt:message key="content.example_title" var="langContentExampleTitle"/>
+<fmt:message key="content.example" var="langContentExample"/>
+<fmt:message key="content.example_about" var="langContentExampleAbout"/>
+<fmt:message key="content.good_example_title" var="langContentGoodExampleTitle"/>
+<fmt:message key="content.good_example" var="langContentGoodExample"/>
 
-<%--<fmt:message key="login.password_placeholder" var="langPasswordPlaceholder"/>--%>
-<%--<fmt:message key="login.login_placeholder" var="langLoginPlaceholder"/>--%>
-
-<%--<fmt:message key="login.sign_in" var="langSignInBtn"/>--%>
-
-<%--<fmt:message key="quests.id_table_header" var="idTableHeader"/>--%>
-<%--<fmt:message key="quests.name_table_header" var="nameTableHeader"/>--%>
-<%--<fmt:message key="quests.author_table_header" var="authorTableHeader"/>--%>
-<%--<fmt:message key="headers.image" var="imageTableHeader"/>--%>
-<%--<fmt:message key="quests.control_table_header" var="controlTableHeader"/>--%>
-<%--<fmt:message key="quests.start_new_game_btn" var="startNewGameBtn"/>--%>
-<%--<fmt:message key="quests.continue_game_btn" var="continueGameBtn"/>--%>

@@ -6,16 +6,17 @@
 <html>
 <head>
     <title>${langTitle}</title>
+    <link href="${rootPath}/css/custom.css" rel="stylesheet" type="text/css">
 </head>
-<script>
-    const dateNow = Date.now()
-    const link = document.createElement('link')
-    link.href = "${rootPath}/css/custom.css?" + dateNow
-    link.rel = "stylesheet"
-    link.type = "text/css"
-    link.crossorigin = "anonymous"
-    document.head.appendChild(link)
-</script>
+<%--<script>--%>
+<%--    const dateNow = Date.now()--%>
+<%--    const link = document.createElement('link')--%>
+<%--    link.href = "${rootPath}/css/custom.css?" + dateNow--%>
+<%--    link.rel = "stylesheet"--%>
+<%--    link.type = "text/css"--%>
+<%--    link.crossorigin = "anonymous"--%>
+<%--    document.head.appendChild(link)--%>
+<%--</script>--%>
 <body>
 
 <%--    Navbar--%>

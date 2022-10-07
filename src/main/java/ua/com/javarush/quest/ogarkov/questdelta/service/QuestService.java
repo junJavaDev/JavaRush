@@ -113,7 +113,7 @@ public enum QuestService {
                 long nextQuestionId = questionMap.get(key).getId();
                 answer.setNextQuestionId(nextQuestionId);
             }
-            if (existQuest.getQuestions().size()==1) {
+            if (existQuest.getQuestions().size() == 1) {
                 Question firstQuestion = existQuest.getQuestions().get(0);
                 questionDelete(existQuest, firstQuestion);
                 existQuest.setFirstQuestionId(parsedQuestions.get(0).getId());
@@ -161,8 +161,16 @@ public enum QuestService {
         return Map.entry(name, gameState);
     }
 
-    private String trimLast(String key) {
-        return key.substring(0, key.length() - 1);
+    private String trimCommand(String text) {
+        int lastCharIndex = text.length() - 1;
+        char lastChar = text.charAt(lastCharIndex);
+        return lastChar == KEY_WIN || lastChar == KEY_LOSE
+                ? trimLast(text)
+                : text;
+    }
+
+    private String trimLast(String text) {
+        return text.substring(0, text.length() - 1);
     }
 
     public void create(Quest quest) {
@@ -218,37 +226,40 @@ public enum QuestService {
     }
 
     private void parseTwine(HttpServletRequest request, Quest filledQuest) throws ServletException, IOException {
-        String dataStart = "<tw-passagedata";
-        String dataEnd = "</tw-passagedata>";
+
         Part data = request.getPart("twine");
         InputStream inputStream = data.getInputStream();
-        String html = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
-                .lines().collect(Collectors.joining("\n"));
-        int firstIndex = html.indexOf(dataStart);
-        int lastIndex = html.lastIndexOf(dataEnd);
-        String rawContent = html.substring(firstIndex, lastIndex);
-        String[] rawQuestions = rawContent.split("(?="+dataStart+")");
-        StringBuilder formattedContent = new StringBuilder();
-        for (String question : rawQuestions) {
-            String questionName = StringUtils.substringBetween(question, "name=\"", "\"");
-            String[] answers = StringUtils.substringsBetween(question, "[[", "]]");
-            String text = question
-                    .replaceAll("</?tw-passagedata.*?>", "")
-                    .replaceAll("\\[\\[.*?]]", "")
-                    .trim();
-            formattedContent.append(questionName).append('#').append(text).append('\n');
-            if (answers != null) {
-                for (String answer : answers) {
-                    String[] answerNextQuestionName = answer.split("\\|");
-                    String answerText = answerNextQuestionName[0];
-                    String nextQuestion = answerNextQuestionName.length > 1
-                            ? answerNextQuestionName[1]
-                            : answerText;
-                    formattedContent.append(nextQuestion).append('>').append(answerText).append('\n');
+        if (inputStream.available() > 0) {
+            String dataStart = "<tw-passagedata";
+            String dataEnd = "</tw-passagedata>";
+            String html = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))
+                    .lines().collect(Collectors.joining("\n"));
+            int firstIndex = html.indexOf(dataStart);
+            int lastIndex = html.lastIndexOf(dataEnd);
+            String rawContent = html.substring(firstIndex, lastIndex);
+            String[] rawQuestions = rawContent.split("(?=" + dataStart + ")");
+            StringBuilder formattedContent = new StringBuilder();
+            for (String question : rawQuestions) {
+                String questionName = StringUtils.substringBetween(question, "name=\"", "\"");
+                String[] answers = StringUtils.substringsBetween(question, "[[", "]]");
+                String text = question
+                        .replaceAll("</?tw-passagedata.*?>", "")
+                        .replaceAll("\\[\\[.*?]]", "")
+                        .trim();
+                formattedContent.append(questionName).append('#').append(text).append('\n');
+                if (answers != null) {
+                    for (String answer : answers) {
+                        String[] answerNextQuestionName = answer.split("\\|");
+                        String answerText = trimCommand(answerNextQuestionName[0]);
+                        String nextQuestion = answerNextQuestionName.length > 1
+                                ? answerNextQuestionName[1]
+                                : answerNextQuestionName[0];
+                        formattedContent.append(nextQuestion).append('>').append(answerText).append('\n');
+                    }
                 }
             }
+            parseContent(formattedContent.toString(), filledQuest);
         }
-        parseContent(formattedContent.toString(), filledQuest);
     }
 
 }

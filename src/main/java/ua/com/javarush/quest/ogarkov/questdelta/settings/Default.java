@@ -57,6 +57,8 @@ public class Default {
         public static final String DEFAULT_AVATAR = "no_avatar.jpg";
         private static final String DEFAULT_IMAGE = "no_image.jpg";
         private static final String IMAGE_ABOUT = "broken_rifle.png";
+        private static final String HELP_DIR = "help/";
+        private static final String TWINE_DIR = "twine/";
         public static final Language DEFAULT_LANGUAGE = Language.EN;
         //====================================== /VIEW ===============================================
 }

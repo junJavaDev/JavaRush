@@ -32,7 +32,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="text-decoration-none"
+                    <a class="text-decoration-nonetext-decoration-none"
                        href="${rootPath}${s.profile}?${s.paramId}=${quest.authorId}">
                             ${requestScope.authors.get(quest.id)}
                     </a>

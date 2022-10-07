@@ -68,6 +68,8 @@ public class Setting {
     private String formValidation;
     private String defaultAvatar;
     private String defaultImage;
+    private String helpDir;
+    private String twineDir;
     private Language defaultLanguage;
     //==================================== /DATA ==============================================
 
