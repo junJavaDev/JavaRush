@@ -32,7 +32,7 @@
                 ${langWins}
             </td>
             <td class="text-start">
-                <a href="${rootPath}${s.profile}?${s.paramId}=${requestScope.bestPlayerID}">
+                <a href="${rootPath}${Go.PROFILE}?${S.paramId}=${requestScope.bestPlayerID}">
                 ${requestScope.bestPlayerLogin}</a><br>
                 ${requestScope.bestPlayerWins}</td>
         </tr>
@@ -43,7 +43,7 @@
                 ${langLoses}
             </td>
             <td  class="text-start">
-                <a href="${rootPath}${s.profile}?${s.paramId}=${requestScope.worstPlayerID}">
+                <a href="${rootPath}${Go.PROFILE}?${S.paramId}=${requestScope.worstPlayerID}">
                     ${requestScope.worstPlayerLogin}</a><br>
                 ${requestScope.worstPlayerLoses}</td>
         </tr>
@@ -55,7 +55,7 @@
                 ${langLaunches}
             </td>
             <td  class="text-start ">
-                <a href="${rootPath}${s.play}?${s.paramId}=${requestScope.mostPopularQuestID}">
+                <a href="${rootPath}${Go.PLAY}?${S.paramId}=${requestScope.mostPopularQuestID}">
                     ${requestScope.mostPopularQuestName}</a><br>
                 ${requestScope.mostPopularQuestLaunches}</td>
         </tr>

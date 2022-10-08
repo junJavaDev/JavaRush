@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 
 import java.io.IOException;
@@ -16,7 +17,7 @@ import java.util.Optional;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
-@WebServlet(LOGIN)
+@WebServlet(Go.LOGIN)
 public class LoginServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = -8839039694577428788L;
@@ -45,12 +46,12 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("user", user); //must be UserDTO
             session.setAttribute("userId", user.getId()); //must be UserDTO
             session.setAttribute("lang", user.getLanguage().name());
-            String uri = PROFILE + "?id=" + user.getId();
+            String uri = Go.PROFILE + "?id=" + user.getId();
             Jsp.redirect(req, resp, uri);
 
         } else {
             req.setAttribute("error", "User not found");
-            Jsp.redirect(req, resp, ROOT);
+            Jsp.redirect(req, resp, Go.ROOT);
 
 //            Jsp.forward(req, resp, "/user/login");
         }

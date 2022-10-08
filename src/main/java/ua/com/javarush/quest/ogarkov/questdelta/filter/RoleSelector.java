@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 
 import java.io.IOException;
@@ -16,14 +18,16 @@ import java.util.Objects;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
-
-@WebFilter({USERS, SIGNUP, PROFILE, LOGIN, PLAY, PROFILE_EDIT, EDIT_USER, LOGOUT, USERS, EDIT_QUEST, CREATE_QUESTION, EDIT_QUEST_CONTENT, EDIT_QUESTS})
+@WebFilter({Go.USERS, Go.SIGNUP, Go.PROFILE, Go.LOGIN, Go.PLAY, Go.EDIT_PROFILE, Go.EDIT_USER, Go.LOGOUT, Go.USERS, Go.EDIT_QUEST, Go.CREATE_QUESTION, Go.EDIT_QUEST_CONTENT, Go.EDIT_QUESTS})
 public class RoleSelector implements Filter {
 
+    private static final Setting S = Setting.get();
+
+
     private final Map<Role, List<String>> uriMap = Map.of(
-            Role.GUEST, List.of(LOGIN, SIGNUP, EDIT_USER),
-            Role.USER, List.of(PROFILE, LOGOUT, PROFILE_EDIT, PLAY, EDIT_QUEST, CREATE_QUESTION, EDIT_QUEST_CONTENT),
-            Role.ADMIN, List.of(USERS, PROFILE, LOGOUT, EDIT_USER, PROFILE_EDIT, EDIT_QUEST, CREATE_QUESTION, EDIT_QUEST_CONTENT, PLAY, EDIT_QUESTS)
+            Role.GUEST, List.of(Go.LOGIN, Go.SIGNUP, Go.EDIT_USER),
+            Role.USER, List.of(Go.PROFILE, Go.LOGOUT, Go.EDIT_PROFILE, Go.PLAY, Go.EDIT_QUEST, Go.CREATE_QUESTION, Go.EDIT_QUEST_CONTENT),
+            Role.ADMIN, List.of(Go.USERS, Go.PROFILE, Go.LOGOUT, Go.EDIT_USER, Go.EDIT_PROFILE, Go.EDIT_QUEST, Go.CREATE_QUESTION, Go.EDIT_QUEST_CONTENT, Go.PLAY, Go.EDIT_QUESTS)
     );
 
     @Override
@@ -42,7 +46,7 @@ public class RoleSelector implements Filter {
         if (uriMap.get(role).contains(command)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
-            Jsp.redirect(request, response, LOGIN);
+            Jsp.redirect(request, response, Go.LOGIN);
         }
     }
 }

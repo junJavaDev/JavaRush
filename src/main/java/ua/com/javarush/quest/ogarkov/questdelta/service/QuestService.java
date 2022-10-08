@@ -5,10 +5,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.*;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.AnswerRepository;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestRepository;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestionRepository;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.Repository;
+import ua.com.javarush.quest.ogarkov.questdelta.repository.*;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
 import java.io.*;
@@ -34,8 +32,10 @@ public enum QuestService {
     private final Repository<Quest> questRepository = QuestRepository.getInstance();
     private final Repository<Question> questionRepository = QuestionRepository.getInstance();
     private final Repository<Answer> answerRepository = AnswerRepository.getInstance();
+    private final Repository<User> userRepository = UserRepository.getInstance();
+    private final QuestionService questionService = QuestionService.INSTANCE;
     private final ImageService imageService = ImageService.INSTANCE;
-
+    private final Setting S = Setting.get();
     public Collection<Quest> find(Quest pattern) {
         return questRepository.find(pattern);
     }
@@ -115,7 +115,7 @@ public enum QuestService {
             }
             if (existQuest.getQuestions().size() == 1) {
                 Question firstQuestion = existQuest.getQuestions().get(0);
-                questionDelete(existQuest, firstQuestion);
+                questionService.delete(firstQuestion);
                 existQuest.setFirstQuestionId(parsedQuestions.get(0).getId());
             }
             for (Question parsedQuestion : parsedQuestions) {
@@ -123,24 +123,6 @@ public enum QuestService {
             }
 
         }
-    }
-
-    private void questionDelete(Quest quest, Question question) {
-        for (Answer answer : question.getAnswers()) {
-            answerRepository.delete(answer);
-        }
-
-        Collection<Answer> answers = answerRepository.find(Answer.with().nextQuestionId(question.getId()).build());
-        for (Answer answer : answers) {
-            Optional<Question> questionWithAnswer = questionRepository.get(answer.getQuestionId());
-            questionWithAnswer.ifPresent(value -> value.getAnswers().remove(answer));
-            answerRepository.delete(answer);
-        }
-        if (question.getImage() != null) {
-            imageService.deleteImage(question.getImage());
-        }
-        quest.getQuestions().remove(question);
-        questionRepository.delete(question);
     }
 
     private Map.Entry<String, GameState> parseKey(String key) {
@@ -179,6 +161,24 @@ public enum QuestService {
 
     public void update(Quest quest) {
         questRepository.update(quest);
+    }
+
+    public void delete(HttpServletRequest req) {
+        String questDeleteParam = req.getParameter(S.paramQuestDelete);
+        long id = ReqParser.getLong(req, questDeleteParam);
+        Optional<Quest> optQuest = get(id);
+        if (optQuest.isPresent()) {
+            Quest quest = optQuest.get();
+            for (Question question : quest.getQuestions()) {
+                questionService.delete(question);
+            }
+                imageService.deleteImage(quest.getImage());
+            Optional<User> optAuthor = userRepository.get(quest.getAuthorId());
+            optAuthor.ifPresent(author ->
+                    author.getQuests()
+                            .remove(quest));
+            delete(quest);
+        }
     }
 
     public void delete(Quest quest) {

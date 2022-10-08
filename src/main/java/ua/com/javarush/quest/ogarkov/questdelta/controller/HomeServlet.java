@@ -10,9 +10,6 @@ import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import java.io.IOException;
 import java.io.Serial;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.ABOUT;
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.ROOT;
-
 @WebServlet(name = "homeServlet", value = "")
 public class HomeServlet extends HttpServlet {
     @Serial

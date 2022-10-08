@@ -9,6 +9,8 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -16,42 +18,40 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
-
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "EditUserServlet", value = {SIGNUP, EDIT_USER})
+@WebServlet({Go.SIGNUP, Go.EDIT_USER})
 public class EditUserServlet extends HttpServlet {
-
 
     @Serial
     private static final long serialVersionUID = 4074368236695365147L;
     private final UserService userService = UserService.INSTANCE;
     private final ImageService imageService = ImageService.INSTANCE;
-
+    private final Setting S = Setting.get();
 
     @Override
     public void init() {
-        getServletContext().setAttribute("roles", Role.values());
+        getServletContext()
+                .setAttribute(S.attrRoles, Role.values());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            long userId = getUserId(request);
-            Optional<User> optionalUser = userService.get(userId);
-            optionalUser.ifPresent(user -> request.setAttribute("user", user));
-        Jsp.forward(request, response, "/user/editUser");
+        long userId = getUserId(request);
+        Optional<User> optionalUser = userService.get(userId);
+        optionalUser.ifPresent(user -> request.setAttribute(S.attrUser, user));
+        Jsp.forward(request, response, S.jspEditUser);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         long id = getUserId(req);
-        Part data = req.getPart("image");
+        Part data = req.getPart(S.inputImage);
 
         User user = User.with()
                 .id(id)
-                .login(req.getParameter("login"))
-                .password(req.getParameter("password"))
-                .role(Role.valueOf(req.getParameter("role")))
+                .login(req.getParameter(S.inputLogin))
+                .password(req.getParameter(S.inputPassword))
+                .role(Role.valueOf(req.getParameter(S.inputRole)))
                 .language(Language.EN)
                 .build();
         postUser(req, user);
@@ -69,7 +69,7 @@ public class EditUserServlet extends HttpServlet {
             session.setAttribute("user", user);
         }
 
-        Jsp.redirect(req, resp, USERS);
+        Jsp.redirect(req, resp, Go.USERS);
     }
 
     private void postUser(HttpServletRequest req, User user) {

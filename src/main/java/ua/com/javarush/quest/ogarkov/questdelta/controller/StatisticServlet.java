@@ -10,6 +10,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.GameState;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.*;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 
 import java.io.IOException;
@@ -18,9 +19,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.STATISTICS;
-
-@WebServlet(name = "statisticServlet", value = STATISTICS)
+@WebServlet(name = "statisticServlet", value = Go.STATISTICS)
 public class StatisticServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 6316268318161580029L;

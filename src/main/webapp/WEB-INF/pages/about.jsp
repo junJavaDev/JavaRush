@@ -6,7 +6,7 @@
 
     <p class="fw-normal fs-4 my-3">${langAboutPageTitle}</p>
 
-    <img src="${rootPath}${s.imgDir}${s.imageAbout}"
+    <img src="${rootPath}${S.imgDir}${S.imageAbout}"
          class="img-thumbnail rounded d-block mx-auto mb-3 w400"
          alt="pacific">
 

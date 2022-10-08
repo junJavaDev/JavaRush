@@ -22,18 +22,18 @@
             <tr class="align-middle">
                 <th scope="row">${quest.id}</th>
                 <td>
-                    <img src="${rootPath}${s.imgDir}${not empty quest.image ? quest.image : s.defaultImage}" height="40"
+                    <img src="${rootPath}${S.imgDir}${not empty quest.image ? quest.image : S.defaultImage}" height="40"
                          alt="${langImage}">
                 </td>
                 <td>${quest.name}
                     <a class="text-decoration-none fw-bold"
-                       href="${rootPath}${s.editQuest}?${s.paramId}=${quest.id}">
+                       href="${rootPath}${Go.EDIT_QUEST}?${S.paramId}=${quest.id}">
                             ${langPencilBtn}
                     </a>
                 </td>
                 <td>
                     <a class="text-decoration-nonetext-decoration-none"
-                       href="${rootPath}${s.profile}?${s.paramId}=${quest.authorId}">
+                       href="${rootPath}${Go.PROFILE}?${S.paramId}=${quest.authorId}">
                             ${requestScope.authors.get(quest.id)}
                     </a>
                 </td>
@@ -42,19 +42,19 @@
                 </td>
                 <td>
                     <a class="text-decoration-none"
-                       href="${rootPath}${s.play}?${s.paramId}=${quest.id}">
+                       href="${rootPath}${Go.PLAY}?${S.paramId}=${quest.id}">
                             ${langPlay}
                     </a>
                 </td>
                 <td>
                     <a class="text-decoration-none"
-                       href="${rootPath}${s.editQuestContent}?${s.paramId}=${quest.id}">
+                       href="${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${quest.id}">
                             ${langEdit}
                     </a>
                 </td>
                 <td>
                     <a class="text-decoration-none"
-                       href="javascript:postToUrl('${rootPath}${s.editQuestContent}?${s.paramId}=${quest.id}', {'${s.paramQuestDelete}':'${quest.id}'});">
+                       href="javascript:postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${quest.id}', {'${S.paramQuestDelete}':'${quest.id}'});">
                             ${langTableDelete}
                     </a>
                 </td>
@@ -67,19 +67,19 @@
 
         <div class="d-flex flex-column">
             <button class="btn btn-outline-secondary" type="button"
-                    onclick="document.location='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'">
+                    onclick="document.location='${rootPath}${Go.EDIT_QUEST}?${S.paramId}=${S.zero}'">
                 ${langQuestCreateLegend}
             </button>
         </div>
         <div class="d-flex flex-column">
             <nav aria-label="page-navigation">
                 <ul class="pagination d-flex flex-wrap">
-                    <c:forEach var="currentPage" begin="1" end="${requestScope.pages}">
+                    <c:forEach var="currentPage" begin="1" end="${requestScope.pageCount}">
                         <c:choose>
-                            <c:when test="${currentPage != requestScope.activePage}">
+                            <c:when test="${currentPage != requestScope.pageNumber}">
                                 <li class="page-item">
                                     <a class="page-link"
-                                       href="javascript:insertParam('${s.paramPageNumber}', '${currentPage}')">
+                                       href="javascript:insertParam('${S.paramPageNumber}', '${currentPage}')">
                                             ${currentPage}
                                     </a>
                                 </li>
@@ -104,11 +104,11 @@
                     ${requestScope.countPerPage} ${requestScope.pageSize}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                    <li><a class="dropdown-item" href="javascript:insertParam('${s.paramPageSize}', '5');">5</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('${s.paramPageSize}', '10');">10</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('${s.paramPageSize}', '20');">20</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('${s.paramPageSize}', '50');">50</a></li>
-                    <li><a class="dropdown-item" href="javascript:insertParam('${s.paramPageSize}', '100');">100</a>
+                    <li><a class="dropdown-item" href="javascript:insertParam('${S.paramPageSize}', '5');">5</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('${S.paramPageSize}', '10');">10</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('${S.paramPageSize}', '20');">20</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('${S.paramPageSize}', '50');">50</a></li>
+                    <li><a class="dropdown-item" href="javascript:insertParam('${S.paramPageSize}', '100');">100</a>
                     </li>
                 </ul>
             </div>

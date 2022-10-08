@@ -3,7 +3,7 @@
 
 <div class="form-group">
     <label class="control-label my-2" for="userPassword">${langPasswordLabel}</label>
-    <input id="userPassword" name="${s.inputPassword}" type="password" placeholder="${langPasswordPlaceholder}"
+    <input id="userPassword" name="${S.inputPassword}" type="password" placeholder="${langPasswordPlaceholder}"
            class="form-control input-md" required
            value="${sessionScope.role != Role.GUEST && requestScope.user.id > 0
            ? requestScope.user.password

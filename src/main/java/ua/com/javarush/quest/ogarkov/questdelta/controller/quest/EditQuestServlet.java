@@ -5,9 +5,10 @@ import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
-import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.EditorService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -15,38 +16,34 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
-
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "editQuest", value = EDIT_QUEST)
+@WebServlet(Go.EDIT_QUEST)
 public class EditQuestServlet extends HttpServlet {
 
     @Serial
     private static final long serialVersionUID = 7582798421846485830L;
     private final QuestService questService = QuestService.INSTANCE;
-    private final QuestionService questionService = QuestionService.INSTANCE;
-    private final ImageService imageService = ImageService.INSTANCE;
+    private final EditorService editorService = EditorService.INSTANCE;
+    private final Setting S = Setting.get();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id = ReqParser.getLong(req, "id");
+        long id = ReqParser.getLong(req, S.paramId);
         Optional<Quest> optQuest = questService.get(id);
-        optQuest.ifPresent(quest -> req.setAttribute("quest", quest));
-        Jsp.forward(req, resp, "/quest/editQuest");
+        optQuest.ifPresent(quest -> req.setAttribute(S.attrQuest, quest));
+        Jsp.forward(req, resp, S.jspEditQuest);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-
-        long id = ReqParser.getLong(req, "id");
+        long id = ReqParser.getLong(req, S.paramId);
         boolean present = questService.get(id).isPresent();
-        if (present && req.getParameter("update") != null) {
+        if (present && req.getParameter(S.inputUpdate) != null) {
             questService.update(req);
-        } else if (!present && req.getParameter("create") != null) {
+        } else if (!present && req.getParameter(S.inputCreate) != null) {
             Quest quest = questService.create(req);
             id = quest.getId();
         }
-        Jsp.redirect(req, resp, EDIT_QUEST_CONTENT + "?id=" + id);
-
+        Jsp.redirect(req, resp, editorService.getEditPath(id));
     }
 }

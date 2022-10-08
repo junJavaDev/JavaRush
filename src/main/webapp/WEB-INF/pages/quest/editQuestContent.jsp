@@ -10,7 +10,7 @@
                 <p class="fw-normal fs-6 fw-bold mt-2 mb-1 text-center">
                     ${requestScope.quest.name}
                     <a class="text-decoration-none"
-                       href="${rootPath}${s.editQuest}?${s.paramId}=${param.id}">
+                       href="${rootPath}${Go.EDIT_QUEST}?${S.paramId}=${param.id}">
                         ${langPencilBtn}
                     </a>
                 </p>
@@ -32,7 +32,7 @@
                             <c:forEach var="question" items="${requestScope.quest.questions}" varStatus="loop">
                                 <tr ${question.id == requestScope.question.id
                                         ?  "class='table-secondary'"
-                                        :  ""} onclick="insertParam('${s.paramQuestionIndex}', '${loop.index}');">
+                                        :  ""} onclick="insertParam('${S.paramQuestionIndex}', '${loop.index}');">
                                     <th scope="row">${loop.count}</th>
                                     <td>${question.name}</td>
                                     <td>${question.answers.size()}</td>
@@ -40,7 +40,7 @@
                                         <fmt:message key="game_state.${question.gameState.name().toLowerCase()}"/>
                                     </td>
                                     <td><a class="link-primary text-decoration-none"
-                                           href="javascript:postToUrl('${rootPath}${s.editQuestContent}?${s.paramId}=${param.id}', {'${s.paramQuestionDelete}':'${question.id}'});">
+                                           href="javascript:postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramQuestionDelete}':'${question.id}'});">
                                             ${langTableDelete}
                                     </a>
                                     </td>
@@ -53,11 +53,11 @@
 
                 <div class="d-flex justify-content-between m-3">
                     <button class="btn btn-outline-danger" type="button"
-                            onclick="postToUrl('${rootPath}${s.editQuestContent}?${s.paramId}=${param.id}', {'${s.paramQuestDelete}':'${param.id}'});">
+                            onclick="postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramQuestDelete}':'${param.id}'});">
                         ${langQuestDeleteBtn}
                     </button>
                     <button class="btn btn-outline-secondary" type="button"
-                            onclick="postToUrl('${rootPath}${s.editQuestContent}?${s.paramId}=${param.id}', {'${s.paramQuestionCreate}':'${langCreateBtn}'});">
+                            onclick="postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramQuestionCreate}':'${langCreateBtn}'});">
                         ${langQuestionAddBtn}
                     </button>
                 </div>
@@ -72,7 +72,7 @@
                     <p class="fw-normal fs-6 fw-bold mt-2 mb-1 text-center">${requestScope.question.name}</p>
 
                     <form class="needs-validation mx-3" novalidate
-                          action="${rootPath}${s.editQuestContent}?${s.paramId}=${param.id}&${s.paramQuestionIndex}=${param.questionIndex}"
+                          action="${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}&${S.paramQuestionIndex}=${param.questionIndex}"
                           method="post" enctype="multipart/form-data">
 
                         <%---------------- Labels -------------%>
@@ -102,12 +102,12 @@
                                         <div class="col-md-12 my-2 qe-img-box">
                                             <c:choose>
                                                 <c:when test="${requestScope.question.image != null}">
-                                                    <img src="${rootPath}${s.imgDir}${requestScope.question.image}"
+                                                    <img src="${rootPath}${S.imgDir}${requestScope.question.image}"
                                                          class="img-thumbnail d-block mx-auto quest-editor-image"
                                                          alt="${langImage}">
                                                 </c:when>
                                                 <c:otherwise>
-                                                    <img src="${rootPath}${s.imgDir}${s.defaultImage}"
+                                                    <img src="${rootPath}${S.imgDir}${S.defaultImage}"
                                                          class="img-thumbnail d-block mx-auto quest-editor-image"
                                                          alt="${langImage}">
                                                 </c:otherwise>
@@ -120,7 +120,7 @@
                             <div class="col-md-7 mb-2">
                                 <div class="h-100">
                                     <textarea class="form-control quest-editor-text" id="textarea"
-                                              name="${s.inputText}"
+                                              name="${S.inputText}"
                                               placeholder="${langQuestionTextPlaceholder}"
                                               required>${requestScope.question.text}</textarea>
                                 </div>
@@ -130,16 +130,16 @@
                         <div class="row mb-2">
                             <div class="col-md-6">
                                 <label class="form-label my-2" for="questionImage">${langImage}</label>
-                                <input id="questionImage" name="${s.inputImage}" type="file"
+                                <input id="questionImage" name="${S.inputImage}" type="file"
                                        class="form-control form-control-sm input-md">
                             </div>
                             <div class="col-md-3">
                                 <!-- Select Basic -->
                                 <label class="form-label my-2"
                                        for="questionGameState">${langQuestionState}</label>
-                                <select id="questionGameState" name="${s.inputGameState}"
+                                <select id="questionGameState" name="${S.inputGameState}"
                                         class="form-select form-select-sm">
-                                    <c:forEach items="${applicationScope.gameStates}" var="gameState">
+                                    <c:forEach items="${GameState.values()}" var="gameState">
                                         <option value="${gameState}" ${gameState==requestScope.question.gameState?"selected":""}>
                                             <fmt:message key="game_state.${gameState.name().toLowerCase()}"/>
                                         </option>
@@ -149,7 +149,7 @@
 
                             <!-- Button -->
                             <div class="col-md-3 align-self-end text-end">
-                                <button class="btn btn-outline-secondary" id="update" name="${s.paramQuestionUpdate}">
+                                <button class="btn btn-outline-secondary" id="update" name="${S.paramQuestionUpdate}">
                                     ${langSaveBtn}
                                 </button>
                             </div>
@@ -179,11 +179,11 @@
                                                         <td>${entry.key.text}</td>
                                                         <td><a class="link-primary text-decoration-none"
                                                                 <c:set var="answerIndex">${requestScope.quest.questions.indexOf(entry.value)}</c:set>
-                                                               href="javascript:insertParam('${s.paramQuestionIndex}', '${answerIndex}');">
+                                                               href="javascript:insertParam('${S.paramQuestionIndex}', '${answerIndex}');">
                                                                 ${answerIndex+1} ${entry.value.name}
                                                         </a></td>
                                                         <td><a class="link-primary text-decoration-none"
-                                                               href="javascript:postToUrl('${rootPath}${s.editQuestContent}?${s.paramId}=${param.id}', {'${s.paramAnswerDelete}':'${entry.key.id}'});">
+                                                               href="javascript:postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramAnswerDelete}':'${entry.key.id}'});">
                                                                 ${langTableDelete}
                                                         </a>
                                                         </td>
@@ -196,15 +196,15 @@
                                     <div class="col-md-5">
 
                                         <form class="needs-validation"
-                                              action="${rootPath}${s.editQuestContent}?${s.paramId}=${param.id}&${s.paramQuestionIndex}=${param.questionIndex}"
+                                              action="${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}&${S.paramQuestionIndex}=${param.questionIndex}"
                                               method="post" novalidate>
 
                                             <label class="form-label" for="answerText">${langAnswerText}</label>
-                                            <input id="answerText" name="${s.inputAnswer}" type="text"
+                                            <input id="answerText" name="${S.inputAnswer}" type="text"
                                                    placeholder="${langAnswerTextPlaceholder}"
                                                    class="form-control form-control-sm input-md mb-1" required>
 
-                                            <select class="form-select form-select-sm" name="${s.inputNextQuestionId}"
+                                            <select class="form-select form-select-sm" name="${S.inputNextQuestionId}"
                                                     aria-label="" required>
                                                 <option selected disabled value="">${langChooseQuestion}</option>
                                                 <c:forEach var="question" items="${requestScope.quest.questions}"
@@ -218,7 +218,7 @@
 
                                             <div class="d-flex flex-column align-items-end my-3">
                                                 <button class="btn btn-outline-secondary" type="submit"
-                                                        id="submitAnswer" name="${s.answerCreateBtn}">
+                                                        id="submitAnswer" name="${S.paramAnswerCreate}">
                                                         ${langAddAnswer}
                                                 </button>
                                             </div>

@@ -4,7 +4,7 @@
 
 <div class="container-md">
     <form class="form-horizontal needs-validation"
-          action="${rootPath}${s.editQuest}?${s.paramId}=${param.id}" method="post"
+          action="${rootPath}${Go.EDIT_QUEST}?${S.paramId}=${param.id}" method="post"
           enctype="multipart/form-data" novalidate>
         <div class="row justify-content-md-center">
 
@@ -23,7 +23,7 @@
                             <!-- Name input-->
                             <div class="form-group">
                                 <label class="control-label mb-2" for="questName">${langQuestName}</label>
-                                <input id="questName" name="${s.paramName}" type="text"
+                                <input id="questName" name="${S.inputName}" type="text"
                                        placeholder="${langQuestNamePlaceholder}"
                                        class="form-control input-md" required
                                        value="${requestScope.quest.name}">
@@ -41,13 +41,13 @@
                             <!--Image input-->
                             <div class="form-group">
                                 <label class="control-label my-2" for="questImage">${langQuestImage}</label>
-                                <input id="questImage" name="${s.inputImage}" type="file" class="form-control input-md">
+                                <input id="questImage" name="${S.inputImage}" type="file" class="form-control input-md">
                             </div>
 
                             <!-- Button -->
                             <div class="form-group text-center">
                                 <button class="btn btn-outline-secondary mx-auto my-4" id="submit"
-                                        name="${requestScope.quest.id > 0 ? s.updateBtn : s.createBtn}">
+                                        name="${requestScope.quest.id > 0 ? S.inputUpdate : S.inputCreate}">
                                     ${requestScope.quest.id > 0 ? langUpdateBtn : langCreateBtn}
                                 </button>
                             </div>

@@ -5,7 +5,7 @@
 <div class="card align-items-center mx-auto my-3 w500">
     <p class="fw-normal fs-4 my-3 mx-auto">${loginFormLegend}</p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${s.login}"
+    <form class="form-horizontal needs-validation" action="${rootPath}${Go.LOGIN}"
           method="post" novalidate>
         <fieldset class="w400">
             <div class="row">
@@ -16,7 +16,7 @@
             </div>
             <!-- Button -->
             <div class="d-flex justify-content-around my-3">
-                <button class="btn btn-outline-secondary" id="submit" name="${s.signInBtn}">
+                <button class="btn btn-outline-secondary" id="submit" name="${S.inputSignIn}">
                     ${langSignInBtn}
                 </button>
             </div>

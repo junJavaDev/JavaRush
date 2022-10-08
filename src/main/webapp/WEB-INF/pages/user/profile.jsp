@@ -5,7 +5,7 @@
 <div class="card align-items-center mx-auto my-3 w500">
     <h5 class="card-title my-3">${requestScope.user.login}</h5>
 
-    <img src="${rootPath}${s.imgDir}${requestScope.user.avatar != null ? requestScope.user.avatar : s.defaultAvatar}"
+    <img src="${rootPath}${S.imgDir}${requestScope.user.avatar != null ? requestScope.user.avatar : S.defaultAvatar}"
          class="img-thumbnail rounded d-block profile-image"
          alt="${langAvatarLabel}">
 
@@ -42,13 +42,13 @@
 
     <c:if test="${sessionScope.user.id == param.id && sessionScope.role != Role.ADMIN}">
         <button class="btn btn-outline-secondary mx-auto my-3" type="button"
-                onclick="document.location='${rootPath}${s.profileEdit}?${s.paramId}=${param.id}'">
+                onclick="document.location='${rootPath}${Go.EDIT_PROFILE}?${S.paramId}=${param.id}'">
                 ${langEditProfile}
         </button>
     </c:if>
     <c:if test="${sessionScope.role == Role.ADMIN}">
         <button class="btn btn-outline-secondary mx-auto my-3" type="button"
-                onclick="document.location='${rootPath}${s.editUser}?${s.paramId}=${param.id}'">
+                onclick="document.location='${rootPath}${Go.EDIT_USER}?${S.paramId}=${param.id}'">
                 ${langEditUser}
         </button>
     </c:if>

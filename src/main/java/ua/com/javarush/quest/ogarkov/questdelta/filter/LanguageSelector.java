@@ -11,13 +11,14 @@ import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.DEFAULT_LANGUAGE;
-
 @WebFilter(value = "/*")
 public class LanguageSelector implements Filter {
+
+    private final Setting S = Setting.get();
 
     @Override
     @SneakyThrows
@@ -42,7 +43,7 @@ public class LanguageSelector implements Filter {
                     .map(user -> ((User) user)
                             .getLanguage()
                             .name())
-                    .orElseGet(DEFAULT_LANGUAGE::name));
+                    .orElse(S.defaultLanguage));
         }
         chain.doFilter(request, response);
     }

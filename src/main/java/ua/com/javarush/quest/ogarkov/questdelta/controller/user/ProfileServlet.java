@@ -9,6 +9,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.entity.GameState;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.GameSessionService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -16,10 +17,8 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.PROFILE;
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.ROOT;
 
-@WebServlet(name = "profileServlet", value = PROFILE)
+@WebServlet(name = "profileServlet", value = Go.PROFILE)
 public class ProfileServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 856906541196618136L;
@@ -39,7 +38,7 @@ public class ProfileServlet extends HttpServlet {
             request.setAttribute("wins", wins);
             request.setAttribute("loses", loses);
             Jsp.forward(request, response, "/user/profile");
-        } else Jsp.redirect(request, response, ROOT);
+        } else Jsp.redirect(request, response, Go.ROOT);
 
 
     }

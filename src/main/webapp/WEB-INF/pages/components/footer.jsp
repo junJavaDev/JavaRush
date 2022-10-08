@@ -7,10 +7,10 @@
         <p class="text-center text-muted">${langFooterCopyright}</p>
     </footer>
 </div>
-<script crossorigin="anonymous" src="${rootPath}${s.jsDir}${s.bootstrap}"></script>
-<script type="text/javascript" src="${rootPath}${s.jsDir}${s.insertParam}"></script>
-<script type="text/javascript" src="${rootPath}${s.jsDir}${s.postToUrl}"></script>
-<script type="text/javascript" src="${rootPath}${s.jsDir}${s.formValidation}"></script>
+<script crossorigin="anonymous" src="${rootPath}${S.jsDir}${S.bootstrap}"></script>
+<script type="text/javascript" src="${rootPath}${S.jsDir}${S.insertParam}"></script>
+<script type="text/javascript" src="${rootPath}${S.jsDir}${S.postToUrl}"></script>
+<script type="text/javascript" src="${rootPath}${S.jsDir}${S.formValidation}"></script>
 <%@ include file="/WEB-INF/pages/components/bodyCloseTags.txt" %>
 
 

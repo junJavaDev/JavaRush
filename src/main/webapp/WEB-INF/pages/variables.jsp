@@ -1,12 +1,12 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<jsp:useBean id="s" scope="application" type="ua.com.javarush.quest.ogarkov.questdelta.settings.Setting"/>
-<%--<jsp:useBean id="user" scope="session" type="ua.com.javarush.quest.ogarkov.questdelta.entity.User"/>--%>
-<c:set var="rootPath">${pageContext.request.contextPath}</c:set>
+<%@ page import="ua.com.javarush.quest.ogarkov.questdelta.settings.Go" %>
 <%@ page import="ua.com.javarush.quest.ogarkov.questdelta.entity.Role" %>
 <%@ page import="ua.com.javarush.quest.ogarkov.questdelta.entity.Language" %>
 <%@ page import="ua.com.javarush.quest.ogarkov.questdelta.entity.GameState" %>
+<c:set var="rootPath">${pageContext.request.contextPath}</c:set>
+<jsp:useBean id="S" scope="application" type="ua.com.javarush.quest.ogarkov.questdelta.settings.Setting"/>
 
 
 <fmt:setLocale value="${sessionScope.lang}"/>

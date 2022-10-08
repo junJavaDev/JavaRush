@@ -3,7 +3,7 @@
 
 <div class="form-group">
     <label class="control-label my-2" for="userRole">${langRole}</label>
-    <select id="userRole" name="${s.inputRole}" class="form-control">
+    <select id="userRole" name="${S.inputRole}" class="form-control">
         <c:forEach items="${applicationScope.roles}" var="role">
             <c:if test="${role != Role.GUEST}">
 

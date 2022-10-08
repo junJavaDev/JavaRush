@@ -5,6 +5,8 @@ import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 
 import java.io.IOException;
@@ -12,15 +14,12 @@ import java.io.Serial;
 import java.util.Collection;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.DEFAULT_PAGE_SIZE;
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.USERS;
-import static ua.com.javarush.quest.ogarkov.questdelta.util.Params.*;
-
-@WebServlet(name = "UsersServlet", value = USERS)
+@WebServlet(Go.USERS)
 public class UsersServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = -8048051397301683584L;
     UserService userService = UserService.INSTANCE;
+    private final Setting S = Setting.get();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +33,7 @@ public class UsersServlet extends HttpServlet {
 
         int pageSize = pageSizeOpt
                 .map(Integer::parseInt)
-                .orElse(DEFAULT_PAGE_SIZE);
+                .orElse(S.defaultPageSize);
 
 
         int pages = usersCount / pageSize;
@@ -48,7 +47,7 @@ public class UsersServlet extends HttpServlet {
         Collection<User> users = userService.getAll(pageNumber, pageSize);
 
         request.setAttribute("pages", pages);
-        request.setAttribute("activePage", pageNumber);
+        request.setAttribute("pageNumber", pageNumber);
         request.setAttribute("pageSize", pageSize);
         request.setAttribute("users", users);
         Jsp.forward(request, response, "/user/editUsers");
@@ -62,6 +61,6 @@ public class UsersServlet extends HttpServlet {
             User pattern = User.with().id(id).build();
             userService.delete(pattern);
         }
-        Jsp.redirect(req, resp, USERS);
+        Jsp.redirect(req, resp, Go.USERS);
     }
 }

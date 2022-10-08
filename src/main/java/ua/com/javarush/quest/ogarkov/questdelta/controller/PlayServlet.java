@@ -10,6 +10,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.service.AnswerService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.GameSessionService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -19,7 +20,7 @@ import java.util.Optional;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
-@WebServlet(name = "playServlet", value = PLAY)
+@WebServlet(name = "playServlet", value = Go.PLAY)
 public class PlayServlet extends HttpServlet {
 
     GameSessionService gameSessionService = GameSessionService.INSTANCE;
@@ -55,7 +56,7 @@ public class PlayServlet extends HttpServlet {
                         req.setAttribute("question", question);
                         req.setAttribute("quest", quest);
                         Jsp.forward(req, resp, "/play");
-                } else Jsp.redirect(req, resp, QUESTS);
+                } else Jsp.redirect(req, resp, Go.QUESTS);
             } else if (!user.getGameSessions().isEmpty()) {
                 GameSession gameSession = gameSessionService.getLastGame(user);
                 long currentQuestionId = gameSession.getCurrentQuestionId();
@@ -68,8 +69,8 @@ public class PlayServlet extends HttpServlet {
                 req.setAttribute("question", question);
                 req.setAttribute("quest", questService.get(gameSession.getQuestId()).orElseThrow());
                 Jsp.forward(req, resp, "/play");
-            } else Jsp.redirect(req, resp, QUESTS);
-        } else Jsp.redirect(req, resp, LOGIN);
+            } else Jsp.redirect(req, resp, Go.QUESTS);
+        } else Jsp.redirect(req, resp, Go.LOGIN);
     }
 
     @Override
@@ -93,7 +94,7 @@ public class PlayServlet extends HttpServlet {
                 req.setAttribute("quest", quest);
                 Jsp.forward(req, resp, "/play");
             } else {
-                Jsp.redirect(req, resp, PLAY + "?id=" + questId);
+                Jsp.redirect(req, resp, Go.PLAY + "?id=" + questId);
             }
 
         } else {
@@ -112,8 +113,8 @@ public class PlayServlet extends HttpServlet {
                 Jsp.forward(req, resp, "/play");
             } else if (answerId == -2) {
                user.getGameSessions().remove(gameSession);
-               Jsp.redirect(req, resp, QUESTS);
-            } else Jsp.redirect(req, resp, PLAY + "?id=" + questId);
+               Jsp.redirect(req, resp, Go.QUESTS);
+            } else Jsp.redirect(req, resp, Go.PLAY + "?id=" + questId);
 
         }
     }

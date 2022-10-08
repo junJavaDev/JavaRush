@@ -8,7 +8,7 @@
         ${langEditProfileLegend}
     </p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${s.profileEdit}" method="post"
+    <form class="form-horizontal needs-validation" action="${rootPath}${Go.EDIT_PROFILE}" method="post"
           enctype="multipart/form-data" novalidate>
 
         <fieldset class="w400">
@@ -23,7 +23,7 @@
 
                 <!-- Buttons -->
                 <div class="d-flex justify-content-around my-3">
-                    <button id="submit" name="${s.updateBtn}"
+                    <button id="submit" name="${S.inputUpdate}"
                             class="btn btn-outline-secondary">
                         ${langUpdateBtn}
                     </button>

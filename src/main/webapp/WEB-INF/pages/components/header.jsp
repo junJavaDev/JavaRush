@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ include file="/WEB-INF/pages/components/variables.jsp" %>
+<%@ include file="/WEB-INF/pages/variables.jsp" %>
 
 <!DOCTYPE html>
 <html>
@@ -37,20 +37,20 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item"
-                                           href="${rootPath}${s.users}">${langUsersEdit}</a></li>
+                                           href="${rootPath}${Go.USERS}">${langUsersEdit}</a></li>
                                     <li><a class="dropdown-item"
-                                           href="${rootPath}${s.editQuests}">${langQuestsEdit}</a></li>
+                                           href="${rootPath}${Go.EDIT_QUESTS}">${langQuestsEdit}</a></li>
                                     <li><a class="dropdown-item"
-                                           href='${rootPath}${s.editUser}?${s.paramId}=${s.zero}'>${langUserCreate}</a></li>
+                                           href='${rootPath}${Go.EDIT_USER}?${S.paramId}=${S.zero}'>${langUserCreate}</a></li>
                                     <li><a class="dropdown-item"
-                                           href='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'>${langQuestCreate}</a></li>
+                                           href='${rootPath}${Go.EDIT_QUEST}?${S.paramId}=${S.zero}'>${langQuestCreate}</a></li>
                                 </ul>
                             </li>
                         </c:if>
                         <c:if test="${sessionScope.role == Role.USER}">
                             <li class="nav-item">
                                 <a class="nav-link px-2 link-dark"
-                                   href='${rootPath}${s.editQuest}?${s.paramId}=${s.zero}'>${langQuestCreate}</a>
+                                   href='${rootPath}${Go.EDIT_QUEST}?${S.paramId}=${S.zero}'>${langQuestCreate}</a>
                             </li>
                         </c:if>
                     </ul>
@@ -68,15 +68,15 @@
                     <ul class="nav">
                         <c:choose>
                             <c:when test="${not empty sessionScope.user}">
-                                <li><a href="${rootPath}${s.profile}?${s.paramId}=${sessionScope.user.id}"
+                                <li><a href="${rootPath}${Go.PROFILE}?${S.paramId}=${sessionScope.user.id}"
                                        class="nav-link px-2 link-dark"><b>${sessionScope.user.login}</b></a></li>
-                                <li><a href="${rootPath}${s.logout}"
+                                <li><a href="${rootPath}${Go.LOGOUT}"
                                        class="nav-link px-2 link-dark">${langLogout}</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="${rootPath}${s.login}"
+                                <li><a href="${rootPath}${Go.LOGIN}"
                                        class="nav-link px-2 link-dark">${langLogin}</a></li>
-                                <li><a href="${rootPath}${s.signup}"
+                                <li><a href="${rootPath}${Go.SIGNUP}"
                                        class="nav-link px-2 link-dark">${langSignup}</a>
                                 </li>
                             </c:otherwise>
@@ -89,10 +89,10 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item"
-                                       href="javascript:insertParam('${s.paramLang}', '${Language.RU}');">${langLanguageRU}</a>
+                                       href="javascript:insertParam('${S.paramLang}', '${Language.RU}');">${langLanguageRU}</a>
                                 </li>
                                 <li><a class="dropdown-item"
-                                       href="javascript:insertParam('${s.paramLang}', '${Language.EN}');">${langLanguageEN}</a>
+                                       href="javascript:insertParam('${S.paramLang}', '${Language.EN}');">${langLanguageEN}</a>
                                 </li>
                             </ul>
                         </li>

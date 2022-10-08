@@ -10,6 +10,7 @@ import jakarta.servlet.http.Part;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.ImageService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -20,7 +21,7 @@ import java.util.Optional;
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
-@WebServlet(name = "EditProfileServlet", value = PROFILE_EDIT)
+@WebServlet(name = "EditProfileServlet", value = Go.EDIT_PROFILE)
 public class EditProfileServlet extends HttpServlet {
 
 
@@ -63,7 +64,7 @@ public class EditProfileServlet extends HttpServlet {
             if (isUploaded) {
                 user.setAvatar(avatar);
             }
-            Jsp.redirect(req, resp, PROFILE + "?id=" + user.getId());
-        } else Jsp.redirect(req, resp, LOGIN);
+            Jsp.redirect(req, resp, Go.PROFILE + "?id=" + user.getId());
+        } else Jsp.redirect(req, resp, Go.LOGIN);
     }
 }

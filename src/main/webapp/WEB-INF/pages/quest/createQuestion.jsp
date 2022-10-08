@@ -6,7 +6,7 @@
 <div class="card align-items-center mx-auto my-3 w500">
     <p class="fw-normal fs-4 my-3 mx-auto">${langQuestionCreateLegend}</p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${s.createQuestion}?${s.paramId}=${param.id}"
+    <form class="form-horizontal needs-validation" action="${rootPath}${Go.CREATE_QUESTION}?${S.paramId}=${param.id}"
           method="post" enctype="multipart/form-data" novalidate>
         <fieldset>
 
@@ -14,8 +14,8 @@
             <div class="form-group">
                 <label class="col-md-4 control-label  my-2" for="questionGameState">${langQuestionState}</label>
                 <div class="col-md-4 w400">
-                    <select id="questionGameState" name="${s.inputGameState}" class="form-control">
-                        <c:forEach items="${applicationScope.gameStates}" var="gameState">
+                    <select id="questionGameState" name="${S.inputGameState}" class="form-control">
+                        <c:forEach items="${GameState.values()}" var="gameState">
                             <option value="${gameState}" ${gameState==GameState.PLAY?"selected":""}>
                                 <fmt:message key="game_state.${gameState.name().toLowerCase()}"/>
                             </option>
@@ -29,7 +29,7 @@
             <div class="form-group">
                 <label class="col-md-4 control-label my-2" for="questionName">${langQuestionName}</label>
                 <div class="col-md-4 w400">
-                    <input id="questionName" name="${s.paramName}" type="text"
+                    <input id="questionName" name="${S.inputName}" type="text"
                            placeholder="${langQuestionNamePlaceholder}"
                            class="form-control input-md" required>
 
@@ -49,13 +49,13 @@
             <div class="form-group">
                 <label class="col-md-4 control-label my-2" for="questionImage">${langImage}</label>
                 <div class="col-md-4 w400">
-                    <input id="questionImage" name="${s.inputImage}" type="file" class="form-control input-md">
+                    <input id="questionImage" name="${S.inputImage}" type="file" class="form-control input-md">
                 </div>
             </div>
 
             <!-- Button -->
             <div class="form-group text-center">
-                <button class="btn btn-outline-secondary mx-auto my-4" id="submit" name="${s.createBtn}">
+                <button class="btn btn-outline-secondary mx-auto my-4" id="submit" name="${S.inputCreate}">
                     ${langCreateBtn}
                 </button>
             </div>

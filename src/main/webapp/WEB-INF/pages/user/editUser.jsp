@@ -16,7 +16,7 @@
         </c:choose>
     </p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${s.editUser}?${s.paramId}=${param.id}" method="post"
+    <form class="form-horizontal needs-validation" action="${rootPath}${Go.EDIT_USER}?${S.paramId}=${param.id}" method="post"
           enctype="multipart/form-data" novalidate>
         <fieldset class="w400">
             <div class="row">
@@ -42,12 +42,12 @@
                 <%@ include file="/WEB-INF/pages/user/form-elements/avatarInput.jsp" %>
                 <!-- Buttons -->
                 <div class="d-flex justify-content-around my-3">
-                    <button id="submit" name="${requestScope.user.id>0?s.updateBtn:s.createBtn}"
+                    <button id="submit" name="${requestScope.user.id>0?S.inputUpdate:S.inputCreate}"
                             class="btn btn-outline-secondary">
                         ${requestScope.user.id> 0 ? langUpdateBtn : langCreateBtn}
                     </button>
                     <c:if test="${requestScope.user.id> 0 && requestScope.user.id != sessionScope.user.id}">
-                        <button id="delete" name="${s.deleteBtn}" class="btn btn-danger">${langDeleteBtn}</button>
+                        <button id="delete" name="${S.inputDelete}" class="btn btn-danger">${langDeleteBtn}</button>
                     </c:if>
                 </div>
             </div>

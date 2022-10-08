@@ -3,73 +3,103 @@ package ua.com.javarush.quest.ogarkov.questdelta.settings;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.yaml.snakeyaml.Yaml;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.net.URL;
+import java.util.Map;
 import java.util.Objects;
 
+import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
+
 @Getter
-@Setter(AccessLevel.PROTECTED)
+//@Setter(AccessLevel.PROTECTED)
 public class Setting {
 
-//    private static final String SETTING_YAML = "ogarkov/setting.yaml";
+    private static final String SETTING_YAML = "setting.yaml";
 
-    //==================================== DATA ===============================================
-    private int defaultPageSize;
-    private String root;
-    private String users;
-    private String login;
-    private String signup;
-    private String profile;
-    private String logout;
-    private String editQuests;
-    private String editQuestContent;
-    private String editQuest;
-    private String editUser;
-    private String createQuestion;
-    private String about;
-    private String paramId;
-    private String paramPageNumber;
-    private String paramPageSize;
-    private String paramName;
-    private String paramLang;
-    private String paramQuestionIndex;
-    private String paramQuestionDelete;
-    private String paramQuestionCreate;
-    private String paramQuestionUpdate;
-    private String paramQuestDelete;
-    private String paramAnswerDelete;
-    private String inputImage;
-    private String inputLogin;
-    private String inputKeyword;
-    private String inputPassword;
-    private String inputRole;
-    private String inputText;
-    private String inputAnswer;
-    private String inputNextQuestionId;
-    private String inputGameState;
-    private String imgDir;
-    private String profileEdit;
-    private String signInBtn;
-    private String updateBtn;
-    private String createBtn;
-    private String deleteBtn;
-    private String answerCreateBtn;
-    private String zero;
-    private String quests;
-    private String play;
-    private String statistics;
-    private String jsDir;
-    private String imageAbout;
-    private String bootstrap;
-    private String insertParam;
-    private String postToUrl;
-    private String formValidation;
-    private String defaultAvatar;
-    private String defaultImage;
-    private String helpDir;
-    private String twineDir;
-    private Language defaultLanguage;
+    //==================================== DATA updateable from Yaml ===============================================
+    public final int defaultPageNumber = set(DEFAULT_PAGE_NUMBER);
+    public final int defaultPageSize = set(DEFAULT_PAGE_SIZE);
+    public final String paramId = set(PARAM_ID);
+    public final String paramPageNumber = set(PARAM_PAGE_NUMBER);
+    public final String paramPageSize = set(PARAM_PAGE_SIZE);
+    public final String inputName = set(INPUT_NAME);
+
+
+
+    public final String paramLang = set(PARAM_LANG);
+    public final String paramQuestionIndex = set(PARAM_QUESTION_INDEX);
+    public final String paramQuestionDelete = set(PARAM_QUESTION_DELETE);
+    public final String paramQuestionCreate = set(PARAM_QUESTION_CREATE);
+    public final String paramQuestionUpdate = set(PARAM_QUESTION_UPDATE);
+    public final String paramQuestDelete = set(PARAM_QUEST_DELETE);
+    public final String paramAnswerCreate = set(PARAM_ANSWER_CREATE);
+    public final String paramAnswerDelete = set(PARAM_ANSWER_DELETE);
+
+
+
+
+    public final String inputImage = set(INPUT_IMAGE);
+    public final String inputLogin = set(INPUT_LOGIN);
+    public final String inputKeyword = set(INPUT_KEYWORD);
+    public final String inputPassword = set(INPUT_PASSWORD);
+    public final String inputRole = set(INPUT_ROLE);
+    public final String inputText = set(INPUT_TEXT);
+    public final String inputAnswer = set(INPUT_ANSWER);
+    public final String inputNextQuestionId = set(INPUT_NEXT_QUESTION_ID);
+    public final String inputGameState = set(INPUT_GAME_STATE);
+    public final String imgDir = set(IMG_DIR);
+    public final String inputSignIn = set(INPUT_SIGN_IN);
+    public final String inputUpdate = set(INPUT_UPDATE);
+    public final String inputCreate = set(INPUT_CREATE);
+    public final String inputDelete = set(INPUT_DELETE);
+    public final String jsDir = set(JS_DIR);
+    public final String imageAbout = set(IMAGE_ABOUT);
+    public final String bootstrap = set(BOOTSTRAP);
+    public final String insertParam = set(INSERT_PARAM);
+    public final String postToUrl = set(POST_TO_URL);
+    public final String formValidation = set(FORM_VALIDATION);
+    public final String defaultAvatar = set(DEFAULT_AVATAR);
+    public final String defaultImage = set(DEFAULT_IMAGE);
+    public final String defaultLanguage = set(DEFAULT_LANGUAGE);
+
+
+    public final String helpDir = set(HELP_DIR);
+    public final String twineDir = set(TWINE_DIR);
+    public final String questsDir = set(QUESTS_DIR);
+
+
+    public final String attrRoles = set(ATTR_ROLES);
+    public final String attrUser = set(ATTR_USER);
+    public final String attrQuest = set(ATTR_QUEST);
+    public final String attrQuestion = set(ATTR_QUESTION);
+    public final String attrAnswers = set(ATTR_ANSWERS);
+    public final String attrOpenQuests = set(ATTR_OPEN_QUESTS);
+    public final String attrAuthors = set(ATTR_AUTHORS);
+    public final String attrPageSize = set(ATTR_PAGE_SIZE);
+    public final String attrPageNumber = set(ATTR_PAGE_NUMBER);
+    public final String attrPageCount = set(ATTR_PAGE_COUNT);
+    public final String attrQuests = set(ATTR_QUESTS);
+
+
+
+    public final String jspEditUser = set(JSP_EDIT_USER);
+    public final String jspCreateQuestion = set(JSP_CREATE_QUESTION);
+    public final String jspEditQuestContent = set(JSP_EDIT_QUEST_CONTENT);
+    public final String jspEditQuest = set(JSP_EDIT_QUEST);
+    public final String jspQuests = set(JSP_QUESTS);
+    public final String jspEditQuests = set(JSP_EDIT_QUESTS);
+    public final String jspAbout = set(JSP_ABOUT);
+
+    public final String zero = set(ZERO);
+    public final String[] emptyStringArray = set(EMPTY_STRING_ARRAY);
+    public final String deleted = set(DELETED);
+
+
     //==================================== /DATA ==============================================
 
     //============================ SAFE_THREAD_SINGLETON ======================================
@@ -91,46 +121,33 @@ public class Setting {
 
     //================================ INIT ========================================
     private Setting() {
-        loadFromDefault();
-//        updateFromYAML();
-    }
-
-    private void loadFromDefault() {
-        Field[] settingFields = Setting.class.getDeclaredFields();
-        Field[] defaultFields = Default.class.getDeclaredFields();
-        for (Field settingField : settingFields) {
-//            settingField.setAccessible(true);
-            String settingFieldName = settingField.getName().toLowerCase();
-            for (Field defaultField : defaultFields) {
-                String defaultFieldName = defaultField.getName().replaceAll("_", "").toLowerCase();
-                if (settingFieldName.equals(defaultFieldName)) {
-                    try {
-                        defaultField.setAccessible(true);
-                        settingField.set(this, defaultField.get(null));
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } finally {
-                        defaultField.setAccessible(false);
-                    }
-                }
-            }
-//            settingField.setAccessible(false);
-        }
+        updateFromYAML();
     }
 
     private void updateFromYAML() {
-//        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
-//        ObjectReader readerForSettingUpdating = mapper.readerForUpdating(this);
-//        URL settingResource = Setting.class.getClassLoader().getResource(SETTING_YAML);
-//        URL foodRationResource = Setting.class.getClassLoader().getResource(FOOD_RATION_YAML);
-//        if (Objects.nonNull(settingResource) && Objects.nonNull(foodRationResource)) {
-//            try {
-//                readerForSettingUpdating.readValue(settingResource.openStream());
-//                readerForSettingUpdating.readValue(foodRationResource.openStream());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        }
+        URL settingResource = Setting.class.getClassLoader().getResource(SETTING_YAML);
+        if (Objects.nonNull(settingResource)) {
+            try (InputStream inputStream = settingResource.openStream()) {
+                Yaml yaml = new Yaml();
+                Map<String, Object> parametersMap = yaml.load(inputStream);
+                Field[] settingFields = Setting.class.getDeclaredFields();
+                for (Field settingField : settingFields) {
+                    String name = settingField.getName();
+                    Object yamlParameter = parametersMap.get(name);
+                    if (yamlParameter != null) {
+                        settingField.setAccessible(true);
+                        settingField.set(this, parametersMap.get(name));
+                        settingField.setAccessible(false);
+                    }
+                }
+            } catch (IllegalAccessException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
-    //=============================== /INIT ========================================
+
+    private static <T> T set(T value) {
+        return value;
+    }
 }
+//=============================== /INIT ========================================

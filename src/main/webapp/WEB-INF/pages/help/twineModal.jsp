@@ -8,31 +8,31 @@
             </div>
             <div class="modal-body">
                 ${langTwineAbout}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}1.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}1.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwineShowPassages}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}2.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}2.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwineQuestionWithAnswers}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}3.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}3.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwineNoFormatting}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}4.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}4.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwineQuestion}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}5.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}5.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwineWin}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}6.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}6.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwineLose}
-                <img src="${rootPath}${s.imgDir}${s.helpDir}${s.twineDir}7.png"
+                <img src="${rootPath}${S.imgDir}${S.helpDir}${S.twineDir}7.png"
                      class="img-thumbnail d-block mx-auto"
                      alt="${langImage}">
                 ${langTwinePublishFile}
