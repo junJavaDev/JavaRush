@@ -21,6 +21,7 @@ public class Go {
     public static final String ABOUT = "/about";
     public static final String PLAY = "/play";
     public static final String STATISTICS = "/statistics";
+    public static final String IMAGES = "/images/*";
 
 
 }

@@ -18,7 +18,7 @@ import java.util.Objects;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
-@WebFilter({Go.USERS, Go.SIGNUP, Go.PROFILE, Go.LOGIN, Go.PLAY, Go.EDIT_PROFILE, Go.EDIT_USER, Go.LOGOUT, Go.USERS, Go.EDIT_QUEST, Go.CREATE_QUESTION, Go.EDIT_QUEST_CONTENT, Go.EDIT_QUESTS})
+@WebFilter({Go.USERS, Go.SIGNUP, Go.PROFILE, Go.LOGIN, Go.PLAY, Go.EDIT_PROFILE, Go.EDIT_USER, Go.LOGOUT, Go.USERS, Go.EDIT_QUEST, Go.EDIT_QUEST_CONTENT, Go.EDIT_QUESTS})
 public class RoleSelector implements Filter {
 
     private static final Setting S = Setting.get();
@@ -26,8 +26,8 @@ public class RoleSelector implements Filter {
 
     private final Map<Role, List<String>> uriMap = Map.of(
             Role.GUEST, List.of(Go.LOGIN, Go.SIGNUP, Go.EDIT_USER),
-            Role.USER, List.of(Go.PROFILE, Go.LOGOUT, Go.EDIT_PROFILE, Go.PLAY, Go.EDIT_QUEST, Go.CREATE_QUESTION, Go.EDIT_QUEST_CONTENT),
-            Role.ADMIN, List.of(Go.USERS, Go.PROFILE, Go.LOGOUT, Go.EDIT_USER, Go.EDIT_PROFILE, Go.EDIT_QUEST, Go.CREATE_QUESTION, Go.EDIT_QUEST_CONTENT, Go.PLAY, Go.EDIT_QUESTS)
+            Role.USER, List.of(Go.PROFILE, Go.LOGOUT, Go.EDIT_PROFILE, Go.PLAY, Go.EDIT_QUEST, Go.EDIT_QUEST_CONTENT),
+            Role.ADMIN, List.of(Go.USERS, Go.PROFILE, Go.LOGOUT, Go.EDIT_USER, Go.EDIT_PROFILE, Go.EDIT_QUEST, Go.EDIT_QUEST_CONTENT, Go.PLAY, Go.EDIT_QUESTS)
     );
 
     @Override

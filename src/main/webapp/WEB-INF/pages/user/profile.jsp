@@ -31,11 +31,11 @@
             <td class="text-start">${requestScope.user.quests.size()}</td>
         </tr>
         <tr>
-            <td class="text-end w200"><b>${langWins}</b></td>
+            <td class="text-end w200"><b>${langProfileWins}</b></td>
             <td class="text-start">${requestScope.wins}</td>
         </tr>
         <tr>
-            <td class="text-end w200"><b>${langLoses}</b></td>
+            <td class="text-end w200"><b>${langProfileLoses}</b></td>
             <td class="text-start">${requestScope.loses}</td>
         </tr>
     </table>

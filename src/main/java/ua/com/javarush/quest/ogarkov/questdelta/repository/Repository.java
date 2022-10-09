@@ -12,8 +12,6 @@ public interface Repository<T extends AbstractEntity> {
     Optional<T> get(long id);
 
     Collection<T> getAll();
-
-
     Collection<T> getAll(int pageNumber, int pageSize);
 
     void create(T entity);

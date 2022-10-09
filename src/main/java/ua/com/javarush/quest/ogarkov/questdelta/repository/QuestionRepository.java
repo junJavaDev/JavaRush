@@ -16,24 +16,6 @@ public class QuestionRepository extends AbstractRepository<Question> {
 
     private QuestionRepository() {
     }
-    
-    
-//    public QuestionRepository() {
-//        map.put(1L, Question.with()
-//                .id(1L).questId("user").password("qwerty")
-//                .avatar("no_image").role(Role.USER).language(Language.EN).build());
-//    }
-//    @Override
-//    public Collection<Question> find(Question pattern) {
-//        return map.values().stream()
-//                .filter(question -> isOk(pattern, question, Question::getId)
-//                        && isOk(pattern, question, Question::getQuestId)
-//                        && isOk(pattern, question, Question::getImage)
-//                        && isOk(pattern, question, Question::getAnswers)
-//                        && isOk(pattern, question, Question::getText))
-//                .toList();
-//    }
-
 
     @Override
     public Collection<Question> find(Question pattern) {

@@ -3,8 +3,11 @@ package ua.com.javarush.quest.ogarkov.questdelta.controller.quest;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.EditorService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
@@ -28,9 +31,12 @@ public class EditQuestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id = ReqParser.getLong(req, S.paramId);
-        Optional<Quest> optQuest = questService.get(id);
-        optQuest.ifPresent(quest -> req.setAttribute(S.attrQuest, quest));
+        User user = ReqParser.getUser(req).orElseThrow();
+        Optional<Quest> optQuest = questService.get(ReqParser.getId(req));
+        if (optQuest.isPresent() && editorService.checkRights(optQuest.get(), user)) {
+            Quest quest = optQuest.get();
+            req.setAttribute(S.attrQuest, quest);
+        }
         Jsp.forward(req, resp, S.jspEditQuest);
     }
 

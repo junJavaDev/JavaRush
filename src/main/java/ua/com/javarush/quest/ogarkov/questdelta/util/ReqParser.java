@@ -3,11 +3,17 @@ package ua.com.javarush.quest.ogarkov.questdelta.util;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.experimental.UtilityClass;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.GameSession;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
+
 import java.util.Optional;
 
 @UtilityClass
 public class ReqParser {
+
+    private final Setting S = Setting.get();
 
     public String getFileExtension(String fileName) {
         String extension = "";
@@ -27,7 +33,12 @@ public class ReqParser {
 
     public Long getLong(HttpServletRequest req, String key) {
         String inputId = req.getParameter(key);
-        return positiveLong(inputId);
+        return parseLong(inputId);
+    }
+
+    public Long getId(HttpServletRequest req) {
+        String inputId = req.getParameter(S.paramId);
+        return parseLong(inputId);
     }
 
     public Optional<User> getUser(HttpServletRequest req) {
@@ -36,13 +47,14 @@ public class ReqParser {
         return getOptional(User.class, user);
     }
 
+
     private <T> Optional<T> getOptional(Class<T> clazz, Object o) {
         return o != null
                 ? Optional.of(clazz.cast(o))
                 : Optional.empty();
     }
 
-    public long positiveLong(String param) {
+    private long parseLong(String param) {
         long longParam = 0;
         if (param == null || param.isEmpty()) return longParam;
         try {

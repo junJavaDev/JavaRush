@@ -52,12 +52,10 @@ public class Setting {
     public final String inputAnswer = set(INPUT_ANSWER);
     public final String inputNextQuestionId = set(INPUT_NEXT_QUESTION_ID);
     public final String inputGameState = set(INPUT_GAME_STATE);
-    public final String imgDir = set(IMG_DIR);
     public final String inputSignIn = set(INPUT_SIGN_IN);
     public final String inputUpdate = set(INPUT_UPDATE);
     public final String inputCreate = set(INPUT_CREATE);
     public final String inputDelete = set(INPUT_DELETE);
-    public final String jsDir = set(JS_DIR);
     public final String imageAbout = set(IMAGE_ABOUT);
     public final String bootstrap = set(BOOTSTRAP);
     public final String insertParam = set(INSERT_PARAM);
@@ -67,11 +65,11 @@ public class Setting {
     public final String defaultImage = set(DEFAULT_IMAGE);
     public final String defaultLanguage = set(DEFAULT_LANGUAGE);
 
-
     public final String helpDir = set(HELP_DIR);
     public final String twineDir = set(TWINE_DIR);
     public final String questsDir = set(QUESTS_DIR);
-
+    public final String jsDir = set(JS_DIR);
+    public final String imgDir = set(IMG_DIR);
 
     public final String attrRoles = set(ATTR_ROLES);
     public final String attrUser = set(ATTR_USER);
@@ -85,19 +83,41 @@ public class Setting {
     public final String attrPageCount = set(ATTR_PAGE_COUNT);
     public final String attrQuests = set(ATTR_QUESTS);
 
+    public final String attrUsersRegistered = set(ATTR_USERS_REGISTERED);
+    public final String attrGamesPlayed = set(ATTR_GAMES_PLAYED);
+    public final String attrQuestCreated = set(ATTR_QUEST_CREATED);
+    public final String attrQuestionsCreated = set(ATTR_QUESTIONS_CREATED);
+    public final String attrAnswersCreated = set(ATTR_ANSWERS_CREATED);
+    public final String attrBestPlayerId = set(ATTR_BEST_PLAYER_ID);
+    public final String attrWorstPlayerId = set(ATTR_WORST_PLAYER_ID);
+    public final String attrMostPopularQuestId = set(ATTR_MOST_POPULAR_QUEST_ID);
+    public final String attrBestPlayerLogin = set(ATTR_BEST_PLAYER_LOGIN);
+    public final String attrWorstPlayerLogin = set(ATTR_WORST_PLAYER_LOGIN);
+    public final String attrMostPopularQuestName = set(ATTR_MOST_POPULAR_QUEST_NAME);
+    public final String attrBestPlayerWins = set(ATTR_BEST_PLAYER_WINS);
+    public final String attrWorstPlayerLoses = set(ATTR_WORST_PLAYER_LOSES);
+    public final String attrMostPopularQuestLaunches = set(ATTR_MOST_POPULAR_QUEST_LAUNCHES);
+
 
 
     public final String jspEditUser = set(JSP_EDIT_USER);
-    public final String jspCreateQuestion = set(JSP_CREATE_QUESTION);
+//    public final String jspCreateQuestion = set(JSP_CREATE_QUESTION);
     public final String jspEditQuestContent = set(JSP_EDIT_QUEST_CONTENT);
     public final String jspEditQuest = set(JSP_EDIT_QUEST);
     public final String jspQuests = set(JSP_QUESTS);
     public final String jspEditQuests = set(JSP_EDIT_QUESTS);
     public final String jspAbout = set(JSP_ABOUT);
+    public final String jspHome = set(JSP_HOME);
+    public final String jspStatistics = set(JSP_STATISTICS);
+    public final String jspPlay = set(JSP_PLAY);
 
     public final String zero = set(ZERO);
     public final String[] emptyStringArray = set(EMPTY_STRING_ARRAY);
     public final String deleted = set(DELETED);
+    public final String notExist = set(NOT_EXIST);
+
+    public final int playStartAgainValue = set(PLAY_START_AGAIN_VALUE);
+    public final int playCompleteValue = set(PLAY_COMPLETE_VALUE);
 
 
     //==================================== /DATA ==============================================

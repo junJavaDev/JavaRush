@@ -6,8 +6,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.*;
-import ua.com.javarush.quest.ogarkov.questdelta.service.*;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Answer;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.service.AnswerService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.EditorService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
@@ -15,7 +21,10 @@ import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
 import java.io.IOException;
 import java.io.Serial;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
 @WebServlet(Go.EDIT_QUEST_CONTENT)
@@ -31,30 +40,17 @@ public class EditQuestContentServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<User> optUser = ReqParser.getUser(req);
-        Long questId = ReqParser.getLong(req, S.paramId);
-        Optional<Quest> optQuest = questService.get(questId);
-        if (optUser.isPresent() && optQuest.isPresent()) {
-            User user = optUser.get();
+        User user = ReqParser.getUser(req).orElseThrow();
+        Optional<Quest> optQuest = questService.get(ReqParser.getId(req));
+        if (optQuest.isPresent() && editorService.checkRights(optQuest.get(), user)) {
             Quest quest = optQuest.get();
-
-            if (Objects.equals(user.getId(), quest.getAuthorId()) || user.getRole() == Role.ADMIN) {
-                long questionIndex = ReqParser.getLong(req, S.paramQuestionIndex);
-                List<Question> questions = quest.getQuestions();
-                Question question = questions.get((int) questionIndex);
-                List<Map.Entry<Answer, Question>> answers = new ArrayList<>();
-                for (Answer answer : question.getAnswers()) {
-                    Question nextQuestion = questionService
-                            .get(answer.getNextQuestionId())
-                            .orElseThrow();
-                    answers.add(Map.entry(answer, nextQuestion));
-                }
-
-                req.setAttribute(S.attrQuest, quest);
-                req.setAttribute(S.attrQuestion, question);
-                req.setAttribute(S.attrAnswers, answers);
-                Jsp.forward(req, resp, S.jspEditQuestContent);
-            }
+            long questionIndex = ReqParser.getLong(req, S.paramQuestionIndex);
+            List<Question> questions = quest.getQuestions();
+            Question question = questions.get((int) questionIndex);
+            req.setAttribute(S.attrQuest, quest);
+            req.setAttribute(S.attrQuestion, question);
+            req.setAttribute(S.attrAnswers, getAnswers(question));
+            Jsp.forward(req, resp, S.jspEditQuestContent);
         } else Jsp.redirect(req, resp, Go.QUESTS);
     }
 
@@ -65,12 +61,11 @@ public class EditQuestContentServlet extends HttpServlet {
         if (optQuest.isPresent()) {
             Quest quest = optQuest.get();
             long questionIndex = ReqParser.getLong(req, S.paramQuestionIndex);
-            Question question = quest.getQuestions().get((int) questionIndex);
-
             //----------- Create question -----------//
             if (isExist(req, S.paramQuestionCreate)) {
-                question = questionService.createEmpty(quest);
-                Jsp.redirect(req, resp, editorService.getEditPath(question));
+                questionService.createEmpty(quest);
+                questionIndex = quest.getQuestions().size() - 1;
+                Jsp.redirect(req, resp, editorService.getEditPath(questId, questionIndex));
                 return;
 
                 //----------- Update question -----------//
@@ -82,7 +77,6 @@ public class EditQuestContentServlet extends HttpServlet {
                 long id = ReqParser.getLong(req, S.paramQuestionDelete);
                 Optional<Question> optQuestion = questionService.get(id);
                 optQuestion.ifPresent(editorService::deleteNonFirstQuestion);
-
                 //----------- Create answer -----------//
             } else if (isExist(req, S.paramAnswerCreate)) {
                 answerService.create(req);
@@ -97,11 +91,22 @@ public class EditQuestContentServlet extends HttpServlet {
                 Jsp.redirect(req, resp, Go.EDIT_QUESTS);
                 return;
             }
-            Jsp.redirect(req, resp, editorService.getEditPath(question));
+            Jsp.redirect(req, resp, editorService.getEditPath(questId, questionIndex));
         } else Jsp.redirect(req, resp, Go.QUESTS);
     }
 
     private boolean isExist(HttpServletRequest req, String param) {
         return req.getParameter(param) != null;
+    }
+
+    private List<Map.Entry<Answer, Question>> getAnswers(Question question) {
+        List<Map.Entry<Answer, Question>> answers = new ArrayList<>();
+        for (Answer answer : question.getAnswers()) {
+            Question nextQuestion = questionService
+                    .get(answer.getNextQuestionId())
+                    .orElseThrow();
+            answers.add(Map.entry(answer, nextQuestion));
+        }
+        return answers;
     }
 }

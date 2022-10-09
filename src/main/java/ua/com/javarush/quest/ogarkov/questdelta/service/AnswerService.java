@@ -66,8 +66,7 @@ public enum AnswerService {
     }
 
     public void delete(HttpServletRequest req) {
-        String answerDeleteParam = req.getParameter(S.paramAnswerDelete);
-        long answerId = ReqParser.getLong(req, answerDeleteParam);
+        long answerId = ReqParser.getLong(req, S.paramAnswerDelete);
         Optional<Answer> optAnswer = answerRepository.get(answerId);
         if (optAnswer.isPresent()) {
             Answer answer = optAnswer.get();

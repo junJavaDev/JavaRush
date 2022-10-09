@@ -11,6 +11,7 @@ import ua.com.javarush.quest.ogarkov.questdelta.service.GameSessionService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
@@ -18,113 +19,81 @@ import java.io.IOException;
 import java.io.Serial;
 import java.util.Optional;
 
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
-
-@WebServlet(name = "playServlet", value = Go.PLAY)
+@WebServlet(Go.PLAY)
 public class PlayServlet extends HttpServlet {
-
-    GameSessionService gameSessionService = GameSessionService.INSTANCE;
-    QuestService questService = QuestService.INSTANCE;
-    QuestionService questionService = QuestionService.INSTANCE;
-    AnswerService answerService = AnswerService.INSTANCE;
 
     @Serial
     private static final long serialVersionUID = -195113263125943009L;
+    private final GameSessionService gameSessionService = GameSessionService.INSTANCE;
+    private final QuestService questService = QuestService.INSTANCE;
+    private final QuestionService questionService = QuestionService.INSTANCE;
+    private final AnswerService answerService = AnswerService.INSTANCE;
+    private final Setting S = Setting.get();
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Long questId = ReqParser.getLong(req, "id");
         Optional<User> optUser = ReqParser.getUser(req);
-
         if (optUser.isPresent()) {
             User user = optUser.get();
-            if (questId > 0) {
-                Optional<Quest> optQuest = questService.get(questId);
-                if (optQuest.isPresent()) {
-                    Quest quest = optQuest.get();
-                    GameSession gameSession = gameSessionService.getGame(quest, user);
-                    if (gameSession.getGameState() != GameState.PLAY) {
-                        gameSession = updateGameSession(user, quest, gameSession);
-                    }
-
-                    long currentQuestionId = gameSession.getCurrentQuestionId();
-
-                        Question question = questionService
-                                .get(currentQuestionId)
-                                .orElseThrow();
-
-                        gameSession.setGameState(question.getGameState());
-                        req.setAttribute("question", question);
-                        req.setAttribute("quest", quest);
-                        Jsp.forward(req, resp, "/play");
-                } else Jsp.redirect(req, resp, Go.QUESTS);
+            Long questId = ReqParser.getLong(req, S.paramId);
+            Optional<Quest> optQuest = questService.get(questId);
+            if (optQuest.isPresent()) {
+                Quest quest = optQuest.get();
+                GameSession gameSession = gameSessionService.getGame(quest, user);
+                nextStep(req, resp, gameSession);
             } else if (!user.getGameSessions().isEmpty()) {
                 GameSession gameSession = gameSessionService.getLastGame(user);
-                long currentQuestionId = gameSession.getCurrentQuestionId();
-
-                Question question = questionService
-                        .get(currentQuestionId)
-                        .orElseThrow();
-
-                gameSession.setGameState(question.getGameState());
-                req.setAttribute("question", question);
-                req.setAttribute("quest", questService.get(gameSession.getQuestId()).orElseThrow());
-                Jsp.forward(req, resp, "/play");
+                nextStep(req, resp, gameSession);
             } else Jsp.redirect(req, resp, Go.QUESTS);
         } else Jsp.redirect(req, resp, Go.LOGIN);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        long answerId = ReqParser.getLong(req, S.inputAnswer);
+        Optional<Answer> answer = answerService.get(answerId);
+        GameSession gameSession = getGameSession(req);
+        if (gameSession.getGameState() == GameState.PLAY && answer.isPresent()) {
+            updateNextQuestion(answer.get(), gameSession);
+            nextStep(req, resp, gameSession);
+        } else if (answerId == S.playStartAgainValue) {
+            startAgain(req, resp, gameSession);
+        } else complete(req, resp, gameSession);
+    }
 
-        long questId = ReqParser.getLong(req, "id");
-
-        User user = ReqParser.getUser(req).orElseThrow();
+    private void nextStep(HttpServletRequest req, HttpServletResponse resp, GameSession gameSession) throws ServletException, IOException {
+        long questId = gameSession.getQuestId();
         Quest quest = questService.get(questId).orElseThrow();
-        GameSession gameSession = gameSessionService.getGame(quest, user);
-
-
-        if (gameSession.getGameState() == GameState.PLAY) {
-            Optional<Answer> answer = answerService.get(Long.parseLong(req.getParameter("answer")));
-            if (answer.isPresent()) {
-                long nextQuestionId = answer.get().getNextQuestionId();
-                Question question = questionService.get(nextQuestionId).orElseThrow();
-                gameSession.setCurrentQuestionId(nextQuestionId);
-                gameSession.setGameState(question.getGameState());
-                req.setAttribute("question", question);
-                req.setAttribute("quest", quest);
-                Jsp.forward(req, resp, "/play");
-            } else {
-                Jsp.redirect(req, resp, Go.PLAY + "?id=" + questId);
-            }
-
-        } else {
-            long answerId = Long.parseLong(req.getParameter("answer"));
-            if (answerId == -1) {
-                GameSession gs = updateGameSession(user, quest, gameSession);
-                long currentQuestionId = gs.getCurrentQuestionId();
-
-                Question question = questionService
-                        .get(currentQuestionId)
-                        .orElseThrow();
-
-                gs.setGameState(question.getGameState());
-                req.setAttribute("question", question);
-                req.setAttribute("quest", quest);
-                Jsp.forward(req, resp, "/play");
-            } else if (answerId == -2) {
-               user.getGameSessions().remove(gameSession);
-               Jsp.redirect(req, resp, Go.QUESTS);
-            } else Jsp.redirect(req, resp, Go.PLAY + "?id=" + questId);
-
-        }
+        long currentQuestionId = gameSession.getCurrentQuestionId();
+        Optional<Question> optQuestion = questionService.get(currentQuestionId);
+        if (optQuestion.isPresent()) {
+            Question question = optQuestion.get();
+            gameSession.setGameState(question.getGameState());
+            req.setAttribute(S.attrQuestion, question);
+            req.setAttribute(S.attrQuest, quest);
+            Jsp.forward(req, resp, S.jspPlay);
+        } else startAgain(req, resp, gameSession);
     }
 
-    private GameSession updateGameSession(User user, Quest quest, GameSession gameSession) {
+    private void complete(HttpServletRequest req, HttpServletResponse resp, GameSession gameSession) throws IOException {
+        User user = ReqParser.getUser(req).orElseThrow();
         user.getGameSessions().remove(gameSession);
-        GameSession gs = gameSessionService.getNew(quest, user.getId());
-        user.getGameSessions().add(gs);
-        return gs;
+        Jsp.redirect(req, resp, Go.QUESTS);
     }
 
+    private void startAgain(HttpServletRequest req, HttpServletResponse resp, GameSession gameSession) throws ServletException, IOException {
+        GameSession newGameSession = gameSessionService.updateGameSession(gameSession);
+        nextStep(req, resp, newGameSession);
+    }
 
+    private void updateNextQuestion(Answer currentAnswer, GameSession gameSession) {
+        long nextQuestionId = currentAnswer.getNextQuestionId();
+        gameSession.setCurrentQuestionId(nextQuestionId);
+    }
+
+    private GameSession getGameSession(HttpServletRequest req) {
+        long id = ReqParser.getId(req);
+        Quest quest =  questService.get(id).orElseThrow();
+        User user = ReqParser.getUser(req).orElseThrow();
+        return gameSessionService.getGame(quest, user);
+    }
 }

@@ -18,7 +18,6 @@ public class Default {
         static final String PARAM_ANSWER_CREATE = "answerCreate";
 
 
-        static final String IMG_DIR = "/images/";
 
         static final String INPUT_NAME = "name";
         static final String INPUT_IMAGE = "image";
@@ -36,7 +35,6 @@ public class Default {
         static final String INPUT_DELETE = "delete";
 
 
-        static final String JS_DIR = "/js/";
         static final String BOOTSTRAP = "bootstrap.bundle.min.js";
         static final String INSERT_PARAM = "insert.param-1.0.js";
         static final String POST_TO_URL = "post.to.url-1.0.js";
@@ -50,7 +48,8 @@ public class Default {
         static final String HELP_DIR = "help/";
         static final String TWINE_DIR = "twine/";
         static final String QUESTS_DIR = "quests/";
-
+        static final String JS_DIR = "/js/";
+        static final String IMG_DIR = "/images/";
 
         static final String ATTR_ROLES = "roles";
         static final String ATTR_USER = "user";
@@ -65,19 +64,40 @@ public class Default {
         static final String ATTR_QUESTS = "quests";
 
 
+        static final String ATTR_USERS_REGISTERED = "usersRegistered";
+        static final String ATTR_GAMES_PLAYED = "gamesPlayed";
+        static final String ATTR_QUEST_CREATED = "questCreated";
+        static final String ATTR_QUESTIONS_CREATED = "questionsCreated";
+        static final String ATTR_ANSWERS_CREATED = "answersCreated";
+        static final String ATTR_BEST_PLAYER_ID = "bestPlayerID";
+        static final String ATTR_WORST_PLAYER_ID = "worstPlayerID";
+        static final String ATTR_MOST_POPULAR_QUEST_ID = "mostPopularQuestID";
+        static final String ATTR_BEST_PLAYER_LOGIN = "bestPlayerLogin";
+        static final String ATTR_WORST_PLAYER_LOGIN = "worstPlayerLogin";
+        static final String ATTR_MOST_POPULAR_QUEST_NAME = "mostPopularQuestName";
+        static final String ATTR_BEST_PLAYER_WINS = "bestPlayerWins";
+        static final String ATTR_WORST_PLAYER_LOSES = "worstPlayerLoses";
+        static final String ATTR_MOST_POPULAR_QUEST_LAUNCHES = "mostPopularQuestLaunches";
+
 
         static final String JSP_EDIT_USER = "/user/editUser";
-        static final String JSP_CREATE_QUESTION = "/quest/createQuestion";
+//        static final String JSP_CREATE_QUESTION = "/quest/createQuestion";
         static final String JSP_EDIT_QUEST_CONTENT = "/quest/editQuestContent";
-        static final String JSP_EDIT_QUEST = "/quest/editQuestContent";
+        static final String JSP_EDIT_QUEST = "/quest/editQuest";
         static final String JSP_QUESTS = "/quest/quests";
         static final String JSP_EDIT_QUESTS = "/quest/editQuests";
         static final String JSP_ABOUT = "/about";
+        static final String JSP_HOME = "/home";
+        static final String JSP_STATISTICS = "/statistics";
+        static final String JSP_PLAY = "/play";
 
         static final String ZERO = "0";
         static final String[] EMPTY_STRING_ARRAY = {""};
         static final String DELETED = "Deleted";
+        static final String NOT_EXIST = "Not exist";
 
+        static final int PLAY_START_AGAIN_VALUE = -1;
+        static final int PLAY_COMPLETE_VALUE = -2;
 
 
 

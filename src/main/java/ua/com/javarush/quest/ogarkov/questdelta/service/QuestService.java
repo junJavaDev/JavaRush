@@ -9,7 +9,10 @@ import ua.com.javarush.quest.ogarkov.questdelta.repository.*;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,6 +39,7 @@ public enum QuestService {
     private final QuestionService questionService = QuestionService.INSTANCE;
     private final ImageService imageService = ImageService.INSTANCE;
     private final Setting S = Setting.get();
+
     public Collection<Quest> find(Quest pattern) {
         return questRepository.find(pattern);
     }
@@ -164,15 +168,14 @@ public enum QuestService {
     }
 
     public void delete(HttpServletRequest req) {
-        String questDeleteParam = req.getParameter(S.paramQuestDelete);
-        long id = ReqParser.getLong(req, questDeleteParam);
+        long id = ReqParser.getLong(req, S.paramQuestDelete);
         Optional<Quest> optQuest = get(id);
         if (optQuest.isPresent()) {
             Quest quest = optQuest.get();
             for (Question question : quest.getQuestions()) {
-                questionService.delete(question);
+                questionRepository.delete(question);
             }
-                imageService.deleteImage(quest.getImage());
+            imageService.deleteImage(quest.getImage());
             Optional<User> optAuthor = userRepository.get(quest.getAuthorId());
             optAuthor.ifPresent(author ->
                     author.getQuests()
@@ -187,14 +190,12 @@ public enum QuestService {
 
     private Quest createEmptyQuest(HttpServletRequest request) {
         User author = ReqParser.getUser(request).orElseThrow();
-        Question firstQuestion = Question.with().gameState(GameState.PLAY).build();
-        questionRepository.create(firstQuestion);
         Quest quest = Quest.with()
-                .firstQuestionId(firstQuestion.getId())
                 .authorId(author.getId())
                 .build();
-        quest.getQuestions().add(firstQuestion);
         create(quest);
+        Question firstQuestion = questionService.createEmpty(quest);
+        quest.setFirstQuestionId(firstQuestion.getId());
         return quest;
     }
 

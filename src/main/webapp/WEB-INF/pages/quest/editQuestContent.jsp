@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/pages/components/header.jsp" %>
-
+<c:set var="reqUrl">${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}</c:set>
+<c:set var="reqUrlFull">${reqUrl}&${S.paramQuestionIndex}=${param.questionIndex}</c:set>
 
 <div class="container-md">
     <div class="row">
@@ -40,7 +41,7 @@
                                         <fmt:message key="game_state.${question.gameState.name().toLowerCase()}"/>
                                     </td>
                                     <td><a class="link-primary text-decoration-none"
-                                           href="javascript:postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramQuestionDelete}':'${question.id}'});">
+                                           href="javascript:postToUrl('${reqUrlFull}', {'${S.paramQuestionDelete}':'${question.id}'});">
                                             ${langTableDelete}
                                     </a>
                                     </td>
@@ -53,11 +54,11 @@
 
                 <div class="d-flex justify-content-between m-3">
                     <button class="btn btn-outline-danger" type="button"
-                            onclick="postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramQuestDelete}':'${param.id}'});">
+                            onclick="postToUrl('${reqUrl}', {'${S.paramQuestDelete}':'${param.id}'});">
                         ${langQuestDeleteBtn}
                     </button>
                     <button class="btn btn-outline-secondary" type="button"
-                            onclick="postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramQuestionCreate}':'${langCreateBtn}'});">
+                            onclick="postToUrl('${reqUrl}', {'${S.paramQuestionCreate}':'${langCreateBtn}'});">
                         ${langQuestionAddBtn}
                     </button>
                 </div>
@@ -72,7 +73,7 @@
                     <p class="fw-normal fs-6 fw-bold mt-2 mb-1 text-center">${requestScope.question.name}</p>
 
                     <form class="needs-validation mx-3" novalidate
-                          action="${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}&${S.paramQuestionIndex}=${param.questionIndex}"
+                          action="${reqUrlFull}"
                           method="post" enctype="multipart/form-data">
 
                         <%---------------- Labels -------------%>
@@ -178,12 +179,12 @@
                                                     <tr>
                                                         <td>${entry.key.text}</td>
                                                         <td><a class="link-primary text-decoration-none"
-                                                                <c:set var="answerIndex">${requestScope.quest.questions.indexOf(entry.value)}</c:set>
-                                                               href="javascript:insertParam('${S.paramQuestionIndex}', '${answerIndex}');">
-                                                                ${answerIndex+1} ${entry.value.name}
+                                                                <c:set var="questionIndex">${requestScope.quest.questions.indexOf(entry.value)}</c:set>
+                                                               href="javascript:insertParam('${S.paramQuestionIndex}', '${questionIndex}');">
+                                                                ${questionIndex+1} ${entry.value.name}
                                                         </a></td>
                                                         <td><a class="link-primary text-decoration-none"
-                                                               href="javascript:postToUrl('${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}', {'${S.paramAnswerDelete}':'${entry.key.id}'});">
+                                                               href="javascript:postToUrl('${reqUrlFull}', {'${S.paramAnswerDelete}':'${entry.key.id}'});">
                                                                 ${langTableDelete}
                                                         </a>
                                                         </td>
@@ -196,7 +197,7 @@
                                     <div class="col-md-5">
 
                                         <form class="needs-validation"
-                                              action="${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}&${S.paramQuestionIndex}=${param.questionIndex}"
+                                              action="${reqUrlFull}"
                                               method="post" novalidate>
 
                                             <label class="form-label" for="answerText">${langAnswerText}</label>

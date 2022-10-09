@@ -17,7 +17,7 @@
                     <c:when test="${not empty requestScope.question.answers}">
                         <c:forEach var="answer" items="${requestScope.question.answers}">
                             <div class="col-md-12">
-                                <button class="btn btn-outline-secondary m-1" type="submit" name="answer"
+                                <button class="btn btn-outline-secondary m-1" type="submit" name="${S.inputAnswer}"
                                         value="${answer.id}">
                                         ${answer.text}
                                 </button>
@@ -27,13 +27,13 @@
                     <c:otherwise>
                         <div class="col-md-12">
                             <button class="btn btn-outline-secondary m-1" type="submit" name="${S.inputAnswer}"
-                                    value="-1">
+                                    value="${S.playStartAgainValue}">
                                     ${langStartAgainBtn}
                             </button>
                         </div>
                         <div class="col-md-12">
                             <button class="btn btn-outline-secondary m-1" type="submit" name="${S.inputAnswer}"
-                                    value="-2">
+                                    value="${S.playCompleteValue}">
                                     ${langCompleteQuestBtn}
                             </button>
                         </div>

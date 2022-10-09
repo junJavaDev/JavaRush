@@ -14,6 +14,7 @@ import java.io.Serial;
 
 @WebServlet(Go.ABOUT)
 public class AboutServlet extends HttpServlet {
+
     @Serial
     private static final long serialVersionUID = 6316268318161580029L;
     private final Setting S = Setting.get();

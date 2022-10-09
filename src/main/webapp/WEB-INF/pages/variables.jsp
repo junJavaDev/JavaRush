@@ -98,8 +98,8 @@
 
 <%--Profile--%>
 <fmt:message key="profile.quests_created" var="langQuestsCreated"/>
-<fmt:message key="profile.wins" var="langWins"/>
-<fmt:message key="profile.loses" var="langLoses"/>
+<fmt:message key="profile.wins" var="langProfileWins"/>
+<fmt:message key="profile.loses" var="langProfileLoses"/>
 <fmt:message key="profile.edit_profile_btn" var="langEditProfile"/>
 <fmt:message key="profile.edit_user_btn" var="langEditUser"/>
 
