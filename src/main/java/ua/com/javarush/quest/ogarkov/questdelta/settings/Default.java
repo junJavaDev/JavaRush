@@ -89,7 +89,7 @@ public class Default {
 
         static final String JSP_EDIT_USER = "/user/editUser";
         static final String JSP_EDIT_USERS = "/user/editUsers";
-        static final String JSP_EDIT_PROFILE = "/user/editUser";
+        static final String JSP_EDIT_PROFILE = "/user/editProfile";
         static final String JSP_EDIT_QUEST_CONTENT = "/quest/editQuestContent";
         static final String JSP_EDIT_QUEST = "/quest/editQuest";
         static final String JSP_QUESTS = "/quest/quests";
