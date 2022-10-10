@@ -81,7 +81,7 @@ public class PlayServlet extends HttpServlet {
     }
 
     private void startAgain(HttpServletRequest req, HttpServletResponse resp, GameSession gameSession) throws ServletException, IOException {
-        GameSession newGameSession = gameSessionService.updateGameSession(gameSession);
+        GameSession newGameSession = gameSessionService.update(gameSession);
         nextStep(req, resp, newGameSession);
     }
 

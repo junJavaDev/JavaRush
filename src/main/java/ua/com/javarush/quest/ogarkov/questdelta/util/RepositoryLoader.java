@@ -1,10 +1,17 @@
 package ua.com.javarush.quest.ogarkov.questdelta.util;
 
 import lombok.experimental.UtilityClass;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.*;
-import ua.com.javarush.quest.ogarkov.questdelta.repository.*;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Answer;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.repository.AnswerRepository;
+import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestRepository;
+import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestionRepository;
+import ua.com.javarush.quest.ogarkov.questdelta.repository.UserRepository;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
 
 import static ua.com.javarush.quest.ogarkov.questdelta.entity.GameState.*;
 import static ua.com.javarush.quest.ogarkov.questdelta.entity.Language.RU;
@@ -13,11 +20,12 @@ import static ua.com.javarush.quest.ogarkov.questdelta.entity.Role.USER;
 
 @UtilityClass
 public class RepositoryLoader {
-
-    UserRepository userRepository = UserRepository.getInstance();
-    QuestRepository questRepository = QuestRepository.getInstance();
-    QuestionRepository questionRepository = QuestionRepository.getInstance();
-    AnswerRepository answerRepository = AnswerRepository.getInstance();
+    //Need to update with load string
+    //Need make saveMethod
+    private final UserRepository userRepository = UserRepository.getInstance();
+    private final QuestRepository questRepository = QuestRepository.getInstance();
+    private final QuestionRepository questionRepository = QuestionRepository.getInstance();
+    private final AnswerRepository answerRepository = AnswerRepository.getInstance();
 
     public void load() {
         defaultInit();
@@ -28,7 +36,7 @@ public class RepositoryLoader {
     }
 
     private void defaultInit() {
-        //---------------------------- Пользователи -----------------------------------
+        //---------------------------- USERS -----------------------------------
         User admin = User.with()
                 .id(1L)
                 .login("admin")
@@ -38,39 +46,13 @@ public class RepositoryLoader {
                 .build();
         userRepository.create(admin);
 
-                userRepository.create(User.with()
-                        .login("user").password("user").role(USER).build());
         userRepository.create(User.with()
-                .login("user2").password("user2").role(USER).build());
-        userRepository.create(User.with()
-                .login("user3").password("user3").role(USER).build());
-        userRepository.create(User.with()
-                .login("user4").password("user4").role(USER).build());
-        userRepository.create(User.with()
-                .login("user5").password("user5").role(USER).build());
-        userRepository.create(User.with()
-                .login("user5").password("user5").role(USER).build());
-        userRepository.create(User.with()
-                .login("user5").password("user5").role(USER).build());
-        userRepository.create(User.with()
-                .login("user8").password("user8").role(USER).build());
-        userRepository.create(User.with()
-                .login("user9").password("user9").role(USER).build());
-        userRepository.create(User.with()
-                .login("user10").password("user10").role(USER).build());
-        userRepository.create(User.with()
-                .login("user11").password("user11").role(USER).build());
-        userRepository.create(User.with()
-                .login("user12").password("user12").role(USER).build());
-        userRepository.create(User.with()
-                .login("user13").password("user13").role(USER).build());
-        userRepository.create(User.with()
-                .login("user14").password("user14").role(USER).build());
+                .login("user").password("user").role(USER).build());
 
-//        ---------------------------- /Пользователи -----------------------------------
+//        ---------------------------- /USERS -----------------------------------
 
 
-        //---------------------------- Квесты -----------------------------------
+        //---------------------------- QUESTS -----------------------------------
         Quest jrQuest = Quest.with()
                 .id(1L)
                 .authorId(admin.getId())
@@ -82,9 +64,9 @@ public class RepositoryLoader {
 
         admin.getQuests().add(jrQuest);
 
-        //---------------------------- /Квесты -----------------------------------
+        //---------------------------- /QUESTS -----------------------------------
 
-        //---------------------------- Слайды -----------------------------------
+        //---------------------------- QUESTIONS -----------------------------------
         Long jrQuestId = jrQuest.getId();
         Question question1 = Question.with()
                 .questId(jrQuestId).gameState(PLAY)
@@ -147,12 +129,10 @@ public class RepositoryLoader {
 
         jrQuest.setFirstQuestionId(question1.getId());
 
-        //---------------------------- /Слайды -----------------------------------
+        //---------------------------- /QUESTIONS -----------------------------------
 
 
-
-
-        //---------------------------- Связи -----------------------------------
+        //---------------------------- ANSWERS -----------------------------------
 
         Answer answer1 = Answer.with()
                 .text("Принять вызов")
@@ -206,7 +186,7 @@ public class RepositoryLoader {
         answersQ2.add(answer4);
         answersQ4.add(answer5);
         answersQ4.add(answer6);
-        //---------------------------- Связи -----------------------------------
+        //---------------------------- ANSWERS -----------------------------------
 
     }
 }

@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import java.util.*;
 
 @Data
+@EqualsAndHashCode(callSuper = false)
 @Builder(builderMethodName = "with")
 public class Question extends AbstractEntity{
     Long id;
@@ -17,17 +18,4 @@ public class Question extends AbstractEntity{
     String image;
     @Builder.Default
     List<Answer> answers = new ArrayList<>();
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Question question = (Question) o;
-        return Objects.equals(id, question.id) && Objects.equals(questId, question.questId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, questId);
-    }
 }

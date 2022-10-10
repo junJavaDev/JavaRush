@@ -18,8 +18,10 @@ public enum ImageService {
             Objects.requireNonNull(ImageService.class.getResource("/"))
                     .toString()
                     .replace("file:/", "")
-                    .concat("../images/")
+                    .concat("..")
+                    .concat(S.imgDir)
     );
+
 
     @SneakyThrows
     ImageService() {

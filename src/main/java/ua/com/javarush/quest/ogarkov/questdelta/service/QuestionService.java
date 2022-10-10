@@ -27,9 +27,12 @@ public enum QuestionService {
     private final Repository<Answer> answerRepository = AnswerRepository.getInstance();
     private final ImageService imageService = ImageService.INSTANCE;
 
+    public Optional<Question> get(long id) {
+        return questionRepository.get(id);
+    }
 
-    public void create(Question question) {
-        questionRepository.create(question);
+    public Collection<Question> getAll() {
+        return questionRepository.getAll();
     }
 
     public Question create(HttpServletRequest req) throws ServletException, IOException {
@@ -39,7 +42,6 @@ public enum QuestionService {
         GameState gameState = GameState.valueOf(req.getParameter(S.inputGameState));
         String name = req.getParameter(S.inputName);
         String text = req.getParameter(S.inputText);
-        Part data = req.getPart(S.inputImage);
 
         Question question = Question.with()
                 .questId(quest.getId())
@@ -47,20 +49,9 @@ public enum QuestionService {
                 .name(name)
                 .text(text)
                 .build();
-        create(question);
+        questionRepository.create(question);
 
         quest.getQuestions().add(question);
-
-        Long questId = quest.getId();
-        String fileName = data.getSubmittedFileName();
-        String image = S.questsDir
-                + questId + "/"
-                + question.getId()
-                + ReqParser.getFileExtension(fileName);
-        boolean isUploaded = imageService.uploadImage(image, data.getInputStream());
-        if (isUploaded) {
-            question.setImage(image);
-        }
         return question;
     }
 
@@ -69,7 +60,7 @@ public enum QuestionService {
                 .questId(quest.getId())
                 .gameState(GameState.PLAY)
                 .build();
-        create(question);
+        questionRepository.create(question);
         quest.getQuestions().add(question);
         return question;
     }
@@ -100,21 +91,6 @@ public enum QuestionService {
         questionRepository.delete(question);
     }
 
-    public Collection<Question> find(Question pattern) {
-        return questionRepository.find(pattern);
-    }
-
-    public Optional<Question> get(long id) {
-        return questionRepository.get(id);
-    }
-
-    public Collection<Question> getAll() {
-        return questionRepository.getAll();
-    }
-
-    public void update(Question question) {
-        questionRepository.update(question);
-    }
 
     public void update(HttpServletRequest req) {
         Long questId = ReqParser.getLong(req, S.paramId);
@@ -134,8 +110,11 @@ public enum QuestionService {
         question.setGameState(gameState);
 
         try {
-            Part data = req.getPart("image");
-            String image = "quests/" + questId + "/" + question.getId() + ReqParser.getFileExtension(data.getSubmittedFileName());
+            Part data = req.getPart(S.inputImage);
+            String image = S.questsDir
+                    + questId + "/"
+                    + question.getId()
+                    + ReqParser.getFileExtension(data.getSubmittedFileName());
             boolean isUploaded = imageService.uploadImage(image, data.getInputStream());
             if (isUploaded) {
                 question.setImage(image);

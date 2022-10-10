@@ -67,7 +67,7 @@
                             </label>
                             <textarea class="form-control" style="min-height: 200px"
                                       id="questPattern"
-                                      name="content"
+                                      name="${S.inputContent}"
                                       placeholder="${langContentQuestContentPlaceholder}"></textarea>
 
                             <!--File input-->
@@ -77,7 +77,7 @@
                                     <a class="text-decoration-none" data-bs-toggle="modal"
                                        data-bs-target="#twineModal" href="#">${langContentTwineFile}</a>
                                 </label>
-                                <input id="twineFile" name="twine" type="file"
+                                <input id="twineFile" name="${S.inputTwine}" type="file"
                                        class="form-control input-md mb-3">
                             </div>
                         </div>

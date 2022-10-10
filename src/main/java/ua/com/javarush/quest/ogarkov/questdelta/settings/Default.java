@@ -16,10 +16,11 @@ public class Default {
         static final String PARAM_QUEST_DELETE = "questDelete";
         static final String PARAM_ANSWER_DELETE = "answerDelete";
         static final String PARAM_ANSWER_CREATE = "answerCreate";
-
-
+        static final String PARAM_NEXT_QUESTION_ID = "nextQuestionId";
 
         static final String INPUT_NAME = "name";
+        static final String INPUT_TWINE = "twine";
+        static final String INPUT_CONTENT = "content";
         static final String INPUT_IMAGE = "image";
         static final String INPUT_KEYWORD = "keyword";
         static final String INPUT_LOGIN = "login";
@@ -34,7 +35,6 @@ public class Default {
         static final String INPUT_CREATE = "create";
         static final String INPUT_DELETE = "delete";
 
-
         static final String BOOTSTRAP = "bootstrap.bundle.min.js";
         static final String INSERT_PARAM = "insert.param-1.0.js";
         static final String POST_TO_URL = "post.to.url-1.0.js";
@@ -45,14 +45,19 @@ public class Default {
         static final String DEFAULT_LANGUAGE = "EN";
 
 
+        static final String QUEST_IMG_PREFIX = "/quest_image";
         static final String HELP_DIR = "help/";
         static final String TWINE_DIR = "twine/";
         static final String QUESTS_DIR = "quests/";
+        static final String USERS_DIR = "users/";
         static final String JS_DIR = "/js/";
         static final String IMG_DIR = "/images/";
+        static final String PAGES_DIR = "WEB-INF/pages";
 
         static final String ATTR_ROLES = "roles";
         static final String ATTR_USER = "user";
+        static final String ATTR_USERS = "users";
+        static final String ATTR_USER_ID = "userId";
         static final String ATTR_QUEST = "quest";
         static final String ATTR_QUESTION = "question";
         static final String ATTR_ANSWERS = "answers";
@@ -62,6 +67,9 @@ public class Default {
         static final String ATTR_PAGE_NUMBER = "pageNumber";
         static final String ATTR_PAGE_COUNT = "pageCount";
         static final String ATTR_QUESTS = "quests";
+        static final String ATTR_LANG = "lang";
+        static final String ATTR_WINS = "wins";
+        static final String ATTR_LOSES = "loses";
 
 
         static final String ATTR_USERS_REGISTERED = "usersRegistered";
@@ -79,9 +87,9 @@ public class Default {
         static final String ATTR_WORST_PLAYER_LOSES = "worstPlayerLoses";
         static final String ATTR_MOST_POPULAR_QUEST_LAUNCHES = "mostPopularQuestLaunches";
 
-
         static final String JSP_EDIT_USER = "/user/editUser";
-//        static final String JSP_CREATE_QUESTION = "/quest/createQuestion";
+        static final String JSP_EDIT_USERS = "/user/editUsers";
+        static final String JSP_EDIT_PROFILE = "/user/editUser";
         static final String JSP_EDIT_QUEST_CONTENT = "/quest/editQuestContent";
         static final String JSP_EDIT_QUEST = "/quest/editQuest";
         static final String JSP_QUESTS = "/quest/quests";
@@ -90,11 +98,15 @@ public class Default {
         static final String JSP_HOME = "/home";
         static final String JSP_STATISTICS = "/statistics";
         static final String JSP_PLAY = "/play";
+        static final String JSP_LOGIN = "/user/login";
+        static final String JSP_PROFILE = "/user/profile";
 
         static final String ZERO = "0";
         static final String[] EMPTY_STRING_ARRAY = {""};
         static final String DELETED = "Deleted";
         static final String NOT_EXIST = "Not exist";
+        static final String NOT_FOUND_CMD = "Not found cmd";
+        static final String INCORRECT_URI = "incorrect uri";
 
         static final int PLAY_START_AGAIN_VALUE = -1;
         static final int PLAY_COMPLETE_VALUE = -2;

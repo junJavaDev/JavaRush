@@ -31,9 +31,8 @@ public class QuestsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        DataTank formData = DataTank.of(req);
         paginationService
-                .getQuestsPagination(formData)
+                .getQuestsPagination(DataTank.of(req))
                 .fillRequest(req);
         Set<Long> openQuests = getOpenQuests(req);
         req.setAttribute(S.attrOpenQuests, openQuests);

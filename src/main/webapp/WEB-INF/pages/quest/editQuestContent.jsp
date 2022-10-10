@@ -93,7 +93,7 @@
                                 <div class="h-100">
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <input id="questionName" name="name" type="text"
+                                            <input id="questionName" name="${S.inputName}" type="text"
                                                    placeholder="${langQuestionNamePlaceholder}"
                                                    class="form-control form-control-sm input-md" required
                                                    value="${requestScope.question.name}">

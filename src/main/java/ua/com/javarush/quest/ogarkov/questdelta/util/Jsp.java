@@ -5,21 +5,25 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.experimental.UtilityClass;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 @UtilityClass
 public class Jsp {
+    private final Setting S = Setting.get();
+
     public static void forward(HttpServletRequest request, HttpServletResponse response, String uriString) throws ServletException, IOException {
-        String path = "WEB-INF/pages%s.jsp".formatted(uriString);
+        String path = S.pagesDir + "%s.jsp".formatted(uriString);
         RequestDispatcher requestDispatcher = request.getRequestDispatcher(path);
         requestDispatcher.forward(request, response);
     }
 
     public static void redirect(HttpServletRequest request, HttpServletResponse response, String uri) throws IOException {
-         response.sendRedirect(request.getContextPath() + uri);
+        response.sendRedirect(request.getContextPath() + uri);
     }
 
     public static String getCommand(HttpServletRequest request) {
@@ -28,7 +32,7 @@ public class Jsp {
         if (matcher.find()) {
             return matcher.group();
         } else {
-            throw new UnsupportedOperationException("incorrect uri" + uri);
+            throw new UnsupportedOperationException(S.incorrectUri + uri);
         }
     }
 }

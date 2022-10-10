@@ -16,16 +16,6 @@ public class QuestRepository extends AbstractRepository<Quest> {
 
     private QuestRepository() {
     }
-    
-//    @Override
-//    public Collection<Quest> find(Quest pattern) {
-//        return map.values().stream()
-//                .filter(quest -> isOk(pattern, quest, Quest::getId)
-//                        && isOk(pattern, quest, Quest::getName)
-//                        && isOk(pattern, quest, Quest::getAuthorId)
-//                        && isOk(pattern, quest, Quest::getFirstQuestion))
-//                .toList();
-//    }
 
     @Override
     public Collection<Quest> find(Quest pattern) {

@@ -21,6 +21,14 @@ public enum PaginationService {
     private final Setting S = Setting.get();
 
 
+
+    public DataTank getUsersPagination(DataTank formData) {
+        DataTank pagination = getPagination(formData);
+        Collection<User> users = getEntities(userRepository, formData);
+        pagination.addAttr(S.attrUsers, users);
+        return pagination;
+    }
+
     public DataTank getQuestsPagination(DataTank formData) {
         DataTank pagination = getPagination(formData);
         Collection<Quest> quests = getEntities(questRepository, formData);
@@ -31,16 +39,16 @@ public enum PaginationService {
                     ? optUser.get().getLogin()
                     : S.deleted);
         }
-        pagination.addAttribute(S.attrQuests, quests);
-        pagination.addAttribute(S.attrAuthors, authors);
+        pagination.addAttr(S.attrQuests, quests);
+        pagination.addAttr(S.attrAuthors, authors);
         return pagination;
     }
 
     private DataTank getPagination(DataTank formData) {
         DataTank pagination = DataTank.empty();
-        pagination.addAttribute(S.attrPageNumber, getPageNumber(formData));
-        pagination.addAttribute(S.attrPageSize, getPageSize(formData));
-        pagination.addAttribute(S.attrPageCount, getPageCount(formData));
+        pagination.addAttr(S.attrPageNumber, getPageNumber(formData));
+        pagination.addAttr(S.attrPageSize, getPageSize(formData));
+        pagination.addAttr(S.attrPageCount, getPageCount(formData));
         return pagination;
     }
 

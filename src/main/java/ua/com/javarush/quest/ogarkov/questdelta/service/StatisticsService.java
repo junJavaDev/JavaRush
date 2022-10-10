@@ -49,21 +49,21 @@ public enum StatisticsService {
         long worstPlayerLoses = worstPlayer.getValue().size();
         long mostPopularQuestLaunches = mostPopularQuest.getValue().size();
 
-        statistics.addAttribute(S.attrUsersRegistered, usersRegistered);
-        statistics.addAttribute(S.attrUsersRegistered, usersRegistered);
-        statistics.addAttribute(S.attrGamesPlayed, gamesPlayed);
-        statistics.addAttribute(S.attrQuestCreated, questCreated);
-        statistics.addAttribute(S.attrQuestionsCreated, questionsCreated);
-        statistics.addAttribute(S.attrAnswersCreated, answersCreated);
-        statistics.addAttribute(S.attrBestPlayerId, bestPlayerID);
-        statistics.addAttribute(S.attrWorstPlayerId, worstPlayerID);
-        statistics.addAttribute(S.attrMostPopularQuestId, mostPopularQuestID);
-        statistics.addAttribute(S.attrBestPlayerLogin, bestPlayerLogin);
-        statistics.addAttribute(S.attrWorstPlayerLogin, worstPlayerLogin);
-        statistics.addAttribute(S.attrMostPopularQuestName, mostPopularQuestName);
-        statistics.addAttribute(S.attrBestPlayerWins, bestPlayerWins);
-        statistics.addAttribute(S.attrWorstPlayerLoses, worstPlayerLoses);
-        statistics.addAttribute(S.attrMostPopularQuestLaunches, mostPopularQuestLaunches);
+        statistics.addAttr(S.attrUsersRegistered, usersRegistered);
+        statistics.addAttr(S.attrUsersRegistered, usersRegistered);
+        statistics.addAttr(S.attrGamesPlayed, gamesPlayed);
+        statistics.addAttr(S.attrQuestCreated, questCreated);
+        statistics.addAttr(S.attrQuestionsCreated, questionsCreated);
+        statistics.addAttr(S.attrAnswersCreated, answersCreated);
+        statistics.addAttr(S.attrBestPlayerId, bestPlayerID);
+        statistics.addAttr(S.attrWorstPlayerId, worstPlayerID);
+        statistics.addAttr(S.attrMostPopularQuestId, mostPopularQuestID);
+        statistics.addAttr(S.attrBestPlayerLogin, bestPlayerLogin);
+        statistics.addAttr(S.attrWorstPlayerLogin, worstPlayerLogin);
+        statistics.addAttr(S.attrMostPopularQuestName, mostPopularQuestName);
+        statistics.addAttr(S.attrBestPlayerWins, bestPlayerWins);
+        statistics.addAttr(S.attrWorstPlayerLoses, worstPlayerLoses);
+        statistics.addAttr(S.attrMostPopularQuestLaunches, mostPopularQuestLaunches);
         return statistics;
     }
 

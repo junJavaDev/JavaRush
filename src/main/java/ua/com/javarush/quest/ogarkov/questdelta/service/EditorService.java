@@ -17,7 +17,6 @@ public enum EditorService {
     private final QuestionService questionService = QuestionService.INSTANCE;
     private final Setting S = Setting.get();
 
-
     public String getEditPath(long questId, long questionIndex) {
         Quest quest = questService.get(questId).orElseThrow();
         int questionCount = quest.getQuestions().size();

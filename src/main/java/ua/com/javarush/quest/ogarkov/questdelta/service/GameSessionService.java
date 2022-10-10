@@ -7,7 +7,6 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Collection;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.Optional;
 
 public enum GameSessionService {
@@ -16,6 +15,7 @@ public enum GameSessionService {
     private final UserRepository userRepository = UserRepository.getInstance();
     private final QuestRepository questRepository = QuestRepository.getInstance();
     private final QuestionRepository questionRepository = QuestionRepository.getInstance();
+    private final Repository<GameSession> gameSessionRepository = GameSessionRepository.getInstance();
 
     public GameSession getGame(Quest quest, User user) {
         GameSession gameSession;
@@ -59,7 +59,7 @@ public enum GameSessionService {
                 .startTime(ZonedDateTime.now())
                 .lastSeen(ZonedDateTime.now())
                 .build();
-        create(gameSession);
+        gameSessionRepository.create(gameSession);
         return gameSession;
     }
 
@@ -70,7 +70,7 @@ public enum GameSessionService {
                 .build());
     }
 
-    public GameSession updateGameSession(GameSession currentGameSession) {
+    public GameSession update(GameSession currentGameSession) {
         long userId = currentGameSession.getUserId();
         long questId = currentGameSession.getQuestId();
         User user = userRepository.get(userId).orElseThrow();
@@ -82,31 +82,11 @@ public enum GameSessionService {
         return newGameSession;
     }
 
-    private final Repository<GameSession> gameSessionRepository = GameSessionRepository.getInstance();
-
-    public Collection<GameSession> find(GameSession pattern) {
-        return gameSessionRepository.find(pattern);
-    }
-
-    public Optional<GameSession> get(long id) {
-        return gameSessionRepository.get(id);
-    }
-
     public Collection<GameSession> getAll() {
         return gameSessionRepository.getAll();
     }
 
-    public void create(GameSession gameSession) {
-        gameSessionRepository.create(gameSession);
+    public Collection<GameSession> find(GameSession pattern) {
+        return gameSessionRepository.find(pattern);
     }
-
-    public void update(GameSession gameSession) {
-        gameSessionRepository.update(gameSession);
-    }
-
-    public void delete(GameSession gameSession) {
-        gameSessionRepository.delete(gameSession);
-    }
-
-
 }

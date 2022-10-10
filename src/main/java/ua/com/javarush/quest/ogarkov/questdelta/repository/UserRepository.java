@@ -29,16 +29,6 @@ public class UserRepository extends AbstractRepository<User>{
         }
         map.put(updId, updUser);
     }
-//    @Override
-//    public Collection<User> find(User pattern) {
-//        return map.values().stream()
-//                .filter(user -> isOk(pattern, user, User::getId)
-//                        && isOk(pattern, user, User::getLogin)
-//                        && isOk(pattern, user, User::getPassword)
-//                        && isOk(pattern, user, User::getRole))
-//                .toList();
-//    }
-
 
     @Override
     public Collection<User> find(User pattern) {

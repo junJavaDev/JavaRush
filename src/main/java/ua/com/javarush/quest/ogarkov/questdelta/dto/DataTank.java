@@ -32,7 +32,7 @@ public class DataTank {
         return parameterMap.getOrDefault(name, S.emptyStringArray)[0];
     }
 
-    public void addAttribute(String name, Object value) {
+    public void addAttr(String name, Object value) {
         attributeMap.put(name, value);
     }
 
@@ -40,11 +40,5 @@ public class DataTank {
         for (Map.Entry<String, Object> entry : attributeMap.entrySet()) {
             request.setAttribute(entry.getKey(), entry.getValue());
         }
-    }
-
-    public Long getId() {
-        return parameterMap.containsKey(S.paramId)
-                ? Long.valueOf(getParameter(S.paramId))
-                : null;
     }
 }

@@ -22,10 +22,6 @@ public enum AnswerService {
     private final Repository<Question> questionRepository = QuestionRepository.getInstance();
     private final Repository<Quest> questRepository = QuestRepository.getInstance();
 
-    public Collection<Answer> find(Answer pattern) {
-        return answerRepository.find(pattern);
-    }
-
     public Optional<Answer> get(long id) {
         return answerRepository.get(id);
     }
@@ -44,8 +40,8 @@ public enum AnswerService {
                 .getQuestions()
                 .get((int) questionIndex);
 
-        String answerText = req.getParameter("answer");
-        Long nextQuestionId = ReqParser.getLong(req, "nextQuestionId");
+        String answerText = req.getParameter(S.inputAnswer);
+        Long nextQuestionId = ReqParser.getLong(req, S.paramNextQuestionId);
 
         Answer answer = Answer.with()
                 .questionId(question.getId())
@@ -57,14 +53,6 @@ public enum AnswerService {
         question.getAnswers().add(answer);
     }
 
-    public void update(Answer answer) {
-        answerRepository.update(answer);
-    }
-
-    public void delete(Answer answer) {
-        answerRepository.delete(answer);
-    }
-
     public void delete(HttpServletRequest req) {
         long answerId = ReqParser.getLong(req, S.paramAnswerDelete);
         Optional<Answer> optAnswer = answerRepository.get(answerId);
@@ -72,7 +60,7 @@ public enum AnswerService {
             Answer answer = optAnswer.get();
             Optional<Question> optQuestion = questionRepository.get(answer.getQuestionId());
             optQuestion.ifPresent(question -> question.getAnswers().remove(answer));
-            delete(answer);
+            answerRepository.delete(answer);
         }
     }
 }

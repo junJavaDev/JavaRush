@@ -3,6 +3,7 @@ package ua.com.javarush.quest.ogarkov.questdelta.settings;
 public class Go {
     public static final String HOME = "";
     public static final String ROOT = "/";
+    public static final String ALL = "/*";
 
     public static final String USERS = "/users";
     public static final String SIGNUP = "/signup";
@@ -13,7 +14,6 @@ public class Go {
     public static final String EDIT_USER = "/edit-user";
 
     public static final String QUESTS = "/quests";
-    public static final String CREATE_QUESTION = "/question-create";
     public static final String EDIT_QUESTS = "/quests-edit";
     public static final String EDIT_QUEST = "/quest-edit";
     public static final String EDIT_QUEST_CONTENT = "/content-edit";

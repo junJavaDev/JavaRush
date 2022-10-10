@@ -17,7 +17,6 @@ public class GameSessionRepository extends AbstractRepository<GameSession> {
     private GameSessionRepository() {
     }
 
-
     @Override
     public Collection<GameSession> find(GameSession pattern) {
         return super.find(

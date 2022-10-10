@@ -11,11 +11,12 @@ import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 
 import java.util.Optional;
 
-@WebFilter(value = "/*")
+@WebFilter(Go.ALL)
 public class LanguageSelector implements Filter {
 
     private final Setting S = Setting.get();
@@ -26,9 +27,9 @@ public class LanguageSelector implements Filter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         HttpSession httpSession = request.getSession();
-        Optional<Object> sessionUser = Optional.ofNullable(httpSession.getAttribute("user"));
-        Optional<String> localeParam = Optional.ofNullable(request.getParameter("lang"));
-        Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute("lang"));
+        Optional<String> localeParam = Optional.ofNullable(request.getParameter(S.paramLang));
+        Optional<Object> sessionUser = Optional.ofNullable(httpSession.getAttribute(S.attrUser));
+        Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute(S.attrLang));
 
         if (localeParam.isPresent()) {
             Language chosenLanguage = Language.valueOf(localeParam.get());
@@ -37,9 +38,9 @@ public class LanguageSelector implements Filter {
                 user.setLanguage(chosenLanguage);
             });
 
-            httpSession.setAttribute("lang", chosenLanguage.name());
+            httpSession.setAttribute(S.attrLang, chosenLanguage.name());
         } else if (sessionLocale.isEmpty()) {
-            httpSession.setAttribute("lang", sessionUser
+            httpSession.setAttribute(S.attrLang, sessionUser
                     .map(user -> ((User) user)
                             .getLanguage()
                             .name())
