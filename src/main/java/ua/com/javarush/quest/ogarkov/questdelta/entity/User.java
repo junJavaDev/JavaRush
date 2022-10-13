@@ -21,9 +21,10 @@ public class User extends AbstractEntity {
     Role role;
     @Builder.Default
     Language language = Language.EN;
-    @Builder.Default
-    Collection<Quest> quests = new ArrayList<>();
-    @Builder.Default
-    Collection<GameSession> gameSessions = new HashSet<>();
+    final Collection<Quest> quests = new ArrayList<>();
+    final Collection<Game> games = new HashSet<>();
 
+    public static User empty() {
+        return User.with().build();
+    }
 }

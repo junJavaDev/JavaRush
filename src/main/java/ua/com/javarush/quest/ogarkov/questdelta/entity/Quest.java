@@ -5,13 +5,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Builder(builderMethodName = "with")
-public class Quest extends AbstractEntity{
+public class Quest extends AbstractEntity {
     Long id;
     String name;
     Long authorId;
@@ -20,4 +19,8 @@ public class Quest extends AbstractEntity{
     Long firstQuestionId;
     @Builder.Default
     List<Question> questions = new ArrayList<>();
+
+    public static Quest empty() {
+        return Quest.with().build();
+    }
 }

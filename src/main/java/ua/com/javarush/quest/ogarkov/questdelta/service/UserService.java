@@ -1,11 +1,15 @@
 package ua.com.javarush.quest.ogarkov.questdelta.service;
 
 import jakarta.servlet.http.Part;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.FormData;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.mapper.Mapper;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.Repository;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.UserRepository;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
-import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
+import ua.com.javarush.quest.ogarkov.questdelta.util.Parser;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -16,21 +20,23 @@ public enum UserService {
     INSTANCE;
     private final ImageService imageService = ImageService.INSTANCE;
     private final Repository<User> userRepository = UserRepository.getInstance();
+    private final PasswordService passwordService = PasswordService.INSTANCE;
     private final Setting S = Setting.get();
 
     public Collection<User> find(User pattern) {
         return userRepository.find(pattern);
     }
 
-    public Optional<User> get(long id) {
-        return userRepository.get(id);
+    public Optional<UserDto> get(long id) {
+        User user = userRepository.get(id);
+        return Mapper.user.dtoOf(user);
     }
 
-    public void uploadAvatar(Part data, User user) throws IOException {
-        String avatar = S.usersDir + user.getId() + ReqParser.getFileExtension(data.getSubmittedFileName());
+    public void uploadAvatar(Part data, long userId) throws IOException {
+        String avatar = S.usersDir + userId + Parser.getFileExtension(data.getSubmittedFileName());
         boolean isUploaded = imageService.uploadImage(avatar, data.getInputStream());
         if (isUploaded) {
-            user.setAvatar(avatar);
+            userRepository.get(userId).setAvatar(avatar);
         }
     }
 
@@ -38,15 +44,33 @@ public enum UserService {
         return userRepository.getAll();
     }
 
-    public void create(User user) {
+    public long create(FormData formData) {
+        User user = User.with().id(formData.getId()).login(formData.getParameter(S.inputLogin)).password(passwordService.getHash(formData.getParameter(S.inputPassword))).role(Role.valueOf(formData.getParameter(S.inputRole))).build();
         userRepository.create(user);
+        return user.getId();
     }
 
-    public void update(User user) {
-        userRepository.update(user);
+    public void update(FormData formData, long userId) {
+        User parsed = Mapper.user.parse(formData);
+        User user = userRepository.get(userId);
+        if (!parsed.getLogin().isEmpty()) {
+            user.setLogin(parsed.getLogin());
+        }
+        if (!parsed.getPassword().isEmpty()) {
+            user.setPassword(passwordService.getHash(parsed.getPassword()));
+        }
+        if (parsed.getRole() != null) {
+            user.setRole(parsed.getRole());
+        }
     }
 
-    public void delete(User user) {
-        userRepository.delete(user);
+    public void changeLang(UserDto userDto) {
+        Long id = userDto.getId();
+        User user = userRepository.get(id);
+        user.setLanguage(userDto.getLanguage());
+    }
+
+    public void delete(long userId) {
+        userRepository.delete(userRepository.get(userId));
     }
 }

@@ -1,10 +1,7 @@
 package ua.com.javarush.quest.ogarkov.questdelta.settings;
 
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.Setter;
 import org.yaml.snakeyaml.Yaml;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,24 +16,22 @@ import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 public class Setting {
 
     private static final String SETTING_YAML = "setting.yaml";
-
+    //============================ SAFE_THREAD_SINGLETON ======================================
+    private static volatile Setting SETTING;
     //==================================== DATA updateable from Yaml ===============================================
     public final int defaultPageNumber = set(DEFAULT_PAGE_NUMBER);
     public final int defaultPageSize = set(DEFAULT_PAGE_SIZE);
     public final String paramId = set(PARAM_ID);
     public final String paramPageNumber = set(PARAM_PAGE_NUMBER);
     public final String paramPageSize = set(PARAM_PAGE_SIZE);
-
     public final String paramLang = set(PARAM_LANG);
-    public final String paramQuestionIndex = set(PARAM_QUESTION_INDEX);
+    public final String paramQuestionId = set(PARAM_QUESTION_ID);
     public final String paramQuestionDelete = set(PARAM_QUESTION_DELETE);
     public final String paramQuestionCreate = set(PARAM_QUESTION_CREATE);
     public final String paramQuestionUpdate = set(PARAM_QUESTION_UPDATE);
     public final String paramQuestDelete = set(PARAM_QUEST_DELETE);
     public final String paramAnswerCreate = set(PARAM_ANSWER_CREATE);
     public final String paramAnswerDelete = set(PARAM_ANSWER_DELETE);
-    public final String paramNextQuestionId = set(PARAM_NEXT_QUESTION_ID);
-
     public final String inputName = set(INPUT_NAME);
     public final String inputTwine = set(INPUT_TWINE);
     public final String inputContent = set(INPUT_CONTENT);
@@ -54,7 +49,6 @@ public class Setting {
     public final String inputCreate = set(INPUT_CREATE);
     public final String inputDelete = set(INPUT_DELETE);
     public final String imageAbout = set(IMAGE_ABOUT);
-
     public final String bootstrap = set(BOOTSTRAP);
     public final String insertParam = set(INSERT_PARAM);
     public final String postToUrl = set(POST_TO_URL);
@@ -62,7 +56,6 @@ public class Setting {
     public final String defaultAvatar = set(DEFAULT_AVATAR);
     public final String defaultImage = set(DEFAULT_IMAGE);
     public final String defaultLanguage = set(DEFAULT_LANGUAGE);
-
     public final String questImgPrefix = set(QUEST_IMG_PREFIX);
     public final String helpDir = set(HELP_DIR);
     public final String twineDir = set(TWINE_DIR);
@@ -71,8 +64,9 @@ public class Setting {
     public final String imgDir = set(IMG_DIR);
     public final String usersDir = set(USERS_DIR);
     public final String pagesDir = set(PAGES_DIR);
-
     public final String attrRoles = set(ATTR_ROLES);
+    public final String attrRole = set(ATTR_ROLE);
+    public final String attrGame = set(ATTR_GAME);
     public final String attrUser = set(ATTR_USER);
     public final String attrUsers = set(ATTR_USERS);
     public final String attrUserId = set(ATTR_USER_ID);
@@ -88,7 +82,6 @@ public class Setting {
     public final String attrLang = set(ATTR_LANG);
     public final String attrWins = set(ATTR_WINS);
     public final String attrLoses = set(ATTR_LOSES);
-
     public final String attrUsersRegistered = set(ATTR_USERS_REGISTERED);
     public final String attrGamesPlayed = set(ATTR_GAMES_PLAYED);
     public final String attrQuestCreated = set(ATTR_QUEST_CREATED);
@@ -103,7 +96,6 @@ public class Setting {
     public final String attrBestPlayerWins = set(ATTR_BEST_PLAYER_WINS);
     public final String attrWorstPlayerLoses = set(ATTR_WORST_PLAYER_LOSES);
     public final String attrMostPopularQuestLaunches = set(ATTR_MOST_POPULAR_QUEST_LAUNCHES);
-
     public final String jspEditUser = set(JSP_EDIT_USER);
     public final String jspEditUsers = set(JSP_EDIT_USERS);
     public final String jspEditProfile = set(JSP_EDIT_PROFILE);
@@ -117,21 +109,23 @@ public class Setting {
     public final String jspPlay = set(JSP_PLAY);
     public final String jspLogin = set(JSP_LOGIN);
     public final String jspProfile = set(JSP_PROFILE);
-
     public final String zero = set(ZERO);
     public final String[] emptyStringArray = set(EMPTY_STRING_ARRAY);
     public final String deleted = set(DELETED);
     public final String notExist = set(NOT_EXIST);
     public final String notFoundCmd = set(NOT_FOUND_CMD);
     public final String incorrectUri = set(INCORRECT_URI);
-
+    public final String emptyPassword = set(EMPTY_PASSWORD);
     public final int playStartAgainValue = set(PLAY_START_AGAIN_VALUE);
-    public final int playCompleteValue = set(PLAY_COMPLETE_VALUE);
 
     //==================================== /DATA ==============================================
+    public final int playCompleteValue = set(PLAY_COMPLETE_VALUE);
 
-    //============================ SAFE_THREAD_SINGLETON ======================================
-    private static volatile Setting SETTING;
+    //================================ INIT ========================================
+    private Setting() {
+        updateFromYAML();
+    }
+    //============================ /SAFE_THREAD_SINGLETON ====================================
 
     public static Setting get() {
         Setting setting = SETTING;
@@ -144,12 +138,9 @@ public class Setting {
         }
         return setting;
     }
-    //============================ /SAFE_THREAD_SINGLETON ====================================
 
-
-    //================================ INIT ========================================
-    private Setting() {
-        updateFromYAML();
+    private static <T> T set(T value) {
+        return value;
     }
 
     private void updateFromYAML() {
@@ -172,10 +163,6 @@ public class Setting {
                 throw new RuntimeException(e);
             }
         }
-    }
-
-    private static <T> T set(T value) {
-        return value;
     }
 }
 //=============================== /INIT ========================================

@@ -16,7 +16,8 @@
         </c:choose>
     </p>
 
-    <form class="form-horizontal needs-validation" action="${rootPath}${Go.EDIT_USER}?${S.paramId}=${param.id}" method="post"
+    <form class="form-horizontal needs-validation" action="${rootPath}${Go.EDIT_USER}?${S.paramId}=${param.id}"
+          method="post"
           enctype="multipart/form-data" novalidate>
         <fieldset class="w400">
             <div class="row">
@@ -39,7 +40,7 @@
                     <%@ include file="/WEB-INF/pages/user/form-elements/keyWord.jsp" %>
                 </c:if>
                 <!-- Avatar input-->
-                <%@ include file="/WEB-INF/pages/user/form-elements/avatarInput.jsp" %>
+                    <%@ include file="/WEB-INF/pages/user/form-elements/avatarInput.jsp" %>
                 <!-- Buttons -->
                 <div class="d-flex justify-content-around my-3">
                     <button id="submit" name="${requestScope.user.id>0?S.inputUpdate:S.inputCreate}"

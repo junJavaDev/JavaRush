@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <td class="text-end w200"><b>${langQuestsCreated}</b></td>
-            <td class="text-start">${requestScope.user.quests.size()}</td>
+            <td class="text-start">${requestScope.user.quests}</td>
         </tr>
         <tr>
             <td class="text-end w200"><b>${langProfileWins}</b></td>

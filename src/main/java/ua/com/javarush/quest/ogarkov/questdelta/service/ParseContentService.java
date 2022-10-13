@@ -1,7 +1,5 @@
 package ua.com.javarush.quest.ogarkov.questdelta.service;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Answer;
@@ -39,7 +37,7 @@ public enum ParseContentService {
             "((?<=(^|\\n|\\r))(?=.*[" + DELIMITERS
                     + "]))|[" + DELIMITERS + "]";
 
-    public void parseContent(String content, Quest existQuest) {
+    public void parseContent(Quest existQuest, String content) {
         Map<String, Question> questionMap = new HashMap<>();
         Map<Answer, String> answerMap = new HashMap<>();
         List<Question> parsedQuestions = new ArrayList<>();
@@ -78,7 +76,7 @@ public enum ParseContentService {
             }
             if (existQuest.getQuestions().size() == 1) {
                 Question firstQuestion = existQuest.getQuestions().get(0);
-                questionService.delete(firstQuestion);
+                questionService.delete(firstQuestion.getId());
                 existQuest.setFirstQuestionId(parsedQuestions.get(0).getId());
             }
             for (Question parsedQuestion : parsedQuestions) {
@@ -88,9 +86,7 @@ public enum ParseContentService {
         }
     }
 
-    public void parseTwine(HttpServletRequest request, Quest filledQuest) throws ServletException, IOException {
-
-        Part data = request.getPart(S.inputTwine);
+    public void parseTwine(Quest filledQuest, Part data) throws IOException {
         InputStream inputStream = data.getInputStream();
         if (inputStream.available() > 0) {
             String dataStart = "<tw-passagedata";
@@ -121,7 +117,7 @@ public enum ParseContentService {
                     }
                 }
             }
-            parseContent(formattedContent.toString(), filledQuest);
+            parseContent(filledQuest, formattedContent.toString());
         }
     }
 

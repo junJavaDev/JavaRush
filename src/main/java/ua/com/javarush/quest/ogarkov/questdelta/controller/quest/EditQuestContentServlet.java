@@ -6,18 +6,12 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Answer;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
-import ua.com.javarush.quest.ogarkov.questdelta.service.AnswerService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.EditorService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
-import ua.com.javarush.quest.ogarkov.questdelta.service.QuestionService;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.*;
+import ua.com.javarush.quest.ogarkov.questdelta.service.*;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
-import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
+import ua.com.javarush.quest.ogarkov.questdelta.util.Parser;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -36,17 +30,19 @@ public class EditQuestContentServlet extends HttpServlet {
     private final QuestionService questionService = QuestionService.INSTANCE;
     private final AnswerService answerService = AnswerService.INSTANCE;
     private final EditorService editorService = EditorService.INSTANCE;
+    private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = ReqParser.getUser(req).orElseThrow();
-        Optional<Quest> optQuest = questService.get(ReqParser.getId(req));
+        FormData formData = FormData.of(req);
+        long userId = Parser.userId(req);
+        UserDto user = userService.get(userId).orElseThrow();
+        Optional<QuestDto> optQuest = questService.get(formData.getId());
         if (optQuest.isPresent() && editorService.checkRights(optQuest.get(), user)) {
-            Quest quest = optQuest.get();
-            long questionIndex = ReqParser.getLong(req, S.paramQuestionIndex);
-            List<Question> questions = quest.getQuestions();
-            Question question = questions.get((int) questionIndex);
+            QuestDto quest = optQuest.get();
+            long questionId = formData.getLong(S.paramQuestionId);
+            QuestionDto question = questionService.get(questionId).orElse(questionService.get(quest.getFirstQuestionId()).orElseThrow());
             req.setAttribute(S.attrQuest, quest);
             req.setAttribute(S.attrQuestion, question);
             req.setAttribute(S.attrAnswers, getAnswers(question));
@@ -55,39 +51,40 @@ public class EditQuestContentServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Long questId = ReqParser.getLong(req, S.paramId);
-        Optional<Quest> optQuest = questService.get(questId);
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        FormData formData = FormData.of(req);
+        Long questId = formData.getId();
+        Optional<QuestDto> optQuest = questService.get(questId);
         if (optQuest.isPresent()) {
-            Quest quest = optQuest.get();
-            long questionIndex = ReqParser.getLong(req, S.paramQuestionIndex);
+            QuestDto quest = optQuest.get();
+            long questionId = formData.getLong(S.paramQuestionId);
+            QuestionDto question = questionService.get(questionId).orElse(questionService.get(quest.getFirstQuestionId()).orElseThrow());
+            int questionIndex = quest.getQuestions().indexOf(question);
             //----------- Create question -----------//
             if (isExist(req, S.paramQuestionCreate)) {
-                questionService.createEmpty(quest);
+                questionService.createEmpty(formData.getId());
                 questionIndex = quest.getQuestions().size() - 1;
                 Jsp.redirect(req, resp, editorService.getEditPath(questId, questionIndex));
                 return;
 
                 //----------- Update question -----------//
             } else if (isExist(req, S.paramQuestionUpdate)) {
-                questionService.update(req);
+                questionService.update(formData, req.getPart(S.inputImage));
 
                 //----------- Delete question -----------//
             } else if (isExist(req, S.paramQuestionDelete)) {
-                long id = ReqParser.getLong(req, S.paramQuestionDelete);
-                Optional<Question> optQuestion = questionService.get(id);
-                optQuestion.ifPresent(editorService::deleteNonFirstQuestion);
+                editorService.deleteNonFirstQuestion(formData);
                 //----------- Create answer -----------//
             } else if (isExist(req, S.paramAnswerCreate)) {
-                answerService.create(req);
+                answerService.create(formData);
 
                 //----------- Delete answer -----------//
             } else if (isExist(req, S.paramAnswerDelete)) {
-                answerService.delete(req);
+                answerService.delete(formData);
 
                 //----------- Delete quest -----------//
             } else if (isExist(req, S.paramQuestDelete)) {
-                questService.delete(req);
+                questService.delete(formData);
                 Jsp.redirect(req, resp, Go.EDIT_QUESTS);
                 return;
             }
@@ -99,12 +96,10 @@ public class EditQuestContentServlet extends HttpServlet {
         return req.getParameter(param) != null;
     }
 
-    private List<Map.Entry<Answer, Question>> getAnswers(Question question) {
-        List<Map.Entry<Answer, Question>> answers = new ArrayList<>();
-        for (Answer answer : question.getAnswers()) {
-            Question nextQuestion = questionService
-                    .get(answer.getNextQuestionId())
-                    .orElseThrow();
+    private List<Map.Entry<AnswerDto, QuestionDto>> getAnswers(QuestionDto question) {
+        List<Map.Entry<AnswerDto, QuestionDto>> answers = new ArrayList<>();
+        for (AnswerDto answer : question.getAnswers()) {
+            QuestionDto nextQuestion = questionService.get(answer.getNextQuestionId()).orElseThrow();
             answers.add(Map.entry(answer, nextQuestion));
         }
         return answers;

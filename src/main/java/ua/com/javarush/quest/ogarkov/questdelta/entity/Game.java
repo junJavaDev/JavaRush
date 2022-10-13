@@ -2,14 +2,13 @@ package ua.com.javarush.quest.ogarkov.questdelta.entity;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Data
 @Builder(builderMethodName = "with")
-public class GameSession extends AbstractEntity implements Comparable<GameSession>{
+public class Game extends AbstractEntity implements Comparable<Game> {
     Long id;
     Long userId;
     Long questId;
@@ -18,11 +17,15 @@ public class GameSession extends AbstractEntity implements Comparable<GameSessio
     ZonedDateTime lastSeen;
     Long currentQuestionId;
 
+    public static Game empty() {
+        return Game.with().build();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        GameSession that = (GameSession) o;
+        Game that = (Game) o;
         return Objects.equals(id, that.id);
     }
 
@@ -32,7 +35,7 @@ public class GameSession extends AbstractEntity implements Comparable<GameSessio
     }
 
     @Override
-    public int compareTo(GameSession o) {
+    public int compareTo(Game o) {
         return Long.compare(id, o.id);
     }
 }

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/pages/components/header.jsp" %>
 <c:set var="reqUrl">${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}</c:set>
-<c:set var="reqUrlFull">${reqUrl}&${S.paramQuestionIndex}=${param.questionIndex}</c:set>
+<c:set var="reqUrlFull">${reqUrl}&${S.paramQuestionId}=${param.questionId}</c:set>
 
 <div class="container-md">
     <div class="row">
@@ -33,7 +33,7 @@
                             <c:forEach var="question" items="${requestScope.quest.questions}" varStatus="loop">
                                 <tr ${question.id == requestScope.question.id
                                         ?  "class='table-secondary'"
-                                        :  ""} onclick="insertParam('${S.paramQuestionIndex}', '${loop.index}');">
+                                        :  ""} onclick="insertParam('${S.paramQuestionId}', '${question.id}');">
                                     <th scope="row">${loop.count}</th>
                                     <td>${question.name}</td>
                                     <td>${question.answers.size()}</td>
@@ -180,7 +180,7 @@
                                                         <td>${entry.key.text}</td>
                                                         <td><a class="link-primary text-decoration-none"
                                                                 <c:set var="questionIndex">${requestScope.quest.questions.indexOf(entry.value)}</c:set>
-                                                               href="javascript:insertParam('${S.paramQuestionIndex}', '${questionIndex}');">
+                                                               href="javascript:insertParam('${S.paramQuestionId}', '${entry.value.id}');">
                                                                 ${questionIndex+1} ${entry.value.name}
                                                         </a></td>
                                                         <td><a class="link-primary text-decoration-none"

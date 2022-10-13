@@ -6,8 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
-import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
+import ua.com.javarush.quest.ogarkov.questdelta.service.PasswordService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
@@ -21,7 +21,7 @@ public class LoginServlet extends HttpServlet {
 
     @Serial
     private static final long serialVersionUID = -8839039694577428788L;
-    private final UserService userService = UserService.INSTANCE;
+    private final PasswordService passwordService = PasswordService.INSTANCE;
     private final Setting S = Setting.get();
 
     @Override
@@ -33,23 +33,17 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String login = req.getParameter(S.inputLogin);
         String password = req.getParameter(S.inputPassword);
-        Optional<User> optionalUser = userService
-                .find(User.with()
-                        .login(login)
-                        .password(password)
-                        .build())
-                .stream()
-                .findFirst();
+        Optional<UserDto> optionalUser = passwordService.check(login, password);
         if (optionalUser.isPresent()) {
             HttpSession session = req.getSession();
-            User user = optionalUser.get();
+            UserDto user = optionalUser.get();
             session.setAttribute(S.attrUser, user);
             session.setAttribute(S.attrUserId, user.getId());
             session.setAttribute(S.attrLang, user.getLanguage().name());
             String uri = Go.PROFILE + "?" + S.paramId + "=" + user.getId();
             Jsp.redirect(req, resp, uri);
         } else {
-            Jsp.redirect(req, resp, Go.ROOT);
+            Jsp.redirect(req, resp, Go.LOGIN);
         }
     }
 }

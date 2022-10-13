@@ -7,8 +7,6 @@
 <%@ page import="ua.com.javarush.quest.ogarkov.questdelta.entity.GameState" %>
 <c:set var="rootPath">${pageContext.request.contextPath}</c:set>
 <jsp:useBean id="S" scope="application" type="ua.com.javarush.quest.ogarkov.questdelta.settings.Setting"/>
-
-
 <fmt:setLocale value="${sessionScope.lang}"/>
 <fmt:setBundle basename="lang/language"/>
 
@@ -106,18 +104,12 @@
 <%--Users table header--%>
 <fmt:message key="users.create_user_btn" var="сreateUserBtn"/>
 <fmt:message key="users.count_per_page" var="countPerPage"/>
-
 <fmt:message key="user.edit_form_legend" var="langEditFormLegend"/>
 <fmt:message key="user.create_form_legend" var="langCreateFormLegend"/>
 <fmt:message key="login.login_label" var="langLoginLabel"/>
 <fmt:message key="login.login_placeholder" var="langLoginPlaceholder"/>
 <fmt:message key="footer.copyright" var="langFooterCopyright"/>
 <fmt:message key="title.quest_delta" var="langTitle"/>
-
-
-
-<fmt:message key="title.quest_delta" var="langTitle"/>
-
 <%--About--%>
 <fmt:message key="about.page_title" var="langAboutPageTitle"/>
 <fmt:message key="about.groupIs" var="langAboutGroupIs"/>
@@ -140,7 +132,6 @@
 <fmt:message key="statistics.loses" var="langLoses"/>
 <fmt:message key="statistics.most_popular_quest" var="langMostPopularQuest"/>
 <fmt:message key="statistics.launches" var="langLaunches"/>
-
 <fmt:message key="home.welcome" var="langWelcome"/>
 
 <%--Editor--%>
@@ -162,9 +153,7 @@
 <fmt:message key="editor.add_answer" var="langAddAnswer"/>
 <fmt:message key="editor.cant_add_answer" var="langCantAddAnswer"/>
 
-
 <fmt:message key="question.create_legend" var="langQuestionCreateLegend"/>
-
 <fmt:message key="quests.start_new_game_btn" var="langStartNewGameBtn"/>
 <fmt:message key="quests.continue_game_btn" var="langContinueGameBtn"/>
 
@@ -185,7 +174,6 @@
 <fmt:message key="content.quest_content_placeholder" var="langContentQuestContentPlaceholder"/>
 <fmt:message key="content.or_load" var="langContentOrLoad"/>
 <fmt:message key="content.twine_file" var="langContentTwineFile"/>
-
 
 <fmt:message key="content.modal_title" var="langContentModalTitle"/>
 <fmt:message key="content.about" var="langContentAbout"/>

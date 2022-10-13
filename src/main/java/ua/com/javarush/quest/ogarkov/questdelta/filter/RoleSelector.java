@@ -5,8 +5,8 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import static ua.com.javarush.quest.ogarkov.questdelta.settings.Default.*;
 
 @WebFilter({Go.USERS, Go.SIGNUP, Go.PROFILE, Go.LOGIN, Go.PLAY, Go.EDIT_PROFILE, Go.EDIT_USER, Go.LOGOUT, Go.USERS, Go.EDIT_QUEST, Go.EDIT_QUEST_CONTENT, Go.EDIT_QUESTS})
 public class RoleSelector implements Filter {
@@ -36,13 +34,13 @@ public class RoleSelector implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String command = Jsp.getCommand(request);
         HttpSession session = request.getSession();
-        Object user = session.getAttribute("user");
+        Object user = session.getAttribute(S.attrUser);
 
         Role role = (Objects.isNull(user))
                 ? Role.GUEST
-                : ((User) user).getRole();
+                : ((UserDto) user).getRole();
 
-        session.setAttribute("role", role.name());
+        session.setAttribute(S.attrRole, role.name());
         if (uriMap.get(role).contains(command)) {
             filterChain.doFilter(servletRequest, servletResponse);
         } else {

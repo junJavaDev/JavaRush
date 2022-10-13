@@ -31,6 +31,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+        </dependency>
+        <dependency>
             <groupId>jakarta.servlet</groupId>
             <artifactId>jakarta.servlet-api</artifactId>
             <version>5.0.0</version>
@@ -74,7 +79,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.30</version>
+            <version>1.33</version>
         </dependency>
     </dependencies>
 

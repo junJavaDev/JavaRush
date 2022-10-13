@@ -1,10 +1,10 @@
 package ua.com.javarush.quest.ogarkov.questdelta.service;
 
 import ua.com.javarush.quest.ogarkov.questdelta.dto.DataTank;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.GameSession;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.QuestDto;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
+import ua.com.javarush.quest.ogarkov.questdelta.entity.Game;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.GameState;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 
 import java.util.*;
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public enum StatisticsService {
     INSTANCE;
     private final UserService userService = UserService.INSTANCE;
-    private final GameSessionService gameSessionService = GameSessionService.INSTANCE;
+    private final GameService gameService = GameService.INSTANCE;
     private final AnswerService answerService = AnswerService.INSTANCE;
     private final QuestionService questionService = QuestionService.INSTANCE;
     private final QuestService questService = QuestService.INSTANCE;
@@ -22,53 +22,46 @@ public enum StatisticsService {
 
     public DataTank getStatistics() {
         DataTank statistics = DataTank.empty();
-        long usersRegistered = userService.getAll().size();
-        long gamesPlayed = gameSessionService.getAll().size();
-        long questCreated = questService.getAll().size();
-        long questionsCreated = questionService.getAll().size();
-        long answersCreated = answerService.getAll().size();
         var bestPlayer = getBestPlayer();
         var worstPlayer = getWorstPlayer();
         var mostPopularQuest = getMostPopularQuest();
         Long bestPlayerID = bestPlayer.getKey();
         Long worstPlayerID = worstPlayer.getKey();
         Long mostPopularQuestID = mostPopularQuest.getKey();
-        Optional<User> optBestPlayer = userService.get(bestPlayer.getKey());
-        Optional<User> optWorstPlayer = userService.get(worstPlayer.getKey());
-        Optional<Quest> optMostPopularQuest = questService.get(mostPopularQuest.getKey());
-        String bestPlayerLogin = optBestPlayer.isPresent()
-                ? optBestPlayer.get().getLogin()
-                : S.notExist;
-        String worstPlayerLogin = optWorstPlayer.isPresent()
-                ? optWorstPlayer.get().getLogin()
-                : S.notExist;
-        String mostPopularQuestName = optMostPopularQuest.isPresent()
-                ? optMostPopularQuest.get().getName()
-                : S.notExist;
-        long bestPlayerWins = bestPlayer.getValue().size();
-        long worstPlayerLoses = worstPlayer.getValue().size();
-        long mostPopularQuestLaunches = mostPopularQuest.getValue().size();
 
-        statistics.addAttr(S.attrUsersRegistered, usersRegistered);
-        statistics.addAttr(S.attrUsersRegistered, usersRegistered);
-        statistics.addAttr(S.attrGamesPlayed, gamesPlayed);
-        statistics.addAttr(S.attrQuestCreated, questCreated);
-        statistics.addAttr(S.attrQuestionsCreated, questionsCreated);
-        statistics.addAttr(S.attrAnswersCreated, answersCreated);
+        statistics.addAttr(S.attrUsersRegistered, userService.getAll().size());
+        statistics.addAttr(S.attrGamesPlayed, gameService.getAll().size());
+        statistics.addAttr(S.attrQuestCreated, questService.getAll().size());
+        statistics.addAttr(S.attrQuestionsCreated, questionService.getAll().size());
+        statistics.addAttr(S.attrAnswersCreated, answerService.getAll().size());
         statistics.addAttr(S.attrBestPlayerId, bestPlayerID);
         statistics.addAttr(S.attrWorstPlayerId, worstPlayerID);
         statistics.addAttr(S.attrMostPopularQuestId, mostPopularQuestID);
-        statistics.addAttr(S.attrBestPlayerLogin, bestPlayerLogin);
-        statistics.addAttr(S.attrWorstPlayerLogin, worstPlayerLogin);
-        statistics.addAttr(S.attrMostPopularQuestName, mostPopularQuestName);
-        statistics.addAttr(S.attrBestPlayerWins, bestPlayerWins);
-        statistics.addAttr(S.attrWorstPlayerLoses, worstPlayerLoses);
-        statistics.addAttr(S.attrMostPopularQuestLaunches, mostPopularQuestLaunches);
+        statistics.addAttr(S.attrBestPlayerLogin, getLogin(bestPlayerID));
+        statistics.addAttr(S.attrWorstPlayerLogin, getLogin(worstPlayerID));
+        statistics.addAttr(S.attrMostPopularQuestName, getQuestName(mostPopularQuestID));
+        statistics.addAttr(S.attrBestPlayerWins, bestPlayer.getValue().size());
+        statistics.addAttr(S.attrWorstPlayerLoses, worstPlayer.getValue().size());
+        statistics.addAttr(S.attrMostPopularQuestLaunches, mostPopularQuest.getValue().size());
         return statistics;
     }
 
-    private Map.Entry<Long, List<GameSession>> getLeader(GameSession pattern, Function<GameSession, Long> function) {
-        return gameSessionService.find(pattern)
+    private String getLogin(long id) {
+        Optional<UserDto> optionalUser = userService.get(id);
+        return optionalUser.isPresent()
+                ? optionalUser.get().getLogin()
+                : S.notExist;
+    }
+
+    private String getQuestName(long id) {
+        Optional<QuestDto> optionalQuest = questService.get(id);
+        return optionalQuest.isPresent()
+                ? optionalQuest.get().getName()
+                : S.notExist;
+    }
+
+    private Map.Entry<Long, List<Game>> getLeader(Game pattern, Function<Game, Long> function) {
+        return gameService.find(pattern)
                 .stream()
                 .collect(Collectors.groupingBy(function))
                 .entrySet()
@@ -77,28 +70,28 @@ public enum StatisticsService {
                 .orElse(Map.entry(0L, Collections.emptyList()));
     }
 
-    private Map.Entry<Long, List<GameSession>> getBestPlayer() {
+    private Map.Entry<Long, List<Game>> getBestPlayer() {
         return getLeader(
-                GameSession.with()
+                Game.with()
                         .gameState(GameState.WIN)
                         .build(),
-                GameSession::getUserId
+                Game::getUserId
         );
     }
 
-    private Map.Entry<Long, List<GameSession>> getWorstPlayer() {
+    private Map.Entry<Long, List<Game>> getWorstPlayer() {
         return getLeader(
-                GameSession.with()
+                Game.with()
                         .gameState(GameState.LOSE)
                         .build(),
-                GameSession::getUserId
+                Game::getUserId
         );
     }
 
-    private Map.Entry<Long, List<GameSession>> getMostPopularQuest() {
+    private Map.Entry<Long, List<Game>> getMostPopularQuest() {
         return getLeader(
-                GameSession.with().build(),
-                GameSession::getQuestId
+                Game.with().build(),
+                Game::getQuestId
         );
     }
 }

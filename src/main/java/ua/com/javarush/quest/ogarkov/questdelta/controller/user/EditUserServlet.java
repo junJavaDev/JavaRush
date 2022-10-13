@@ -3,14 +3,18 @@ package ua.com.javarush.quest.ogarkov.questdelta.controller.user;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.FormData;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Role;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
-import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
+import ua.com.javarush.quest.ogarkov.questdelta.util.Parser;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -27,45 +31,41 @@ public class EditUserServlet extends HttpServlet {
 
     @Override
     public void init() {
-        getServletContext()
-                .setAttribute(S.attrRoles, Role.values());
+        getServletContext().setAttribute(S.attrRoles, Role.values());
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Optional<User> optionalUser = ReqParser.getUser(request);
-        optionalUser.ifPresent(user -> request.setAttribute(S.attrUser, user));
-        Jsp.forward(request, response, S.jspEditUser);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (Parser.getCommand(req).equals(Go.SIGNUP)) {
+            Jsp.forward(req, resp, S.jspEditUser);
+        } else {
+            FormData formData = FormData.of(req);
+            long editedId = formData.getId();
+            Optional<UserDto> optUser = userService.get(editedId);
+            optUser.ifPresent(user -> req.setAttribute(S.attrUser, user));
+            Jsp.forward(req, resp, S.jspEditUser);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        long id = ReqParser.getId(req);
-        User user = User.with()
-                .id(id)
-                .login(req.getParameter(S.inputLogin))
-                .password(req.getParameter(S.inputPassword))
-                .role(Role.valueOf(req.getParameter(S.inputRole)))
-                .build();
-        postUser(req, user);
+        FormData formData = FormData.of(req);
+        long id = formData.getId();
         Part data = req.getPart(S.inputImage);
-        userService.uploadAvatar(data, user);
-        HttpSession session = req.getSession();
-        Optional<Object> currentId = Optional.ofNullable(session.getAttribute(S.attrUserId));
-        if (currentId.isPresent() && (Long) currentId.get() == id) {
-            session.setAttribute(S.attrUser, user);
-        }
+        postUser(formData, data, id);
         Jsp.redirect(req, resp, Go.USERS);
     }
 
-    private void postUser(HttpServletRequest req, User user) {
-        boolean present = userService.get(user.getId()).isPresent();
-        if (present && req.getParameter(S.inputUpdate) != null) {
-            userService.update(user);
-        } else if (present && req.getParameter(S.inputDelete) != null) {
-            userService.delete(user);
-        } else if (!present && req.getParameter(S.inputCreate) != null) {
-            userService.create(user);
+    private void postUser(FormData formData, Part data, long id) throws IOException {
+        boolean present = userService.get(id).isPresent();
+        if (present && formData.getParameter(S.inputUpdate) != null) {
+            userService.update(formData, id);
+            userService.uploadAvatar(data, id);
+        } else if (present && formData.getParameter(S.inputDelete) != null) {
+            userService.delete(id);
+        } else if (!present && formData.getParameter(S.inputCreate) != null) {
+            id = userService.create(formData);
+            userService.uploadAvatar(data, id);
         } else {
             throw new UnsupportedOperationException(S.notFoundCmd);
         }

@@ -6,14 +6,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.FormData;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.QuestDto;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.questdelta.service.EditorService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.QuestService;
+import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
-import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
+import ua.com.javarush.quest.ogarkov.questdelta.util.Parser;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -27,14 +29,17 @@ public class EditQuestServlet extends HttpServlet {
     private static final long serialVersionUID = 7582798421846485830L;
     private final QuestService questService = QuestService.INSTANCE;
     private final EditorService editorService = EditorService.INSTANCE;
+    private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = ReqParser.getUser(req).orElseThrow();
-        Optional<Quest> optQuest = questService.get(ReqParser.getId(req));
+        FormData formData = FormData.of(req);
+        long userId = Parser.userId(req);
+        UserDto user = userService.get(userId).orElseThrow();
+        Optional<QuestDto> optQuest = questService.get(formData.getId());
         if (optQuest.isPresent() && editorService.checkRights(optQuest.get(), user)) {
-            Quest quest = optQuest.get();
+            QuestDto quest = optQuest.get();
             req.setAttribute(S.attrQuest, quest);
         }
         Jsp.forward(req, resp, S.jspEditQuest);
@@ -42,12 +47,14 @@ public class EditQuestServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        long id = ReqParser.getLong(req, S.paramId);
+        FormData formData = FormData.of(req);
+        long id = formData.getId();
         boolean present = questService.get(id).isPresent();
         if (present && req.getParameter(S.inputUpdate) != null) {
-            questService.update(req);
+            questService.update(formData, req.getPart(S.inputImage), req.getPart(S.inputTwine));
         } else if (!present && req.getParameter(S.inputCreate) != null) {
-            Quest quest = questService.create(req);
+            long authorId = Parser.userId(req);
+            QuestDto quest = questService.create(formData, req.getPart(S.inputImage), req.getPart(S.inputTwine), authorId);
             id = quest.getId();
         }
         Jsp.redirect(req, resp, editorService.getEditPath(id));

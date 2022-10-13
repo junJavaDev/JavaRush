@@ -19,8 +19,8 @@ public abstract class AbstractRepository<T extends AbstractEntity> implements Re
     }
 
     @Override
-    public Optional<T> get(long id) {
-        return Optional.ofNullable(map.get(id));
+    public T get(long id) {
+        return map.get(id);
     }
 
     @Override

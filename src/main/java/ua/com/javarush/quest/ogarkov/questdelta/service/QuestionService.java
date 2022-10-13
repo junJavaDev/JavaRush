@@ -1,18 +1,20 @@
 package ua.com.javarush.quest.ogarkov.questdelta.service;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.Part;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.FormData;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.QuestionDto;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Answer;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.GameState;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Quest;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Question;
+import ua.com.javarush.quest.ogarkov.questdelta.mapper.Mapper;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.AnswerRepository;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestRepository;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.QuestionRepository;
 import ua.com.javarush.quest.ogarkov.questdelta.repository.Repository;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
-import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
+import ua.com.javarush.quest.ogarkov.questdelta.util.Parser;
 
 import java.io.IOException;
 import java.util.Collection;
@@ -27,37 +29,19 @@ public enum QuestionService {
     private final Repository<Answer> answerRepository = AnswerRepository.getInstance();
     private final ImageService imageService = ImageService.INSTANCE;
 
-    public Optional<Question> get(long id) {
-        return questionRepository.get(id);
+    public Optional<QuestionDto> get(long id) {
+        Question question = questionRepository.get(id);
+        return Mapper.question.dtoOf(question);
     }
 
     public Collection<Question> getAll() {
         return questionRepository.getAll();
     }
 
-    public Question create(HttpServletRequest req) throws ServletException, IOException {
-        Long id = ReqParser.getLong(req, S.paramId);
-        Quest quest = questRepository.get(id).orElseThrow();
-
-        GameState gameState = GameState.valueOf(req.getParameter(S.inputGameState));
-        String name = req.getParameter(S.inputName);
-        String text = req.getParameter(S.inputText);
-
+    public Question createEmpty(long questId) {
+        Quest quest = questRepository.get(questId);
         Question question = Question.with()
-                .questId(quest.getId())
-                .gameState(gameState)
-                .name(name)
-                .text(text)
-                .build();
-        questionRepository.create(question);
-
-        quest.getQuestions().add(question);
-        return question;
-    }
-
-    public Question createEmpty(Quest quest) {
-        Question question = Question.with()
-                .questId(quest.getId())
+                .questId(questId)
                 .gameState(GameState.PLAY)
                 .build();
         questionRepository.create(question);
@@ -65,10 +49,9 @@ public enum QuestionService {
         return question;
     }
 
-    public void delete(Question question) {
-        Quest quest = questRepository
-                .get(question.getQuestId())
-                .orElseThrow();
+    public void delete(long id) {
+        Question question = questionRepository.get(id);
+        Quest quest = questRepository.get(question.getQuestId());
         for (Answer answer : question.getAnswers()) {
             answerRepository.delete(answer);
         }
@@ -78,10 +61,10 @@ public enum QuestionService {
                         .nextQuestionId(question.getId())
                         .build());
         for (Answer answer : answers) {
-            Optional<Question> questionWithAnswer = get(answer.getQuestionId());
-            questionWithAnswer.ifPresent(
-                    value -> value.getAnswers().remove(answer)
-            );
+            Question questionWithAnswer = questionRepository.get(answer.getQuestionId());
+            if (questionWithAnswer != null) {
+                questionWithAnswer.getAnswers().remove(answer);
+            }
             answerRepository.delete(answer);
         }
         if (question.getImage() != null) {
@@ -92,35 +75,20 @@ public enum QuestionService {
     }
 
 
-    public void update(HttpServletRequest req) {
-        Long questId = ReqParser.getLong(req, S.paramId);
-        Quest quest = questRepository
-                .get(questId)
-                .orElseThrow();
-        long questionIndex = ReqParser.getLong(req, S.paramQuestionIndex);
-        Question question = quest
-                .getQuestions()
-                .get((int) questionIndex);
+    public void update(FormData formData, Part data) throws IOException, ServletException {
+        Question parsed = Mapper.question.parse(formData);
+        Question question = questionRepository.get(parsed.getId());
+        question.setName(parsed.getName());
+        question.setText(parsed.getText());
+        question.setGameState(parsed.getGameState());
 
-        String name = req.getParameter(S.inputName);
-        String text = req.getParameter(S.inputText);
-        GameState gameState = GameState.valueOf(req.getParameter(S.inputGameState));
-        question.setName(name);
-        question.setText(text);
-        question.setGameState(gameState);
-
-        try {
-            Part data = req.getPart(S.inputImage);
-            String image = S.questsDir
-                    + questId + "/"
-                    + question.getId()
-                    + ReqParser.getFileExtension(data.getSubmittedFileName());
-            boolean isUploaded = imageService.uploadImage(image, data.getInputStream());
-            if (isUploaded) {
-                question.setImage(image);
-            }
-        } catch (IOException | ServletException e) {
-            throw new RuntimeException(e);
+        String image = S.questsDir
+                + question.getQuestId() + "/"
+                + question.getId()
+                + Parser.getFileExtension(data.getSubmittedFileName());
+        boolean isUploaded = imageService.uploadImage(image, data.getInputStream());
+        if (isUploaded) {
+            question.setImage(image);
         }
     }
 

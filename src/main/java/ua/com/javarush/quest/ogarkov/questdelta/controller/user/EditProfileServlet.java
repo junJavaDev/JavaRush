@@ -7,13 +7,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import org.apache.commons.lang3.StringUtils;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.FormData;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 import ua.com.javarush.quest.ogarkov.questdelta.util.Jsp;
-import ua.com.javarush.quest.ogarkov.questdelta.util.ReqParser;
+import ua.com.javarush.quest.ogarkov.questdelta.util.Parser;
 
 import java.io.IOException;
 import java.io.Serial;
@@ -29,36 +29,30 @@ public class EditProfileServlet extends HttpServlet {
     private final Setting S = Setting.get();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Optional<User> optUser = ReqParser.getUser(request);
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        FormData formData = FormData.of(req);
+        long currentUserId = Parser.userId(req);
+        Optional<UserDto> optUser = userService.get(currentUserId);
         if (optUser.isPresent()) {
-            long id = ReqParser.getLong(request, S.paramId);
-            User user = optUser.get();
-            if (id == user.getId()) {
-                User dto = User
-                        .with()
-                        .id(id)
-                        .password(user.getPassword())
-                        .build();
-                request.setAttribute(S.attrUser, dto);
+            UserDto user = optUser.get();
+            long editedUserId = formData.getId();
+            if (editedUserId == currentUserId) {
+                req.setAttribute(S.attrUser, user);
             }
         }
-        Jsp.forward(request, response, S.jspEditProfile);
+        Jsp.forward(req, resp, S.jspEditProfile);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Optional<User> optUser = ReqParser.getUser(req);
+        FormData formData = FormData.of(req);
+        long id = Parser.userId(req);
+        Optional<UserDto> optUser = userService.get(id);
         if (optUser.isPresent()) {
-            User user = optUser.get();
-            String password = req.getParameter(S.inputPassword);
-            if (StringUtils.isNotBlank(password)
-                    && StringUtils.isAnyBlank(password)) {
-                user.setPassword(password);
-            }
+            userService.update(formData, id);
             Part data = req.getPart(S.inputImage);
-            userService.uploadAvatar(data, user);
-            Jsp.redirect(req, resp, Go.PROFILE + "?" + S.paramId + "=" + user.getId());
+            userService.uploadAvatar(data, id);
+            Jsp.redirect(req, resp, Go.PROFILE + "?" + S.paramId + "=" + id);
         } else Jsp.redirect(req, resp, Go.LOGIN);
     }
 }

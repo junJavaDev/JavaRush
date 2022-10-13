@@ -5,8 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import ua.com.javarush.quest.ogarkov.questdelta.dto.DataTank;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.FormData;
 import ua.com.javarush.quest.ogarkov.questdelta.service.PaginationService;
 import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
@@ -27,7 +26,7 @@ public class UsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         paginationService
-                .getUsersPagination(DataTank.of(req))
+                .getUsersPagination(FormData.of(req))
                 .fillRequest(req);
         Jsp.forward(req, resp, S.jspEditUsers);
     }
@@ -37,8 +36,7 @@ public class UsersServlet extends HttpServlet {
         String delete = req.getParameter(S.inputDelete);
         if (delete != null) {
             long id = Long.parseLong(delete);
-            User pattern = User.with().id(id).build();
-            userService.delete(pattern);
+            userService.delete(id);
         }
         Jsp.redirect(req, resp, Go.USERS);
     }

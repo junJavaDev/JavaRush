@@ -21,7 +21,7 @@ import static ua.com.javarush.quest.ogarkov.questdelta.entity.Role.USER;
 @UtilityClass
 public class RepositoryLoader {
     //Need to update with load string
-    //Need make saveMethod
+    //Need make save method
     private final UserRepository userRepository = UserRepository.getInstance();
     private final QuestRepository questRepository = QuestRepository.getInstance();
     private final QuestionRepository questionRepository = QuestionRepository.getInstance();
@@ -40,14 +40,14 @@ public class RepositoryLoader {
         User admin = User.with()
                 .id(1L)
                 .login("admin")
-                .password("admin")
+                .password("YWRtaW4=")
                 .role(ADMIN)
                 .language(RU)
                 .build();
         userRepository.create(admin);
 
         userRepository.create(User.with()
-                .login("user").password("user").role(USER).build());
+                .login("user").password("dXNlcg==").role(USER).build());
 
 //        ---------------------------- /USERS -----------------------------------
 

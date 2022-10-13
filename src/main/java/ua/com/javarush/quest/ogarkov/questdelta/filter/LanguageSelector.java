@@ -9,8 +9,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
+import ua.com.javarush.quest.ogarkov.questdelta.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.questdelta.entity.Language;
-import ua.com.javarush.quest.ogarkov.questdelta.entity.User;
+import ua.com.javarush.quest.ogarkov.questdelta.service.UserService;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Go;
 import ua.com.javarush.quest.ogarkov.questdelta.settings.Setting;
 
@@ -20,32 +21,33 @@ import java.util.Optional;
 public class LanguageSelector implements Filter {
 
     private final Setting S = Setting.get();
+    UserService userService = UserService.INSTANCE;
 
     @Override
     @SneakyThrows
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) {
-        HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
-        HttpSession httpSession = request.getSession();
-        Optional<String> localeParam = Optional.ofNullable(request.getParameter(S.paramLang));
-        Optional<Object> sessionUser = Optional.ofNullable(httpSession.getAttribute(S.attrUser));
-        Optional<Object> sessionLocale = Optional.ofNullable(httpSession.getAttribute(S.attrLang));
+        HttpServletRequest req = (HttpServletRequest) servletRequest;
+        HttpServletResponse resp = (HttpServletResponse) servletResponse;
+        HttpSession session = req.getSession();
+        Optional<String> paramLang = Optional.ofNullable(req.getParameter(S.paramLang));
+        Optional<Object> sessionUser = Optional.ofNullable(session.getAttribute(S.attrUser));
+        Optional<Object> sessionLocale = Optional.ofNullable(session.getAttribute(S.attrLang));
 
-        if (localeParam.isPresent()) {
-            Language chosenLanguage = Language.valueOf(localeParam.get());
-            sessionUser.ifPresent(opUser -> {
-                User user = (User) opUser;
+        if (paramLang.isPresent()) {
+            Language chosenLanguage = Language.valueOf(paramLang.get());
+            if (sessionUser.isPresent()) {
+                UserDto user = (UserDto) sessionUser.get();
                 user.setLanguage(chosenLanguage);
-            });
-
-            httpSession.setAttribute(S.attrLang, chosenLanguage.name());
+                userService.changeLang(user);
+            }
+            session.setAttribute(S.attrLang, chosenLanguage.name());
         } else if (sessionLocale.isEmpty()) {
-            httpSession.setAttribute(S.attrLang, sessionUser
-                    .map(user -> ((User) user)
+            session.setAttribute(S.attrLang, sessionUser
+                    .map(user -> ((UserDto) user)
                             .getLanguage()
                             .name())
                     .orElse(S.defaultLanguage));
         }
-        chain.doFilter(request, response);
+        chain.doFilter(req, resp);
     }
 }
