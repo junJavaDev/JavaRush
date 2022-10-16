@@ -1,5 +1,5 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page import="ua.com.javarush.quest.ogarkov.questdelta.entity.Role" %>
+<%@ page import="ua.com.javarush.quest.ogarkov.entity.Role" %>
 
 <div class="form-group">
     <label class="control-label my-2" for="userLogin">${langLoginLabel}</label>

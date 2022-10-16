@@ -219,7 +219,7 @@
 
                                             <div class="d-flex flex-column align-items-end my-3">
                                                 <button class="btn btn-outline-secondary" type="submit"
-                                                        id="submitAnswer" name="${S.paramAnswerCreate}">
+                                                        id="submitAnswer" value="${requestScope.question.id}" name="${S.paramAnswerCreate}">
                                                         ${langAddAnswer}
                                                 </button>
                                             </div>
