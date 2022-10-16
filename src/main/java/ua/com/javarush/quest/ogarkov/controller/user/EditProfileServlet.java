@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
 import ua.com.javarush.quest.ogarkov.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.service.UserService;
@@ -27,9 +29,11 @@ public class EditProfileServlet extends HttpServlet {
     private static final long serialVersionUID = 4074368236695365147L;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
+    private static final Logger log = LoggerFactory.getLogger(EditProfileServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("Open page: {}, userID: {}", Go.EDIT_PROFILE, Parser.userId(req));
         FormData formData = FormData.of(req);
         long currentUserId = Parser.userId(req);
         Optional<UserDto> optUser = userService.get(currentUserId);

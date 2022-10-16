@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
 import ua.com.javarush.quest.ogarkov.dto.QuestDto;
 import ua.com.javarush.quest.ogarkov.dto.QuestionDto;
@@ -14,6 +15,7 @@ import ua.com.javarush.quest.ogarkov.settings.Setting;
 import java.util.Objects;
 import java.util.Optional;
 
+@Loggable(value = Loggable.DEBUG)
 public enum EditorService {
 
     INSTANCE;

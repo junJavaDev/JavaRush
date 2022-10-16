@@ -15,4 +15,13 @@ public class QuestDto {
     String image;
     Long firstQuestionId;
     List<QuestionDto> questions;
+
+    @Override
+    public String toString() {
+        return "QuestDto{" +
+                "id=" + id +
+                ", authorId=" + authorId +
+                ", firstQuestionId=" + firstQuestionId +
+                '}';
+    }
 }

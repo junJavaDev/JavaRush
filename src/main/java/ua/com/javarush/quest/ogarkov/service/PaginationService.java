@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
 import ua.com.javarush.quest.ogarkov.dto.DataTank;
 import ua.com.javarush.quest.ogarkov.dto.QuestDto;
@@ -15,6 +16,7 @@ import ua.com.javarush.quest.ogarkov.settings.Setting;
 
 import java.util.*;
 
+@Loggable(value = Loggable.DEBUG)
 public enum PaginationService {
     INSTANCE;
     private final Repository<Quest> questRepository = QuestRepository.getInstance();
@@ -61,7 +63,7 @@ public enum PaginationService {
         return repository.getAll(getPageNumber(formData), getPageSize(formData));
     }
 
-    public int getPageCount(FormData formData) {
+    private int getPageCount(FormData formData) {
         int questsCount = questRepository.getAll().size();
         int pages = questsCount / getPageSize(formData);
         return pages > 0
@@ -69,12 +71,12 @@ public enum PaginationService {
                 : pages;
     }
 
-    public int getPageSize(FormData formData) {
+    private int getPageSize(FormData formData) {
         String pageSizeParam = formData.getParameter(S.paramPageSize);
         return getOrDefault(pageSizeParam, S.defaultPageSize);
     }
 
-    public int getPageNumber(FormData formData) {
+    private int getPageNumber(FormData formData) {
         String pageNumberParam = formData.getParameter(S.paramPageNumber);
         int pageNumber = getOrDefault(pageNumberParam, S.defaultPageNumber);
         return getPageCount(formData) < pageNumber

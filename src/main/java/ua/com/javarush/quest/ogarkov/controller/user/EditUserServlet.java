@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
 import ua.com.javarush.quest.ogarkov.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.entity.Role;
@@ -28,6 +30,7 @@ public class EditUserServlet extends HttpServlet {
     private static final long serialVersionUID = 4074368236695365147L;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
+    private static final Logger log = LoggerFactory.getLogger(EditUserServlet.class);
 
     @Override
     public void init() {
@@ -37,8 +40,10 @@ public class EditUserServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (Parser.getCommand(req).equals(Go.SIGNUP)) {
+            log.info("Open page: {}, userID: {}", Go.SIGNUP, Parser.userId(req));
             Jsp.forward(req, resp, S.jspEditUser);
         } else {
+            log.info("Open page: {}, userID: {}", Go.EDIT_USER, Parser.userId(req));
             FormData formData = FormData.of(req);
             long editedId = formData.getId();
             Optional<UserDto> optUser = userService.get(editedId);
@@ -67,7 +72,9 @@ public class EditUserServlet extends HttpServlet {
             id = userService.create(formData);
             userService.uploadAvatar(data, id);
         } else {
-            throw new UnsupportedOperationException(S.notFoundCmd);
+            UnsupportedOperationException exception = new UnsupportedOperationException(S.notFoundCmd);
+            log.error("Unsupported Operation", exception);
+            throw exception;
         }
     }
 }

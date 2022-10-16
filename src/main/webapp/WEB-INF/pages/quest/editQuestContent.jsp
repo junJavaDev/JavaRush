@@ -1,8 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/WEB-INF/pages/components/header.jsp" %>
-<c:set var="reqUrl">${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${param.id}</c:set>
-<c:set var="reqUrlFull">${reqUrl}&${S.paramQuestionId}=${param.questionId}</c:set>
+<c:set var="reqUrl">${rootPath}${Go.EDIT_QUEST_CONTENT}?${S.paramId}=${requestScope.quest.id}</c:set>
+<c:set var="reqUrlFull">${reqUrl}&${S.paramQuestionId}=${requestScope.question.id}</c:set>
 
 <div class="container-md">
     <div class="row">

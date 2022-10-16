@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import ua.com.javarush.quest.ogarkov.dto.DataTank;
 import ua.com.javarush.quest.ogarkov.dto.QuestDto;
 import ua.com.javarush.quest.ogarkov.entity.Game;
@@ -11,6 +12,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Loggable(value = Loggable.DEBUG)
 public enum StatisticsService {
     INSTANCE;
     private final UserService userService = UserService.INSTANCE;

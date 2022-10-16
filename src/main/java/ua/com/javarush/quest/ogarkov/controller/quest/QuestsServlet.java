@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
 import ua.com.javarush.quest.ogarkov.dto.GameDto;
 import ua.com.javarush.quest.ogarkov.dto.UserDto;
@@ -29,24 +31,26 @@ public class QuestsServlet extends HttpServlet {
     private final PaginationService paginationService = PaginationService.INSTANCE;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
+    private static final Logger log = LoggerFactory.getLogger(QuestsServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String page;
+        String jsp;
+        if (Parser.getCommand(req).equals(Go.QUESTS)) {
+            page = Go.EDIT_QUESTS;
+            jsp = S.jspQuests;
+        } else {
+            page = Go.QUESTS;
+            jsp = S.jspEditQuests;
+        }
+        log.info("Open page: {}, userID: {}", page, Parser.userId(req));
         paginationService
                 .getQuestsPagination(FormData.of(req))
                 .fillRequest(req);
         Set<Long> openQuests = getOpenQuests(req);
         req.setAttribute(S.attrOpenQuests, openQuests);
-        if (Parser.getCommand(req).equals(Go.QUESTS)) {
-            Jsp.forward(req, resp, S.jspQuests);
-        } else {
-            Jsp.forward(req, resp, S.jspEditQuests);
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        Jsp.forward(req, resp, jsp);
     }
 
     private Set<Long> getOpenQuests(HttpServletRequest req) {

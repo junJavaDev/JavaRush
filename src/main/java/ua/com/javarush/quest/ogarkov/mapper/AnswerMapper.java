@@ -25,7 +25,7 @@ public class AnswerMapper implements Mapper<Answer, AnswerDto> {
 
     @Override
     public Answer parse(FormData formData) {
-        long questionId = formData.getLong(S.paramAnswerCreate);
+        long questionId = formData.getLong(S.paramQuestionId);
         long nextQuestionId = formData.getLong(S.inputNextQuestionId);
         String text = formData.getParameter(S.inputAnswer);
         return Answer.with()

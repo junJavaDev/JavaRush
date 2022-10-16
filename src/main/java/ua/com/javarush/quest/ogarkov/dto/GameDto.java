@@ -12,4 +12,13 @@ public class GameDto {
     Long questId;
     GameState gameState;
     QuestionDto question;
+
+    @Override
+    public String toString() {
+        return "GameDto{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", questId=" + questId +
+                '}';
+    }
 }

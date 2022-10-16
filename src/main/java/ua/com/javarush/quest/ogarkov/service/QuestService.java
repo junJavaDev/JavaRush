@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
@@ -19,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
+@Loggable(value = Loggable.DEBUG)
 public enum QuestService {
 
     INSTANCE;

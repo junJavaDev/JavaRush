@@ -16,4 +16,12 @@ public class QuestionDto {
     String text;
     String image;
     List<AnswerDto> answers;
+
+    @Override
+    public String toString() {
+        return "QuestionDto{" +
+                "id=" + id +
+                ", questId=" + questId +
+                '}';
+    }
 }

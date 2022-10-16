@@ -10,4 +10,13 @@ public class AnswerDto {
     Long questionId;
     Long nextQuestionId;
     String text;
+
+    @Override
+    public String toString() {
+        return "AnswerDto{" +
+                "id=" + id +
+                ", questionId=" + questionId +
+                ", nextQuestionId=" + nextQuestionId +
+                '}';
+    }
 }

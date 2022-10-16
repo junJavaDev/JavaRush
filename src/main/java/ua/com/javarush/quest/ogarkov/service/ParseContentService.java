@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import jakarta.servlet.http.Part;
 import org.apache.commons.lang3.StringUtils;
 import ua.com.javarush.quest.ogarkov.entity.Answer;
@@ -22,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Loggable(value = Loggable.DEBUG)
 public enum ParseContentService {
     INSTANCE;
     private final Repository<Question> questionRepository = QuestionRepository.getInstance();

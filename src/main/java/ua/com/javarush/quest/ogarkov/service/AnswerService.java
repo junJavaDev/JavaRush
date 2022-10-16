@@ -14,7 +14,7 @@ import ua.com.javarush.quest.ogarkov.settings.Setting;
 import java.util.Collection;
 import java.util.Optional;
 
-@Loggable(value = Loggable.DEBUG, prepend = true, trim = false)
+@Loggable(value = Loggable.DEBUG)
 public enum AnswerService {
 
     INSTANCE;

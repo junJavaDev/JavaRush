@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import lombok.SneakyThrows;
 import ua.com.javarush.quest.ogarkov.settings.Setting;
 
@@ -10,6 +11,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Optional;
 
+@Loggable(value = Loggable.DEBUG)
 public enum ImageService {
     INSTANCE;
     private final Setting S = Setting.get();

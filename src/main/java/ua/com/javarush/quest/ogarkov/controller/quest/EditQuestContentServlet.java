@@ -6,6 +6,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.javarush.quest.ogarkov.dto.*;
 import ua.com.javarush.quest.ogarkov.service.*;
 import ua.com.javarush.quest.ogarkov.settings.Go;
@@ -32,22 +34,28 @@ public class EditQuestContentServlet extends HttpServlet {
     private final EditorService editorService = EditorService.INSTANCE;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
+    private static final Logger log = LoggerFactory.getLogger(EditQuestContentServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         FormData formData = FormData.of(req);
         long userId = Parser.userId(req);
+        log.info("Open page: {}, userID: {}", Go.EDIT_QUEST_CONTENT, userId);
         UserDto user = userService.get(userId).orElseThrow();
         Optional<QuestDto> optQuest = questService.get(formData.getId());
         if (optQuest.isPresent() && editorService.checkRights(optQuest.get(), user)) {
             QuestDto quest = optQuest.get();
+            log.info("Enter to quest editor, quest: {}, user: {}", quest, user);
             long questionId = formData.getLong(S.paramQuestionId);
             QuestionDto question = questionService.get(questionId).orElse(questionService.get(quest.getFirstQuestionId()).orElseThrow());
             req.setAttribute(S.attrQuest, quest);
             req.setAttribute(S.attrQuestion, question);
             req.setAttribute(S.attrAnswers, getAnswers(question));
             Jsp.forward(req, resp, S.jspEditQuestContent);
-        } else Jsp.redirect(req, resp, Go.QUESTS);
+        } else {
+            log.warn("Cannot enter to quest editor, user: {}", user);
+            Jsp.redirect(req, resp, Go.QUESTS);
+        }
     }
 
     @Override
@@ -58,12 +66,16 @@ public class EditQuestContentServlet extends HttpServlet {
         if (optQuest.isPresent()) {
             QuestDto quest = optQuest.get();
             long questionId = formData.getLong(S.paramQuestionId);
-            QuestionDto question = questionService.get(questionId).orElse(questionService.get(quest.getFirstQuestionId()).orElseThrow());
+            QuestionDto question = questionService
+                    .get(questionId)
+                    .orElse(questionService
+                            .get(quest.getFirstQuestionId())
+                            .orElseThrow());
             int questionIndex = quest.getQuestions().indexOf(question);
             //----------- Create question -----------//
             if (isExist(req, S.paramQuestionCreate)) {
                 questionService.createEmpty(formData.getId());
-                questionIndex = quest.getQuestions().size() - 1;
+                questionIndex = quest.getQuestions().size();
                 Jsp.redirect(req, resp, editorService.getEditPath(questId, questionIndex));
                 return;
 
@@ -89,7 +101,10 @@ public class EditQuestContentServlet extends HttpServlet {
                 return;
             }
             Jsp.redirect(req, resp, editorService.getEditPath(questId, questionIndex));
-        } else Jsp.redirect(req, resp, Go.QUESTS);
+        } else {
+            log.warn("Quest with id {} is not present", questId);
+            Jsp.redirect(req, resp, Go.QUESTS);
+        }
     }
 
     private boolean isExist(HttpServletRequest req, String param) {

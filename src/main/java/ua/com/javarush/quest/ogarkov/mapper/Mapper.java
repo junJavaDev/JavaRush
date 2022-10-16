@@ -1,10 +1,12 @@
 package ua.com.javarush.quest.ogarkov.mapper;
 
+import com.jcabi.aspects.Loggable;
 import ua.com.javarush.quest.ogarkov.dto.*;
 import ua.com.javarush.quest.ogarkov.entity.*;
 
 import java.util.Optional;
 
+@Loggable(value = Loggable.DEBUG, trim = false)
 public interface Mapper<E extends AbstractEntity, R> {
 
     Mapper<User, UserDto> user = new UserMapper();

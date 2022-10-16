@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import org.apache.commons.codec.binary.Base64;
 import ua.com.javarush.quest.ogarkov.dto.UserDto;
 import ua.com.javarush.quest.ogarkov.entity.User;
@@ -11,6 +12,7 @@ import ua.com.javarush.quest.ogarkov.settings.Setting;
 import java.util.Optional;
 
 // Salt can be added to this class for better protection
+@Loggable(value = Loggable.DEBUG)
 public enum PasswordService {
 
     INSTANCE;

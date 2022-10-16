@@ -5,6 +5,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.javarush.quest.ogarkov.dto.*;
 import ua.com.javarush.quest.ogarkov.entity.GameState;
 import ua.com.javarush.quest.ogarkov.service.AnswerService;
@@ -30,8 +32,10 @@ public class PlayServlet extends HttpServlet {
     private final AnswerService answerService = AnswerService.INSTANCE;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
+    private static final Logger log = LoggerFactory.getLogger(PlayServlet.class);
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        log.info("Open page: {}, userID: {}", Go.PLAY, Parser.userId(req));
         FormData formData = FormData.of(req);
         long userId = Parser.userId(req);
         Optional<UserDto> optUser = userService.get(userId);

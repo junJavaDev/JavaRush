@@ -43,7 +43,6 @@ public class Default {
     static final String IMAGE_ABOUT = "broken_rifle.png";
     static final String DEFAULT_LANGUAGE = "EN";
 
-
     static final String QUEST_IMG_PREFIX = "/quest_image";
     static final String HELP_DIR = "help/";
     static final String TWINE_DIR = "twine/";
@@ -112,7 +111,6 @@ public class Default {
 
     static final int PLAY_START_AGAIN_VALUE = -1;
     static final int PLAY_COMPLETE_VALUE = -2;
-
 
     //====================================== /VIEW ===============================================
 }

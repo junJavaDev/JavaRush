@@ -18,4 +18,13 @@ public class UserDto {
     Language language = Language.EN;
     long quests;
     Collection<GameDto> games;
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", role=" + role +
+                '}';
+    }
 }

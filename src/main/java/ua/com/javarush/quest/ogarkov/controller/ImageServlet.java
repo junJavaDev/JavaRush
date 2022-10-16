@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.SneakyThrows;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import ua.com.javarush.quest.ogarkov.service.ImageService;
 import ua.com.javarush.quest.ogarkov.settings.Go;
 import ua.com.javarush.quest.ogarkov.settings.Setting;
@@ -22,6 +24,7 @@ public class ImageServlet extends HttpServlet {
     private static final long serialVersionUID = 6551390997304892153L;
     private final ImageService imageService = ImageService.INSTANCE;
     private final Setting S = Setting.get();
+    private static final Logger log = LoggerFactory.getLogger(ImageServlet.class);
 
     @Override
     @SneakyThrows
@@ -34,6 +37,8 @@ public class ImageServlet extends HttpServlet {
             try (ServletOutputStream outputStream = resp.getOutputStream()) {
                 Files.copy(file.get(), outputStream);
             }
+        } else {
+            log.warn("File {} does not exist", file);
         }
     }
 }

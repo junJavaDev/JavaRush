@@ -1,5 +1,6 @@
 package ua.com.javarush.quest.ogarkov.service;
 
+import com.jcabi.aspects.Loggable;
 import ua.com.javarush.quest.ogarkov.dto.FormData;
 import ua.com.javarush.quest.ogarkov.entity.*;
 import ua.com.javarush.quest.ogarkov.dto.AnswerDto;
@@ -13,6 +14,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.Optional;
 
+@Loggable(value = Loggable.DEBUG)
 public enum GameService {
 
     INSTANCE;
