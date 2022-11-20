@@ -19,15 +19,12 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.util.Optional;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
 @WebServlet({Go.SIGNUP, Go.EDIT_USER})
 public class EditUserServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = 4074368236695365147L;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();
     private static final Logger log = LoggerFactory.getLogger(EditUserServlet.class);

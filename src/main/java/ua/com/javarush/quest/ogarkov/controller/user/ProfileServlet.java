@@ -17,13 +17,11 @@ import ua.com.javarush.quest.ogarkov.settings.Setting;
 import ua.com.javarush.quest.ogarkov.util.Jsp;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.util.Optional;
 
 @WebServlet(value = Go.PROFILE)
 public class ProfileServlet extends HttpServlet {
-    @Serial
-    private static final long serialVersionUID = 856906541196618136L;
+
     private final UserService userService = UserService.INSTANCE;
     private final GameService gameService = GameService.INSTANCE;
     private final Setting S = Setting.get();

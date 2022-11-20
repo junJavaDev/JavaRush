@@ -16,12 +16,10 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 
 @WebServlet(Go.USERS)
 public class UsersServlet extends HttpServlet {
-    @Serial
-    private static final long serialVersionUID = -8048051397301683584L;
+
     private final UserService userService = UserService.INSTANCE;
     private final PaginationService paginationService = PaginationService.INSTANCE;
     private final Setting S = Setting.get();

@@ -18,7 +18,6 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -26,8 +25,6 @@ import java.util.Set;
 @WebServlet({Go.QUESTS, Go.EDIT_QUESTS})
 public class QuestsServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = -776002015199337931L;
     private final PaginationService paginationService = PaginationService.INSTANCE;
     private final UserService userService = UserService.INSTANCE;
     private final Setting S = Setting.get();

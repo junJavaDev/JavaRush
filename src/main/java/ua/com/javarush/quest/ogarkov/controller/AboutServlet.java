@@ -13,13 +13,10 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 
 @WebServlet(Go.ABOUT)
 public class AboutServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = 6316268318161580029L;
     private final Setting S = Setting.get();
     private static final Logger log = LoggerFactory.getLogger(AboutServlet.class);
 

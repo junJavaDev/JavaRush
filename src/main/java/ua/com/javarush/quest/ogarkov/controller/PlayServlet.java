@@ -19,14 +19,11 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.util.Optional;
 
 @WebServlet(Go.PLAY)
 public class PlayServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = -195113263125943009L;
     private final GameService gameService = GameService.INSTANCE;
     private final QuestService questService = QuestService.INSTANCE;
     private final AnswerService answerService = AnswerService.INSTANCE;

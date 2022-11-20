@@ -20,15 +20,12 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.util.Optional;
 
 @MultipartConfig(fileSizeThreshold = 1 << 20)
 @WebServlet(Go.EDIT_QUEST)
 public class EditQuestServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = 7582798421846485830L;
     private final QuestService questService = QuestService.INSTANCE;
     private final EditorService editorService = EditorService.INSTANCE;
     private final UserService userService = UserService.INSTANCE;

@@ -12,7 +12,6 @@ import ua.com.javarush.quest.ogarkov.service.ImageService;
 import ua.com.javarush.quest.ogarkov.settings.Go;
 import ua.com.javarush.quest.ogarkov.settings.Setting;
 
-import java.io.Serial;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -20,8 +19,6 @@ import java.util.Optional;
 @WebServlet(Go.IMAGES)
 public class ImageServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = 6551390997304892153L;
     private final ImageService imageService = ImageService.INSTANCE;
     private final Setting S = Setting.get();
     private static final Logger log = LoggerFactory.getLogger(ImageServlet.class);
@@ -32,7 +29,7 @@ public class ImageServlet extends HttpServlet {
         String requestURI = req.getRequestURI();
         int imagesIndex = requestURI.lastIndexOf(S.imgDir);
         String imageName = requestURI.substring(imagesIndex + S.imgDir.length());
-        Optional<Path> file = imageService.getAvatarPath(imageName);
+        Optional<Path> file = imageService.getImagePath(imageName);
         if (file.isPresent()) {
             try (ServletOutputStream outputStream = resp.getOutputStream()) {
                 Files.copy(file.get(), outputStream);

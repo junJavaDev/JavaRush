@@ -16,14 +16,11 @@ import ua.com.javarush.quest.ogarkov.util.Jsp;
 import ua.com.javarush.quest.ogarkov.util.Parser;
 
 import java.io.IOException;
-import java.io.Serial;
 import java.util.Optional;
 
 @WebServlet(Go.LOGIN)
 public class LoginServlet extends HttpServlet {
 
-    @Serial
-    private static final long serialVersionUID = -8839039694577428788L;
     private final PasswordService passwordService = PasswordService.INSTANCE;
     private final Setting S = Setting.get();
     private static final Logger log = LoggerFactory.getLogger(LoginServlet.class);

@@ -11,25 +11,29 @@ import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Optional;
 
-@Loggable(value = Loggable.DEBUG)
 public enum ImageService {
     INSTANCE;
     private final Setting S = Setting.get();
+    private final Path root = getRootPath();
 
-    private final Path root = Path.of(
-            Objects.requireNonNull(ImageService.class.getResource("/"))
-                    .toString()
-                    .replace("file:/", "")
-                    .concat("..")
-                    .concat(S.imgDir)
-    );
-
+    private Path getRootPath() {
+        String rootURL = Objects.requireNonNull(ImageService.class.getResource("/"))
+                .toString()
+                .replace("file:/", "")
+                .concat("..")
+                .concat(S.imgDir);
+        if (!Path.of(rootURL).isAbsolute()) {
+            rootURL = "/" + rootURL;
+        }
+        return Path.of(rootURL);
+    }
 
     @SneakyThrows
     ImageService() {
         Files.createDirectories(root);
     }
 
+    @Loggable(value = Loggable.DEBUG)
     @SneakyThrows
     public boolean uploadImage(String name, InputStream data) {
         try (data) {
@@ -42,6 +46,7 @@ public enum ImageService {
         }
     }
 
+    @Loggable(value = Loggable.DEBUG)
     @SneakyThrows
     public void deleteImage(String name) {
         if (name != null) {
@@ -51,7 +56,7 @@ public enum ImageService {
     }
 
     @SneakyThrows
-    public Optional<Path> getAvatarPath(String filename) {
+    public Optional<Path> getImagePath(String filename) {
         Path path = root.resolve(filename);
         return Files.exists(path)
                 ? Optional.of(root.resolve(filename))
