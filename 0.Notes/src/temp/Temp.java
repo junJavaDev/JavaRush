@@ -1,37 +1,29 @@
 package temp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
-public class Temp extends A{
-    private static int index = 4;
-    private static Integer[] array = {0, 1, 2, 3, 4, 5};
-
-    public static void main(String[] args) throws InterruptedException {
-        runTasks();
-    }
-
-    private static void runTasks() throws InterruptedException {
-        for (int i = 0; i < 100; i++) {
-            new Thread(task).start();
-            index++;
-            Thread.sleep(10);
-            if (index == 6) {
-                index = 0;
+public class Temp{
+    public static final int array[][] = {
+            {1, 1},
+            {0, 0}
+    };
+    public static void invert() {
+        int[][] arrayClone = new int[][]{
+                array[0].clone(),
+                array[1].clone()
+        };
+        for (int row = 0; row < array.length; row++) {
+            for (int col = 0; col < array[row].length; col++) {
+                array[row][col] = arrayClone[col][row];
             }
         }
     }
-
-    private static void printIndexIfExist(Integer index, Integer[] array) {
-        Arrays.stream(array).forEach(value -> {
-            if (index.equals(value)) {
-                System.out.println(Thread.currentThread().getName() + " = " + index);
-            }
-        });
+    public static void main(String[] args) {
+        invert();
+        System.out.println(Arrays.deepToString(array));
     }
-
-    private static Runnable task = () -> printIndexIfExist(index, array);
-
-
-
-
 }
+

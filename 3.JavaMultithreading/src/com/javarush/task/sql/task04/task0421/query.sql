@@ -1,0 +1,4 @@
+-- Write your code here:
+SELECT DATEDIFF(CURDATE(), '0000-01-01');
+
+SELECT DATEDIFF(CURDATE(), '1997-12-25')
