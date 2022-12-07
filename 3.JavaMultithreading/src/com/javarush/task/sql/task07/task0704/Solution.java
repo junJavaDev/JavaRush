@@ -1,21 +1,25 @@
-package com.javarush.task.sql.task07.task0702;
+package com.javarush.task.sql.task07.task0704;
 
 import java.sql.*;
 
 /* 
-task0702
+task0704
 */
 
 public class Solution {
 
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
         Connection connection = DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/test"
                 , "root"
-                , "root");
+                , "root"
+        );
+
         Statement statement = connection.createStatement();
-        statement.executeQuery("select 7 * 8");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM employee");
+        while (resultSet.next()) {
+            System.out.println(resultSet.getString("name"));
+        }
         statement.close();
         connection.close();
 
