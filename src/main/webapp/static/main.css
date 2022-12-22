@@ -9,3 +9,14 @@ td {
     text-align: center;
     empty-cells: show;
 }
+
+html {
+    display: table;
+    margin: auto;
+    text-align: center;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+}

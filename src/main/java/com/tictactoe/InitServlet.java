@@ -42,9 +42,7 @@ public class InitServlet extends HttpServlet {
 
     private void firstStep(Sign playerSign, Field field) {
         if (playerSign == Sign.NOUGHT && field.isEmpty()) {
-            int emptyFieldIndex = field.getEmptyFieldIndex();
-            field.getField().put(emptyFieldIndex, Sign.CROSS);
+            field.getField().put(Computer.getMove(field, playerSign), Sign.CROSS);
         }
     }
-
 }

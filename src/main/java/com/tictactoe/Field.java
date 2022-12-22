@@ -3,11 +3,17 @@ package com.tictactoe;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Field {
     private final Map<Integer, Sign> field;
+
+    public List<List<Integer>> getWinPossibilities() {
+        return winPossibilities;
+    }
+
     private final List<List<Integer>> winPossibilities = List.of(
             List.of(0, 1, 2),
             List.of(3, 4, 5),
@@ -63,5 +69,9 @@ public class Field {
             }
         }
         return Sign.EMPTY;
+    }
+
+    public Set<Integer> getIndexes(Sign sign) {
+        return field.entrySet().stream().filter(e -> e.getValue() == sign).map(Map.Entry::getKey).collect(Collectors.toSet());
     }
 }

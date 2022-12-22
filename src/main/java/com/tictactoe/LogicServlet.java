@@ -20,9 +20,12 @@ public class LogicServlet extends HttpServlet {
 
         // Получаем объект игрового поля из сессии
         Field field = extractField(currentSession);
-        Sign playerSign = (Sign)currentSession.getAttribute("playerSign");
+
+
 
         if (!isGameOver(currentSession)) {
+            Sign playerSign = (Sign)currentSession.getAttribute("playerSign");
+
             Sign computerSign = playerSign == Sign.CROSS ? Sign.NOUGHT : Sign.CROSS;
             // получаем индекс ячейки, по которой произошел клик
             int index = getSelectedIndex(req);
@@ -41,33 +44,23 @@ public class LogicServlet extends HttpServlet {
             field.getField().put(index, playerSign);
 
             // Проверяем, не победил ли крестик после добавления последнего клика пользователя
-            if (checkWin(resp, currentSession, field)) {
+            if (checkWin(req, resp, currentSession, field)) {
                 return;
             }
 
             // Получаем пустую ячейку поля
-            int emptyFieldIndex = field.getEmptyFieldIndex();
+            int emptyFieldIndex = Computer.getMove(field, playerSign);
 
             if (emptyFieldIndex >= 0) {
                 field.getField().put(emptyFieldIndex, computerSign);
                 // Проверяем, не победил ли нолик после добавление последнего нолика
-                if (checkWin(resp, currentSession, field)) {
+                if (checkWin(req, resp, currentSession, field)) {
                     return;
                 }
             }
             // Если пустой ячейки нет и никто не победил - значит это ничья
-            else {
-                // Добавляем в сессию флаг, который сигнализирует что произошла ничья
-                currentSession.setAttribute("draw", true);
-
-                // Считаем список значков
-                List<Sign> data = field.getFieldData();
-
-                // Обновляем этот список в сессии
-                currentSession.setAttribute("data", data);
-
-                // Шлем редирект
-                resp.sendRedirect("/index.jsp");
+            if (Computer.getMove(field, playerSign) < 0) {
+                draw(req, resp, currentSession, field);
                 return;
             }
         }
@@ -77,7 +70,22 @@ public class LogicServlet extends HttpServlet {
         // Обновляем объект поля и список значков в сессии
         currentSession.setAttribute("data", data);
         currentSession.setAttribute("field", field);
-        resp.sendRedirect("/index.jsp");
+        resp.sendRedirect(req.getContextPath() + "/index.jsp");
+    }
+
+    private static void draw(HttpServletRequest req, HttpServletResponse resp, HttpSession currentSession, Field field) throws IOException {
+        // Добавляем в сессию флаг, который сигнализирует что произошла ничья
+        currentSession.setAttribute("draw", true);
+
+        // Считаем список значков
+        List<Sign> data = field.getFieldData();
+
+        // Обновляем этот список в сессии
+        currentSession.setAttribute("data", data);
+        currentSession.setAttribute("field", field);
+        currentSession.setAttribute("gameOver", true);
+        // Шлем редирект
+        resp.sendRedirect(req.getContextPath() + "/index.jsp");
     }
 
     private boolean isGameOver(HttpSession currentSession) {
@@ -106,7 +114,7 @@ public class LogicServlet extends HttpServlet {
      * Метод проверяет, нет ли трех крестиков/ноликов в ряд.
      * Возвращает true/false
      */
-    private boolean checkWin(HttpServletResponse response, HttpSession currentSession, Field field) throws IOException {
+    private boolean checkWin(HttpServletRequest req, HttpServletResponse response, HttpSession currentSession, Field field) throws IOException {
         Sign winner = field.checkWin();
         if (Sign.CROSS == winner || Sign.NOUGHT == winner) {
             // Добавляем флаг, который показывает что кто-то победил
@@ -120,9 +128,13 @@ public class LogicServlet extends HttpServlet {
 
             // Шлем редирект
             currentSession.setAttribute("gameOver", true);
-            response.sendRedirect("/index.jsp");
+            response.sendRedirect(req.getContextPath() + "/index.jsp");
             return true;
         }
         return false;
     }
+
+
+
+
 }
