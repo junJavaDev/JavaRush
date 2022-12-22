@@ -3,10 +3,21 @@ package com.tictactoe;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Field {
     private final Map<Integer, Sign> field;
+    private final List<List<Integer>> winPossibilities = List.of(
+            List.of(0, 1, 2),
+            List.of(3, 4, 5),
+            List.of(6, 7, 8),
+            List.of(0, 3, 6),
+            List.of(1, 4, 7),
+            List.of(2, 5, 8),
+            List.of(0, 4, 8),
+            List.of(2, 4, 6)
+    );
 
     public Field() {
         field = new HashMap<>();
@@ -39,21 +50,15 @@ public class Field {
                 .collect(Collectors.toList());
     }
 
-    public Sign checkWin() {
-        List<List<Integer>> winPossibilities = List.of(
-                List.of(0, 1, 2),
-                List.of(3, 4, 5),
-                List.of(6, 7, 8),
-                List.of(0, 3, 6),
-                List.of(1, 4, 7),
-                List.of(2, 5, 8),
-                List.of(0, 4, 8),
-                List.of(2, 4, 6)
-        );
+    public boolean isEmpty() {
+        return field.values().stream().allMatch(Predicate.isEqual(Sign.EMPTY));
+    }
 
+    public Sign checkWin() {
         for (List<Integer> winPossibility : winPossibilities) {
-            if (field.get(winPossibility.get(0)) == field.get(winPossibility.get(1))
-                && field.get(winPossibility.get(0)) == field.get(winPossibility.get(2))) {
+            if (field.get(winPossibility.get(0)) != Sign.EMPTY
+                    && field.get(winPossibility.get(0)) == field.get(winPossibility.get(1))
+                    && field.get(winPossibility.get(0)) == field.get(winPossibility.get(2))) {
                 return field.get(winPossibility.get(0));
             }
         }
