@@ -42,7 +42,7 @@ public class InitServlet extends HttpServlet {
 
     private void firstStep(Sign playerSign, Field field) {
         if (playerSign == Sign.NOUGHT && field.isEmpty()) {
-            field.getField().put(Computer.getMove(field, playerSign), Sign.CROSS);
+            field.getField().put(ComputerLogic.getMove(field, playerSign), Sign.CROSS);
         }
     }
 }

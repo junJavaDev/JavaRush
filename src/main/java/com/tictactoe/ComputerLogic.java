@@ -5,8 +5,8 @@ import java.util.Set;
 
 import static com.tictactoe.Sign.*;
 
-public class Computer {
-    private Computer() {
+public class ComputerLogic {
+    private ComputerLogic() {
     }
 
     public static int getMove(Field field, Sign playerSign) {
@@ -28,6 +28,10 @@ public class Computer {
         if (twoCrosses
                 && playerSigns.contains(4)
                 && playerSigns.contains(8)) return 2;
+
+        if (twoCrosses
+                && playerSigns.contains(5)
+                && playerSigns.contains(7)) return 8;
 
         if (playerSign == NOUGHT && playerSigns.size() == 1 && playerSigns.contains(0)) return 2;
 

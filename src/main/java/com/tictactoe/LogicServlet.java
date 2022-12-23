@@ -49,7 +49,7 @@ public class LogicServlet extends HttpServlet {
             }
 
             // Получаем пустую ячейку поля
-            int emptyFieldIndex = Computer.getMove(field, playerSign);
+            int emptyFieldIndex = ComputerLogic.getMove(field, playerSign);
 
             if (emptyFieldIndex >= 0) {
                 field.getField().put(emptyFieldIndex, computerSign);
@@ -59,7 +59,7 @@ public class LogicServlet extends HttpServlet {
                 }
             }
             // Если пустой ячейки нет и никто не победил - значит это ничья
-            if (Computer.getMove(field, playerSign) < 0) {
+            if (ComputerLogic.getMove(field, playerSign) < 0) {
                 draw(req, resp, currentSession, field);
                 return;
             }
