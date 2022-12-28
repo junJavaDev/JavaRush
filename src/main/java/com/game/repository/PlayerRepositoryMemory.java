@@ -58,6 +58,12 @@ public class PlayerRepositoryMemory implements IPlayerRepository {
         add(new Player(52L, "Аттирис", "и.о.Карвандоса", Race.ELF, Profession.SORCERER, new Date(1245050800000L), true, 34));
     }};
 
+    public static List<Player> getStorage() {
+        return storage.stream()
+                .sorted(Comparator.comparingLong(Player::getId))
+                .collect(Collectors.toList());
+    }
+
     @Override
     public List<Player> getAll(int pageNumber, int pageSize) {
         return storage.stream()
