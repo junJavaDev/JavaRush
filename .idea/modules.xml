@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/0.Notes/0.Notes.iml" filepath="$PROJECT_DIR$/0.Notes/0.Notes.iml" />
       <module fileurl="file://$PROJECT_DIR$/1.JavaSyntax/1.JavaSyntax.iml" filepath="$PROJECT_DIR$/1.JavaSyntax/1.JavaSyntax.iml" />
       <module fileurl="file://$PROJECT_DIR$/2.JavaCore/2.JavaCore.iml" filepath="$PROJECT_DIR$/2.JavaCore/2.JavaCore.iml" />
       <module fileurl="file://$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" filepath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" />
