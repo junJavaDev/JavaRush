@@ -14,7 +14,8 @@ public class Solution {
     }
 
     public static Employee getDirector() {
-        //напишите тут ваш код
-
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Query<Employee> query = session.createQuery("from Employee where smth = 'director'", Employee.class);
+        return (Employee) query.getSingleResult();
     }
 }
