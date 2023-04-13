@@ -2,6 +2,9 @@ package com.javarush.task.jdk13.task43.task4307;
 
 import org.apache.commons.lang3.ObjectUtils;
 
+import java.util.Objects;
+
+
 /* 
 Шило на мыло
 */
@@ -17,12 +20,19 @@ public class Solution {
     }
 
     public static void printFirstNonNull(final String... values) {
-        System.out.println(ObjectUtils.firstNonNull(values));
+        if (!Objects.isNull(values)) {
+            for (String value : values) {
+                if (Objects.nonNull(value)) {
+                    System.out.println(value);
+                    return;
+                }
+            }
+        }
     }
 
     public static void printDefaultValueIfNullObject(final String[] values, final String defaultValue) {
         for (String o : values) {
-            System.out.println(ObjectUtils.defaultIfNull(o, defaultValue));
+            System.out.println(Objects.requireNonNullElse(o, defaultValue));
         }
     }
 }
