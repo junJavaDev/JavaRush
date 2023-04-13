@@ -1,13 +1,11 @@
-package com.javarush.task.jdk13.task43.task4310;
-
-import org.apache.commons.collections4.CollectionUtils;
+package com.javarush.task.jdk13.task43.task4311;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 /* 
-Какая операция 3
+Какая операция 4
 */
 
 public class Solution {
@@ -19,6 +17,18 @@ public class Solution {
     }
 
     public static Collection<Integer> compute(Set<Integer> setA, Set<Integer> setB) {
-        return CollectionUtils.subtract(setA, setB);
+        Set<Integer> result = new HashSet<>();
+        for (Integer i : setA) {
+            if (!setB.contains(i)) {
+                result.add(i);
+            }
+        }
+        for (Integer i : setB) {
+            if (!setA.contains(i)) {
+                result.add(i);
+            }
+        }
+
+        return result;
     }
 }
