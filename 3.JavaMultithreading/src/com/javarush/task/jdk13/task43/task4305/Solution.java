@@ -17,8 +17,6 @@ public class Solution {
     }
 
     public static boolean helloWorldChecker(String s) {
-        //напишите тут ваш код
-
-        return false;
+        return StringUtils.containsOnly(s, "Helo Wrd!");
     }
 }
