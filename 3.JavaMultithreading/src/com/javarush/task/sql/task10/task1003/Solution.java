@@ -15,7 +15,10 @@ public class Solution {
     }
 
     public static void promoteAll() {
-        //напишите тут ваш код
-
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Transaction tx = session.beginTransaction();
+        Query query = session.createQuery("update Employee set smth = concat('senior ', smth)");
+        query.executeUpdate();
+        tx.commit();
     }
 }
