@@ -24,8 +24,13 @@ public class Person {
 
     @Override
     public String toString() {
-        //напишите тут ваш код
-
-        return null;
+        StandardToStringStyle standardToStringStyle = new StandardToStringStyle();
+        standardToStringStyle.setUseClassName(false);
+        standardToStringStyle.setUseIdentityHashCode(false);
+        standardToStringStyle.setContentStart("This person's ");
+        standardToStringStyle.setFieldNameValueSeparator(" is ");
+        standardToStringStyle.setFieldSeparator("; ");
+        standardToStringStyle.setContentEnd(".");
+        return ToStringBuilder.reflectionToString(this, standardToStringStyle, true);
     }
 }
