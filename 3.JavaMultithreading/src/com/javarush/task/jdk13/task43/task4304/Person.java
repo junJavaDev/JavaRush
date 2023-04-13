@@ -27,8 +27,6 @@ public class Person implements Comparable<Person> {
 
     @Override
     public int compareTo(Person o) {
-        //напишите тут ваш код
-
-        return 0;
+        return StringUtils.compare(this.name, o.name);
     }
 }

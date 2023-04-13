@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 4302 &quot;Сравниваем котов&quot; done">
-      <change afterPath="$PROJECT_DIR$/0.Notes/src/Digest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4120/Solution.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4120/games/BoardGame.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4120/games/Catan.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4120/games/DiceForge.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4120/games/WelcomeTo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4120/Условие.jrtc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/CRM.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/Solution.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/support/CallCenter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/support/HelpDesk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/support/ITDirector.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/support/SysAdmin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/support/TechSupport.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task41/task4121/Условие.jrtc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4304/Person.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4304/Условие.jrtc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4303/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4303/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaRushTasks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaRushTasks.iml" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 4303 &quot;Нам шаблоны не нужны&quot; done">
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4304/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4304/Person.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,7 +122,7 @@
       <recent name="D:\intellijSandbox\JavaRushTasks" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.javarush.task.jdk13.task43.task4303.Solution">
+  <component name="RunManager" selected="Application.Person">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -306,6 +285,20 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
+    <configuration name="Person" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task43.task4304.Person" />
+      <module name="3.JavaMultithreading" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.jdk13.task43.task4304.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task42.task4207.Solution" />
       <module name="3.JavaMultithreading" />
@@ -322,20 +315,6 @@
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="com.javarush.task.jdk13.task42.task4203.Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.javarush.task.jdk13.task42.task4203.Solution" />
-      <module name="3.JavaMultithreading" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.javarush.task.jdk13.task42.task4203.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -429,11 +408,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Person" />
         <item itemvalue="Application.com.javarush.task.jdk13.task43.task4303.Solution" />
         <item itemvalue="Application.Solution" />
         <item itemvalue="Application.com.javarush.task.jdk13.task42.task4206.Solution" />
         <item itemvalue="Application.com.javarush.task.jdk13.task42.task4205.Solution" />
-        <item itemvalue="Application.com.javarush.task.jdk13.task42.task4203.Solution" />
       </list>
     </recent_temporary>
   </component>
@@ -475,7 +454,7 @@
       <workItem from="1681366417336" duration="599000" />
       <workItem from="1681374986323" duration="4739000" />
       <workItem from="1681380570111" duration="3713000" />
-      <workItem from="1681384671155" duration="3707000" />
+      <workItem from="1681384671155" duration="4080000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -519,7 +498,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681381792434</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Task 4303 &quot;Нам шаблоны не нужны&quot; done">
+      <created>1681391405537</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681391405537</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -588,7 +574,8 @@
     <MESSAGE value="Task 4306 &quot;Сравни кандидатов&quot; done" />
     <MESSAGE value="add libs" />
     <MESSAGE value="Task 4302 &quot;Сравниваем котов&quot; done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 4302 &quot;Сравниваем котов&quot; done" />
+    <MESSAGE value="Task 4303 &quot;Нам шаблоны не нужны&quot; done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 4303 &quot;Нам шаблоны не нужны&quot; done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
