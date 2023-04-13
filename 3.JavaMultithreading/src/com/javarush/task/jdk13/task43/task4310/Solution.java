@@ -1,13 +1,11 @@
-package com.javarush.task.jdk13.task43.task4309;
-
-import org.apache.commons.collections4.CollectionUtils;
+package com.javarush.task.jdk13.task43.task4310;
 
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
 /* 
-Какая операция 2
+Какая операция 3
 */
 
 public class Solution {
@@ -19,6 +17,9 @@ public class Solution {
     }
 
     public static Collection<Integer> compute(Set<Integer> setA, Set<Integer> setB) {
-        return CollectionUtils.union(setA, setB);
+        Set<Integer> result = new HashSet<>();
+        result.addAll(setA);
+        result.removeAll(setB);
+        return result;
     }
 }
