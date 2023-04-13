@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 4309 &quot;Какая операция 2&quot; done">
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 4311 &quot;Какая операция 4&quot; done">
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task10/task1001/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task10/task1001/MySessionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task10/task1001/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task10/task1001/Условие.jrtc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4310/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4310/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/desktop-game-engine.jar" beforeDir="false" afterPath="$PROJECT_DIR$/lib/desktop-game-engine.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +115,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/javadev/Java/GitHub/JavaRushTasks/lib/commons-collections4-4.4.jar",
+    "last_opened_file_path": "/home/javadev/Java/GitHub/JavaRushTasks/lib/hibernate/txw2-3.0.0.jar",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
@@ -458,7 +463,8 @@
       <workItem from="1681366417336" duration="599000" />
       <workItem from="1681374986323" duration="4739000" />
       <workItem from="1681380570111" duration="3713000" />
-      <workItem from="1681384671155" duration="8988000" />
+      <workItem from="1681384671155" duration="9261000" />
+      <workItem from="1681400186257" duration="1597000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -551,7 +557,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681397454243</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Task 4310 &quot;Какая операция 3&quot; done">
+      <created>1681398323395</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1681398323395</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Task 4311 &quot;Какая операция 4&quot; done">
+      <created>1681398500275</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1681398500275</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -628,7 +648,9 @@
     <MESSAGE value="Task 4307 &quot;Шило на мыло&quot; done" />
     <MESSAGE value="Task 4308 &quot;Какая операция 1&quot; done" />
     <MESSAGE value="Task 4309 &quot;Какая операция 2&quot; done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 4309 &quot;Какая операция 2&quot; done" />
+    <MESSAGE value="Task 4310 &quot;Какая операция 3&quot; done" />
+    <MESSAGE value="Task 4311 &quot;Какая операция 4&quot; done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 4311 &quot;Какая операция 4&quot; done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
