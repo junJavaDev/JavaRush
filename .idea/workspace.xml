@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 4207 CountDownLatch done">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4301/Candidate.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4301/Candidate.java" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="add libs">
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4302/Cat.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4302/Solution.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/jdk13/task43/task4302/Условие.jrtc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -455,7 +455,7 @@
       <workItem from="1681342350617" duration="3669000" />
       <workItem from="1681366417336" duration="599000" />
       <workItem from="1681374986323" duration="4739000" />
-      <workItem from="1681380570111" duration="656000" />
+      <workItem from="1681380570111" duration="1050000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -478,7 +478,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681379515140</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Task 4306 &quot;Сравни кандидатов&quot; done">
+      <created>1681381355344</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1681381355344</updated>
+    </task>
+    <task id="LOCAL-00005" summary="add libs">
+      <created>1681381381932</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1681381381932</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -544,7 +558,9 @@
     <MESSAGE value="Task 4121 (Цепочка обязанностей) done" />
     <MESSAGE value="Task 4206 done" />
     <MESSAGE value="Task 4207 CountDownLatch done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 4207 CountDownLatch done" />
+    <MESSAGE value="Task 4306 &quot;Сравни кандидатов&quot; done" />
+    <MESSAGE value="add libs" />
+    <option name="LAST_COMMIT_MESSAGE" value="add libs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
