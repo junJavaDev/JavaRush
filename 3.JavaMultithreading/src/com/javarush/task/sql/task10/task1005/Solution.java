@@ -14,8 +14,8 @@ public class Solution {
 
     public static void main(String[] args) throws Exception {
         List<Book> books;
-        //напишите тут ваш код
-
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        books = session.createQuery("from Book where author.fullName is 'Mark Twain' and publisher.name is 'Фолио'", Book.class).list();
         books.forEach(System.out::println);
     }
 }
