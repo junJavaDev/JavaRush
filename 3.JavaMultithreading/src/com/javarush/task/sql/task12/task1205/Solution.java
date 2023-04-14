@@ -4,13 +4,36 @@ package com.javarush.task.sql.task12.task1205;
 Сохранить аудио файл в БД
 */
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.cfg.Environment;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.Properties;
+
 public class Solution {
     public static void main(String[] args) {
         saveAudioFile();
     }
 
     public static void saveAudioFile() {
-        //напишите тут ваш код
+        Audio audio = new Audio();
+        audio.setFileName("lol");
+        audio.setId(1L);
+        audio.setAudioFile(getAudioBuffer());
+        audio.setFileProperties(new HashMap<>());
+
+        Session session = getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(audio);
+
+        transaction.commit();
+        session.close();
 
     }
 
