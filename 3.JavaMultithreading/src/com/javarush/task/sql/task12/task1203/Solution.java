@@ -6,6 +6,7 @@ package com.javarush.task.sql.task12.task1203;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 
@@ -18,7 +19,16 @@ public class Solution {
 
     public static void main(String[] args) {
         //напишите тут ваш код
+        TimeClass timeClass = new TimeClass();
+        timeClass.setId(1L);
+        timeClass.setInstant(Instant.ofEpochSecond(22553));
+        timeClass.setZonedDateTime(ZonedDateTime.now(ZoneId.systemDefault()));
 
+        Session session = getSessionFactory().openSession();
+        Transaction transaction = session.beginTransaction();
+        session.save(timeClass);
+        transaction.commit();
+        session.close();
     }
 
     public static SessionFactory getSessionFactory() {
