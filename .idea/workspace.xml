@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1104 done">
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task11/task1105/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task11/task1105/Solution.java" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1105 done">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task12/task1201/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task12/task1201/Library.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -463,7 +464,7 @@
       <workItem from="1681400186257" duration="5273000" />
       <workItem from="1681431255227" duration="2513000" />
       <workItem from="1681433890476" duration="1258000" />
-      <workItem from="1681464148965" duration="7247000" />
+      <workItem from="1681464148965" duration="8514000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -640,7 +641,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681482612282</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Task 1105 done">
+      <created>1681482962341</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1681482962341</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -703,7 +711,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Task 4206 done" />
     <MESSAGE value="Task 4207 CountDownLatch done" />
     <MESSAGE value="Task 4306 &quot;Сравни кандидатов&quot; done" />
     <MESSAGE value="add libs" />
@@ -728,7 +735,8 @@
     <MESSAGE value="Task 1102 done" />
     <MESSAGE value="Task 1103 done" />
     <MESSAGE value="Task 1104 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 1104 done" />
+    <MESSAGE value="Task 1105 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 1105 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
