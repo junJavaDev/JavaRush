@@ -1,11 +1,11 @@
-package com.javarush.task.sql.task11.task1104;
+package com.javarush.task.sql.task11.task1105;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /* 
-task1104
+task1105
 */
 
 public class Solution {
@@ -30,11 +30,7 @@ public class Solution {
             Transaction transaction = session.beginTransaction();
             session.persist(animalCat);
             session.persist(animalMouse);
-            animalRemove = session.find(Animal.class, 1L);
-            System.out.println(animalRemove == null);
-            session.remove(animalRemove);
-            animalRemove = session.find(Animal.class, 1L);
-            System.out.println(animalRemove == null);
+            //напишите тут ваш код
             transaction.commit();
             session.close();
         } catch (Exception e) {
