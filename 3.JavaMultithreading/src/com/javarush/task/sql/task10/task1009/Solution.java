@@ -15,12 +15,14 @@ public class Solution {
     }
 
     public static Long getSalaryFund() {
-        //напишите тут ваш код
-
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Query<Long> query = session.createQuery("select sum(salary) from Employee", Long.class);
+        return query.uniqueResult();
     }
 
     public static Double getAverageAge() {
-        //напишите тут ваш код
-
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Query<Double> query = session.createQuery("select avg(age) from Employee", Double.class);
+        return query.uniqueResult();
     }
 }
