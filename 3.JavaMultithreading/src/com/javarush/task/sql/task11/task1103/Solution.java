@@ -24,7 +24,9 @@ public class Solution {
             Session session = sessionFactory.openSession();
             Transaction transaction = session.beginTransaction();
             long id = (long) session.save(animalCat);
-            //напишите тут ваш код
+            animalGet = session.get(Animal.class, id + 1);
+            animalFind = session.find(Animal.class, id + 1);
+            animalLoad = session.load(Animal.class, id + 1);
             transaction.commit();
             session.close();
         } catch (Exception e) {

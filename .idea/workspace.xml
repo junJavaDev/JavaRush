@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1101 done">
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1102 done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task11/task1102/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task11/task1102/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task11/task1103/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task11/task1103/Solution.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -128,7 +128,7 @@
       <recent name="D:\intellijSandbox\JavaRushTasks" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.javarush.task.sql.task11.task1102.Solution">
+  <component name="RunManager" selected="Application.com.javarush.task.sql.task11.task1103.Solution">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -325,20 +325,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.javarush.task.sql.task10.task1002.Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.javarush.task.sql.task10.task1002.Solution" />
-      <module name="3.JavaMultithreading" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.javarush.task.sql.task10.task1002.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="com.javarush.task.sql.task10.task1003.Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.javarush.task.sql.task10.task1003.Solution" />
       <module name="3.JavaMultithreading" />
@@ -360,6 +346,20 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.javarush.task.sql.task11.task1102.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.javarush.task.sql.task11.task1103.Solution" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.task.sql.task11.task1103.Solution" />
+      <module name="3.JavaMultithreading" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.task.sql.task11.task1103.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -414,11 +414,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.com.javarush.task.sql.task11.task1103.Solution" />
         <item itemvalue="Application.com.javarush.task.sql.task11.task1102.Solution" />
         <item itemvalue="Application.Solution" />
         <item itemvalue="Application.com.javarush.task.sql.task10.task1003.Solution" />
         <item itemvalue="Application.com.javarush.task.sql.task10.task1001.Solution" />
-        <item itemvalue="Application.com.javarush.task.sql.task10.task1002.Solution" />
       </list>
     </recent_temporary>
   </component>
@@ -464,7 +464,7 @@
       <workItem from="1681400186257" duration="5273000" />
       <workItem from="1681431255227" duration="2513000" />
       <workItem from="1681433890476" duration="1258000" />
-      <workItem from="1681464148965" duration="5014000" />
+      <workItem from="1681464148965" duration="5420000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -620,7 +620,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681467168399</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Task 1102 done">
+      <created>1681472680100</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1681472680100</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -706,7 +713,8 @@
     <MESSAGE value="Task 1007 done" />
     <MESSAGE value="Task 1008 done" />
     <MESSAGE value="Task 1101 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 1101 done" />
+    <MESSAGE value="Task 1102 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 1102 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
