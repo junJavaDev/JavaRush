@@ -3,6 +3,7 @@ package com.javarush.task.sql.task11.task1105;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 
 /* 
 task1105
@@ -30,7 +31,7 @@ public class Solution {
             Transaction transaction = session.beginTransaction();
             session.persist(animalCat);
             session.persist(animalMouse);
-            //напишите тут ваш код
+            session.createQuery("delete from Animal where id = 2").executeUpdate();
             transaction.commit();
             session.close();
         } catch (Exception e) {
