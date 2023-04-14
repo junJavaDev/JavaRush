@@ -14,9 +14,12 @@ public class Solution {
     public static void main(String[] args) throws Exception {
         getSorted(3, 5).forEach(System.out::println);
     }
-
     public static List<Employee> getSorted(int offset, int limit) {
-        //напишите тут ваш код
+        Session session = MySessionFactory.getSessionFactory().openSession();
+        Query<Employee> query = session.createQuery("from Employee order by age", Employee.class);
+        query.setFirstResult(offset);
+        query.setMaxResults(limit);
+        return query.list();
 
     }
 }
