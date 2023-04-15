@@ -15,8 +15,13 @@ public class Solution {
 
     public static void switchToRemote() {
         try (Session session = MySessionFactory.getSessionFactory().openSession()) {
-            //напишите тут ваш код
+            Transaction transaction = session.getTransaction();
+            transaction.begin();
 
+            session.createQuery("update Employee e set e.smth = concat('virtual ', e.smth) where e.smth like 'office%'").executeUpdate();
+            session.createQuery("delete from Task t where t.title = 'Купить кофе' or t.title = 'Убрать офис'").executeUpdate();
+
+            transaction.commit();
         }
     }
 }

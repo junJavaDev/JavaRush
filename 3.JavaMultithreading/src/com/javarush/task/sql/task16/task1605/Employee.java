@@ -49,5 +49,15 @@ public class Employee {
     public void setSmth(String smth) {
         this.smth = smth;
     }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", smth='" + smth + '\'' +
+                '}';
+    }
 }
 

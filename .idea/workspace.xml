@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1603 done">
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/MySessionFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Solution.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Условие.jrtc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/1.JavaSyntax/1.JavaSyntax.iml" beforeDir="false" afterPath="$PROJECT_DIR$/1.JavaSyntax/1.JavaSyntax.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1604/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1604/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/8.Games.iml" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/8.Games.iml" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1604 done">
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Employee.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task16/task1605/Task.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -479,13 +472,6 @@
       <workItem from="1681464148965" duration="17929000" />
       <workItem from="1681539663921" duration="22390000" />
     </task>
-    <task id="LOCAL-00002" summary="Task 4207 CountDownLatch done">
-      <created>1681379500850</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1681379500850</updated>
-    </task>
     <task id="LOCAL-00003" summary="Task 4207 CountDownLatch done">
       <created>1681379515140</created>
       <option name="number" value="00003" />
@@ -822,7 +808,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681598055149</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Task 1604 done">
+      <created>1681599946237</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1681599946237</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -885,7 +878,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Task 1105 done" />
     <MESSAGE value="Task 1201 done" />
     <MESSAGE value="Task 1202 done" />
     <MESSAGE value="Task 1203 done" />
@@ -910,7 +902,8 @@
     <MESSAGE value="Task 1601 done" />
     <MESSAGE value="Task 1602 done" />
     <MESSAGE value="Task 1603 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 1603 done" />
+    <MESSAGE value="Task 1604 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 1604 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
