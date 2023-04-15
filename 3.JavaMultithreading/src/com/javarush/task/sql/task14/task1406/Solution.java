@@ -35,7 +35,6 @@ public class Solution {
     }
 
     public static void clearCache(SessionFactory factory) {
-        //напишите тут ваш код
-
+        factory.getCache().evictAll();
     }
 }
