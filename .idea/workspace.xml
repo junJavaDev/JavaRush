@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1407 done">
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1501/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1501/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1501/Person.java" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1501 done">
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1502/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1502/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1502/Person.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,7 +114,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/javadev/Java/GitHub/JavaRushTasks/lib/hibernate-ehcache-5.6.11.Final.jar",
+    "last_opened_file_path": "/home/javadev/Java/GitHub/JavaRushTasks/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1502",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
@@ -128,6 +128,7 @@
       <recent name="com.javarush.task.jdk13.task41.task4101" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1502" />
       <recent name="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake" />
       <recent name="D:\intellijSandbox\JavaRushTasks" />
     </key>
@@ -469,7 +470,7 @@
       <workItem from="1681431255227" duration="2513000" />
       <workItem from="1681433890476" duration="1258000" />
       <workItem from="1681464148965" duration="17929000" />
-      <workItem from="1681539663921" duration="16334000" />
+      <workItem from="1681539663921" duration="18328000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -779,7 +780,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681566711320</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="Task 1501 done">
+      <created>1681567599988</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1681567599988</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -842,7 +850,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Task 1007 done" />
     <MESSAGE value="Task 1008 done" />
     <MESSAGE value="Task 1101 done" />
     <MESSAGE value="Task 1102 done" />
@@ -867,7 +874,8 @@
     <MESSAGE value="Task 1405 done" />
     <MESSAGE value="Task 1406 done" />
     <MESSAGE value="Task 1407 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 1407 done" />
+    <MESSAGE value="Task 1501 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 1501 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
