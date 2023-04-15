@@ -1,10 +1,12 @@
-package com.javarush.task.sql.task13.task1307.entities;
+package com.javarush.task.sql.task14.task1401;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "author")
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,9 +20,7 @@ public class User {
     @Column(name = "full_name")
     private String fullName;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id", referencedColumnName = "id")
-    private Address address;
+    private List<Book> books;
 
     public Integer getId() {
         return id;
@@ -54,11 +54,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public Address getAddress() {
-        return address;
+    public List<Book> getBooks() {
+        return books;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }

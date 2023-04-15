@@ -18,7 +18,7 @@ public class Address {
     @Column(name = "country")
     private String country;
 
-    //напишите тут ваш код
+    @OneToOne(mappedBy = "address")
     private User user;
 
     public Integer getId() {
