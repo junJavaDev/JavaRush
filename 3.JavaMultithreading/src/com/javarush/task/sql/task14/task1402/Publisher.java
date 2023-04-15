@@ -1,6 +1,8 @@
 package com.javarush.task.sql.task14.task1402;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import java.util.List;
 
@@ -14,7 +16,8 @@ public class Publisher {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinColumn(name = "publisher_id")
     private List<Book> books;
 
