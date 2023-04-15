@@ -1,11 +1,11 @@
-package com.javarush.task.sql.task14.task1403;
+package com.javarush.task.sql.task14.task1404;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
@@ -23,13 +23,12 @@ public class Employee {
     @Column(name = "smth")
     private String smth;
 
-    @Column(name = "salary")
-    private Integer salary;
-
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "employee_task",
+            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @OrderColumn(name = "employee_id")
-    private List<StatisticView> statistics = new ArrayList<>();
+    private Set<Task> tasks = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -63,12 +62,9 @@ public class Employee {
         this.smth = smth;
     }
 
-    public Integer getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Integer salary) {
-        this.salary = salary;
+    @Override
+    public String toString() {
+        return name;
     }
 }
 
