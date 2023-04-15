@@ -1,8 +1,8 @@
-package com.javarush.task.sql.task13.task1302;
+package com.javarush.task.sql.task13.task1304.entities;
 
 import jakarta.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "author")
@@ -21,12 +21,8 @@ public class Author {
     private String fullName;
 
     //напишите тут ваш код
-    @ElementCollection
-    @CollectionTable(name = "author_achievement",
-    joinColumns = @JoinColumn(name = "author_id"),
-    indexes = {@Index(columnList = "achievement_index")})
-    @Column(name = "achievement")
-    private List<String> achievements;
+    private Set<Book> books;
+
 
     public Integer getId() {
         return id;
@@ -60,11 +56,11 @@ public class Author {
         this.fullName = fullName;
     }
 
-    public List<String> getAchievements() {
-        return achievements;
+    public Set<Book> getBooks() {
+        return books;
     }
 
-    public void setAchievements(List<String> achievements) {
-        this.achievements = achievements;
+    public void setBooks(Set<Book> books) {
+        this.books = books;
     }
 }
