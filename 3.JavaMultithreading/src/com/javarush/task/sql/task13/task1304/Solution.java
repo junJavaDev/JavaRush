@@ -11,6 +11,11 @@ import org.hibernate.query.Query;
 public class Solution {
 
     public static void main(String[] args) throws Exception {
-        //напишите тут ваш код
+        try (Session session = MySessionFactory.getSessionFactory().openSession()) {
+            Query<Author> query = session.createQuery("from Author where fullName = :NAME", Author.class);
+            query.setParameter("NAME", "Mark Twain");
+            Author twain = query.getSingleResult();
+            twain.getBooks().forEach(System.out::println);
+        }
     }
 }

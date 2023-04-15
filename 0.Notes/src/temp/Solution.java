@@ -1,6 +1,5 @@
 package temp;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 class Book {
 	public String title;
@@ -30,8 +29,8 @@ public class Solution {
 //    	System.out.println(jsonBook);
 //	}
 public static void main(String[] args) throws Exception {
-	String jsonString = "{\"title\":\"Обитаемый остров\",\"author\":\"Стругацкий А., Стругацкий Б.\",\"pages\":413}";
-	Book book = new ObjectMapper().readValue(jsonString, Book.class);
-	System.out.println(book);
+//	String jsonString = "{\"title\":\"Обитаемый остров\",\"author\":\"Стругацкий А., Стругацкий Б.\",\"pages\":413}";
+//	Book book = new ObjectMapper().readValue(jsonString, Book.class);
+//	System.out.println(book);
 }
 }
