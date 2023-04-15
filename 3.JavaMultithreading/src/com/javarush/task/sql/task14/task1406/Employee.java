@@ -1,38 +1,25 @@
-package com.javarush.task.sql.task14.task1405;
+package com.javarush.task.sql.task14.task1406;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "employee")
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     @Column(name = "name")
     private String name;
-
     @Column(name = "age")
     private Integer age;
-
     @Column(name = "smth")
     private String smth;
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JoinTable(name = "employee_task",
-            joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
-    @LazyCollection(LazyCollectionOption.EXTRA)
-    private Set<Task> tasks = new HashSet<>();
+    @Column(name = "salary")
+    private Integer salary;
 
     public Integer getId() {
         return id;
@@ -65,5 +52,12 @@ public class Employee {
     public void setSmth(String smth) {
         this.smth = smth;
     }
-}
 
+    public Integer getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Integer salary) {
+        this.salary = salary;
+    }
+}

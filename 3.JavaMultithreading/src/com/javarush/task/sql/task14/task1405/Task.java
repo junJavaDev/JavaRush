@@ -1,6 +1,8 @@
 package com.javarush.task.sql.task14.task1405;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Table(name = "task")
 public class Task {
     @Id
@@ -22,6 +25,7 @@ public class Task {
     private LocalDate deadline;
 
     @ManyToMany(cascade = CascadeType.ALL)
+    @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
     @JoinTable(name = "employee_task",
             joinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"))
