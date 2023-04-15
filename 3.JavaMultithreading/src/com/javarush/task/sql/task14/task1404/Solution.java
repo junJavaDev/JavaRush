@@ -17,7 +17,9 @@ public class Solution {
     }
 
     public static List<Task> getTasks() {
-        //напишите тут ваш код
-
+        try (Session session = MySessionFactory.getSessionFactory().openSession()) {
+            Query<Task> query = session.createQuery("select distinct t from Task t left join fetch t.employees order by t.deadline", Task.class);
+            return query.list();
+        }
     }
 }
