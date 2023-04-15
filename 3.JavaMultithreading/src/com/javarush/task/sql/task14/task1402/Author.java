@@ -1,4 +1,4 @@
-package com.javarush.task.sql.task14.task1401;
+package com.javarush.task.sql.task14.task1402;
 
 import jakarta.persistence.*;
 
@@ -20,7 +20,7 @@ public class Author {
     @Column(name = "full_name")
     private String fullName;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private List<Book> books;
 

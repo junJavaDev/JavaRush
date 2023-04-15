@@ -1,4 +1,4 @@
-package com.javarush.task.sql.task14.task1401;
+package com.javarush.task.sql.task14.task1402;
 
 import jakarta.persistence.*;
 
@@ -14,7 +14,7 @@ public class Publisher {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "publisher_id")
     private List<Book> books;
 
