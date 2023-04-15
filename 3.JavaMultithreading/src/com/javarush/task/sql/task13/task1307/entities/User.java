@@ -1,12 +1,10 @@
-package com.javarush.task.sql.task13.task1306.entities;
+package com.javarush.task.sql.task13.task1307.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Set;
-
 @Entity
-@Table(name = "author")
-public class Author {
+@Table(name = "user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,11 +18,8 @@ public class Author {
     @Column(name = "full_name")
     private String fullName;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "author_book",
-            joinColumns = @JoinColumn(name = "author_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id", referencedColumnName = "id"))
-    private Set<Book> books;
+    //напишите тут ваш код
+    private Address address;
 
     public Integer getId() {
         return id;
@@ -58,11 +53,11 @@ public class Author {
         this.fullName = fullName;
     }
 
-    public Set<Book> getBooks() {
-        return books;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setBooks(Set<Book> books) {
-        this.books = books;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1303 done">
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Task 1305 done">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/0.Notes/src/temp/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/0.Notes/src/temp/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1304/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1304/Solution.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1304/entities/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1304/entities/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1306/Solution.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1306/Solution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1306/entities/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1306/entities/Author.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1306/entities/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task13/task1306/entities/Book.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +106,6 @@
   <component name="ProjectViewState">
     <option name="autoscrollFromSource" value="true" />
     <option name="autoscrollToSource" value="true" />
-    <option name="flattenPackages" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
@@ -470,7 +469,7 @@
       <workItem from="1681431255227" duration="2513000" />
       <workItem from="1681433890476" duration="1258000" />
       <workItem from="1681464148965" duration="17929000" />
-      <workItem from="1681539663921" duration="4713000" />
+      <workItem from="1681539663921" duration="7012000" />
     </task>
     <task id="LOCAL-00001" summary="Task 4206 done">
       <created>1681379156144</created>
@@ -703,7 +702,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681543633376</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Task 1304 done">
+      <created>1681549287993</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1681549287993</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Task 1305 done">
+      <created>1681549547845</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1681549547845</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -766,8 +779,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Task 4304 &quot;Вернуться к истокам&quot; done" />
-    <MESSAGE value="Task 4306 &quot;В поиске ботана&quot; done" />
     <MESSAGE value="Task 4307 &quot;Шило на мыло&quot; done" />
     <MESSAGE value="Task 4308 &quot;Какая операция 1&quot; done" />
     <MESSAGE value="Task 4309 &quot;Какая операция 2&quot; done" />
@@ -791,7 +802,9 @@
     <MESSAGE value="Task 1205 done" />
     <MESSAGE value="Task 1301 done" />
     <MESSAGE value="Task 1303 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Task 1303 done" />
+    <MESSAGE value="Task 1304 done" />
+    <MESSAGE value="Task 1305 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task 1305 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
