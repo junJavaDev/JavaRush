@@ -20,8 +20,9 @@ public class GameObject {
     public void draw(Game game) {
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-               game.setCellColor(this.x + x, this.y +y, Color.values()[matrix[x][y]]);
+                game.setCellColor(this.x + x, this.y + y, Color.values()[matrix[y][x]]);
             }
         }
     }
+
 }
