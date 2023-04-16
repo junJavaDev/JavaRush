@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="RacerGame 17/28 done">
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="RacerGame 18/28 done">
+      <change afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/Car.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/RacerGame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/RacerGame$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/RacerGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/RacerGame.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/Условие.jrtc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -490,14 +488,7 @@
       <workItem from="1681640431671" duration="605000" />
       <workItem from="1681641051328" duration="3154000" />
       <workItem from="1681645327782" duration="1951000" />
-      <workItem from="1681648926244" duration="2408000" />
-    </task>
-    <task id="LOCAL-00025" summary="Task 1104 done">
-      <created>1681482612282</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1681482612282</updated>
+      <workItem from="1681648926244" duration="2732000" />
     </task>
     <task id="LOCAL-00026" summary="Task 1105 done">
       <created>1681482962341</created>
@@ -835,7 +826,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681651072571</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="RacerGame 18/28 done">
+      <created>1681651519872</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1681651519872</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -898,7 +896,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Task 1407 done" />
     <MESSAGE value="Task 1501 done" />
     <MESSAGE value="Task 1502 done" />
     <MESSAGE value="Task 1503 done" />
@@ -923,7 +920,8 @@
     <MESSAGE value="RacerGame 15/28 done" />
     <MESSAGE value="RacerGame 16/28 done" />
     <MESSAGE value="RacerGame 17/28 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="RacerGame 17/28 done" />
+    <MESSAGE value="RacerGame 18/28 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="RacerGame 18/28 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
