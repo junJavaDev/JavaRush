@@ -10,6 +10,5 @@ public class RacerGame extends Game {
     public void initialize() {
         setScreenSize(WIDTH, HEIGHT);
         showGrid(false);
-        
     }
 }
