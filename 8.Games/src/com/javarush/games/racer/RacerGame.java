@@ -11,10 +11,12 @@ public class RacerGame extends Game {
     private static final Color ROADSIDE_COLOR = Color.GREEN;
     private static final Color ROAD_COLOR = Color.GRAY;
     private static final Color DIVIDING_STRIP_COLOR = Color.WHITE;
+    private static final int GAME_SPEED = 40;
     private RoadMarking roadMarking;
     private PlayerCar player;
-    private static final int GAME_SPEED = 40;
     private RoadManager roadManager;
+    private boolean isGameStopped;
+
 
 
     @Override
@@ -26,6 +28,11 @@ public class RacerGame extends Game {
 
     @Override
     public void onTurn(int step) {
+        if (roadManager.checkCrush(player)) {
+            gameOver();
+            drawScene();
+            return;
+        }
         moveAll();
         roadManager.generateNewRoadObjects(this);
         drawScene();
@@ -62,11 +69,19 @@ public class RacerGame extends Game {
     }
 
     private void createGame() {
+        isGameStopped = false;
         roadMarking = new RoadMarking();
         player = new PlayerCar();
         roadManager = new RoadManager();
         setTurnTimer(GAME_SPEED);
         drawScene();
+    }
+
+    private void gameOver() {
+        isGameStopped = true;
+        showMessageDialog(Color.RED, "Разбился!", Color.WHITE, 22);
+        stopTurnTimer();
+        player.stop();
     }
 
     private void drawScene() {
