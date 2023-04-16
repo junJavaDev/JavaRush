@@ -12,6 +12,7 @@ public class RacerGame extends Game {
     private static final Color DIVIDING_STRIP_COLOR = Color.WHITE;
     private RoadMarking roadMarking;
     private PlayerCar player;
+    private static final int GAME_SPEED = 40;
 
     @Override
     public void initialize() {
@@ -20,9 +21,20 @@ public class RacerGame extends Game {
         createGame();
     }
 
+    @Override
+    public void onTurn(int step) {
+        moveAll();
+        drawScene();
+    }
+
+    private void moveAll() {
+        roadMarking.move(player.speed);
+    }
+
     private void createGame() {
         roadMarking = new RoadMarking();
         player = new PlayerCar();
+        setTurnTimer(GAME_SPEED);
         drawScene();
     }
 
