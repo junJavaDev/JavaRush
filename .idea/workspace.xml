@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="RacerGame 25/28 done">
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/FinishLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/FinishLine.java" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="RacerGame 26/28 done">
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" afterDir="false" />
     </list>
@@ -488,14 +487,7 @@
       <workItem from="1681640431671" duration="605000" />
       <workItem from="1681641051328" duration="3154000" />
       <workItem from="1681645327782" duration="1951000" />
-      <workItem from="1681648926244" duration="6718000" />
-    </task>
-    <task id="LOCAL-00033" summary="Task 1303 done">
-      <created>1681543633375</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1681543633376</updated>
+      <workItem from="1681648926244" duration="7025000" />
     </task>
     <task id="LOCAL-00034" summary="Task 1304 done">
       <created>1681549287993</created>
@@ -833,7 +825,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681659234225</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="RacerGame 26/28 done">
+      <created>1681659630174</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1681659630174</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -896,7 +895,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RacerGame /12 done" />
     <MESSAGE value="RacerGame 1/28 done" />
     <MESSAGE value="RacerGame 2/28 done" />
     <MESSAGE value="RacerGame 3/28 done" />
@@ -921,7 +919,8 @@
     <MESSAGE value="RacerGame 23/28 done" />
     <MESSAGE value="RacerGame 24/28 done" />
     <MESSAGE value="RacerGame 25/28 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="RacerGame 25/28 done" />
+    <MESSAGE value="RacerGame 26/28 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="RacerGame 26/28 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
