@@ -12,6 +12,25 @@ public class RoadManager {
     private static final int FIRST_LANE_POSITION = 16;
     private static final int FOURTH_LANE_POSITION = 44;
     private List<RoadObject> items = new ArrayList<>();
+    private boolean isThornExists() {
+        for (RoadObject item : items) {
+            if (item instanceof Thorn) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void generateThorn(Game game) {
+        int randomNumber = game.getRandomNumber(100);
+        if (randomNumber < 10 && !isThornExists()) {
+            addRoadObject(RoadObjectType.THORN, game);
+        }
+    }
+
+    public void generateNewRoadObjects(Game game) {
+        generateThorn(game);
+    }
 
     public void draw(Game game) {
         for (RoadObject item : items) {

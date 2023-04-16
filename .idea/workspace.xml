@@ -2,16 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="RacerGame 13/28 done">
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Direction.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/GameObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/PlayerCar.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RoadMarking.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/ShapeMatrix.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadObject.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadObjectType.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/Thorn.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -488,105 +480,7 @@
       <workItem from="1681638578260" duration="1838000" />
       <workItem from="1681640431671" duration="605000" />
       <workItem from="1681641051328" duration="3154000" />
-      <workItem from="1681645327782" duration="1300000" />
-    </task>
-    <task id="LOCAL-00008" summary="Task 4304 &quot;Нам null-ы не страшны&quot; done">
-      <created>1681391790409</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1681391790409</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Task 4304 &quot;Вернуться к истокам&quot; done">
-      <created>1681392189756</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1681392189756</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Task 4306 &quot;В поиске ботана&quot; done">
-      <created>1681393782280</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1681393782280</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Task 4307 &quot;Шило на мыло&quot; done">
-      <created>1681394600232</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1681394600232</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Task 4308 &quot;Какая операция 1&quot; done">
-      <created>1681395066054</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1681395066054</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Task 4309 &quot;Какая операция 2&quot; done">
-      <created>1681397454243</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1681397454243</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Task 4310 &quot;Какая операция 3&quot; done">
-      <created>1681398323395</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1681398323395</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Task 4311 &quot;Какая операция 4&quot; done">
-      <created>1681398500275</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1681398500275</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Task 1001 done">
-      <created>1681402061175</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1681402061175</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Task 1002 done">
-      <created>1681404210855</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1681404210855</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Task 1004 done">
-      <created>1681423976013</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1681423976013</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Task 1006 done">
-      <created>1681432154335</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1681432154335</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Task 1007 done">
-      <created>1681433949538</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1681433949538</updated>
-    </task>
-    <task id="LOCAL-00021" summary="Task 1008 done">
-      <created>1681434490466</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1681434490466</updated>
+      <workItem from="1681645327782" duration="1951000" />
     </task>
     <task id="LOCAL-00022" summary="Task 1101 done">
       <created>1681467168399</created>
@@ -833,7 +727,105 @@
       <option name="project" value="LOCAL" />
       <updated>1681646517454</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="RacerGame 1/28 done">
+      <created>1681646638172</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646638172</updated>
+    </task>
+    <task id="LOCAL-00058" summary="RacerGame 1/28 done">
+      <created>1681646642572</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646642572</updated>
+    </task>
+    <task id="LOCAL-00059" summary="RacerGame 2/28 done">
+      <created>1681646656557</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646656557</updated>
+    </task>
+    <task id="LOCAL-00060" summary="RacerGame 3/28 done">
+      <created>1681646685927</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646685927</updated>
+    </task>
+    <task id="LOCAL-00061" summary="RacerGame 4/28 done">
+      <created>1681646703672</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646703672</updated>
+    </task>
+    <task id="LOCAL-00062" summary="RacerGame 5/28 done">
+      <created>1681646722400</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646722401</updated>
+    </task>
+    <task id="LOCAL-00063" summary="RacerGame 6/28 done">
+      <created>1681646747669</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646747669</updated>
+    </task>
+    <task id="LOCAL-00064" summary="RacerGame 7/28 done">
+      <created>1681646770332</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646770332</updated>
+    </task>
+    <task id="LOCAL-00065" summary="RacerGame 8/28 done">
+      <created>1681646788766</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646788766</updated>
+    </task>
+    <task id="LOCAL-00066" summary="RacerGame 9/28 done">
+      <created>1681646803837</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646803838</updated>
+    </task>
+    <task id="LOCAL-00067" summary="RacerGame 10/28 done">
+      <created>1681646821900</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646821900</updated>
+    </task>
+    <task id="LOCAL-00068" summary="RacerGame 11/28 done">
+      <created>1681646841559</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646841559</updated>
+    </task>
+    <task id="LOCAL-00069" summary="RacerGame 12/28 done">
+      <created>1681646855703</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646855703</updated>
+    </task>
+    <task id="LOCAL-00070" summary="RacerGame 13/28 done">
+      <created>1681646870588</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1681646870588</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -896,16 +888,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Task 1205 done" />
-    <MESSAGE value="Task 1301 done" />
-    <MESSAGE value="Task 1303 done" />
-    <MESSAGE value="Task 1304 done" />
-    <MESSAGE value="Task 1305 done" />
-    <MESSAGE value="Task 1306 done" />
-    <MESSAGE value="Task 1307 done" />
-    <MESSAGE value="Task 1401 done" />
-    <MESSAGE value="Task 1402 done" />
-    <MESSAGE value="Task 1403 done" />
     <MESSAGE value="Task 1404 done" />
     <MESSAGE value="Task 1405 done" />
     <MESSAGE value="Task 1406 done" />
@@ -917,9 +899,19 @@
     <MESSAGE value="Task 1602 done" />
     <MESSAGE value="Task 1603 done" />
     <MESSAGE value="Task 1604 done" />
+    <MESSAGE value="RacerGame /12 done" />
+    <MESSAGE value="RacerGame 1/28 done" />
+    <MESSAGE value="RacerGame 2/28 done" />
+    <MESSAGE value="RacerGame 3/28 done" />
+    <MESSAGE value="RacerGame 4/28 done" />
+    <MESSAGE value="RacerGame 5/28 done" />
+    <MESSAGE value="RacerGame 6/28 done" />
+    <MESSAGE value="RacerGame 7/28 done" />
+    <MESSAGE value="RacerGame 8/28 done" />
+    <MESSAGE value="RacerGame 9/28 done" />
     <MESSAGE value="RacerGame 10/28 done" />
     <MESSAGE value="RacerGame 11/28 done" />
-    <MESSAGE value="RacerGame /12 done" />
+    <MESSAGE value="RacerGame 12/28 done" />
     <MESSAGE value="RacerGame 13/28 done" />
     <option name="LAST_COMMIT_MESSAGE" value="RacerGame 13/28 done" />
   </component>
