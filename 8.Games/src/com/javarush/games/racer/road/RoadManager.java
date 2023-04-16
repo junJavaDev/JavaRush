@@ -13,6 +13,7 @@ public class RoadManager {
     private static final int FIRST_LANE_POSITION = 16;
     private static final int FOURTH_LANE_POSITION = 44;
     private List<RoadObject> items = new ArrayList<>();
+    private int passedCarsCount = 0;
 
     private static final int PLAYER_CAR_DISTANCE = 12;
     public void generateNewRoadObjects(Game game) {
@@ -64,6 +65,9 @@ public class RoadManager {
         for (RoadObject destItem : destItems) {
             if (destItem.y >= RacerGame.HEIGHT) {
                 items.remove(destItem);
+                if (!(destItem instanceof Thorn)) {
+                    passedCarsCount++;
+                }
             }
         }
     }
@@ -117,5 +121,9 @@ public class RoadManager {
             }
         }
         return true;
+    }
+
+    public int getPassedCarsCount() {
+        return passedCarsCount;
     }
 }
