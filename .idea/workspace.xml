@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="RacerGame 13/28 done">
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/RacerGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" beforeDir="false" afterPath="$PROJECT_DIR$/3.JavaMultithreading/3.JavaMultithreading.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/8.Games.iml" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/8.Games.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/road/RoadManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/racer/Условие.jrtc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/road/RoadManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/road/RoadManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/racer/Условие.jrtc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +122,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/javadev/Java/GitHub/JavaRushTasks/lib/javafx-sdk-18.0.1&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
@@ -419,6 +424,13 @@
       <envs />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Game2048" />
+      <item itemvalue="Application.MinesweeperGame" />
+      <item itemvalue="Application.MoonLanderGame" />
+      <item itemvalue="Application.RacerGame" />
+      <item itemvalue="Application.SnakeGame" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.RacerGame" />
@@ -481,6 +493,7 @@
       <workItem from="1681640431671" duration="605000" />
       <workItem from="1681641051328" duration="3154000" />
       <workItem from="1681645327782" duration="1951000" />
+      <workItem from="1681648926244" duration="931000" />
     </task>
     <task id="LOCAL-00022" summary="Task 1101 done">
       <created>1681467168399</created>

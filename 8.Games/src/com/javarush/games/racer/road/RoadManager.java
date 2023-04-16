@@ -4,6 +4,8 @@ import com.javarush.engine.cell.Game;
 import com.javarush.games.racer.RacerGame;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class RoadManager {
@@ -41,6 +43,16 @@ public class RoadManager {
     public void move(int boost) {
         for (RoadObject item : items) {
             item.move(item.speed + boost);
+        }
+        deletePassedItems();
+    }
+
+    private void deletePassedItems() {
+        List<RoadObject> destItems = new ArrayList<>(items);
+        for (RoadObject destItem : destItems) {
+            if (destItem.y >= RacerGame.HEIGHT) {
+                items.remove(destItem);
+            }
         }
     }
 
