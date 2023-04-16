@@ -13,9 +13,9 @@ public class RacerGame extends Game {
 
     @Override
     public void initialize() {
+        showGrid(false);
         setScreenSize(WIDTH, HEIGHT);
         createGame();
-        showGrid(false);
     }
 
     private void createGame() {
@@ -35,6 +35,13 @@ public class RacerGame extends Game {
                     setCellColor(w, h, DIVIDING_STRIP_COLOR);
                 } else setCellColor(w, h, ROAD_COLOR);
             }
+        }
+    }
+
+    @Override
+    public void setCellColor(int x, int y, Color color) {
+        if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {
+            super.setCellColor(x, y, color);
         }
     }
 }
