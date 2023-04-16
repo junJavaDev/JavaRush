@@ -30,6 +30,11 @@ public class RacerGame extends Game {
 
     @Override
     public void onTurn(int step) {
+        if (finishLine.isCrossed(player)) {
+            win();
+            drawScene();
+            return;
+        }
         if (roadManager.checkCrush(player)) {
             gameOver();
             drawScene();
@@ -49,6 +54,12 @@ public class RacerGame extends Game {
         finishLine.move(player.speed);
         progressBar.move(roadManager.getPassedCarsCount());
         player.move();
+    }
+
+    private void win() {
+        isGameStopped = true;
+        showMessageDialog(Color.GREEN, "Победитель!", Color.WHITE, 22);
+        stopTurnTimer();
     }
 
     @Override
