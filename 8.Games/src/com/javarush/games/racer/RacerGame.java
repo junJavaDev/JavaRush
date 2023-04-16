@@ -12,10 +12,12 @@ public class RacerGame extends Game {
     private static final Color ROAD_COLOR = Color.GRAY;
     private static final Color DIVIDING_STRIP_COLOR = Color.WHITE;
     private static final int GAME_SPEED = 40;
+    private static final int RACE_GOAL_CARS_COUNT = 40;
     private RoadMarking roadMarking;
     private PlayerCar player;
     private RoadManager roadManager;
     private boolean isGameStopped;
+    private FinishLine finishLine;
 
 
     @Override
@@ -40,6 +42,7 @@ public class RacerGame extends Game {
     private void moveAll() {
         roadMarking.move(player.speed);
         roadManager.move(player.speed);
+        finishLine.move(player.speed);
         player.move();
     }
 
@@ -81,6 +84,7 @@ public class RacerGame extends Game {
         roadMarking = new RoadMarking();
         player = new PlayerCar();
         roadManager = new RoadManager();
+        finishLine = new FinishLine();
         setTurnTimer(GAME_SPEED);
         drawScene();
     }
@@ -97,6 +101,7 @@ public class RacerGame extends Game {
         roadManager.draw(this);
         roadMarking.draw(this);
         player.draw(this);
+        finishLine.draw(this);
     }
 
     private void drawField() {

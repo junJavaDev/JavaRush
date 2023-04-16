@@ -21,7 +21,8 @@ public class RoadObject extends GameObject {
      * Метод, отвечающий за передвижение препятствия. У препятствия может быть своя скорость и дополнительная,
      * которая зависит от скорости движения игрока.
      */
-    public void move(int speed, List<RoadObject> items) {
+    public void move(int boost, List<RoadObject> roadObjects) {
+        this.y += boost;
     }
 
     /**
