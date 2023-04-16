@@ -1,5 +1,7 @@
 package com.javarush.games.racer;
 
+import com.javarush.games.racer.road.RoadManager;
+
 public class PlayerCar extends GameObject{
 
     public int speed = 1;
@@ -23,6 +25,11 @@ public class PlayerCar extends GameObject{
             x = x-1;
         } else if (direction == Direction.RIGHT) {
             x = x+1;
+        }
+        if (x < RoadManager.LEFT_BORDER) {
+            x = RoadManager.LEFT_BORDER;
+        } else if (x > RoadManager.RIGHT_BORDER - width) {
+            x = RoadManager.RIGHT_BORDER - width;
         }
     }
 }
