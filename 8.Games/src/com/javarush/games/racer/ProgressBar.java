@@ -6,9 +6,9 @@ import com.javarush.engine.cell.Game;
 import java.util.Arrays;
 
 public class ProgressBar {
-    private GameObject progressBar;
-    private GameObject progressBarField;
-    private int maxValue;
+    private final GameObject progressBar;
+    private final GameObject progressBarField;
+    private final int maxValue;
 
     public ProgressBar(int maxValue) {
         this.maxValue = maxValue;

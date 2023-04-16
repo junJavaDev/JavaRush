@@ -2,12 +2,13 @@ package com.javarush.games.racer;
 
 import com.javarush.games.racer.road.RoadManager;
 
-public class PlayerCar extends GameObject{
+public class PlayerCar extends GameObject {
 
     public int speed = 1;
     private Direction direction;
 
-    private static int playerCarHeight = ShapeMatrix.PLAYER.length;
+    private static final int playerCarHeight = ShapeMatrix.PLAYER.length;
+
     public PlayerCar() {
         super(RacerGame.WIDTH / 2 + 2, RacerGame.HEIGHT - playerCarHeight - 1, ShapeMatrix.PLAYER);
     }
@@ -22,9 +23,9 @@ public class PlayerCar extends GameObject{
 
     public void move() {
         if (direction == Direction.LEFT) {
-            x = x-1;
+            x = x - 1;
         } else if (direction == Direction.RIGHT) {
-            x = x+1;
+            x = x + 1;
         }
         if (x < RoadManager.LEFT_BORDER) {
             x = RoadManager.LEFT_BORDER;

@@ -4,9 +4,9 @@ import com.javarush.engine.cell.*;
 
 import java.util.List;
 
-public class RocketFire extends GameObject{
+public class RocketFire extends GameObject {
 
-    private List<int[][]> frames;
+    private final List<int[][]> frames;
     private int frameIndex;
     private boolean isVisible;
 
@@ -22,8 +22,6 @@ public class RocketFire extends GameObject{
     public void hide() {
         isVisible = false;
     }
-
-
 
 
     private void nextFrame() {

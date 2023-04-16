@@ -8,11 +8,11 @@ import java.util.Arrays;
 public class Rocket extends GameObject {
     private double speedY = 0;
     private double speedX = 0;
-    private double boost = 0.05;
-    private double slowdown = boost / 10;
-    private RocketFire downFire;
-    private RocketFire leftFire ;
-    private RocketFire rightFire ;
+    private final double boost = 0.05;
+    private final double slowdown = boost / 10;
+    private final RocketFire downFire;
+    private final RocketFire leftFire;
+    private final RocketFire rightFire;
 
     public Rocket(double x, double y) {
         super(x, y, ShapeMatrix.ROCKET);

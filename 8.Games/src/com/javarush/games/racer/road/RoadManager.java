@@ -12,10 +12,11 @@ public class RoadManager {
     public static final int RIGHT_BORDER = RacerGame.WIDTH - LEFT_BORDER;
     private static final int FIRST_LANE_POSITION = 16;
     private static final int FOURTH_LANE_POSITION = 44;
-    private List<RoadObject> items = new ArrayList<>();
+    private final List<RoadObject> items = new ArrayList<>();
     private int passedCarsCount = 0;
 
     private static final int PLAYER_CAR_DISTANCE = 12;
+
     public void generateNewRoadObjects(Game game) {
         generateThorn(game);
         generateRegularCar(game);
@@ -87,6 +88,7 @@ public class RoadManager {
             addRoadObject(RoadObjectType.DRUNK_CAR, game);
         }
     }
+
     private RoadObject createRoadObject(RoadObjectType type, int x, int y) {
         if (type == RoadObjectType.THORN) {
             return new Thorn(x, y);

@@ -37,10 +37,7 @@ public class GameObject {
             return false;
         }
 
-        if (y > otherGameObject.y + otherGameObject.height || y + height < otherGameObject.y) {
-            return false;
-        }
-        return true;
+        return y <= otherGameObject.y + otherGameObject.height && y + height >= otherGameObject.y;
     }
 
     public boolean isCollision(GameObject gameObject) {

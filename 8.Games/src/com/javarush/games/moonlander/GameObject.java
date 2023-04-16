@@ -19,7 +19,7 @@ public class GameObject {
     }
 
     public void draw(Game game) {
-        if(matrix == null) {
+        if (matrix == null) {
             return;
         }
 
