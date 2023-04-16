@@ -10,6 +10,7 @@ public class RacerGame extends Game {
     private static final Color ROADSIDE_COLOR = Color.GREEN;
     private static final Color ROAD_COLOR = Color.GRAY;
     private static final Color DIVIDING_STRIP_COLOR = Color.WHITE;
+    private RoadMarking roadMarking;
 
     @Override
     public void initialize() {
@@ -19,11 +20,13 @@ public class RacerGame extends Game {
     }
 
     private void createGame() {
+        roadMarking = new RoadMarking();
         drawScene();
     }
 
     private void drawScene() {
         drawField();
+        roadMarking.draw(this);
     }
 
     private void drawField() {
