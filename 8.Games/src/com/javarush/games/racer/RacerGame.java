@@ -14,6 +14,8 @@ public class RacerGame extends Game {
     private PlayerCar player;
     private static final int GAME_SPEED = 40;
 
+
+
     @Override
     public void initialize() {
         showGrid(false);
