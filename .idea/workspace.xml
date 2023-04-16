@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 1/34 done">
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 2/34 done">
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/SpaceInvadersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/SpaceInvadersGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/Условие.jrtc" afterDir="false" />
     </list>
@@ -134,7 +134,7 @@
       <recent name="D:\intellijSandbox\JavaRushTasks" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.RacerGame">
+  <component name="RunManager" selected="Application.SpaceInvadersGame">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -297,20 +297,6 @@
     <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
       <method />
     </configuration>
-    <configuration name="Game2048" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.javarush.games.game2048.Game2048" />
-      <module name="8.Games" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.javarush.games.game2048.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="MinesweeperGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.javarush.games.minesweeper.MinesweeperGame" />
       <module name="8.Games" />
@@ -360,6 +346,20 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="com.javarush.games.snake.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpaceInvadersGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javarush.games.spaceinvaders.SpaceInvadersGame" />
+      <module name="8.Games" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.javarush.games.spaceinvaders.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -419,7 +419,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Game2048" />
+      <item itemvalue="Application.SpaceInvadersGame" />
       <item itemvalue="Application.MinesweeperGame" />
       <item itemvalue="Application.MoonLanderGame" />
       <item itemvalue="Application.RacerGame" />
@@ -427,11 +427,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SpaceInvadersGame" />
         <item itemvalue="Application.RacerGame" />
         <item itemvalue="Application.MoonLanderGame" />
         <item itemvalue="Application.MinesweeperGame" />
         <item itemvalue="Application.SnakeGame" />
-        <item itemvalue="Application.Game2048" />
       </list>
     </recent_temporary>
   </component>
@@ -488,14 +488,7 @@
       <workItem from="1681641051328" duration="3154000" />
       <workItem from="1681645327782" duration="1951000" />
       <workItem from="1681648926244" duration="7701000" />
-      <workItem from="1681661642912" duration="1621000" />
-    </task>
-    <task id="LOCAL-00037" summary="Task 1307 done">
-      <created>1681553071871</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1681553071871</updated>
+      <workItem from="1681661642912" duration="1934000" />
     </task>
     <task id="LOCAL-00038" summary="Task 1401 done">
       <created>1681553545404</created>
@@ -833,7 +826,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681667422857</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="SpaceInvadersGame 2/34 done">
+      <created>1681667712971</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1681667712971</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -896,7 +896,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RacerGame 4/28 done" />
     <MESSAGE value="RacerGame 5/28 done" />
     <MESSAGE value="RacerGame 6/28 done" />
     <MESSAGE value="RacerGame 7/28 done" />
@@ -921,7 +920,8 @@
     <MESSAGE value="RacerGame 27/28 done" />
     <MESSAGE value="RacerGame 28/28 done" />
     <MESSAGE value="SpaceInvadersGame 1/34 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 1/34 done" />
+    <MESSAGE value="SpaceInvadersGame 2/34 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 2/34 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

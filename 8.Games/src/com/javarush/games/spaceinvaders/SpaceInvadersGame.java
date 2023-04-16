@@ -24,6 +24,10 @@ public class SpaceInvadersGame extends Game {
 
     // Отрисовка космоса
     private void drawField() {
-
+        for (int w = 0; w < WIDTH; w++) {
+            for (int h = 0; h < HEIGHT; h++) {
+                setCellValueEx(w, h, Color.BLACK, "");
+            }
+        }
     }
 }
