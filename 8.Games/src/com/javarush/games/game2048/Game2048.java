@@ -1,8 +1,6 @@
 package com.javarush.games.game2048;
 
-import com.javarush.engine.cell.Color;
-import com.javarush.engine.cell.Game;
-import com.javarush.engine.cell.Key;
+import com.javarush.engine.cell.*;
 
 public class Game2048 extends Game {
     private static final int SIDE = 4;
@@ -18,6 +16,11 @@ public class Game2048 extends Game {
 
     @Override
     public void onKeyPress(Key key) {
+        if (!canUserMove()) {
+            gameOver();
+            return;
+        }
+
         if (key == Key.UP) {
             moveUp();
         } else if (key == Key.RIGHT) {
@@ -80,6 +83,11 @@ public class Game2048 extends Game {
             }
         }
         return max;
+    }
+
+    private void gameOver() {
+        showMessageDialog(Color.NONE, "GAME OVER!", Color.WHITE, 50);
+        isGameStopped = true;
     }
 
     private void win() {
