@@ -68,6 +68,25 @@ public class EnemyFleet {
         return ships.get(randomShip).fire();
     }
 
+    public void verifyHit(List<Bullet> bullets) {
+        for (Bullet bullet : bullets) {
+            for (EnemyShip ship : ships) {
+                if (ship.isAlive && bullet.isAlive && ship.isCollision(bullet)) {
+                    ship.kill();
+                    bullet.kill();
+                }
+            }
+        }
+    }
+
+    public void deleteHiddenShips() {
+        for (EnemyShip ship : new ArrayList<>(ships)) {
+            if (!ship.isVisible()) {
+                ships.remove(ship);
+            }
+        }
+    }
+
     private double getLeftBorder() {
         return ships.stream().mapToDouble(s -> s.x).min().getAsDouble();
     }
