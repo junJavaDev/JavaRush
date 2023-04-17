@@ -1,6 +1,8 @@
 package com.javarush.games.game2048;
 
-import com.javarush.engine.cell.*;
+import com.javarush.engine.cell.Color;
+import com.javarush.engine.cell.Game;
+import com.javarush.engine.cell.Key;
 
 public class Game2048 extends Game {
     private static final int SIDE = 4;
@@ -33,6 +35,21 @@ public class Game2048 extends Game {
     private void createGame() {
         createNewNumber();
         createNewNumber();
+    }
+
+    private boolean canUserMove() {
+        for (int y = 0; y < SIDE; y++) {
+            for (int x = 0; x < SIDE; x++) {
+                if (gameField[y][x] == 0) {
+                    return true;
+                } else if (y < SIDE - 1 && gameField[y][x] == gameField[y + 1][x]) {
+                    return true;
+                } else if ((x < SIDE - 1) && gameField[y][x] == gameField[y][x + 1]) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private void createNewNumber() {
