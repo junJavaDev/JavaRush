@@ -1,5 +1,7 @@
 package com.javarush.games.spaceinvaders.gameobjects;
 
+import com.javarush.engine.cell.Game;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,5 +34,20 @@ public class Ship extends GameObject{
 
     public void kill() {
         isAlive = false;
+    }
+
+
+    public void nextFrame() {
+        frameIndex++;
+        if (frameIndex >= frames.size()) {
+            return;
+        }
+        matrix = frames.get(frameIndex);
+    }
+
+    @Override
+    public void draw(Game game) {
+        super.draw(game);
+        nextFrame();
     }
 }
