@@ -117,4 +117,19 @@ public class SpaceInvadersGame extends Game {
             stopGame(playerShip.isAlive);
         }
     }
+
+    @Override
+    public void onKeyPress(Key key) {
+        switch (key) {
+            case SPACE:
+                if(isGameStopped) createGame();
+                break;
+            case LEFT:
+                playerShip.setDirection(Direction.LEFT);
+                break;
+            case RIGHT:
+                playerShip.setDirection(Direction.RIGHT);
+                break;
+        }
+    }
 }
