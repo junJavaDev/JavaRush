@@ -1,2 +1,0 @@
--- Write your code here:
-SELECT HOUR(CURTIME()), MINUTE(CURTIME()), SECOND(CURTIME())
