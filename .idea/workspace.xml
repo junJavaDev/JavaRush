@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 34/34 done">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake/Fish.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake/Mouse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake/Snake.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake/Snake.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake/SnakeGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake/SnakeGame.java" afterDir="false" />
-    </list>
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Game2048 6/18 done" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -492,49 +487,7 @@
       <workItem from="1681648926244" duration="7701000" />
       <workItem from="1681661642912" duration="1934000" />
       <workItem from="1681718179964" duration="7352000" />
-      <workItem from="1681740958998" duration="5836000" />
-    </task>
-    <task id="LOCAL-00067" summary="RacerGame 10/28 done">
-      <created>1681646821900</created>
-      <option name="number" value="00067" />
-      <option name="presentableId" value="LOCAL-00067" />
-      <option name="project" value="LOCAL" />
-      <updated>1681646821900</updated>
-    </task>
-    <task id="LOCAL-00068" summary="RacerGame 11/28 done">
-      <created>1681646841559</created>
-      <option name="number" value="00068" />
-      <option name="presentableId" value="LOCAL-00068" />
-      <option name="project" value="LOCAL" />
-      <updated>1681646841559</updated>
-    </task>
-    <task id="LOCAL-00069" summary="RacerGame 12/28 done">
-      <created>1681646855703</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1681646855703</updated>
-    </task>
-    <task id="LOCAL-00070" summary="RacerGame 13/28 done">
-      <created>1681646870588</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1681646870588</updated>
-    </task>
-    <task id="LOCAL-00071" summary="RacerGame 15/28 done">
-      <created>1681649871457</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1681649871458</updated>
-    </task>
-    <task id="LOCAL-00072" summary="RacerGame 16/28 done">
-      <created>1681650495371</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1681650495371</updated>
+      <workItem from="1681740958998" duration="6136000" />
     </task>
     <task id="LOCAL-00073" summary="RacerGame 17/28 done">
       <created>1681651072571</created>
@@ -837,7 +790,49 @@
       <option name="project" value="LOCAL" />
       <updated>1681745009708</updated>
     </task>
-    <option name="localTasksCounter" value="116" />
+    <task id="LOCAL-00116" summary="Game2048 1/18 done">
+      <created>1681746914741</created>
+      <option name="number" value="00116" />
+      <option name="presentableId" value="LOCAL-00116" />
+      <option name="project" value="LOCAL" />
+      <updated>1681746914741</updated>
+    </task>
+    <task id="LOCAL-00117" summary="Game2048 2/18 done">
+      <created>1681747016446</created>
+      <option name="number" value="00117" />
+      <option name="presentableId" value="LOCAL-00117" />
+      <option name="project" value="LOCAL" />
+      <updated>1681747016446</updated>
+    </task>
+    <task id="LOCAL-00118" summary="Game2048 3/18 done">
+      <created>1681747037571</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1681747037571</updated>
+    </task>
+    <task id="LOCAL-00119" summary="Game2048 4/18 done">
+      <created>1681747065188</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1681747065188</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Game2048 5/18 done">
+      <created>1681747083456</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1681747083456</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Game2048 6/18 done">
+      <created>1681747104624</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1681747104624</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -900,12 +895,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="SpaceInvadersGame 8/34 done" />
-    <MESSAGE value="SpaceInvadersGame 9/34 done" />
-    <MESSAGE value="SpaceInvadersGame 10/34 done" />
-    <MESSAGE value="SpaceInvadersGame 11/34 done" />
-    <MESSAGE value="SpaceInvadersGame 12/34 done" />
-    <MESSAGE value="SpaceInvadersGame 13/34 done" />
     <MESSAGE value="SpaceInvadersGame 14/34 done" />
     <MESSAGE value="SpaceInvadersGame 15/34 done" />
     <MESSAGE value="SpaceInvadersGame 16/34 done" />
@@ -925,7 +914,13 @@
     <MESSAGE value="SpaceInvadersGame 32/34 done" />
     <MESSAGE value="SpaceInvadersGame 33/34 done" />
     <MESSAGE value="SpaceInvadersGame 34/34 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 34/34 done" />
+    <MESSAGE value="Game2048 1/18 done" />
+    <MESSAGE value="Game2048 2/18 done" />
+    <MESSAGE value="Game2048 3/18 done" />
+    <MESSAGE value="Game2048 4/18 done" />
+    <MESSAGE value="Game2048 5/18 done" />
+    <MESSAGE value="Game2048 6/18 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Game2048 6/18 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
