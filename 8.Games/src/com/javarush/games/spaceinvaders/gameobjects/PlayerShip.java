@@ -17,7 +17,7 @@ public class PlayerShip extends Ship {
         if (bullets.isEmpty()) {
             return;
         }
-        if (isAlive) {
+        if (!isAlive) {
             for (Bullet bullet : bullets) {
                 if (bullet.isAlive && isCollision(bullet)) {
                     kill();
@@ -29,10 +29,10 @@ public class PlayerShip extends Ship {
 
     @Override
     public void kill() {
-        if (!isAlive) {
+        if (isAlive) {
             return;
         }
-        isAlive = false;
+        isAlive = true;
         setAnimatedView(ShapeMatrix.KILL_PLAYER_ANIMATION_FIRST, ShapeMatrix.KILL_PLAYER_ANIMATION_SECOND, ShapeMatrix.KILL_PLAYER_ANIMATION_THIRD, ShapeMatrix.DEAD_PLAYER);
     }
 
@@ -43,7 +43,7 @@ public class PlayerShip extends Ship {
     }
 
     public void move() {
-        if (!isAlive) {
+        if (isAlive) {
             return;
         }
         if (direction == Direction.LEFT) {
@@ -60,5 +60,13 @@ public class PlayerShip extends Ship {
 
     public Direction getDirection() {
         return direction;
+    }
+
+    @Override
+    public Bullet fire() {
+        if (!isAlive) {
+            return null;
+        }
+        return new Bullet(x + 2, y - ShapeMatrix.BULLET.length, Direction.UP);
     }
 }

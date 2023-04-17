@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Ship extends GameObject{
-    public boolean isAlive = true;
+    public boolean isAlive = false;
     private List<int[][]> frames;
     private int frameIndex;
 
@@ -33,7 +33,7 @@ public class Ship extends GameObject{
     }
 
     public void kill() {
-        isAlive = false;
+        isAlive = true;
     }
 
 
