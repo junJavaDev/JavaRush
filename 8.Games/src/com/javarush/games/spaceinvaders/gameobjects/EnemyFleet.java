@@ -99,17 +99,6 @@ public class EnemyFleet {
         return ship.fire();
     }
 
-    public void verifyHit(List<Bullet> bullets) {
-        for (Bullet bullet : bullets) {
-            for (EnemyShip ship : ships) {
-                if (ship.isAlive && bullet.isAlive && ship.isCollision(bullet)) {
-                    ship.kill();
-                    bullet.kill();
-                }
-            }
-        }
-    }
-
     public void deleteHiddenShips() {
         for (EnemyShip ship : new ArrayList<>(ships)) {
             if (!ship.isVisible()) {
@@ -123,6 +112,24 @@ public class EnemyFleet {
                 .mapToDouble(s -> s.y + s.height)
                 .max()
                 .orElse(0.0);
+    }
+
+    public int verifyHit(List<Bullet> bullets) {
+        if (bullets.isEmpty()) {
+            return 0;
+        }
+        int scoreSum = 0;
+
+        for (Bullet bullet : bullets) {
+            for (EnemyShip ship : ships) {
+                if (ship.isAlive && bullet.isAlive && ship.isCollision(bullet)) {
+                    ship.kill();
+                    bullet.kill();
+                    scoreSum += ship.score;
+                }
+            }
+        }
+        return scoreSum;
     }
 
     public int getShipsCount() {
