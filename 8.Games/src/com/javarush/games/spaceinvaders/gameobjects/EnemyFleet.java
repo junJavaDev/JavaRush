@@ -30,4 +30,12 @@ public class EnemyFleet {
             ship.draw(game);
         }
     }
+
+    private double getLeftBorder() {
+        return ships.stream().mapToDouble(s -> s.x).min().getAsDouble();
+    }
+
+    private double getRightBorder() {
+        return ships.stream().mapToDouble(s -> s.x + s.width).max().getAsDouble();
+    }
 }
