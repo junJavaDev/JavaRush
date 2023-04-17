@@ -117,4 +117,15 @@ public class EnemyFleet {
             }
         }
     }
+
+    public double getBottomBorder() {
+        return ships.stream()
+                .mapToDouble(s -> s.y + s.height)
+                .max()
+                .orElse(0.0);
+    }
+
+    public int getShipsCount() {
+        return ships.size();
+    }
 }
