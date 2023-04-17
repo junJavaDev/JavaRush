@@ -1,6 +1,7 @@
 package com.javarush.games.spaceinvaders;
 
 import com.javarush.engine.cell.*;
+import com.javarush.games.spaceinvaders.gameobjects.Bullet;
 import com.javarush.games.spaceinvaders.gameobjects.EnemyFleet;
 import com.javarush.games.spaceinvaders.gameobjects.Star;
 
@@ -13,6 +14,7 @@ public class SpaceInvadersGame extends Game {
     public static final int COMPLEXITY = 5;
     private List<Star> stars;
     private EnemyFleet enemyFleet;
+    private List<Bullet> enemyBullets;
 
     @Override
     public void initialize() {
@@ -22,6 +24,7 @@ public class SpaceInvadersGame extends Game {
 
     private void createGame() {
         enemyFleet = new EnemyFleet();
+        enemyBullets = new ArrayList<>();
         setTurnTimer(40);
         createStars();
         drawScene();
@@ -30,6 +33,10 @@ public class SpaceInvadersGame extends Game {
     private void drawScene() {
         drawField();
         enemyFleet.draw(this);
+        for (Bullet enemyBullet : enemyBullets) {
+            enemyBullet.draw(this);
+        }
+
     }
 
     private void drawField() {
@@ -46,10 +53,16 @@ public class SpaceInvadersGame extends Game {
 
     private void moveSpaceObjects() {
         enemyFleet.move();
+        for (Bullet enemyBullet : enemyBullets) {
+            enemyBullet.move();
+        }
     }
 
     @Override
     public void onTurn(int step) {
+        check();
+        Bullet fire = enemyFleet.fire(this);
+        if (fire != null) enemyBullets.add(fire);
         moveSpaceObjects();
         drawScene();
     }
@@ -61,5 +74,18 @@ public class SpaceInvadersGame extends Game {
             int y = getRandomNumber(HEIGHT);
             stars.add(new Star(x, y));
         }
+    }
+
+    private void removeDeadBullets() {
+        List<Bullet> desc = new ArrayList<>(enemyBullets);
+        for (Bullet bullet : desc) {
+            if (!bullet.isAlive || bullet.y >= HEIGHT - 1) {
+                enemyBullets.remove(bullet);
+            }
+        }
+    }
+
+    private void check() {
+        removeDeadBullets();
     }
 }
