@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 14/34 done">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 15/34 done">
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/ShapeMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/ShapeMatrix.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/SpaceInvadersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/SpaceInvadersGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/Условие.jrtc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/spaceinvaders/ShapeMatrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/spaceinvaders/ShapeMatrix.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/spaceinvaders/gameobjects/EnemyFleet.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/spaceinvaders/gameobjects/EnemyFleet.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/spaceinvaders/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/8.Games/com/javarush/games/spaceinvaders/Условие.jrtc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -490,14 +493,7 @@
       <workItem from="1681645327782" duration="1951000" />
       <workItem from="1681648926244" duration="7701000" />
       <workItem from="1681661642912" duration="1934000" />
-      <workItem from="1681718179964" duration="986000" />
-    </task>
-    <task id="LOCAL-00049" summary="Task 1602 done">
-      <created>1681595596350</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1681595596350</updated>
+      <workItem from="1681718179964" duration="1295000" />
     </task>
     <task id="LOCAL-00050" summary="Task 1603 done">
       <created>1681598055149</created>
@@ -835,7 +831,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681718706356</updated>
     </task>
-    <option name="localTasksCounter" value="98" />
+    <task id="LOCAL-00098" summary="SpaceInvadersGame 15/34 done">
+      <created>1681719336079</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1681719336079</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -898,7 +901,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RacerGame 17/28 done" />
     <MESSAGE value="RacerGame 18/28 done" />
     <MESSAGE value="RacerGame 19/28 done" />
     <MESSAGE value="RacerGame 20/28 done" />
@@ -923,7 +925,8 @@
     <MESSAGE value="SpaceInvadersGame 12/34 done" />
     <MESSAGE value="SpaceInvadersGame 13/34 done" />
     <MESSAGE value="SpaceInvadersGame 14/34 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 14/34 done" />
+    <MESSAGE value="SpaceInvadersGame 15/34 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 15/34 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
