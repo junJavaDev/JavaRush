@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 19/34 done">
-      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/gameobjects/Ship.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/gameobjects/Ship.java" afterDir="false" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="SpaceInvadersGame 20/34 done">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/SpaceInvadersGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/SpaceInvadersGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/spaceinvaders/Условие.jrtc" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -489,14 +490,7 @@
       <workItem from="1681645327782" duration="1951000" />
       <workItem from="1681648926244" duration="7701000" />
       <workItem from="1681661642912" duration="1934000" />
-      <workItem from="1681718179964" duration="2885000" />
-    </task>
-    <task id="LOCAL-00054" summary="RacerGame /12 done">
-      <created>1681646023110</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1681646023110</updated>
+      <workItem from="1681718179964" duration="3675000" />
     </task>
     <task id="LOCAL-00055" summary="RacerGame 13/28 done">
       <created>1681646438181</created>
@@ -834,7 +828,14 @@
       <option name="project" value="LOCAL" />
       <updated>1681720993231</updated>
     </task>
-    <option name="localTasksCounter" value="103" />
+    <task id="LOCAL-00103" summary="SpaceInvadersGame 20/34 done">
+      <created>1681721238968</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1681721238968</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -897,7 +898,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="RacerGame 22/28 done" />
     <MESSAGE value="RacerGame 23/28 done" />
     <MESSAGE value="RacerGame 24/28 done" />
     <MESSAGE value="RacerGame 25/28 done" />
@@ -922,7 +922,8 @@
     <MESSAGE value="SpaceInvadersGame 17/34 done" />
     <MESSAGE value="SpaceInvadersGame 18/34 done" />
     <MESSAGE value="SpaceInvadersGame 19/34 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 19/34 done" />
+    <MESSAGE value="SpaceInvadersGame 20/34 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="SpaceInvadersGame 20/34 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

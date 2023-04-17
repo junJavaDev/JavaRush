@@ -18,6 +18,8 @@ public class SpaceInvadersGame extends Game {
     private EnemyFleet enemyFleet;
     private List<Bullet> enemyBullets;
     private PlayerShip playerShip;
+    private boolean isGameStopped;
+    private int animationsCount;
 
     @Override
     public void initialize() {
@@ -25,10 +27,22 @@ public class SpaceInvadersGame extends Game {
         createGame();
     }
 
+    @Override
+    public void onTurn(int step) {
+        moveSpaceObjects();
+        check();
+        Bullet fire = enemyFleet.fire(this);
+        if (fire != null) enemyBullets.add(fire);
+        drawScene();
+    }
+
+
     private void createGame() {
         enemyFleet = new EnemyFleet();
         enemyBullets = new ArrayList<>();
         playerShip = new PlayerShip();
+        isGameStopped = false;
+        animationsCount = 0;
         setTurnTimer(40);
         createStars();
         drawScene();
@@ -63,15 +77,6 @@ public class SpaceInvadersGame extends Game {
         }
     }
 
-    @Override
-    public void onTurn(int step) {
-        moveSpaceObjects();
-        check();
-        Bullet fire = enemyFleet.fire(this);
-        if (fire != null) enemyBullets.add(fire);
-        drawScene();
-    }
-
     private void createStars() {
         stars = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
@@ -92,6 +97,24 @@ public class SpaceInvadersGame extends Game {
 
     private void check() {
         playerShip.verifyHit(enemyBullets);
+        if (!playerShip.isAlive) stopGameWithDelay();
         removeDeadBullets();
+    }
+
+    private void stopGame(boolean isWin) {
+        isGameStopped = true;
+        stopTurnTimer();
+        if (isWin) {
+            showMessageDialog(Color.GRAY, "YOU WIN!", Color.GREEN, 22);
+        } else {
+            showMessageDialog(Color.GRAY, "YOU LOSE!", Color.RED, 22);
+        }
+    }
+
+    private void stopGameWithDelay() {
+        animationsCount++;
+        if (animationsCount >= 10) {
+            stopGame(playerShip.isAlive);
+        }
     }
 }
