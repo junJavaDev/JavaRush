@@ -133,4 +133,20 @@ public class SpaceInvadersGame extends Game {
                 break;
         }
     }
+
+    @Override
+    public void onKeyReleased(Key key) {
+        switch (key) {
+            case LEFT:
+                if (playerShip.getDirection() == Direction.LEFT) {
+                    playerShip.setDirection(Direction.UP);
+                }
+                break;
+            case RIGHT:
+                if (playerShip.getDirection() == Direction.RIGHT) {
+                    playerShip.setDirection(Direction.UP);
+                }
+                break;
+        }
+    }
 }

@@ -57,4 +57,8 @@ public class PlayerShip extends Ship {
             x = SpaceInvadersGame.WIDTH - width;
         }
     }
+
+    public Direction getDirection() {
+        return direction;
+    }
 }
