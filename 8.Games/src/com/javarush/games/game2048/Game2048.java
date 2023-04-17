@@ -16,6 +16,16 @@ public class Game2048 extends Game {
 
     @Override
     public void onKeyPress(Key key) {
+        if (isGameStopped) {
+            if (key == Key.SPACE) {
+                isGameStopped = false;
+                createGame();
+                drawScene();
+            } else {
+                return;
+            }
+        }
+
         if (!canUserMove()) {
             gameOver();
             return;
@@ -36,6 +46,7 @@ public class Game2048 extends Game {
     }
 
     private void createGame() {
+        gameField = new int[SIDE][SIDE];
         createNewNumber();
         createNewNumber();
     }
