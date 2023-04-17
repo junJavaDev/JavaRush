@@ -1,7 +1,6 @@
 package com.javarush.games.spaceinvaders.gameobjects;
 
-import com.javarush.engine.cell.Color;
-import com.javarush.engine.cell.Game;
+import com.javarush.engine.cell.*;
 
 public class GameObject {
     public double x;
