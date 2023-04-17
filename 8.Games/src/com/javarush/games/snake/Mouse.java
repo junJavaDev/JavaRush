@@ -2,12 +2,12 @@ package com.javarush.games.snake;
 
 import com.javarush.engine.cell.*;
 
-public class Fish extends GameObject {
+public class Mouse extends GameObject {
 
-    private static final String FISH_SIGN = "\uD83D\uDC1F";
+    private static final String FISH_SIGN = "\uD83D\uDC2D";
     public boolean isAlive = true;
 
-    public Fish(int x, int y) {
+    public Mouse(int x, int y) {
         super(x, y);
     }
 

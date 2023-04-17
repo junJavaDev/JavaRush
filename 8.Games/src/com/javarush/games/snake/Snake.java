@@ -53,7 +53,7 @@ public class Snake {
 
     }
 
-    public void move(Fish fish) {
+    public void move(Mouse mouse) {
         GameObject newHead = createNewHead();
         if (checkCollision(newHead)) {
             isAlive = false;
@@ -72,8 +72,8 @@ public class Snake {
             newHead.y = 0;
         }
             snakeParts.add(0, newHead);
-            if (newHead.x == fish.x && newHead.y == fish.y) {
-                fish.isAlive = false;
+            if (newHead.x == mouse.x && newHead.y == mouse.y) {
+                mouse.isAlive = false;
                 HEAD_SIGN = HEAD_SO_HAPPY;
             }
             else {

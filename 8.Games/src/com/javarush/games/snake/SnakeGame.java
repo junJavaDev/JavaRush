@@ -10,7 +10,7 @@ public class SnakeGame extends Game {
     private int score;
     private int scoreWeight = 5;
     private Snake snake;
-    private Fish fish;
+    private Mouse mouse;
     private boolean isGameStopped;
     private int turnDelay;
 
@@ -39,21 +39,21 @@ public class SnakeGame extends Game {
             }
         }
         snake.draw(this);
-        fish.draw(this);
+        mouse.draw(this);
 
     }
 
     @Override
     public void onTurn(int step) {
-        snake.move(fish);
-        if (!fish.isAlive) {
+        snake.move(mouse);
+        if (!mouse.isAlive) {
             createNewApple();
             score += scoreWeight;
             scoreWeight++;
             setScore(score);
             turnDelay -= 10;
             setTurnTimer(turnDelay);
-            fish.isAlive = true;
+            mouse.isAlive = true;
         }
         if (!snake.isAlive) {
             gameOver();
@@ -93,8 +93,8 @@ public class SnakeGame extends Game {
 
     private void createNewApple() {
         do {
-            fish = new Fish(getRandomNumber(WIDTH), getRandomNumber(HEIGHT));
-        } while (snake.checkCollision(fish));
+            mouse = new Mouse(getRandomNumber(WIDTH), getRandomNumber(HEIGHT));
+        } while (snake.checkCollision(mouse));
     }
 
     private void gameOver() {
