@@ -22,6 +22,16 @@ public class EnemyShip extends Ship {
     }
 
     @Override
+    public void kill() {
+        if (!isAlive) {
+            return;
+        }
+        isAlive = false;
+        setAnimatedView(ShapeMatrix.KILL_ENEMY_ANIMATION_FIRST, ShapeMatrix.KILL_ENEMY_ANIMATION_SECOND, ShapeMatrix.KILL_ENEMY_ANIMATION_THIRD);
+    }
+
+
+    @Override
     public Bullet fire() {
         return new Bullet(x + 1, y + height, Direction.DOWN);
     }
