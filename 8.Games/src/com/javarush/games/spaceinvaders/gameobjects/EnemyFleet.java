@@ -56,6 +56,18 @@ public class EnemyFleet {
         }
     }
 
+    public Bullet fire(Game game) {
+        if (ships.isEmpty()) {
+            return null;
+        }
+        int randomNumber = game.getRandomNumber(100 / SpaceInvadersGame.COMPLEXITY);
+        if (randomNumber > 0) {
+            return null;
+        }
+        int randomShip = game.getRandomNumber(ships.size());
+        return ships.get(randomShip).fire();
+    }
+
     private double getLeftBorder() {
         return ships.stream().mapToDouble(s -> s.x).min().getAsDouble();
     }
