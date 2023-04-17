@@ -19,6 +19,12 @@ public class EnemyFleet {
         createShips();
     }
 
+    public void draw(Game game) {
+        for (EnemyShip ship : ships) {
+            ship.draw(game);
+        }
+    }
+
     private void createShips() {
         ships = new ArrayList<>();
         for (int x = 0; x < COLUMNS_COUNT; x++) {
@@ -26,33 +32,52 @@ public class EnemyFleet {
                 ships.add(new EnemyShip(x * STEP, y * STEP + 12));
             }
         }
+        ships.add(new Boss(STEP * COLUMNS_COUNT / 2 - ShapeMatrix.BOSS_ANIMATION_FIRST.length / 2 - 1, 5));
     }
 
-    public void draw(Game game) {
-        for (EnemyShip ship : ships) {
-            ship.draw(game);
+    private double getLeftBorder() {
+        double left = SpaceInvadersGame.WIDTH;
+        for (GameObject ship : ships) {
+            if (ship.x < left) {
+                left = ship.x;
+            }
         }
+        return left;
+    }
+
+    private double getRightBorder() {
+        double right = 0;
+        for (GameObject ship : ships) {
+            if (ship.x + ship.width > right) {
+                right = ship.x + ship.width;
+            }
+        }
+        return right;
+    }
+
+    private double getSpeed() {
+        int count = ships.size();
+        double speed = 3. / count;
+        return speed > 2. ? 2. : speed;
     }
 
     public void move() {
         if (ships.isEmpty()) {
             return;
         }
-        double speed = getSpeed();
+
+        Direction currentDirection = direction;
         if (direction == Direction.LEFT && getLeftBorder() < 0) {
             direction = Direction.RIGHT;
-            for (EnemyShip ship : ships) {
-                ship.move(Direction.DOWN, speed);
-            }
+            currentDirection = Direction.DOWN;
         } else if (direction == Direction.RIGHT && getRightBorder() > SpaceInvadersGame.WIDTH) {
             direction = Direction.LEFT;
-            for (EnemyShip ship : ships) {
-                ship.move(Direction.DOWN, speed);
-            }
-        } else {
-            for (EnemyShip ship : ships) {
-                ship.move(direction, speed);
-            }
+            currentDirection = Direction.DOWN;
+        }
+
+        double speed = getSpeed();
+        for (EnemyShip ship : ships) {
+            ship.move(currentDirection, speed);
         }
     }
 
@@ -60,12 +85,16 @@ public class EnemyFleet {
         if (ships.isEmpty()) {
             return null;
         }
-        int randomNumber = game.getRandomNumber(100 / SpaceInvadersGame.COMPLEXITY);
-        if (randomNumber > 0) {
+
+        int random = game.getRandomNumber(100 / SpaceInvadersGame.COMPLEXITY);
+        if (random > 0) {
             return null;
         }
-        int randomShip = game.getRandomNumber(ships.size());
-        return ships.get(randomShip).fire();
+
+        int shipNumber = game.getRandomNumber(ships.size());
+        EnemyShip ship = ships.get(shipNumber);
+
+        return ship.fire();
     }
 
     public void verifyHit(List<Bullet> bullets) {
@@ -85,17 +114,5 @@ public class EnemyFleet {
                 ships.remove(ship);
             }
         }
-    }
-
-    private double getLeftBorder() {
-        return ships.stream().mapToDouble(s -> s.x).min().getAsDouble();
-    }
-
-    private double getRightBorder() {
-        return ships.stream().mapToDouble(s -> s.x + s.width).max().getAsDouble();
-    }
-
-    private double getSpeed() {
-        return Math.min(2.0, 3.0 / ships.size());
     }
 }
