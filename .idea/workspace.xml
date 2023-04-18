@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Game2048 6/18 done" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Game2048 18/18 MyVersion done">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/minesweeper/GameObject.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/minesweeper/MinesweeperGame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/8.Games/src/com/javarush/games/minesweeper/Условие.jrtc" beforeDir="false" afterPath="$PROJECT_DIR$/8.Games/src/com/javarush/games/minesweeper/Условие.jrtc" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,7 +116,7 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/javadev/Java/GitHub/JavaRushTasks/8.Games/src/com/javarush/games/snake&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/javadev/Java/GitHub/JavaRushTasks/8.Games/src/com/javarush/games/minesweeper&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
@@ -125,6 +130,7 @@
       <recent name="com.javarush.task.jdk13.task41.task4101" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/8.Games/src/com/javarush/games/minesweeper" />
       <recent name="$PROJECT_DIR$/8.Games/src/com/javarush/games/snake" />
       <recent name="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1503" />
       <recent name="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/sql/task15/task1502" />
@@ -488,6 +494,8 @@
       <workItem from="1681661642912" duration="1934000" />
       <workItem from="1681718179964" duration="7352000" />
       <workItem from="1681740958998" duration="6136000" />
+      <workItem from="1681822410532" duration="377000" />
+      <workItem from="1681867059010" duration="1787000" />
     </task>
     <task id="LOCAL-00073" summary="RacerGame 17/28 done">
       <created>1681651072571</created>
