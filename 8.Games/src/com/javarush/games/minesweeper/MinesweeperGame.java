@@ -76,6 +76,12 @@ public class MinesweeperGame extends Game {
         if (gameObject.isMine) {
             setCellValue(x, y, MINE);
         }
+        else if (gameObject.countMineNeighbors == 0) {
+            getNeighbors(gameObject).stream()
+                    .filter(i -> !i.isOpen)
+                    .forEach(gameObject1 -> openTile(gameObject1.x, gameObject1.y));
+            setCellValue(x, y, "");
+        }
         else setCellNumber(x, y, gameObject.countMineNeighbors);
 
     }
