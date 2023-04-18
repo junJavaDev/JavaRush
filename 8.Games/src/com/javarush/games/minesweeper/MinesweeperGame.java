@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MinesweeperGame extends Game {
     private static final int SIDE = 9;
-    private final GameObject[][] gameField = new GameObject[SIDE][SIDE];
+    private GameObject[][] gameField = new GameObject[SIDE][SIDE];
     private int countMinesOnField = 0;
     private int countFlags = 0;
     private static final String MINE = "\uD83D\uDCA3";
@@ -86,8 +86,32 @@ public class MinesweeperGame extends Game {
 
     }
 
+    private void markTile(int x, int y) {
+        GameObject gameObject = gameField[y][x];
+        if (!gameObject.isOpen && countFlags > 0 && !gameObject.isFlag) {
+            gameObject.isFlag = true;
+            countFlags--;
+            setCellValue(x, y, FLAG);
+            setCellColor(x, y, Color.YELLOW);
+        }
+        else if (!gameObject.isOpen && gameObject.isFlag) {
+            gameObject.isFlag = false;
+            countFlags++;
+            setCellValue(x, y, "");
+            setCellColor(x, y, Color.ORANGE);
+        }
+
+
+    }
+
+
     @Override
     public void onMouseLeftClick(int x, int y) {
         openTile(x, y);
+    }
+
+    @Override
+    public void onMouseRightClick(int x, int y) {
+        markTile(x, y);
     }
 }
