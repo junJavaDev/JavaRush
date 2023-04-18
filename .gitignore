@@ -10,3 +10,4 @@ target/
 /out.log
 /out.log.*
 /out/
+/.idea/
