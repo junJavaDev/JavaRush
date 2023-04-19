@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MinesweeperGame extends Game {
-    private static final int SIDE = 9;
+    private static final int SIDE = 13;
     private GameObject[][] gameField = new GameObject[SIDE][SIDE];
     private int countMinesOnField = 0;
     private int countFlags = 0;
@@ -28,13 +28,13 @@ public class MinesweeperGame extends Game {
     private void createGame() {
         for (int y = 0; y < SIDE; y++) {
             for (int x = 0; x < SIDE; x++) {
-                boolean isMine = getRandomNumber(10) < 1;
+                boolean isMine = getRandomNumber(7) < 1;
                 if (isMine) {
                     countMinesOnField++;
                 }
                 gameField[y][x] = new GameObject(x, y, isMine);
                 setCellValue(x, y, "");
-                setCellColor(x, y, Color.ORANGE);
+                setCellColor(x, y, Color.GRAY);
             }
         }
         countFlags = countMinesOnField;
@@ -77,7 +77,7 @@ public class MinesweeperGame extends Game {
         if (isGameStopped || gameObject.isOpen || gameObject.isFlag) return;
         gameObject.isOpen = true;
         countClosedTiles --;
-        setCellColor(x, y, Color.GREEN);
+        setCellColor(x, y, Color.DARKGRAY);
         if (gameObject.isMine) {
             setCellValueEx(x, y, Color.RED, MINE);
             gameOver();
@@ -107,25 +107,47 @@ public class MinesweeperGame extends Game {
             gameObject.isFlag = true;
             countFlags--;
             setCellValue(x, y, FLAG);
-            setCellColor(x, y, Color.YELLOW);
+            setCellColor(x, y, Color.DIMGRAY);
         }
         else if (!gameObject.isOpen && gameObject.isFlag) {
             gameObject.isFlag = false;
             countFlags++;
             setCellValue(x, y, "");
-            setCellColor(x, y, Color.ORANGE);
+            setCellColor(x, y, Color.GRAY);
         }
 
 
     }
 
     private void gameOver() {
-        showMessageDialog(Color.RED,"Ты взорвался", Color.BLACK,22);
+        String[] luse = {
+                "Не получилось",
+                "Попробуй ещё раз",
+                "Не сегодня",
+                "Зря ты так",
+                "Может пора отдохнуть",
+                "Не уверен, что тебе подходит эта игра",
+                "Давай когда-нибудь в другой раз",
+                "В другой раз получится",
+                "Ай-я-яй",
+                "Упс",
+                "Ладно, я тоже устал"};
+
+        showMessageDialog(Color.LIGHTGRAY,luse[getRandomNumber(luse.length)], Color.BLACK,32);
         isGameStopped = true;
     }
 
     private void win() {
-        showMessageDialog(Color.GREEN,"Поздравляю, сегодня тебе повезло!", Color.BLACK,22);
+        String[] win = {
+                "Получилось",
+                "Ну ничего себе",
+                "Ну ты даёшь, хотел бы я быть таким умным",
+                "Отлично! WIN",
+                "Ты гениален",
+                "Восхищаюсь тобой"};
+
+
+        showMessageDialog(Color.GREEN,win[getRandomNumber(win.length)], Color.BLACK,32);
         isGameStopped = true;
     }
 
