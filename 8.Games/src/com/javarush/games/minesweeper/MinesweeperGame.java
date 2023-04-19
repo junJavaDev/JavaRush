@@ -17,6 +17,7 @@ public class MinesweeperGame extends Game {
     private int countClosedTiles = SIDE * SIDE;
     private int score;
 
+
     @Override
     public void initialize() {
         setScreenSize(SIDE, SIDE);
@@ -32,11 +33,11 @@ public class MinesweeperGame extends Game {
                     countMinesOnField++;
                 }
                 gameField[y][x] = new GameObject(x, y, isMine);
+                setCellValue(x, y, "");
                 setCellColor(x, y, Color.ORANGE);
             }
         }
         countFlags = countMinesOnField;
-        isGameStopped = false;
         countMineNeighbors();
     }
 
@@ -80,6 +81,7 @@ public class MinesweeperGame extends Game {
         if (gameObject.isMine) {
             setCellValueEx(x, y, Color.RED, MINE);
             gameOver();
+            return;
         }
 
         else if (gameObject.countMineNeighbors == 0) {
@@ -87,16 +89,14 @@ public class MinesweeperGame extends Game {
                     .filter(i -> !i.isOpen)
                     .forEach(gameObject1 -> openTile(gameObject1.x, gameObject1.y));
             setCellValue(x, y, "");
-            score += 5;
-            setScore(score);
-            if (countClosedTiles == countMinesOnField) win();
+
         }
         else {
             setCellNumber(x, y, gameObject.countMineNeighbors);
-            score += 5;
-            setScore(score);
-            if (countClosedTiles == countMinesOnField) win();
-        };
+        }
+        score += 5;
+        setScore(score);
+        if (countClosedTiles == countMinesOnField) win();
 
     }
 
@@ -129,9 +129,19 @@ public class MinesweeperGame extends Game {
         isGameStopped = true;
     }
 
+    private void restart() {
+        countClosedTiles = SIDE * SIDE;
+        score = 0;
+        countMinesOnField = 0;
+        setScore(score);
+        isGameStopped = false;
+        createGame();
+    }
+
     @Override
     public void onMouseLeftClick(int x, int y) {
-        openTile(x, y);
+        if (isGameStopped) restart();
+        else openTile(x, y);
     }
 
     @Override
