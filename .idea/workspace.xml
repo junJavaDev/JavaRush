@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Minesweeper 8/16 done" />
+    <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="Minesweeper 10/16 done" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -491,21 +491,7 @@
       <workItem from="1681740958998" duration="6136000" />
       <workItem from="1681822410532" duration="377000" />
       <workItem from="1681867059010" duration="1787000" />
-      <workItem from="1681782543853" duration="305000" />
-    </task>
-    <task id="LOCAL-00081" summary="RacerGame 25/28 done">
-      <created>1681659234225</created>
-      <option name="number" value="00081" />
-      <option name="presentableId" value="LOCAL-00081" />
-      <option name="project" value="LOCAL" />
-      <updated>1681659234225</updated>
-    </task>
-    <task id="LOCAL-00082" summary="RacerGame 26/28 done">
-      <created>1681659630174</created>
-      <option name="number" value="00082" />
-      <option name="presentableId" value="LOCAL-00082" />
-      <option name="project" value="LOCAL" />
-      <updated>1681659630174</updated>
+      <workItem from="1681782543853" duration="342000" />
     </task>
     <task id="LOCAL-00083" summary="RacerGame 27/28 done">
       <created>1681659778691</created>
@@ -836,7 +822,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681782835821</updated>
     </task>
-    <option name="localTasksCounter" value="130" />
+    <task id="LOCAL-00130" summary="Minesweeper 9/16 done">
+      <created>1681782855118</created>
+      <option name="number" value="00130" />
+      <option name="presentableId" value="LOCAL-00130" />
+      <option name="project" value="LOCAL" />
+      <updated>1681782855118</updated>
+    </task>
+    <task id="LOCAL-00131" summary="Minesweeper 10/16 done">
+      <created>1681782875420</created>
+      <option name="number" value="00131" />
+      <option name="presentableId" value="LOCAL-00131" />
+      <option name="project" value="LOCAL" />
+      <updated>1681782875420</updated>
+    </task>
+    <option name="localTasksCounter" value="132" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -899,8 +899,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="SpaceInvadersGame 22/34 done" />
-    <MESSAGE value="SpaceInvadersGame 23/34 done" />
     <MESSAGE value="SpaceInvadersGame 24/34 done" />
     <MESSAGE value="SpaceInvadersGame 25/34 done" />
     <MESSAGE value="SpaceInvadersGame 28/34 done" />
@@ -924,7 +922,9 @@
     <MESSAGE value="Minesweeper 6/16 done" />
     <MESSAGE value="Minesweeper 7/16 done" />
     <MESSAGE value="Minesweeper 8/16 done" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minesweeper 8/16 done" />
+    <MESSAGE value="Minesweeper 9/16 done" />
+    <MESSAGE value="Minesweeper 10/16 done" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minesweeper 10/16 done" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
