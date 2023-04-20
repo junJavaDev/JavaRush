@@ -8,6 +8,10 @@ app:
     max-pool-size: 100
 
 spring:
+  config:
+    import: secrets.properties
+  datasource:
+    url: jdbc:postgresql://localhost:5432/jira
   jpa:
     show-sql: true
     open-in-view: false
@@ -23,8 +27,7 @@ spring:
         default_batch_fetch_size: 20
         # https://stackoverflow.com/questions/21257819/what-is-the-difference-between-hibernate-jdbc-fetch-size-and-hibernate-jdbc-batc
         jdbc.batch_size: 20
-  datasource:
-    url: jdbc:postgresql://localhost:5432/jira
+
 
   liquibase:
     changeLog: "classpath:db/changelog.sql"
