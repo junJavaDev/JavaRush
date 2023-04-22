@@ -8,21 +8,15 @@ import com.javarush.jira.common.util.JsonUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.Profiles;
 import org.springframework.http.ProblemDetail;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
-import javax.sql.DataSource;
 import java.util.Map;
 import java.util.concurrent.Executor;
 
@@ -38,28 +32,6 @@ public class AppConfig {
 
     private final AppProperties appProperties;
     private final Environment env;
-
-    // TODO task 4 - created two profiles
-    @Bean
-    @Profile("prod")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource prodDataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setUrl("${url}");
-        dataSource.setUsername("${username}");
-        dataSource.setPassword("${password}");
-        return dataSource;
-    }
-
-    @Bean
-    @Profile("test")
-    public DataSource h2DataSource() {
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .build();
-    }
-
-
 
     @Bean(name = "mailExecutor")
     public Executor getAsyncExecutor() {
@@ -84,6 +56,9 @@ public class AppConfig {
     }
     public boolean isTest() {
         return env.acceptsProfiles(Profiles.of("test"));
+    }
+    public boolean isDev() {
+        return env.acceptsProfiles(Profiles.of("dev"));
     }
 
     @Autowired

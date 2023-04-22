@@ -1,19 +1,8 @@
-TRUNCATE TABLE USER_ROLE RESTART IDENTITY;
-TRUNCATE TABLE CONTACT RESTART IDENTITY;
-TRUNCATE TABLE MAIL_CASE RESTART IDENTITY;
-TRUNCATE TABLE PROFILE RESTART IDENTITY;
-TRUNCATE TABLE TASK_TAG RESTART IDENTITY;
--- TRUNCATE TABLE TASK_TAGS RESTART IDENTITY;
-TRUNCATE TABLE USER_BELONG RESTART IDENTITY;
-TRUNCATE TABLE ACTIVITY RESTART IDENTITY;
-TRUNCATE TABLE TASK RESTART IDENTITY;
-TRUNCATE TABLE SPRINT RESTART IDENTITY;
-TRUNCATE TABLE PROJECT RESTART IDENTITY;
-TRUNCATE TABLE REFERENCE RESTART IDENTITY;
-TRUNCATE TABLE ATTACHMENT RESTART IDENTITY;
-TRUNCATE TABLE USERS RESTART IDENTITY;
+--liquibase formatted sql
 
-insert into users (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, DISPLAY_NAME)
+--changeset kmpk:populate_data
+
+insert into USERS (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME, DISPLAY_NAME)
 values ('user@gmail.com', '{noop}password', 'userFirstName', 'userLastName', 'userDisplayName'),
        ('admin@gmail.com', '{noop}admin', 'adminFirstName', 'adminLastName', 'adminDisplayName'),
        ('guest@gmail.com', '{noop}guest', 'guestFirstName', 'guestLastName', 'guestDisplayName');
@@ -25,8 +14,9 @@ values (0, 1),
        (1, 2),
        (0, 2);
 
+
 --============ References =================
-insert into reference (CODE, TITLE, REF_TYPE)
+insert into REFERENCE (CODE, TITLE, REF_TYPE)
 -- TASK
 values ('task', 'Task', 2),
        ('story', 'Story', 2),
@@ -64,7 +54,7 @@ values ('task', 'Task', 2),
        ('low', 'Low', 7),
        ('neutral', 'Neutral', 7);
 
-insert into reference (CODE, TITLE, REF_TYPE, AUX)
+insert into REFERENCE (CODE, TITLE, REF_TYPE, AUX)
 -- MAIL_NOTIFICATION
 values ('assigned', 'Assigned', 6, '1'),
        ('three_days_before_deadline', 'Three days before deadline', 6, '2'),
@@ -73,18 +63,19 @@ values ('assigned', 'Assigned', 6, '1'),
        ('deadline', 'Deadline', 6, '16'),
        ('overdue', 'Overdue', 6, '32');
 
-insert into profile (ID, LAST_FAILED_LOGIN, LAST_LOGIN, MAIL_NOTIFICATIONS)
+insert into PROFILE (ID, LAST_FAILED_LOGIN, LAST_LOGIN, MAIL_NOTIFICATIONS)
 values (1, null, null, 49),
        (2, null, null, 14);
 
-insert into contact (ID, CODE, VALUE)
+insert into CONTACT (ID, CODE, VALUE)
 values (1, 'skype', 'userSkype'),
        (1, 'mobile', '+01234567890'),
        (1, 'website', 'user.com'),
        (2, 'github', 'adminGitHub'),
        (2, 'tg', 'adminTg');
 
--- bugtracking
+--changeset kriffer:add_dashboard
+
 INSERT INTO project (id, code, title, description, type_code, startpoint, endpoint, parent_id) VALUES (2, 'task tracker', 'PROJECT-1', 'test project', 'task tracker', null, null, null);
 
 INSERT INTO sprint (id, status_code, startpoint, endpoint, title, project_id) VALUES (1, 'planning', '2023-04-09 23:05:05.000000', '2023-04-12 23:05:12.000000', 'Sprint-1', 2);
@@ -98,4 +89,3 @@ INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, st
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (4, 3, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (5, 4, 2, 2, 'admin', null, null);
 INSERT INTO user_belong (id, object_id, object_type, user_id, user_type_code, startpoint, endpoint) VALUES (6, 5, 2, 2, 'admin', null, null);
-
