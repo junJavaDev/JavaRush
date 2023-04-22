@@ -7,7 +7,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 
 @SpringBootTest
-@Sql(scripts = "classpath:db/test.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = {"classpath:db/changelog/init-schema.sql", "classpath:db/test.sql"}, config = @SqlConfig(encoding = "UTF-8"))
 @ActiveProfiles("test")
 class JiraRushApplicationTests {
 	@Test

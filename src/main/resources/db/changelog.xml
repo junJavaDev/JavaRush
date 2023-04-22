@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--suppress HttpUrlsUsage -->
-<!-- TODO 4/ split changelog.sql into two files - init-schema and populate-data-->
+<!-- TODO 4 - split changelog.sql into two files - init-schema and populate-data-->
 
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
