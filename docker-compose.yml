@@ -43,8 +43,9 @@ services:
   jira-db:
     image: postgres:15.2
     container_name: jira-db-ogarkov
-    volumes:
-      - ./pg-data:/var/lib/postgresql/data
+#    Optional, to save the database data in a folder ./pg-data
+#    volumes:
+#      - ./pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: jira
       POSTGRES_USER: jira

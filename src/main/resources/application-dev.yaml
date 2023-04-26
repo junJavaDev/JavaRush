@@ -1,6 +1,10 @@
 # TODO 4 - add "dev" profile to run full app with h2 db
-spring.cache.type: none
+app:
+  email-confirmation-disabled: true
+
 spring:
+  cache:
+    type: none
   sql:
     init:
       mode: always

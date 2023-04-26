@@ -47,6 +47,7 @@ public class AppConfig {
         };
     }
 
+    //  # TODO * - start server h2db for profile dev
     @Profile("dev")
     @Bean(initMethod = "start", destroyMethod = "stop")
     public Server h2Server() {
@@ -70,8 +71,10 @@ public class AppConfig {
     public boolean isTest() {
         return env.acceptsProfiles(Profiles.of("test"));
     }
-    public boolean isDev() {
-        return env.acceptsProfiles(Profiles.of("dev"));
+
+//  # TODO * - add user registration without email confirmation
+    public boolean isEmailConfirmationEnabled() {
+        return !(Boolean.parseBoolean(env.getProperty("app.email-confirmation-disabled")));
     }
 
     @Autowired
