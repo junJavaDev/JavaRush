@@ -4,8 +4,8 @@ app:
 spring:
   datasource:
 #    url: jdbc:postgresql://localhost:5432/jira
-    # db - it`s docker compose container name
-    url: jdbc:postgresql://db:5432/jira
+    # jira-db - docker compose container name
+    url: jdbc:postgresql://jira-db:5432/jira
     username: jira
     password: JiraRush
 
