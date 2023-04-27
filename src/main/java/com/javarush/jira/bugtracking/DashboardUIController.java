@@ -47,7 +47,14 @@ public class DashboardUIController {
     @PostMapping("/tasks/{id}/tags")
     public String addTaskTag(@PathVariable("id") Long taskId, @RequestBody String[] tagsFrom) {
         Set<String> tags = Set.of(tagsFrom);
-        taskService.addTagsToTask(taskId, tags);
+        taskService.addTaskTags(taskId, tags);
+        return "redirect:/";
+    }
+
+    // TODO 7 - add user subscribe
+    @PostMapping("/tasks/{id}/users/{userId}")
+    public String addUserToTask(@PathVariable("id") Long taskId, @PathVariable("userId") Long userId) {
+        taskService.addUserToTask(taskId, userId);
         return "redirect:/";
     }
 }
