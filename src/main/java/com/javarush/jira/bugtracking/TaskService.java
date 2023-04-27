@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TaskService extends BugtrackingService<Task, TaskTo, TaskRepository> {
@@ -23,5 +24,12 @@ public class TaskService extends BugtrackingService<Task, TaskTo, TaskRepository
     // TODO 12 - add backlog
     public Page<TaskTo> getTasksWithNullSprints(int page, int size) {
         return repository.findTasksWithNullSprints(PageRequest.of(page - 1, size)).map(mapper::toTo);
+    }
+
+    // TODO 6 - add tags
+    public void addTagsToTask(Long taskId, Set<String> tags) {
+        Task task = repository.getExisted(taskId);
+        task.getTags().addAll(tags);
+        repository.save(task);
     }
 }

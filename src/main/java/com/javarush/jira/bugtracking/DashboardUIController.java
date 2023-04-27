@@ -7,12 +7,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -42,5 +41,13 @@ public class DashboardUIController {
         model.addAttribute("taskPage", taskPage);
         model.addAttribute("pageSize", size);
         return "backlog";
+    }
+
+    // TODO 6 - add tags
+    @PostMapping("/tasks/{id}/tags")
+    public String addTaskTag(@PathVariable("id") Long taskId, @RequestBody String[] tagsFrom) {
+        Set<String> tags = Set.of(tagsFrom);
+        taskService.addTagsToTask(taskId, tags);
+        return "redirect:/";
     }
 }
