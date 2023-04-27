@@ -4,10 +4,12 @@ import com.javarush.jira.bugtracking.to.SprintTo;
 import com.javarush.jira.bugtracking.to.TaskTo;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Map;
@@ -25,8 +27,20 @@ public class DashboardUIController {
     public String getAll(Model model) {
         List<TaskTo> tasks = taskService.getAll();
         Map<SprintTo, List<TaskTo>> taskMap = tasks.stream()
+                .filter(taskTo -> taskTo.getSprint() != null)
                 .collect(Collectors.groupingBy(TaskTo::getSprint));
         model.addAttribute("taskMap", taskMap);
         return "index";
+    }
+
+    // TODO 12 - add backlog
+    @GetMapping("/backlog")
+    public String getBacklog(Model model,
+                             @RequestParam(defaultValue = "1") int page,
+                             @RequestParam(defaultValue = "5") int size) {
+        Page<TaskTo> taskPage = taskService.getTasksWithNullSprints(page, size);
+        model.addAttribute("taskPage", taskPage);
+        model.addAttribute("pageSize", size);
+        return "backlog";
     }
 }

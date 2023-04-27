@@ -4,6 +4,8 @@ import com.javarush.jira.bugtracking.internal.mapper.TaskMapper;
 import com.javarush.jira.bugtracking.internal.model.Task;
 import com.javarush.jira.bugtracking.internal.repository.TaskRepository;
 import com.javarush.jira.bugtracking.to.TaskTo;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,5 +18,10 @@ public class TaskService extends BugtrackingService<Task, TaskTo, TaskRepository
 
     public List<TaskTo> getAll() {
         return mapper.toToList(repository.getAll());
+    }
+
+    // TODO 12 - add backlog
+    public Page<TaskTo> getTasksWithNullSprints(int page, int size) {
+        return repository.findTasksWithNullSprints(PageRequest.of(page - 1, size)).map(mapper::toTo);
     }
 }
