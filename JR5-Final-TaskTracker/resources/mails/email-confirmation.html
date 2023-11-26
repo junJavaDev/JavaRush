@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!--TODO 11 - add internationalization-->
+<head>
+    <title th:text="#{mails.confirmation.title}"></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p th:text="#{mails.confirmation.greetings} + ', ' + ${user.firstName} + '.'"/>
+<p th:text="#{mails.confirmation.text}"></p>
+<a th:href="${confirmationUrl}" th:text="#{mails.button.confirm-mail}"></a>
+</body>
+</html>
