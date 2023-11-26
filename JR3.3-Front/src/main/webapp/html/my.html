@@ -1,0 +1,169 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>RPG</title>
+</head>
+<body>
+<div class="container">
+    <img src="img/title.png" alt="RPG Admin Panel">
+    <div class="centered"><h1>RPG Admin Panel</h1></div>
+</div>
+<br>
+
+<table id="tableAccountsInfoHeader">
+    <tr>
+        <td id="accountsListTd">
+            <h2>Accounts list:</h2>
+        </td>
+        <td id="selectCountPerPageTd">
+            <label id="selectCountPerPageLabel" for="selectCountPerPage">Count per page: </label>
+            <select id="selectCountPerPage">
+                <option value="3">3</option>
+                <option value="5" selected>5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+            </select>
+        </td>
+    </tr>
+</table>
+
+<table id="tableAccountsInfo">
+    <thead>
+    <tr>
+        <th id="id">#</th>
+        <th id="name">Name</th>
+        <th id="title">Title</th>
+        <th id="race">Race</th>
+        <th id="profession">Profession</th>
+        <th id="level">Level</th>
+        <th id="birthday">Birthday</th>
+        <th id="banned">Banned</th>
+        <th id="edit">Edit</th>
+        <th id="delete">Delete</th>
+    </tr>
+    </thead>
+    <tbody id="tableBody"></tbody>
+</table>
+
+<br>
+<div id="pageButtons"></div>
+<hr id="separator">
+<h2>Create new account:</h2>
+    <form id="createAccountForm">
+        <table id="createAccountTable">
+            <tbody>
+            <tr id="createName">
+                <td>
+                    <label for="inputName">Name:</label>
+                </td>
+                <td>
+                    <input
+                            name="name"
+                            id="inputName"
+                            minlength="1"
+                            maxlength="12"
+                            pattern="^[\u0400-\u04ffa-zA-Z][\u0400-\u04ffa-zA-Z\s]{1,10}[\u0400-\u04ffa-zA-Z]$"
+                            placeholder="3-12 cyrillic latin"
+                            required
+                    >
+                </td>
+            </tr>
+            <tr id="createTitle">
+                <td>
+                    <label for="inputTitle">Title:</label>
+                </td>
+                <td>
+                    <input
+                            name="title"
+                            id="inputTitle"
+                            minlength="1"
+                            maxlength="30"
+                            pattern="^[\u0400-\u04ffa-zA-Z][\u0400-\u04ffa-zA-Z_\s.,:]{1,28}[\u0400-\u04ffa-zA-Z.]$"
+                            placeholder="3-30 cyrillic latin .,:"
+                            required
+                    >
+                </td>
+            </tr>
+            <tr id="createRace">
+                <td>
+                    <label for="selectRace">Race:</label>
+                </td>
+                <td>
+                    <select name="race" id="selectRace"></select>
+                </td>
+            </tr>
+            <tr id="createProfession">
+                <td>
+                    <label for="selectProfession">Profession:</label>
+                </td>
+                <td>
+                    <select name="profession" id="selectProfession"></select>
+                </td>
+            </tr>
+            <tr id="createBirthday">
+                <td>
+                    <label for="inputBirthday">Birthday:</label>
+                </td>
+                <td>
+                    <input
+                            name="birthday"
+                            id="inputBirthday"
+                            type="date"
+                            min="2000-01-01"
+                            max="3000-12-31"
+                            required
+                    >
+                </td>
+            </tr>
+            <tr id="createBanned">
+                <td>
+                    <label for="selectBanned">Banned:</label>
+                </td>
+                <td>
+                    <select name="banned" id="selectBanned"></select>
+                </td>
+            </tr>
+            <tr id="createLevel">
+                <td>
+                    <label for="inputLevel">Level:</label>
+                </td>
+                <td>
+                    <input
+                            name="level"
+                            id="inputLevel"
+                            type="number"
+                            min="0"
+                            max="100"
+                            placeholder="0-100"
+                            required
+                    >
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <input
+                id="createButton"
+                type=image
+                src='img/create_account.png'
+                onmouseover="src='img/create_account_hover.png'"
+                onmouseout="src='img/create_account.png'"
+                alt="Create account"
+        >
+    </form>
+</body>
+
+<script>
+    const dateNow = Date.now()
+
+    const link = document.createElement('link')
+    link.href = "css/my.css?" + dateNow
+    link.rel = "stylesheet"
+    link.type = "text/css"
+    document.head.appendChild(link)
+
+    const js = document.createElement('script');
+    js.src = "js/my.js?" + dateNow;
+    document.body.appendChild(js)
+</script>
+
+</html>

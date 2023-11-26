@@ -1,0 +1,200 @@
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body {
+    text-align: center;
+    background: #190C08;
+    color: #E1D4B0;
+}
+
+h2 {
+    font-family: "Diablo", serif;
+    color: #d8d8d8;
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Diablo", serif;
+    color: #d8d8d8
+}
+
+.id, .edit, .delete, .level {
+    text-align: center;
+}
+
+.birthday {
+    text-align: right;
+}
+
+#tableAccountsInfo td {
+    height: 44px;
+}
+
+#createAccountTable input,
+#createAccountTable select {
+    width: 160px;
+    background: #d8d8d8;
+    border: 2px solid #3E3935;
+}
+
+#selectCountPerPage {
+    background: #d8d8d8;
+    border: 2px solid #3E3935;
+}
+
+#tableAccountsInfoHeader > div {
+    display: inline-block;
+}
+
+#accountsListTd {
+    width: 490px;
+    text-align: left;
+}
+
+#selectCountPerPageTd {
+    width: 490px;
+    text-align: right;
+}
+
+#separator {
+    border: 2px solid #3E3935;
+}
+
+#pageButtons button {
+    margin: 3px;
+    padding: 5px;
+    min-width: 35px;
+    text-align: center;
+    border: 2px solid #3E3935;
+    border-radius: 4px;
+    background: #271711;
+    color: #d8d8d8;
+}
+
+#pageButtons button:hover {
+    background: #762D25;
+    transition: background 0.2s;
+}
+
+#createButton {
+    width: 186px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#createAccountTable,
+#tableAccountsInfo {
+    border: 2px solid #3E3935;
+    border-radius: 4px;
+    table-layout: fixed;
+}
+
+#tableAccountsInfo {
+    padding: 2px;
+}
+
+#createAccountTable {
+    padding: 6px;
+}
+
+#tableAccountsInfo th {
+    padding: 5px;
+    background: #1B1A18;
+    color: #fc0
+}
+
+#tableAccountsInfo td {
+    padding: 5px;
+    background: #271711;
+}
+
+#tableAccountsInfo img {
+    width: 26px;
+}
+
+#tableAccountsInfo img:hover {
+    width: 32px;
+    transition: width 0.05s;
+}
+
+#id {
+    width: 30px;
+}
+
+#name {
+    width: 180px;
+}
+
+#title {
+    width: 250px;
+}
+
+#race {
+    width: 72px;
+}
+
+#raceEdit {
+    width: 100%
+}
+
+#profession {
+    width: 80px;
+}
+
+#professionEdit {
+    width: 100%
+}
+
+#level {
+    min-width: 35px;
+}
+
+#birthday {
+    min-width: 70px;
+}
+
+#banned {
+    width: 50px;
+}
+
+#bannedEdit {
+    width: 100%
+}
+
+#edit, #delete {
+    min-width: 44px;
+}
+
+#nameEdit,
+#titleEdit,
+#raceEdit,
+#professionEdit,
+#bannedEdit {
+    width: 100%;
+}
+
+#inputName:invalid,
+#inputTitle:invalid,
+#inputLevel:invalid {
+    color: red
+}
+
+@font-face {
+    font-family: 'Diablo';
+    src: url('DiabloHeavy.woff2') format('woff2'),
+    url('DiabloHeavy.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
