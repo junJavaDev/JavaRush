@@ -1,0 +1,42 @@
+defaultPageNumber: 1
+defaultPageSize: 10
+
+questImgPrefix: /quest_image
+helpDir: help/
+twineDir: twine/
+questsDir: quests/
+jsDir: /js/
+imgDir: /images/
+usersDir: users/
+pagesDir: WEB-INF/pages
+
+inputName: name
+inputTwine: twine
+inputContent: content
+inputImage: image
+inputLogin: login
+inputKeyword: keyword
+inputPassword: password
+inputRole: role
+inputText: text
+inputAnswer: answer
+inputNextQuestionId: nextQuestionId
+inputGameState: gameState
+inputSignIn: signIn
+inputUpdate: update
+inputCreate: create
+inputDelete: delete
+
+jspEditUser: /user/editUser
+jspEditUsers: /user/editUsers
+jspEditProfile: /user/editProfile
+jspEditQuestContent: /quest/editQuestContent
+jspEditQuest: /quest/editQuest
+jspQuests: /quest/quests
+jspEditQuests: /quest/editQuests
+jspAbout: /about
+jspHome: /home
+jspStatistics: /statistics
+jspPlay: /play
+jspLogin: /user/login
+jspProfile: /user/profile
