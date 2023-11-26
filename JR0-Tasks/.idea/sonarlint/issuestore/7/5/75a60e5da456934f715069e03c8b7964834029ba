@@ -1,0 +1,10 @@
+
+b
+java:S2259"GA "NullPointerException" could be thrown; "getTypes()" can return null.(©¢Ú²ıÿÿÿÿ
+S	java:S106"9Replace this use of System.out or System.err by a logger.(©¢Ú²ıÿÿÿÿ
+A
+java:S1172"+Remove this unused method parameter "type".(óëû
+A
+java:S1168"+Return an empty collection instead of null.(¥¹ï
+?
+java:S1068")Remove this unused "field" private field.(£ƒ®Ğ

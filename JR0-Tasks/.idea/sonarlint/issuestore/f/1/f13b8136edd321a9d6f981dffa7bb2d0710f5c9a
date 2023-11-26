@@ -1,0 +1,8 @@
+
+R
+java:S1854"<Remove this useless assignment to local variable "calendar".(˜ÄÌö
+Œ
+java:S1130	"wRemove the declaration of thrown exception 'java.lang.InterruptedException', as it cannot be thrown from method's body.(º™Ú7
+S	java:S106"9Replace this use of System.out or System.err by a logger.(«±ªÿÿÿÿÿ
+C
+java:S1481"-Remove this unused "calendar" local variable.(˜ÄÌö
